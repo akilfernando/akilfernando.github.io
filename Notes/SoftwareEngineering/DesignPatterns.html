@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
+  <title>Design Patterns</title>
   <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -490,12 +490,106 @@ margin-left: -1.6em;
   <![endif]-->
 </head>
 <body>
-<h1 id="header-level-one">Header Level One</h1>
-<h2 id="header-level-two">Header Level Two</h2>
-<h3 id="paragraphs">paragraphs</h3>
-<pre><code>print(&quot;Hello World&quot;);</code></pre>
-<pre><code>if(1==1){
-    print(&quot;The sun is real&quot;);
+<header id="title-block-header">
+<h1 class="title">Design Patterns</h1>
+</header>
+<p><br> &gt;Repeatable and reusable solutions to commonly-occurring
+design problems (Wikipedia). <br> These are proven solutions to common
+design problems. Experts will make use of these in their development
+process to “work smarter, not harder” and avoid anti-patterns. <br> ###
+A Simple Example</p>
+<pre><code>for i = 1 to l do
+    statement in loop
+end for</code></pre>
+<p>serves as the design template for a more specific implementation
+like</p>
+<pre><code>for(int i = 0; i &lt; n; i++){
+    print(i);
 }</code></pre>
+<p><br></p>
+<h2 id="what-makes-good-design">What Makes Good Design?</h2>
+<ul>
+<li>
+A change in one part doesn’t trigger changes elsewhere.
+</li>
+<li>
+Each business logic only has one home.
+</li>
+<li>
+Simple Structure.
+</li>
+<li>
+Strong cohesion and loose coupling.
+</li>
+</ul>
+<p>Pattern is a three-part rule that explains the relations between… -
+Context - Problem - Solution</p>
+<p>Note: there is a distinction between design and architecture. Model
+View Controller, for example is an architecture pattern, not a design
+one.</p>
+<h2 id="types-of-design-patterns">Types of Design Patterns</h2>
+<ul>
+<li>
+Creational Patterns - Object creation separate from business code.
+</li>
+<li>
+Structural Patterns - How classes are structured and data is accessed.
+</li>
+<li>
+Behavioral Patterns - How classes behave.
+</li>
+</ul>
+<p><br></p>
+<h2 id="creational-pattern---factory-method">Creational Pattern -
+Factory Method</h2>
+<p>Using the <code>new</code> operator in client code, can cause two-way
+dependencies. Hence, <code>new</code> should be hidden from client code.
+For this, we can use a “factory” that creates objects for the client
+code.</p>
+<p>This method uses an abstraction (like an interface) as a template to
+create an object which can then be passed on to the client code.</p>
+<p>If the factory returns shapes for example, when the factory is asked
+to return a Circle, it will return a Shape object with the
+characteristics fo a Circle. This enables the factory to return any type
+of shape that the client code requires.</p>
+<p><br></p>
+<h2 id="creational-pattern---abstract-factory-method">Creational Pattern
+- Abstract Factory Method</h2>
+<p>Nearly identical to the Factory method but the client code can make
+use of an AbstractFactory instead of directly using the specific factory
+it requires. This allows the client to simply use the AbstractFactory to
+create using multiple different factories.</p>
+<p><br></p>
+<h2 id="creational-pattern---singleton-design-pattern">Creational
+Pattern - Singleton Design Pattern</h2>
+<p>This is used to make a class only initializable once (only a single
+object). Lazy initialization (initialize object only when needed) of a
+class can improve performance.</p>
+<p><br></p>
+<h2 id="structural-pattern---adapter">Structural Pattern - Adapter</h2>
+<p>Useful to combine two incompatible interfaces into a new class that
+can provide the functionalities of both.</p>
+<p>For example, if there are two interfaces, one for playing MP3 and one
+for playing MP4, these methods may be incompatible with one another. But
+if we want to combine these methods into one MediaPlayer method, we can
+use a MediaAdapter that employs a delegate to implement MP4
+functionality and then use the adapter’s functionality in a MediaPlayer
+method that implements the MP3 functionality.</p>
+<h2 id="structural-pattern---composite">Structural Pattern -
+Composite</h2>
+<p>Representing a group of objects as a single objects. For example, we
+can use a CEO to find their subordinates and fin d their subordinates
+and so on.</p>
+<h2 id="structural-pattern---facade">Structural Pattern - Facade</h2>
+<p>In this pattern, the client code uses another class to create an
+object, similar to Factory method. However, method invocation is also
+handled by the other class. Hence object creation and method invocation
+are both “hidden” from the client.</p>
+<h2 id="structural-pattern---proxy-design-pattern">Structural Pattern -
+Proxy Design Pattern</h2>
+<p>Uses a proxy class to hide certain functionality from the client
+code. The proxy class uses a delegate of the real class to access its
+properties and augments how the client code can interact with these
+properties in ways that can either aid security and/or efficiency.</p>
 </body>
 </html>

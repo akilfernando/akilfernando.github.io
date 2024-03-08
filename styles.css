@@ -7,17 +7,26 @@ body {
 body h2, h3{
     color: #eee;
 }
-body p{
+body p, ul{
     color: #ddd;
 }
 body a{
     color: #dd0;
+    text-decoration: none;
+}
+body a:hover{
+    color: #dd0;
+    text-decoration: underline;
 }
 header {
     background-color: #353;
     color: #fff;
     padding: 20px;
     text-align: center;
+}
+header h1,a{
+    color: #dd0;
+    text-decoration:none;
 }
 nav {
     background-color: #464;
@@ -33,12 +42,18 @@ nav a:hover {
     text-decoration: underline;
 }
 .container {
-    width: 40%;
+    width: 50%;
     margin: auto;
     padding: 20px;
 }
 .footer {
     background-color: #242;
+}
+.footer a{
+    text-decoration: none;
+}
+.footer a:hover{
+    text-decoration: underline;
 }
 #contact {
     width: 60%;
@@ -46,6 +61,7 @@ nav a:hover {
     padding: 20px;
 }
 .navElement {
+    padding: 20px;
     margin-bottom: 30px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;

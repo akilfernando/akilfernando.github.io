@@ -1,7 +1,17 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #010;
     margin: 0;
     padding: 0;
+}
+body h2, h3{
+    color: #eee;
+}
+body p{
+    color: #ddd;
+}
+body a{
+    color: #dd0;
 }
 header {
     background-color: #353;
@@ -23,18 +33,26 @@ nav a:hover {
     text-decoration: underline;
 }
 .container {
-    width: 80%;
+    width: 40%;
     margin: auto;
     padding: 20px;
 }
-.project {
+.footer {
+    background-color: #242;
+}
+#contact {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+}
+.navElement {
     margin-bottom: 30px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
 }
-.project h2 {
+.navElement h2 {
     margin-bottom: 10px;
 }
-.project p {
+.navElement p {
     margin-bottom: 10px;
 }

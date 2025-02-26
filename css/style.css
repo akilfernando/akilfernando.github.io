@@ -6,7 +6,7 @@ body {
   overflow-x: hidden;
 }
 
-img {
+.rounded {
   border-radius: 10px;
 }
 
@@ -606,8 +606,8 @@ a:focus {
 /*team section */
 .team_section {
   text-align: center;
-  background-color: #00204a;
-  color: #ffffff;
+  background-color: #fff;
+  color: #000;
 }
 
 .team_section .heading_container {
@@ -621,6 +621,7 @@ a:focus {
 }
 
 .team_section .team_container .box {
+  color: #fff;
   padding: 35px 0 0 0;
   border-radius: 5px;
   overflow: hidden;

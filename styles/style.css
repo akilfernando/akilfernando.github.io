@@ -189,7 +189,7 @@ ul.skills, .project-list {
 .project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    border: #f0f4f8 solid 3px;
+    border: 3px solid #fff;
     border-radius: 12px;
 }
 

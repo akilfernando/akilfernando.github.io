@@ -184,13 +184,14 @@ ul.skills, .project-list {
     border: 1px solid var(--card-border);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.4s ease, border-color 0.4s ease;
+    text-decoration: none;
 }
 
 .project-card:hover,
 .project-card:focus-within {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ffffff; /* White outline on hover/focus */
+    border: 1px solid #ffffff;
 }
 
 .project-card h2 {

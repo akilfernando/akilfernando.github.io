@@ -205,6 +205,14 @@ ul.skills, .project-list {
     font-weight: bold;
 }
 
+.project-card a p {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
 footer {
     text-align: center;
     padding: 2rem 0;

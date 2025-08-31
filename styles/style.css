@@ -205,7 +205,7 @@ ul.skills, .project-list {
     font-weight: bold;
 }
 
-.project-card a p {
+.project-card p {
     display: inline-block;
     margin-top: 1rem;
     color: var(--text-color);

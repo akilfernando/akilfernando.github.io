@@ -194,12 +194,12 @@ ul.skills, .project-list {
 }
 
 .project-card h3 {
-    margin-top: 0;
+    margin-top: 1rem;
 }
 
 .project-card a {
     display: inline-block;
-    margin-top: 1rem;
+    margin: 0;
     color: var(--primary-color);
     text-decoration: none;
     font-weight: bold;

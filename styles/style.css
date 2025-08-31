@@ -193,8 +193,9 @@ ul.skills, .project-list {
     border: 1px solid #ffffff; /* White outline on hover/focus */
 }
 
-.project-card h3 {
+.project-card h2 {
     margin-top: 1rem;
+    text-decoration: none;
 }
 
 .project-card a {

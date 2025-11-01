@@ -21,24 +21,58 @@
     <div class="container">
         <section id="hero" class="section hero-section">
             <h1 class="hero-title">Akil Fernando</h1>
-            <p class="hero-subtitle">Newly Graduated Bachelor of Computer Science Student</p>
+            <p class="hero-subtitle">Recent Bachelor of Computer Science Graduate</p>
         </section>
 
         <section id="about" class="section">
             <h2>About Me</h2>
             <p>
-                Hello! I am Akil Fernando, a recent graduate with a Bachelor of Computer Science. My passion lies in creating clean, efficient, and user-friendly web applications. I have a strong foundation in both front-end and back-end technologies and am eager to apply my skills to solve real-world problems. This portfolio showcases some of my academic and personal projects.
+                Hey there! I am Akil Fernando, a recent graduate with a Bachelor of Computer Science. My passion lies in finding creative and effective solutions to interesting problems. I have a strong foundation in both front-end and back-end technologies as well as game development tools and am eager to apply my skills to solve real-world problems. This portfolio showcases some of my academic and personal projects.
             </p>
         </section>
 
         <section id="education" class="section">
             <h2>Education</h2>
             <div class="education-card">
-                <img src="./assets/images/dal_logo.jpg" alt="Dalhousie University logo" class="university-logo">
+                <img src="../assets/images/dal_logo.jpg"
+                    alt="Dalhousie University logo"
+                    class="university-logo"
+                    loading="lazy"
+                    style="max-width:120px; width:120px; height:auto; object-fit:contain; display:block;">
                 <div class="education-details">
                     <h3>Bachelor of Computer Science</h3>
                     <p>Dalhousie University</p>
                     <p class="date">2021 - 2025</p>
+                    <ul class="education-highlights">
+                        <li>Sexton Distinction</li>
+                        <li>Cyber Security and Communications Certificate</li>
+                        <li>Web and Mobile Development Certificate</li>
+                        <li>Multiple scholarships for academic excellence</li>
+                        <li>Final CGPA: 3.92</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="section">
+            <h2>Work Experience</h2>
+            <div class="work-card">
+                <img src="../assets/images/ubisoft_logo.jpg"
+                    alt="Ubisoft Halifax logo"
+                    class="company-logo"
+                    loading="lazy"
+                    style="max-width:120px; width:120px; height:auto; object-fit:contain; display:block;">
+                <div class="work-details">
+                    <h3>Junior Programmer (Co-Op)</h3>
+                    <p>Ubisoft Halifax</p>
+                    <p class="date">April 2024 - August 2024</p>
+                    <ul class="work-highlights">
+                        <li>Implemented gameplay features and tools using C# and engine-specific frameworks.</li>
+                        <li>Fixed bugs and optimized systems to improve performance and stability.</li>
+                        <li>Collaborated with designers and senior engineers in an Agile (Scrum) environment.</li>
+                        <li>Authored and maintained unit/integration tests and participated in code reviews.</li>
+                        <li>Assisted with prototyping and iterative development of core systems.</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -46,14 +80,18 @@
         <section id="skills" class="section">
             <h2>Skills</h2>
             <ul class="skills">
-                <li>JavaScript (ES6+)</li>
+                <li>JavaScript</li>
+                <li>Java</li>
+                <li>Unity Engine</li>
+                <li>C#</li>
                 <li>React</li>
-                <li>Node.js</li>
+                <li>MERN Stack</li>
                 <li>Python</li>
-                <li>HTML & CSS</li>
                 <li>Git</li>
                 <li>SQL</li>
                 <li>REST APIs</li>
+                <li>Agile (Scrum/Kanban)</li>
+                <li>Blender</li>
             </ul>
         </section>
 
@@ -61,19 +99,28 @@
             <h2>Projects</h2>
             <div class="project-list">
                 <div class="project-card">
-                    <h3>Project Title One</h3>
-                    <p>A brief description of Project One, highlighting the technologies used and its purpose.</p>
-                    <a href="#">View Project</a>
+                    <h3>Happbit — <i>Cross-Platform Habit Tracker App</i></h3>
+                    <ul>
+                        <li>Built using React Native, Expo, and Firebase for authentication and data storage. Designed to simplify habit tracking with minimal distractions.</li>
+                        <li>Final project for Mobile Computing course; included weekly reports and a final demo (awarded A+)</li>
+                    </ul>
+                    <a href="https://github.com/akilfernando/Happbit" target="_blank" rel="noopener noreferrer">View on GitHub</a>
                 </div>
                 <div class="project-card">
-                    <h3>Project Title Two</h3>
-                    <p>A brief description of Project Two, highlighting the technologies used and its purpose.</p>
-                    <a href="#">View Project</a>
+                    <h3>Ammo = Life — <i>Solo FPS Game</i></h3>
+                    <ul>
+                        <li>Developed the entire game from scratch using Unity and C#, with original assets created in Blender, GIMP, and Audacity.</li>
+                        <li>Designed an engaging FPS prototype featuring original 3D models and level design.</li>
+                        <li>Built in two weeks as a portfolio piece; helped secure a Ubisoft Co-Op position.</li>
+                    </ul>
+                    <a href="https://akilf.itch.io" target="_blank" rel="noopener noreferrer">View on itch.io</a>
                 </div>
                 <div class="project-card">
-                    <h3>Project Title Three</h3>
-                    <p>A brief description of Project Three, highlighting the technologies used and its purpose.</p>
-                    <a href="#">View Project</a>
+                    <h3>[Project Title Withheld Due to NDA] — <i>Ubisoft Halifax</i></h3>
+                    <ul>
+                        <li>Studied and documented a large legacy codebase from an already-published game to enable new development with strong cross-team understanding.</li>
+                        <li>Added gameplay features by leveraging existing systems and creating new bespoke systems while respecting the project's structure and conventions.</li>
+                    </ul>
                 </div>
             </div>
         </section>

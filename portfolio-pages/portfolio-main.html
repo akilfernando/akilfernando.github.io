@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
+
     <header class="main-header">
         <a href="#hero" class="site-title">Akil Fernando</a>
+        
         <nav class="main-nav">
             <a href="#about">About</a>
             <a href="#education">Education</a>
@@ -16,32 +18,43 @@
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </nav>
+
+        <div class="social-shortcuts">
+            <div class="social-container">
+                <a href="https://github.com/akilfernando" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
+                <a href="https://www.linkedin.com/in/akilf/" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
+                <a href="https://akilf.itch.io" target="_blank" rel="noopener noreferrer" class="social-link">Itch.io</a>
+                <a href="../assets/misc/resume.pdf" target="_blank" class="social-link resume-btn">Download Resume</a>
+            </div>
+        </div>
     </header>
 
     <div class="container">
         <section id="hero" class="section hero-section">
             <h1 class="hero-title">Akil Fernando</h1>
-            <p class="hero-subtitle">Recent Bachelor of Computer Science Graduate</p>
+            <p class="hero-subtitle">Aspiring Software Developer and Game Dev Enthusiast</p>
         </section>
 
         <section id="about" class="section">
             <h2>About Me</h2>
             <p>
-                I love finding creative and effective solutions to interesting problems. I have a strong foundation in full-stack development and game development tools, in addition to my Bachelor's degree in Computer Science, and am eager to apply my skills to create high-quality software and experiences. This portfolio showcases some of my academic and personal projects. Feel free to contact me if you have any questions or would like to connect! 
+                I love finding creative and effective solutions to interesting problems. I have a strong foundation in full-stack, application, and game development, in addition to my Bachelor's degree in Computer Science. I am eager to apply my skills to create high-quality software with robust optimized code and top-notch users experiences. This portfolio showcases some of my academic, professional, and personal projects. Feel free to contact me if you have any questions or would like to connect! 
             </p>
         </section>
 
-        <section id="education" class="section">
+       <section id="education" class="section">
             <h2>Education</h2>
             <div class="education-card">
-                <img src="../assets/images/dal_logo.jpg"
-                    alt="Dalhousie University logo"
-                    class="university-logo"
-                    loading="lazy"
-                    style="max-width:120px; width:120px; height:auto; object-fit:contain; display:block;">
+                <a href="https://dal.ca" target="_blank" rel="noopener noreferrer" class="logo-link">
+                    <img src="../assets/images/dal_logo.jpg"
+                        alt="Dalhousie University logo"
+                        class="university-logo"
+                        loading="lazy"
+                        style="max-width:120px; width:120px; height:auto; object-fit:contain; display:block;">
+                </a>
                 <div class="education-details">
                     <h3>Bachelor of Computer Science</h3>
-                    <p>Dalhousie University</p>
+                    <p><a href="https://dal.ca" target="_blank" rel="noopener noreferrer" class="provider-link">Dalhousie University</a></p>
                     <p class="date">2021 - 2025</p>
                     <ul class="education-highlights">
                         <li>Sexton Distinction</li>
@@ -57,14 +70,16 @@
         <section id="work" class="section">
             <h2>Work Experience</h2>
             <div class="work-card">
-                <img src="../assets/images/ubisoft_logo.png"
-                    alt="Ubisoft Halifax logo"
-                    class="company-logo"
-                    loading="lazy"
-                    style="max-width:120px; width:120px; height:auto; object-fit:contain; display:block;">
+                <a href="https://www.ubisoft.com/en-gb" target="_blank" rel="noopener noreferrer" class="logo-link">
+                    <img src="../assets/images/ubisoft_logo.png"
+                        alt="Ubisoft Halifax logo"
+                        class="company-logo"
+                        loading="lazy"
+                        style="max-width:120px; width:120px; height:auto; object-fit:contain; display:block;">
+                </a>
                 <div class="work-details">
                     <h3>Junior Programmer (Co-Op)</h3>
-                    <p>Ubisoft Halifax</p>
+                    <p><a href="https://www.ubisoft.com/en-gb" target="_blank" rel="noopener noreferrer" class="provider-link">Ubisoft Halifax</a></p>
                     <p class="date">April 2024 - August 2024</p>
                     <ul class="work-highlights">
                         <li>Implemented gameplay features and tools using C# and engine-specific frameworks.</li>
@@ -90,10 +105,10 @@
             <details class="additional-skills" aria-label="Additional skills">
                 <summary>Show more skills</summary>
                 <ul class="skills more-skills">
-                    <li>Version Control: Git, Perforce</li>
                     <li>Languages: C, C++, C#, Java, JavaScript, Python, SQL, HTML/XML/CSS</li>
                     <li>Frameworks: React, React Native, Three.js, Express.js, Node.js</li>
                     <li>Game Engines: Unity, Godot</li>
+                    <li>Version Control: Git, Perforce</li>
                 </ul>
             </details>
         </section>
@@ -102,11 +117,12 @@
             <h2>Projects</h2>
             <div class="project-list">
                 <div class="project-card">
-                    <h3>Vulkan Engine — <i>Minimal Rendering / Game Engine</i></h3>
+                    <h3>Vulkan Engine — <i>Simple Graphics Engine made using Vulkan</i></h3>
                     <ul>
                         <li>A very basic engine using the Vulkan API to draw primitive shapes and apply transforms to them to create the behavior of a very simple game engine and rendering pipeline.</li>
                     </ul>
-                    <a href="https://github.com/akilfernando/VulkanGraphics" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    <a href="https://github.com/akilfernando/VulkanGraphics" target="_blank" rel="noopener noreferrer" class="provider-link">View on GitHub</a>
+                    <a href="https://akilf.itch.io/vulkan-graphics-demo-project" target="_blank" rel="noopener noreferrer" class="provider-link">View on itch.io</a>
                 </div>
 
                 <div class="project-card">
@@ -116,7 +132,7 @@
                         <li>Designed to simplify habit tracking with minimal distractions.</li>
                         <li>Final project for Mobile Computing course; included weekly reports and a final demo (awarded A+)</li>
                     </ul>
-                    <a href="https://github.com/akilfernando/Happbit" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    <a href="https://github.com/akilfernando/Happbit" target="_blank" rel="noopener noreferrer" class="provider-link">View on GitHub</a>
                 </div>
                 <div class="project-card">
                     <h3>Ammo = Life — <i>Solo FPS Game</i></h3>
@@ -125,7 +141,7 @@
                         <li>Designed an engaging FPS prototype featuring original 3D models and level design.</li>
                         <li>Built in two weeks as a portfolio piece; helped secure a Ubisoft Co-Op position.</li>
                     </ul>
-                    <a href="https://akilf.itch.io" target="_blank" rel="noopener noreferrer">View on itch.io</a>
+                    <a href="https://akilf.itch.io" target="_blank" rel="noopener noreferrer" class="provider-link">View on itch.io</a>
                 </div>
                 <div class="project-card">
                     <h3>[Project Title Withheld Due to NDA] — <i>Ubisoft Halifax</i></h3>
@@ -140,10 +156,10 @@
         <footer class="section" id="contact">
             <p>
                 Contact me: 
-                <a href="mailto:akilfernando2003@gmail.com">Email</a> | 
-                <a href="https://www.linkedin.com/in/akilf/" target="_blank" rel="noopener noreferrer">LinkedIn</a> | 
-                <a href="https://github.com/akilfernando" target="_blank" rel="noopener noreferrer">GitHub</a> |
-                <a href="https://akilf.itch.io" target="_blank" rel="noopener noreferrer">Itch.io</a>
+                <a href="mailto:akilfernando2003@gmail.com" class="provider-link">Email</a> | 
+                <a href="https://www.linkedin.com/in/akilf/" target="_blank" rel="noopener noreferrer" class="provider-link">LinkedIn</a> | 
+                <a href="https://github.com/akilfernando" target="_blank" rel="noopener noreferrer" class="provider-link">GitHub</a> |
+                <a href="https://akilf.itch.io" target="_blank" rel="noopener noreferrer" class="provider-link">Itch.io</a>
             </p>
             <p>&copy; 2026 Akil Fernando. All rights reserved.</p>
         </footer>

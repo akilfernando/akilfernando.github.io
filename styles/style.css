@@ -170,3 +170,62 @@ footer a, .provider-link { color: var(--primary-color); text-decoration: none; f
     ul.skills.main-skills { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) { .project-list { grid-template-columns: 1fr; } }
+
+/* Mobile Polishing (Vertical Screens) */
+@media (max-width: 768px) {
+    /* 1. Adjust the main container for small screens */
+    .container {
+        max-width: 95%;
+        margin: 1rem auto;
+        padding: 1.5rem 1rem;
+    }
+
+    /* 2. Stack the header elements vertically */
+    .main-header {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    /* 3. Center the Nav and remove the right margin on links */
+    .main-nav {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .main-nav a {
+        margin-right: 0;
+        font-size: 0.9rem;
+    }
+
+    /* 4. Center the Socials and remove the 'push to right' logic */
+    .social-shortcuts {
+        margin-left: 0; 
+        width: 100%;
+    }
+
+    .social-container {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    /* 5. Adjust Hero text size so it doesn't wrap awkwardly */
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    /* 6. Stack Education and Work cards (Image on top of text) */
+    .education-card, .work-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* 7. Ensure images don't stretch but stay centered */
+    .education-card img, .work-card img {
+        margin: 0 auto;
+    }
+}

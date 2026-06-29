@@ -1,0 +1,29 @@
+---
+title: "What an ISMS actually asks of you"
+date: 2026-05-12
+description: "Driving an ISO 27001 information security management system across a distributed MSP, and what the standard is really about."
+tags: ["security", "iso 27001", "grc"]
+draft: false
+---
+
+When I started driving an ISO 27001 implementation across our MSP, I assumed it would mostly be a checklist of technical controls. Turn on MFA, write some policies, tighten access, collect the certificate. That is the part everyone pictures. It is also the smallest part.
+
+ISO 27001 is not a list of settings. It is a management system, the ISMS, and the word that matters is management.
+
+## It starts with what you are protecting
+
+The standard makes you begin with risk, not controls. Before you decide that a control belongs, you have to know what you are protecting, what could go wrong, and how much that would actually hurt. For a small MSP supporting around a hundred contractors, the honest answer is rarely the exotic threat. It is the ordinary one: a stale account that was never deprovisioned, a shared credential, a device nobody is patching.
+
+Annex A gives you a catalogue of controls to choose from, but the choosing is the work. You write a Statement of Applicability that says, control by control, this applies and here is why, or this does not apply and here is why not. That document forces a kind of honesty. You cannot wave at "best practice". You have to justify your environment to yourself.
+
+## The hard part is that it never finishes
+
+The technical work has an end. You can finish rolling out Conditional Access. The management system does not have an end. It assumes that risk changes, that people leave, that new tools arrive, and that controls drift unless someone keeps checking. So it is built as a loop: assess, treat, monitor, review, improve, and again.
+
+For a distributed team that means the boring disciplines matter more than any single tool. Access reviews that actually happen. Offboarding that is real and not theoretical. Evidence that you did the thing, not just intent.
+
+## What it changed in how I work
+
+The most useful shift was learning to treat security as a property of the whole system over time, rather than a state you reach once. A tenant that is locked down today and never reviewed is not secure. It is lucky.
+
+That framing turns out to apply well beyond compliance. The same instinct that asks "who still has access and why" is the instinct that asks "what happens to this when I am not watching it". Good systems answer that question on their own. The ISMS just made me ask it on purpose.

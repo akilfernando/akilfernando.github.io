@@ -1,0 +1,43 @@
+/* ============================================================
+   Design tokens — source of truth for the portfolio.
+   Mirrors portfolio-spec.md Section 6. Edit here, reflect there.
+   ============================================================ */
+:root {
+  /* color */
+  --paper:        #FBF9F4; /* warm off-white background */
+  --paper-panel:  #F4F0E7; /* subtle raised panel, used sparingly */
+  --ink:          #1A1A1A; /* near-black, warm */
+  --ink-muted:    #57534E; /* warm grey, secondary text */
+  --rule:         #E6E1D6; /* hairline dividers */
+  --cobalt:       #16429E; /* deep cobalt, the single accent */
+  --cobalt-deep:  #0E2C6B; /* hover / active */
+  --cobalt-tint:  #E8EDF8; /* faint cobalt wash for focus / selection */
+
+  /* type families */
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-body:    "Inter Variable", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono Variable", ui-monospace, monospace;
+
+  /* type scale */
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: 1.0625rem;
+  --fs-md:   1.25rem;
+  --fs-lg:   1.5rem;
+  --fs-xl:   2rem;
+  --fs-2xl:  clamp(2.5rem, 5vw, 3.75rem);
+  --fs-display: clamp(3.2rem, 9vw, 6rem);
+
+  --leading-tight: 1.1;
+  --leading-body:  1.6;
+
+  /* spacing */
+  --space-1: 0.5rem;  --space-2: 1rem;   --space-3: 1.5rem;
+  --space-4: 2rem;    --space-6: 3rem;   --space-8: 4rem;
+  --space-12: 6rem;   --space-16: 8rem;
+
+  /* layout */
+  --content-max: 72rem;
+  --measure: 68ch;
+  --radius: 0;
+}

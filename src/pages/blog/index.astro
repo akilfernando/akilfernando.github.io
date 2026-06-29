@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<BaseLayout title="Blog" description="Notes on building, breaking, and learning.">
+  <p class="eyebrow">Blog</p>
+  <div class="wayrule"></div>
+  <h1 class="display h1">Writing.</h1>
+
+  {posts.length === 0 ? (
+    <p class="empty">No posts yet. Add <code>.mdx</code> files under <code>src/content/blog/</code>.</p>
+  ) : (
+    <ul class="list">
+      {posts.map((p) => (
+        <li class="post">
+          <a href={`/blog/${p.slug}/`}>
+            <span class="date">{fmt(p.data.date)}</span>
+            <h2 class="display pt">{p.data.title}</h2>
+            <p class="desc">{p.data.description}</p>
+            {p.data.tags.length > 0 && (
+              <ul class="tags" aria-label="Tags">
+                {p.data.tags.map((t) => <li>{t}</li>)}
+              </ul>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
+
+<style>
+  .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
+  .empty { margin-top: var(--space-4); color: var(--ink-muted); }
+  code { font-family: var(--font-mono); font-size: 0.85em; }
+  .list { list-style: none; padding: 0; margin-top: var(--space-4); border-top: 1px solid var(--ink); }
+  .post { border-bottom: 1px solid var(--rule); }
+  .post a { display: block; padding: var(--space-3) 0; text-decoration: none; color: inherit; transition: padding-left 0.18s ease; }
+  .post a:hover { padding-left: 10px; }
+  .date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); }
+  .pt { font-size: 1.5rem; margin-top: 4px; }
+  .post a:hover .pt { color: var(--cobalt); }
+  .desc { font-size: 0.9rem; color: var(--ink-muted); margin-top: 6px; max-width: 62ch; }
+  .tags { list-style: none; padding: 0; margin-top: var(--space-2); display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags li {
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-muted); background: var(--paper-panel); padding: 3px 9px;
+  }
+</style>

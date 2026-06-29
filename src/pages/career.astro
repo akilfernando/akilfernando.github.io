@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { experience, education, certifications, skills, cvs } from '../data/career';
+
+const timeline = [
+  { label: 'Experience', rows: experience },
+  { label: 'Education', rows: education },
+];
+---
+<BaseLayout title="Career" description="Experience, education, and skills, with tailored CVs to download.">
+  <p class="eyebrow">Career</p>
+  <div class="wayrule"></div>
+  <h1 class="display h1">Across IT, security,<br />software, and games.</h1>
+  <p class="lede">Computer science graduate (Dalhousie, GPA 3.92) now leading IT systems and
+    cybersecurity at a Microsoft-stack MSP, after a gameplay programming co-op at Ubisoft Halifax.
+    Comfortable moving between an Entra tenant, a Next.js codebase, and Unity gameplay code. The
+    through-line is building systems that hold up.</p>
+  <p class="avail">Canadian PGWP holder (valid to June 2029), open to relocation anywhere in Canada.
+    Eligible for the Atlantic Immigration Program (International Graduate stream). IELTS General CLB 10.</p>
+
+  {timeline.map((block) => (
+    <>
+      <h2 class="sec-label">{block.label}</h2>
+      <div class="exp">
+        {block.rows.map((r) => (
+          <div class="item">
+            <div class="date">{r.start ? `${r.start} – ${r.end}` : r.end}</div>
+            <div>
+              <div class="role display">{r.role}</div>
+              {r.org && (
+                <div class="org">{r.org}{r.location && <span class="loc">, {r.location}</span>}</div>
+              )}
+              {r.summary && <p class="sum">{r.summary}</p>}
+              {r.highlights && r.highlights.length > 0 && (
+                <ul class="hl">
+                  {r.highlights.map((h) => <li>{h}</li>)}
+                </ul>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  ))}
+
+  <h2 class="sec-label">Certifications</h2>
+  <ul class="certs">
+    {certifications.map((c) => <li>{c}</li>)}
+  </ul>
+
+  <h2 class="sec-label">Skills</h2>
+  <div class="skills">
+    {skills.map((g) => (
+      <div class="skillgrp">
+        <h3>{g.group}</h3>
+        <p>{g.items.join(', ')}</p>
+      </div>
+    ))}
+  </div>
+
+  <h2 class="sec-label">Download CV</h2>
+  <p class="cv-note">Tailored to four fields. Pick the one that fits.</p>
+  <div class="cvs">
+    {cvs.map((c) => (
+      <a class="cv" href={c.file} target="_blank" rel="noopener noreferrer">
+        <span aria-hidden="true">&#8595;</span>&nbsp; {c.field}
+      </a>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
+  .lede {
+    font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6;
+    max-width: 60ch; margin-top: var(--space-2);
+  }
+  .avail {
+    font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6;
+    color: var(--ink-muted); max-width: 60ch; margin-top: var(--space-2);
+    border-left: 2px solid var(--cobalt); padding-left: var(--space-2);
+  }
+  /* Every section is a labelled block grounded on a single hairline. */
+  .sec-label {
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+    margin: var(--space-8) 0 0;
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid var(--rule);
+  }
+  .item {
+    display: grid; grid-template-columns: 130px 1fr; gap: var(--space-4);
+    padding: var(--space-3) 0; border-bottom: 1px solid var(--rule);
+  }
+  /* the next section's label rule closes the block, so drop the trailing one */
+  .exp .item:last-child { border-bottom: none; }
+  .date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); padding-top: 3px; }
+  .role { font-weight: 500; font-size: 1.1875rem; line-height: 1.2; }
+  .org { font-size: 0.8125rem; color: var(--cobalt); margin-top: 1px; }
+  .loc { color: var(--ink-muted); }
+  .sum { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.55; margin-top: var(--space-1); max-width: 62ch; }
+  .hl { list-style: none; padding: 0; margin-top: var(--space-1); max-width: 62ch; }
+  .hl li {
+    font-size: 0.875rem; color: var(--ink); line-height: 1.5;
+    padding-left: 16px; margin-top: 5px; position: relative;
+  }
+  .hl li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 5px; height: 1px; background: var(--cobalt); }
+  .certs { list-style: none; padding: 0; margin-top: var(--space-2); }
+  .certs li {
+    font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink);
+    padding: 4px 0; line-height: 1.5;
+  }
+  .skills { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-3); }
+  .skillgrp { min-width: 150px; }
+  .skillgrp h3 {
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px;
+  }
+  .skillgrp p { font-size: 0.875rem; line-height: 1.7; }
+  .cv-note { font-size: 0.875rem; color: var(--ink-muted); margin-top: var(--space-2); }
+  .cvs { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-3); }
+  .cv {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--cobalt); color: var(--paper); padding: 13px 22px; text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .cv:hover { background: var(--cobalt-deep); }
+  @media (max-width: 620px) {
+    .item { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

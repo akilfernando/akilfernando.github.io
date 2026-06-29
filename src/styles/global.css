@@ -1,0 +1,85 @@
+@import "./tokens.css";
+
+/* reset */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--leading-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+::selection { background: var(--cobalt-tint); }
+
+/* visible keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+}
+
+/* layout shell */
+.shell {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-6) var(--space-8);
+}
+@media (max-width: 620px) {
+  .shell { padding: var(--space-3) var(--space-2) var(--space-6); }
+}
+
+/* signature: mono eyebrow + cobalt wayfinding rule */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+}
+.wayrule {
+  height: 2px;
+  width: 46px;
+  background: var(--cobalt);
+  margin-top: 9px;
+}
+
+/* shared headings */
+.display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.015em;
+}
+
+/* code highlighting (Shiki 'css-variables' theme) mapped to the palette */
+:root {
+  --astro-code-color-text:           var(--ink);
+  --astro-code-color-background:     var(--paper-panel);
+  --astro-code-token-comment:        var(--ink-muted);
+  --astro-code-token-keyword:        var(--cobalt);
+  --astro-code-token-string:         #5a6b3b;
+  --astro-code-token-string-expression: #5a6b3b;
+  --astro-code-token-constant:       var(--cobalt-deep);
+  --astro-code-token-number:         var(--cobalt-deep);
+  --astro-code-token-function:       var(--ink);
+  --astro-code-token-punctuation:    var(--ink-muted);
+  --astro-code-token-parameter:      var(--ink);
+  --astro-code-token-link:           var(--cobalt);
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

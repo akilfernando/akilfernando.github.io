@@ -1,0 +1,19 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# environment
+.env
+.env.production
+
+# os
+.DS_Store
+
+# local planning doc (remove this line to publish it)
+portfolio-spec.md

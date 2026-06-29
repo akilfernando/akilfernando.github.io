@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { socials } from '../config';
+
+const interests = [
+  'Single-player AAA worlds',
+  'Godot game dev',
+  'Graphics programming',
+  'Identity and security',
+  'Building things end to end',
+];
+---
+<BaseLayout title="About" description="Who I am and what keeps me curious.">
+  <p class="eyebrow">About</p>
+  <div class="wayrule"></div>
+  <h1 class="display h1">Hello.</h1>
+
+  <p class="lede">I work across the seams between IT, security, software, and games.</p>
+
+  <div class="prose">
+    <p>I am a computer science graduate from Dalhousie University, now leading IT systems and
+      cybersecurity at Teams Squared, a Microsoft-stack MSP in Colombo. Day to day that means
+      running identity on Entra ID, endpoint security, and an organization-wide ISO 27001 ISMS
+      for a distributed team, while building the internal tools that team relies on.</p>
+    <p>Before that I spent a co-op term at Ubisoft Halifax writing gameplay code in Unity and C#.
+      Games are still where a lot of my curiosity goes. I build small game and graphics projects
+      on the side, from a first-person shooter demo to renderers written straight against Vulkan
+      and OpenGL.</p>
+    <p>The thread through all of it is the same: I like understanding a system all the way down,
+      and building things that hold up. When I am not doing that, I am usually deep in a
+      single-player world or tinkering in Godot.</p>
+  </div>
+
+  <h2 class="sec-label">What keeps me curious</h2>
+  <ul class="interests">
+    {interests.map((i) => <li>{i}</li>)}
+  </ul>
+
+  <h2 class="sec-label">Elsewhere</h2>
+  <p class="contact">
+    {socials.map((s, i) => (
+      <>{i > 0 && <span class="dot" aria-hidden="true"> &middot; </span>}<a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a></>
+    ))}
+  </p>
+</BaseLayout>
+
+<style>
+  .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
+  .lede {
+    font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6;
+    max-width: 58ch; margin-top: var(--space-2);
+  }
+  .prose { max-width: var(--measure); margin-top: var(--space-3); }
+  .prose p { margin-bottom: var(--space-2); color: var(--ink); }
+  .sec-label {
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+    margin: var(--space-8) 0 var(--space-2);
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid var(--rule);
+  }
+  .interests { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .interests li {
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);
+    background: var(--paper-panel); padding: 5px 11px;
+  }
+  .contact { font-family: var(--font-mono); font-size: 0.8125rem; }
+  .contact a { color: var(--cobalt); text-decoration: none; }
+  .contact a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .dot { color: var(--rule); }
+</style>

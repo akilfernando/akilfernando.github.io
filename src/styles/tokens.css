@@ -26,7 +26,7 @@
   --fs-lg:   1.5rem;
   --fs-xl:   2rem;
   --fs-2xl:  clamp(2.5rem, 5vw, 3.75rem);
-  --fs-display: clamp(3.2rem, 9vw, 6rem);
+  --fs-display: clamp(2.8rem, 9vw, 6rem);  /* lower floor so the name fits small phones */
 
   --leading-tight: 1.1;
   --leading-body:  1.6;

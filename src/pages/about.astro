@@ -37,11 +37,14 @@ const interests = [
   </ul>
 
   <h2 class="sec-label">Elsewhere</h2>
-  <p class="contact">
-    {socials.map((s, i) => (
-      <>{i > 0 && <span class="dot" aria-hidden="true"> &middot; </span>}<a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a></>
+  <ul class="contact">
+    {socials.map((s) => (
+      <li>
+        <span class="c-label">{s.label}</span>
+        <a href={s.href} target="_blank" rel="noopener noreferrer">{s.handle ?? s.label}</a>
+      </li>
     ))}
-  </p>
+  </ul>
 </BaseLayout>
 
 <style>
@@ -64,8 +67,17 @@ const interests = [
     font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);
     background: var(--paper-panel); padding: 5px 11px;
   }
-  .contact { font-family: var(--font-mono); font-size: 0.8125rem; }
-  .contact a { color: var(--cobalt); text-decoration: none; }
+  .contact { list-style: none; padding: 0; margin-top: var(--space-2); max-width: 32rem; }
+  .contact li {
+    display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-2);
+    padding: var(--space-1) 0; border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono); font-size: 0.8125rem; align-items: baseline;
+  }
+  .contact li:last-child { border-bottom: none; }
+  .c-label { color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.6875rem; }
+  .contact a { color: var(--cobalt); text-decoration: none; word-break: break-word; }
   .contact a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .dot { color: var(--rule); }
+  @media (max-width: 620px) {
+    .contact li { grid-template-columns: 1fr; gap: 2px; }
+  }
 </style>

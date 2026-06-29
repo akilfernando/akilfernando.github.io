@@ -23,14 +23,17 @@ import { site, sections } from '../config';
     font-size: 1.0625rem;
     text-decoration: none;
   }
-  .navlinks { display: flex; gap: var(--space-3); }
+  .navlinks { display: flex; gap: var(--space-3); flex-wrap: wrap; }
   .navlinks a {
     font-size: 0.8125rem;
     color: var(--ink-muted);
     text-decoration: none;
   }
   .navlinks a:hover { color: var(--cobalt); }
+  /* On phones, drop the nav onto its own line and give links tappable height. */
   @media (max-width: 620px) {
-    .navlinks { gap: var(--space-2); }
+    .masthead { flex-wrap: wrap; row-gap: var(--space-2); }
+    .navlinks { gap: var(--space-3); width: 100%; }
+    .navlinks a { padding: 4px 0; }
   }
 </style>

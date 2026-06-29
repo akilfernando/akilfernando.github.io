@@ -37,7 +37,9 @@
   --space-12: 6rem;   --space-16: 8rem;
 
   /* layout */
-  --content-max: 72rem;
-  --measure: 68ch;
+  /* Fluid: ~82vw on wide screens so margins stay proportional, but clamped
+     so it never drops below a comfortable width or stretches absurdly wide. */
+  --content-max: clamp(84rem, 82vw, 110rem);
+  --measure: 68ch;        /* reading width for prose stays capped regardless */
   --radius: 0;
 }

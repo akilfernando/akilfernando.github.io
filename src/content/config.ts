@@ -24,4 +24,18 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, projects };
+// Creative writing (fiction, essays). Body is reproduced verbatim, so its own
+// punctuation (em/en dashes, ellipses) is preserved here, not the brand no-em-dash rule.
+const writing = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    description: z.string(),
+    tags: z.array(z.string()).default([]),
+    status: z.enum(['in progress', 'complete']).optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, projects, writing };

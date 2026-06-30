@@ -6,24 +6,24 @@ tags: ["security", "identity", "engineering"]
 draft: false
 ---
 
-I did not arrive at security through a security degree or a SOC analyst role. I arrived through building software, and for a while I assumed that made me an outsider to the field. It turned out to be the most useful thing I brought to it.
+I did not arrive at security through a security degree or a SOC analyst seat. I arrived through building software. For a while I assumed that made me an outsider to the field. It turned out to be the most useful thing I brought to it.
 
-When you have built the kind of systems you are now asked to protect, you stop seeing security as a wall around the application and start seeing it as a property of the application itself. You know where the seams are because you have sewn them.
+When you have built the kind of systems you are now asked to protect, you stop seeing security as a wall around the application and start seeing it as a property of the application itself. You know where the seams are, because you sewed them.
 
 ## You protect what you understand
 
-It is hard to secure a system you cannot picture. A lot of security advice lands as a list of things to switch on, with no feel for why or where. Having written the back ends, the auth flows, and the data models, I can usually picture exactly what a control is touching and what it would break.
+It is hard to secure a system you cannot picture. A lot of security advice arrives as a list of things to switch on, with no feel for why or where. Having written the back ends, the auth flows, and the data models, I can usually picture exactly what a control is touching, and what it would break.
 
-That shows up most clearly in identity work. When I wire an internal platform into Entra ID single sign-on, I am not bolting authentication onto someone else's app from the outside. I am making the application defer to the same identity, conditional access, and governance that protect everything else, because I am also the person who built the application. The two halves of the job stop competing and start reinforcing each other.
+That shows up clearest in identity work. When I wire an internal platform into Entra ID single sign-on, I am not bolting authentication onto someone else's app from the outside. I am making the application defer to the same identity, conditional access, and governance that protect everything else, since I am also the person who built the application. The two halves of the job stop competing and start reinforcing each other.
 
 ## Automate the boring, dangerous parts
 
-The other habit engineering gave me is impatience with manual, repetitive checks. Those are the steps where mistakes hide, because attention runs out long before the list does.
+The other habit engineering gave me is impatience with manual, repetitive checks. Those are the steps where mistakes hide, since attention runs out long before the list does.
 
-So when a security task is mostly gathering, I reach for code. A posture-reporting tool I worked on uses browser automation to collect the things a person would otherwise click through by hand, then leans on a language model to help summarise what came back. The point is not to take the human out of the loop. It is to spend human judgement on the decisions and let a script do the gathering, reliably, every time.
+So when a security task is mostly gathering, I reach for code. A posture-reporting tool I worked on uses browser automation to collect the things a person would otherwise click through by hand, then leans on a language model to help summarise what came back. The point is not to take the human out of the loop. It is to spend human judgement on the decisions, and let a script do the gathering, the same way, every time.
 
 ## The same question, everywhere
 
 In the end the developer instinct and the security instinct ask the same question, just in different words. As a developer I ask what happens to this when the input is weird, the network drops, or nobody is watching. As a security person I ask who still has access here, and why.
 
-Both are really one question: what does this system do when I am not looking. Good systems answer it on their own. My job, from either chair, is to make sure they can.
+Both are one question. What does this system do when I am not looking. Good systems answer it on their own. My job, from either chair, is to make sure they can.

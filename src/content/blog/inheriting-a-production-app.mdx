@@ -6,24 +6,24 @@ tags: ["software", "engineering", "maintenance"]
 draft: false
 ---
 
-One of the systems I look after, I did not build. I inherited it: a live client portal, already in production, already relied on, with six separate third-party integrations quietly holding it together. There was no green field to start from. There were real users on the other side, and a codebase I had never seen.
+One of the systems I look after, I did not build. I inherited it. A live client portal, already in production, already relied on, with six separate third-party integrations quietly holding it together. No green field to start from. Real users on the other side, and a codebase I had never seen.
 
-Taking over software you did not write is its own distinct skill, and it is one almost nobody teaches you. Writing code from scratch is the part school prepares you for. Walking into a working system and earning the right to change it is the part you only learn by doing.
+Taking over software you did not write is its own distinct skill, and almost nobody teaches it. Writing code from scratch is the part school prepares you for. Walking into a working system and earning the right to change it is the part you only learn by doing.
 
 ## The first work is reading, not writing
 
-My instinct, the first time, was to start fixing. That instinct was wrong. The honest first task was to read, the way you read a map of a city you have just moved to. Where do requests come in. How does each integration get called, and what happens when one of them is slow or down. Which pieces are load-bearing, and which are leftovers from a decision somebody made two years ago for reasons that no longer apply.
+My instinct, the first time, was to start fixing. That instinct was wrong. The honest first task was to read, the way you read a map of a city you just moved to. Where do requests come in. How does each integration get called, and what happens when one of them is slow or down. Which pieces are load-bearing, and which are leftovers from a decision somebody made two years ago for reasons that no longer apply.
 
 Until I could hold that map in my head, every change I might make was a guess. Once I could, the work got calmer. A change stops being a gamble when you can see what it touches.
 
 ## Respect what is already running
 
-There is a particular humility to working on something that is already serving people. The code may not be how I would have written it, but it works, and it has survived contact with reality, which my hypothetical rewrite has not. That earns it some respect.
+There is a particular humility to working on something that is already serving people. The code may not be how I would have written it. But it works, and it has survived contact with reality, which my hypothetical rewrite has not. That earns it some respect.
 
-So the rule I settled on is to understand before I touch, and to tighten the seams before I add anything new. Small, reversible changes, each one made only after I knew what it was load-bearing for. Most of the early wins were not features at all. They were just the system becoming more legible and a little harder to break.
+So the rule I settled on. Understand before I touch. Tighten the seams before I add anything new. Small, reversible changes, each one made only after I knew what it was load-bearing for. Most of the early wins were not features at all. They were the system becoming more legible and a little harder to break.
 
 ## What it taught me
 
-This project is the reason I now think most of real engineering is careful archaeology before it is construction. The exciting version of the job is building something new. The everyday version is meeting a system where it is, learning why it is the way it is, and leaving it a little better and a little clearer than you found it.
+This project is the reason I now think most of real engineering is careful archaeology before it is construction. The exciting version of the job is building something new. The everyday version is meeting a system where it is, learning why it is the way it is, and leaving it a little clearer than you found it.
 
-That turns out to be true of more than code. It is most of what good maintenance is, whether the thing you inherited is an application, a tenant, or a process nobody has looked at in a while.
+That is true of more than code. It is most of what good maintenance is, whether the thing you inherited is an application, a tenant, or a process nobody has looked at in a while.

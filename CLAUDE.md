@@ -21,6 +21,7 @@ All prose on this site follows the voice spec in [`docs/voice-spec.md`](docs/voi
 **Register by page type:**
 - **About, Career, project write-ups** = reflective professional prose. Deep fingerprint on, creative-mode flourishes off (no present-tense fiction immersion). Warm, first-person, concrete.
 - **Blog / essays** = creative long-form (Section 6): lush passage then a hard stop, the dry inner-voice puncture, emotion rendered through the body not named, tactile similes. Still no em-dashes; ellipses fine.
+- **Writing collection (`src/content/writing/`)** = Akil's own creative work, reproduced verbatim. This is the ONE exception to the no-em-dash rule: do not alter the author's punctuation (en/em dashes, ellipses, semicolons). It is his art, copied exactly. New pieces are added as `.md` files; use `status: "in progress"` for unfinished work.
 
 **Confidentiality:** no client names, no employer-internal codenames, no unannounced product details, no invented metrics. Describe work only to the level the public resume already does.
 

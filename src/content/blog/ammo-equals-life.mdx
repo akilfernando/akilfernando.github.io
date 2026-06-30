@@ -1,31 +1,31 @@
 ---
 title: "Ammo = Life: one mechanic, no health bar"
 date: 2024-11-18
-description: "What happens to a shooter when the player's ammo count is also their health."
+description: "I built a shooter around a single stubborn idea: your ammo is your health. Here is what that one rule did to the whole game."
 tags: ["game dev", "design", "unity"]
 draft: false
 ---
 
-I built a small first-person shooter around a single idea: there is no health bar. Your ammo is your health. Every bullet you fire is a bullet you are no longer protected by, and the only way to heal is to find more ammo. The name, Ammo = Life, is the whole design document.
+I built a small first-person shooter around one stubborn idea: there is no health bar. Your ammo is your health. Every bullet you fire is a bullet that is no longer protecting you, and the only way to heal is to go find more. The name, Ammo = Life, is basically the entire design document.
 
-It started as a constraint exercise. Strip a shooter down to one resource and see what that resource has to carry.
+It started as a constraint exercise I set for myself one weekend. Strip a shooter down to a single resource and see how much that one resource can carry.
 
 ## One number changes the whole feel
 
-In a normal shooter you juggle two meters. Health tells you how close you are to dying. Ammo tells you how long you can keep fighting. They pull in different directions, which is why most games let you top them up separately.
+In a normal shooter you juggle two meters. Health tells you how close you are to dying. Ammo tells you how long you can keep fighting. They pull in different directions, which is exactly why most games let you top them up separately.
 
-Collapse them into one and the tension moves inward. Now every shot is a decision about survival, not just about damage. Do you spend three rounds to be sure of a kill, or one round and hope? Missing is not just a missed opportunity, it is self-harm. Hoarding ammo and playing safe makes you, literally, healthier.
+Collapse them into one and the tension moves somewhere new. Suddenly every shot is a decision about survival, not just damage. Do you spend three rounds to be sure of the kill, or one round and a prayer? Missing is no longer a wasted opportunity, it is self-harm. Playing carefully and hoarding ammo makes you, quite literally, healthier. I did not expect how nervous that would make me feel while playtesting my own game.
 
 ## What the constraint forced
 
-A few things fell out of the design without me planning them:
+A few things fell out of the design that I never sat down and planned:
 
-- Aggression and caution stopped being separate playstyles. They became the same dial.
-- Pickups turned into the core pacing tool. Where I placed ammo was where I placed safety, recovery, and risk all at once.
-- Accuracy mattered more than fire rate. A weapon that wastes life on spray is a weapon that kills you.
+- Aggression and caution stopped being separate playstyles. They became the same dial, and the player turns it constantly.
+- Pickups quietly became the core pacing tool. Wherever I placed ammo, I was placing safety, recovery, and risk all at once.
+- Accuracy started to matter more than fire rate. A weapon that sprays life everywhere is a weapon that gets you killed.
 
 ## The lesson I kept
 
-The build is rough and it was never meant to ship. What stuck with me is how much a single, honestly enforced rule can do. I did not need a stat screen or a tutorial to explain ammo as life. Players felt it the first time they fired into the air and watched their margin shrink.
+The build is rough and it was never meant to ship. What stuck with me is how much a single, honestly enforced rule can do on its own. I never needed a stat screen or a tutorial popup to explain that ammo is life. Players felt it the first time they fired into the air out of habit and watched their margin shrink.
 
-That is the kind of clarity I now look for in everything I make, in games and outside them. Find the one rule that does the most work, then trust it.
+That is the kind of clarity I now chase in everything I make, in games and well outside them. Find the one rule that does the most work, enforce it honestly, and then trust it to carry the rest.

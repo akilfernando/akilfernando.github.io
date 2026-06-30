@@ -15,7 +15,7 @@ export const sections = [
 ];
 
 export const socials = [
-  { label: 'Email',    href: 'mailto:akil@akilfernando.dev', handle: 'akil@akilfernando.dev' },
+  { label: 'Email',    href: 'mailto:mail@akilfernando.dev', handle: 'mail@akilfernando.dev' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/akilf/', handle: 'linkedin.com/in/akilf' },
   { label: 'GitHub',   href: 'https://github.com/akilfernando',    handle: 'github.com/akilfernando' },
   { label: 'Itch.io',  href: 'https://akilf.itch.io',              handle: 'akilf.itch.io' },

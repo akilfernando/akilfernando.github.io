@@ -3,10 +3,9 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// User-pages repo (akilfernando.github.io) serves from root, so base is '/'.
-// If you move to a custom domain, just change `site` and add public/CNAME.
+// Served from a custom domain (akilfernando.dev) via public/CNAME, at root.
 export default defineConfig({
-  site: 'https://akilfernando.github.io',
+  site: 'https://akilfernando.dev',
   base: '/',
   integrations: [mdx(), sitemap()],
   markdown: {

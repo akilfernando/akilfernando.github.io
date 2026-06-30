@@ -22,4 +22,4 @@ The role was not only gameplay code. I built character art in Maya and Blender a
 
 ## What I took from it
 
-Working inside a large, living codebase with its own bespoke tools taught me to learn a system thoroughly before changing it, the same instinct I lean on everywhere now. Most of the value was in reading carefully, respecting what was already there, and leaving it a little more workable than I found it.
+Working inside a large, living codebase with its own bespoke tools taught me to learn a system thoroughly before changing it. The same instinct I lean on everywhere now. Most of the value was in reading carefully, respecting what was already there, and leaving it a little more workable than I found it.

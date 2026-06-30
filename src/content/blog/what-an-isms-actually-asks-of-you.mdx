@@ -6,24 +6,24 @@ tags: ["security", "iso 27001", "grc"]
 draft: false
 ---
 
-When I was handed the ISO 27001 implementation for our MSP, I will admit I pictured a checklist. Turn on MFA, write a few policies, tighten access, collect the certificate, done. That is the part everyone imagines, and it is the part I was most comfortable with, because it looks like engineering. It is also the smallest part of the whole thing.
+When they handed me the ISO 27001 implementation for our MSP, I pictured a checklist. Turn on MFA, write a few policies, tighten access, collect the certificate. Done. That is the part everyone imagines, and the part I was most comfortable with, since it looks like engineering. It is also the smallest part of the whole thing.
 
 ISO 27001 is not a list of settings. It is a management system, the ISMS, and the word I kept underestimating was management.
 
 ## It starts with what you are protecting
 
-The standard makes you begin with risk, not controls. Before you can say a control belongs, you have to know what you are protecting, what could go wrong, and how much it would actually hurt. For a small MSP supporting around a hundred contractors, the honest answer is almost never the exotic threat. It is the boring one: a stale account nobody deprovisioned, a shared credential, a laptop that has not been patched in months.
+The standard makes you begin with risk, not controls. Before you can say a control belongs, you have to know what you are protecting, what could go wrong, and how badly it would hurt. For a small MSP supporting around a hundred contractors, the honest answer is almost never the exotic threat. It is the boring one. A stale account nobody deprovisioned, a shared credential, a laptop that has not been patched in months.
 
-Annex A hands you a catalogue of controls, but the choosing is the work. You write a Statement of Applicability that says, control by control, this applies and here is why, or this does not and here is why not. The first time I sat down with that document I found it uncomfortable, in a good way. You cannot wave at best practice. You have to justify your own environment to yourself, in writing, and mean it.
+Annex A hands you a catalogue of controls, but the choosing is the work. You write a Statement of Applicability that says, control by control, this applies and here is why, or it does not and here is why not. The first time I sat down with that document it made me uncomfortable, in a good way. You cannot wave at best practice. You have to justify your own environment to yourself, in writing, and mean it.
 
 ## The hard part is that it never finishes
 
-The technical work has an end. You can finish rolling out conditional access and feel the small satisfaction of closing a ticket. The management system does not give you that. It assumes risk changes, people leave, new tools arrive, and controls quietly drift unless someone keeps looking. So it is built as a loop: assess, treat, monitor, review, improve, and around again.
+The technical work has an end. You finish rolling out conditional access, close the ticket, feel the small clean satisfaction of it. The management system does not give you that. It assumes risk changes, people leave, new tools arrive, and controls drift the moment nobody is looking. So it is built as a loop. Assess, treat, monitor, review, improve, and around again.
 
-For a distributed team that means the unglamorous disciplines matter more than any single tool. Access reviews that actually happen instead of living on a someday list. Offboarding that is real and not theoretical. Evidence that you did the thing, not just the intention to.
+For a distributed team that means the unglamorous disciplines outweigh any single tool. Access reviews that actually happen, instead of living on a someday list. Offboarding that is real and not theoretical. Evidence that you did the thing, not just the intention to.
 
 ## What it changed in how I work
 
-The most useful shift was learning to treat security as a property of a whole system over time, rather than a state you reach once and tick off. A tenant that is locked down today and never looked at again is not secure. It is lucky.
+The useful shift was learning to treat security as a property of a whole system over time, not a state you reach once and tick off. A tenant that is locked down today and never looked at again is not secure. It is lucky.
 
-That framing turned out to follow me well past compliance. The instinct that asks who still has access and why is the same one that asks what happens to this thing when I am not watching it. Good systems answer that question on their own. The ISMS just trained me to ask it on purpose, every time.
+That framing followed me well past compliance. The instinct that asks who still has access, and why, is the same one that asks what happens to this thing when I am not watching it. Good systems answer that on their own. The ISMS just trained me to ask it on purpose. Every time.

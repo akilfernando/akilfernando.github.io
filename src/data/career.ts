@@ -21,10 +21,13 @@ export const experience = [
     role: 'Gameplay Programmer (Co-op)',
     org: 'Ubisoft Halifax',
     location: 'Halifax, NS',
-    summary: 'Gameplay programming in Unity and C# on a production team.',
+    summary: 'Gameplay programming in Unity and C# across two unannounced titles, from prototype tooling to camera, targeting, and AI systems.',
     highlights: [
-      'Built Cinemachine camera systems, behavior-tree AI, and NavMesh and hex-grid targeting.',
-      'Maya character pipeline work and custom debug tooling.',
+      'Added dynamic camera angles and extended a camera-clipping solution using Cinemachine and Unity raycasting.',
+      'Extended a tile-based targeting system to measure distance over NavMesh paths and hex-grid tiles.',
+      'Tuned character AI behavior trees to match game design direction, and built in-client debug tools for systems like the hex grid.',
+      'Built and integrated character assets through a Maya and Blender pipeline, documenting the process for reuse.',
+      'Ported a rigged, animated 3D scene to Android with Three.js and Capacitor, and kept builds playable by working around broken dependencies.',
     ],
   },
 ];

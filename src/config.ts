@@ -2,7 +2,7 @@ export const site = {
   name: 'Akil Fernando',
   tagline: 'I look after security, identity, and the systems they run on.',
   taglineSub: 'A security lead who came up through engineering, and still makes games at night.',
-  url: 'https://akilfernando.github.io',
+  url: 'https://akilfernando.dev',
 };
 
 // Top-nav + homepage "Index" entries. Blurbs show on the homepage contents list.
@@ -15,7 +15,7 @@ export const sections = [
 ];
 
 export const socials = [
-  { label: 'Email',    href: 'mailto:akilfernando2003@gmail.com', handle: 'akilfernando2003@gmail.com' },
+  { label: 'Email',    href: 'mailto:akil@akilfernando.dev', handle: 'akil@akilfernando.dev' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/akilf/', handle: 'linkedin.com/in/akilf' },
   { label: 'GitHub',   href: 'https://github.com/akilfernando',    handle: 'github.com/akilfernando' },
   { label: 'Itch.io',  href: 'https://akilf.itch.io',              handle: 'akilf.itch.io' },

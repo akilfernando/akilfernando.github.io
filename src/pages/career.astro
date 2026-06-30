@@ -49,7 +49,7 @@ const timeline = [
     {certifications.map((c) => <li>{c}</li>)}
   </ul>
 
-  <h2 class="sec-label">Skills</h2>
+  <h2 class="sec-label" id="skills">Skills</h2>
   <div class="skills">
     {skills.map((g) => (
       <div class="skillgrp">
@@ -59,7 +59,7 @@ const timeline = [
     ))}
   </div>
 
-  <h2 class="sec-label">Download CV</h2>
+  <h2 class="sec-label" id="cv">Download CV</h2>
   <p class="cv-note">Tailored to four fields. Pick the one that fits.</p>
   <div class="cvs">
     {cvs.map((c) => (
@@ -88,6 +88,7 @@ const timeline = [
     margin: var(--space-8) 0 0;
     padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 5rem;
   }
   .item {
     display: grid; grid-template-columns: 130px 1fr; gap: var(--space-4);

@@ -10,6 +10,29 @@ import { site, sections } from '../config';
     <p class="tag"><strong>{site.tagline}</strong> {site.taglineSub}</p>
   </section>
 
+  {/* Ask box: progressive enhancement. Hidden until the router script reveals it,
+      so visitors with JS off just see the index below and nothing broken. */}
+  <div class="ask" id="ask-box" hidden>
+    <form class="ask-form" id="ask-form" role="search">
+      <label class="ask-label" for="ask-input">Ask anything about me</label>
+      <div class="ask-row">
+        <input
+          id="ask-input"
+          name="q"
+          type="text"
+          autocomplete="off"
+          enterkeyhint="go"
+          placeholder="e.g. what's your security experience?"
+        />
+        <button type="submit" aria-label="Go">&#8599;</button>
+      </div>
+    </form>
+    <p class="ask-status" id="ask-status" role="status" aria-live="polite"></p>
+    <ul class="ask-suggest" id="ask-suggest" hidden>
+      {sections.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
+    </ul>
+  </div>
+
   <nav class="contents" aria-label="Sections">
     {sections.map((s, i) => (
       <a class="row" href={s.href}>
@@ -22,8 +45,79 @@ import { site, sections } from '../config';
   </nav>
 </BaseLayout>
 
+<script>
+  // Client-side question router. No backend, no API key: it scores the question
+  // against a hand-built keyword index and navigates to the best-fit section.
+  type Route = { dest: string; label: string; terms: string[] };
+
+  // Ordered most-specific first; ties resolve to the earlier entry.
+  const ROUTES: Route[] = [
+    { dest: '/writing', label: 'Writing', terms: ['writing', 'write', 'writes', 'fiction', 'story', 'stories', 'creative', 'old rails', 'rails', 'novel', 'prose', 'poem', 'poetry', 'literary', 'short story'] },
+    { dest: '/blog', label: 'Blog', terms: ['blog', 'notes', 'article', 'articles', 'post', 'posts', 'essay', 'essays', 'thoughts', 'wrote about', 'writes about', 'blog post'] },
+    { dest: '/projects', label: 'Projects', terms: ['project', 'projects', 'built', 'build', 'building', 'made', 'make', 'app', 'apps', 'portfolio work', 'game', 'games', 'gaming', 'shooter', 'ammo', 'graphics', 'vulkan', 'opengl', 'unity', 'flight sim', 'renderer', 'render', 'lms', 'training platform', 'portal', 'client portal', 'device', 'cartcloud', 'happbit', 'ecommerce', 'e-commerce', 'demo'] },
+    { dest: '/career#cv', label: 'Career, CV', terms: ['cv', 'resume', 'résumé', 'curriculum vitae', 'download cv', 'download your cv', 'download resume'] },
+    { dest: '/career#skills', label: 'Career, Skills', terms: ['skill', 'skills', 'tech stack', 'technologies', 'technology', 'stack', 'tooling', 'languages', 'frameworks', 'what can you do', 'proficient', 'expertise'] },
+    { dest: '/about#looking', label: 'About, Hiring', terms: ['hire', 'hiring', 'available', 'availability', 'looking for', 'open to', 'opportunity', 'opportunities', 'relocate', 'relocation', 'relocating', 'canada', 'canadian', 'visa', 'pgwp', 'work permit', 'immigration', 'sponsor', 'sponsorship', 'recruit', 'recruiter', 'job opening', 'offer'] },
+    { dest: '/career', label: 'Career', terms: ['career', 'experience', 'experienced', 'work', 'works', 'working', 'job', 'jobs', 'role', 'roles', 'employer', 'company', 'teams squared', 'msp', 'ubisoft', 'intern', 'internship', 'co-op', 'coop', 'security', 'cybersecurity', 'cyber', 'infosec', 'identity', 'iam', 'entra', 'entra id', 'azure', 'active directory', 'mfa', 'conditional access', 'iso', '27001', 'isms', 'grc', 'governance', 'compliance', 'audit', 'endpoint', 'm365', 'microsoft 365', 'ninjaone', 'bitdefender', 'education', 'study', 'studied', 'degree', 'university', 'dalhousie', 'gpa', 'graduate', 'graduated', 'certification', 'certifications', 'certified', 'sc-300', 'sc300', 'what do you do', 'for work', 'for a living', 'day job', 'professional'] },
+    { dest: '/about', label: 'About', terms: ['about', 'who are you', 'who is', 'yourself', 'bio', 'biography', 'contact', 'email', 'reach you', 'reach out', 'get in touch', 'linkedin', 'github', 'itch', 'itch.io', 'hobby', 'hobbies', 'play games', 'games you play', 'playing', 'play', 'godot', 'curious', 'interests', 'person', 'introduce', 'background', 'where are you', 'from'] },
+  ];
+
+  function norm(s: string): string {
+    return ' ' + s.toLowerCase().replace(/[^a-z0-9.\s]/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
+  }
+
+  function scoreRoute(query: string, route: Route): number {
+    const q = norm(query);
+    const words = new Set(q.trim().split(' '));
+    let s = 0;
+    for (const term of route.terms) {
+      if (term.includes(' ')) {
+        if (q.includes(term)) s += 2;
+      } else if (words.has(term)) {
+        s += 1;
+      }
+    }
+    return s;
+  }
+
+  function bestRoute(query: string): Route | null {
+    let best: Route | null = null;
+    let bestScore = 0;
+    for (const r of ROUTES) {
+      const sc = scoreRoute(query, r);
+      if (sc > bestScore) { bestScore = sc; best = r; }
+    }
+    return best;
+  }
+
+  const box = document.getElementById('ask-box');
+  const form = document.getElementById('ask-form') as HTMLFormElement | null;
+  const input = document.getElementById('ask-input') as HTMLInputElement | null;
+  const status = document.getElementById('ask-status');
+  const suggest = document.getElementById('ask-suggest');
+
+  if (box && form && input && status && suggest) {
+    box.removeAttribute('hidden'); // reveal only when JS is available
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (!q) return;
+      const route = bestRoute(q);
+      if (route) {
+        suggest.setAttribute('hidden', '');
+        status.textContent = `Taking you to ${route.label} →`;
+        window.setTimeout(() => { window.location.href = route.dest; }, 350);
+      } else {
+        status.textContent = 'Not sure where that fits. Try one of these:';
+        suggest.removeAttribute('hidden');
+      }
+    });
+  }
+</script>
+
 <style>
-  .hero { padding: var(--space-8) 0 var(--space-6); }
+  .hero { padding: var(--space-8) 0 var(--space-5); }
   .name {
     font-size: var(--fs-display);
     margin-top: var(--space-1);
@@ -36,6 +130,44 @@ import { site, sections } from '../config';
     line-height: 1.5;
   }
   .tag strong { color: var(--ink); font-weight: 500; }
+
+  /* Ask box */
+  .ask { margin: 0 0 var(--space-6); max-width: 44rem; }
+  .ask-label {
+    display: block;
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+    margin-bottom: var(--space-2);
+  }
+  .ask-row {
+    display: flex; align-items: center; gap: var(--space-2);
+    border-bottom: 1px solid var(--ink); padding-bottom: 8px;
+    transition: border-color 0.15s ease;
+  }
+  .ask-row:focus-within { border-color: var(--cobalt); }
+  #ask-input {
+    flex: 1; min-width: 0; border: 0; background: transparent;
+    font: inherit; font-size: 1.0625rem; color: var(--ink); padding: 4px 0;
+  }
+  #ask-input:focus { outline: none; }
+  #ask-input::placeholder { color: var(--ink-muted); }
+  .ask-row button {
+    font-family: var(--font-mono); font-size: 1.15rem; line-height: 1;
+    color: var(--cobalt); background: transparent; border: 0; cursor: pointer; padding: 4px 6px;
+  }
+  .ask-row button:hover { color: var(--cobalt-deep); }
+  .ask-status {
+    font-family: var(--font-mono); font-size: 0.8125rem; color: var(--cobalt);
+    margin-top: var(--space-2); min-height: 1.2em;
+  }
+  .ask-suggest {
+    list-style: none; padding: 0; margin-top: var(--space-1);
+    display: flex; flex-wrap: wrap; gap: var(--space-3);
+  }
+  .ask-suggest a {
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--cobalt); text-decoration: none;
+  }
+  .ask-suggest a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
   .contents { border-top: 1px solid var(--ink); }
   .row {

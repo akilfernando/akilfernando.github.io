@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+type Props = { project: CollectionEntry<'projects'> };
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+const categoryLabels: Record<string, string> = {
+  game: 'Game dev',
+  software: 'Software',
+  academic: 'Academic',
+};
+---
+<BaseLayout title={project.data.title} description={project.data.blurb}>
+  <p class="eyebrow">Projects</p>
+  <div class="wayrule"></div>
+  <article class="article">
+    <div class="meta">
+      <span class="year">{project.data.year}</span>
+      <span class="sep" aria-hidden="true">&middot;</span>
+      <span class="role">{project.data.role}</span>
+      <span class="tag">{categoryLabels[project.data.category]}</span>
+    </div>
+    <h1 class="display title">{project.data.title}</h1>
+    <p class="blurb">{project.data.blurb}</p>
+
+    {project.data.stack.length > 0 && (
+      <ul class="stack" aria-label="Stack">
+        {project.data.stack.map((s) => <li>{s}</li>)}
+      </ul>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {project.data.links.length > 0 && (
+      <p class="links">
+        {project.data.links.map((l) => (
+          <a href={l.url} target="_blank" rel="noopener noreferrer">{l.label}<span aria-hidden="true">&#8599;</span></a>
+        ))}
+      </p>
+    )}
+
+    <a class="back" href="/projects/">&#8592; All projects</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .article { max-width: var(--measure); }
+  .meta {
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);
+    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: var(--space-2);
+  }
+  .sep { color: var(--rule); }
+  .tag {
+    margin-left: auto; font-size: 0.625rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--cobalt);
+  }
+  .title { font-size: clamp(2rem, 5vw, 3rem); margin-top: 6px; }
+  .blurb { font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6; margin-top: var(--space-2); max-width: 60ch; }
+  .stack {
+    list-style: none; padding: 0; margin-top: var(--space-3);
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .stack li {
+    font-family: var(--font-mono); font-size: 0.6875rem; color: var(--ink-muted);
+    background: var(--paper-panel); padding: 3px 9px;
+  }
+  .prose { margin-top: var(--space-5); }
+  .prose :global(p) { margin-bottom: var(--space-2); }
+  .prose :global(h2) { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; line-height: 1.2; margin: var(--space-4) 0 var(--space-1); }
+  .prose :global(h3) { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; line-height: 1.25; margin: var(--space-3) 0 var(--space-1); }
+  .prose :global(a) { color: var(--cobalt); text-underline-offset: 3px; }
+  .prose :global(a:hover) { color: var(--cobalt-deep); }
+  .prose :global(ul), .prose :global(ol) { margin: 0 0 var(--space-2) 1.4em; padding: 0; }
+  .prose :global(li) { margin-bottom: 6px; }
+  .prose :global(li::marker) { color: var(--ink-muted); }
+  .prose :global(strong) { font-weight: 600; }
+  .prose :global(blockquote) { border-left: 2px solid var(--cobalt); padding-left: var(--space-2); margin: var(--space-2) 0; color: var(--ink-muted); font-style: italic; }
+  .links {
+    margin-top: var(--space-5);
+    display: flex; flex-wrap: wrap; gap: var(--space-3);
+  }
+  .links a {
+    font-family: var(--font-mono); font-size: 0.8125rem; color: var(--cobalt);
+    text-decoration: none;
+  }
+  .links a span { font-size: 0.85em; }
+  .links a:hover { color: var(--cobalt-deep); text-decoration: underline; text-underline-offset: 3px; }
+  .back { display: inline-block; margin-top: var(--space-6); font-family: var(--font-mono); font-size: 0.8125rem; color: var(--cobalt); text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  @media (max-width: 620px) {
+    .tag { margin-left: 0; }
+  }
+</style>

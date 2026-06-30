@@ -46,7 +46,7 @@ const filters = [{ key: 'all', label: 'All' }, ...present.map((c) => ({ key: c, 
               <span class="role">{p.data.role}</span>
               <span class="tag" data-cat={p.data.category}>{categoryLabels[p.data.category]}</span>
             </div>
-            <h2 class="display pt">{p.data.title}</h2>
+            <h2 class="display pt"><a href={`/projects/${p.slug}`}>{p.data.title}</a></h2>
             <p class="blurb">{p.data.blurb}</p>
             {p.data.stack.length > 0 && (
               <ul class="stack" aria-label="Stack">
@@ -128,6 +128,8 @@ const filters = [{ key: 'all', label: 'All' }, ...present.map((c) => ({ key: c, 
     text-transform: uppercase; color: var(--cobalt);
   }
   .pt { font-size: 1.5rem; margin-top: 5px; line-height: 1.15; }
+  .pt a { color: inherit; text-decoration: none; }
+  .pt a:hover { color: var(--cobalt); }
   .blurb { font-size: 0.9rem; color: var(--ink-muted); margin-top: 6px; max-width: 62ch; line-height: 1.55; }
   .stack {
     list-style: none; padding: 0; margin-top: var(--space-2);

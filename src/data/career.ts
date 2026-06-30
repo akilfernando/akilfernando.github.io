@@ -48,20 +48,20 @@ export const certifications = [
 
 export const skills = [
   {
-    group: 'Development',
-    items: ['TypeScript', 'React', 'Next.js', 'Python (FastAPI, Flask)', 'Prisma', 'PostgreSQL', 'Supabase', 'Drizzle ORM', 'MERN', 'NextAuth'],
-  },
-  {
-    group: 'Game & graphics',
-    items: ['Unity', 'C#', 'Cinemachine', 'behavior trees', 'NavMesh', 'Maya', 'C++', 'Vulkan', 'OpenGL'],
-  },
-  {
     group: 'Identity & security',
     items: ['Entra ID', 'IAM', 'MFA', 'Conditional Access', 'identity governance', 'ISO 27001 ISMS', 'Bitdefender GravityZone'],
   },
   {
     group: 'Infrastructure',
     items: ['Microsoft 365', 'NinjaOne RMM', 'endpoint management', 'MSP operations'],
+  },
+  {
+    group: 'Development',
+    items: ['TypeScript', 'React', 'Next.js', 'Python (FastAPI, Flask)', 'Prisma', 'PostgreSQL', 'Supabase', 'Drizzle ORM', 'MERN', 'NextAuth'],
+  },
+  {
+    group: 'Game & graphics',
+    items: ['Unity', 'C#', 'Cinemachine', 'behavior trees', 'NavMesh', 'Maya', 'C++', 'Vulkan', 'OpenGL'],
   },
   {
     group: 'Tools',

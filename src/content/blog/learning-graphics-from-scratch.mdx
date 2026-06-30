@@ -1,31 +1,31 @@
 ---
 title: "Learning graphics by writing the renderer yourself"
 date: 2025-03-22
-description: "Notes from building a flight sim on OpenGL and a renderer on Vulkan, and why going low level was worth it."
+description: "I wanted to know how a triangle becomes a pixel, so I wrote two renderers in C++, one on OpenGL and one on Vulkan. Here is what stuck."
 tags: ["graphics", "c++", "game dev"]
 draft: false
 ---
 
-It is easy to make things appear on screen in a modern engine. Drop in a model, point a camera, press play. That convenience hides the part I actually wanted to understand: how a triangle becomes a pixel. So I went the slow way and wrote two renderers in C++, one on OpenGL and one on Vulkan.
+It is easy to put something on screen in a modern engine. Drop in a model, point a camera, press play. I love that convenience, but it always nagged at me, because it hides the exact part I wanted to understand: how a triangle actually becomes a pixel. So I went the slow way and wrote two renderers in C++ by hand, one on OpenGL and one on Vulkan.
 
 ## OpenGL taught me the pipeline
 
 The first project was a flight simulator built directly on OpenGL. No engine, just the API, some math, and a window.
 
-OpenGL is forgiving enough to learn on. It carries a lot of state for you, so you can get a spinning, shaded mesh on screen in an afternoon and then spend weeks understanding what you actually did. Vertex buffers, the vertex and fragment shader stages, transformation matrices, the depth buffer. Building a flight sim meant living inside the camera and projection math until it stopped being abstract.
+OpenGL is forgiving enough to learn on, which is what I needed. It carries a lot of state for you, so you can get a spinning, shaded mesh on screen in an afternoon and then spend the next few weeks figuring out what you actually did. Vertex buffers, the vertex and fragment shader stages, transformation matrices, the depth buffer. Building a flight sim meant living inside the camera and projection math until, one evening, it stopped feeling abstract and just made sense. That click is the whole reason I do these projects.
 
 ## Vulkan taught me how much the driver was doing
 
-Then I rebuilt the idea on Vulkan, and the difference was humbling.
+Then I rebuilt the idea on Vulkan, and it humbled me a little.
 
-Vulkan hands you almost nothing for free. You describe everything explicitly: the queues, the memory allocations, the synchronization, the entire pipeline state up front. The famous "hello triangle" is hundreds of lines. It felt absurd at first, and then it clicked. All that verbosity is the work that OpenGL and the driver had been quietly doing on my behalf. Vulkan just makes you the one responsible for it.
+Vulkan hands you almost nothing for free. You describe everything explicitly: the queues, the memory allocations, the synchronization, the entire pipeline state up front. The famous hello triangle is hundreds of lines, and the first time I typed all of it I genuinely thought this cannot be the intended way. Then it clicked. All that verbosity is the work OpenGL and the driver had been quietly doing on my behalf the whole time. Vulkan just makes you the one responsible for it.
 
 ## Why bother
 
-I am not arguing everyone should write Vulkan by hand. For shipping a game, use the engine. But writing the renderer yourself changes how you think for good:
+I am not going to argue everyone should write Vulkan by hand. If you want to ship a game, use the engine, and I will too. But writing the renderer yourself changes how you think for good:
 
 - You stop treating the GPU as magic and start treating it as a machine with a model you can reason about.
-- Performance advice finally makes sense, because you have felt where the cost lives.
-- Engine abstractions become readable. You know what they are hiding.
+- Performance advice finally lands, because you have felt where the cost actually lives.
+- Engine abstractions become readable. You know what they are hiding, and why.
 
-The flight sim never became a real game and the Vulkan renderer never drew anything fancy. That was fine. The point was to remove a layer of mystery, and it stayed removed.
+The flight sim never became a real game, and the Vulkan renderer never drew anything fancy. That was always fine. The point was to remove a layer of mystery, and that part stayed removed.

@@ -1,34 +1,34 @@
 ---
 title: "A portfolio that is not vibe-coded"
 date: 2026-06-29
-description: "Why this site is set like a journal, ships almost no JavaScript, and leans on a single accent color."
+description: "Why this site is set like a journal, ships almost no JavaScript, and leans on a single cobalt accent instead of the usual gradient hero."
 tags: ["meta", "design", "astro"]
 draft: false
 ---
 
-Most developer portfolios now look the same. A dark hero with a gradient, a glassy card or two, a generic sans-serif, a wave of emoji, and a greeting that starts with "Hi, I'm". They are quick to produce and easy to forget. I wanted the opposite: something that reads like it was made on purpose, by a person, and that still loads instantly.
+Most developer portfolios have started to look like the same site. A dark hero with a gradient, a glassy card or two, a generic sans-serif, a sprinkle of emoji, and a greeting that opens with Hi, I'm. They are quick to make and easy to forget, and I have built versions of that site before. This time I wanted the opposite: something that reads like it was made on purpose, by a person, and that still loads instantly.
 
 So I set this site like the contents page of a journal instead of a dashboard.
 
 ## The constraints came first
 
-Before any code, I wrote down rules and then refused to break them:
+Before I wrote any code, I wrote down a few rules and then refused to break them:
 
 - No gradients, no glow, no glass, no blur. Solid color only.
-- One accent, a deep cobalt, used structurally rather than decoratively.
+- One accent, a deep cobalt, used structurally rather than as decoration.
 - A warm paper background, never pure white.
-- Type carries the personality. Whitespace is generous and deliberate.
+- Type carries the personality. Whitespace is generous and on purpose.
 
-Constraints like these are what keep a site from drifting into the same template as everyone else. When the easy decorative tricks are off the table, you are forced to make the type, the spacing, and the structure do the work.
+Constraints like these are what keep a site from drifting back into everyone else's template. Once the easy decorative tricks are off the table, you have no choice but to make the type, the spacing, and the structure do the actual work, and that is the part I enjoy.
 
 ## The stack is boring on purpose
 
-The site is built with [Astro](https://astro.build). It ships zero JavaScript by default, so most pages are pure HTML and CSS. The styling is vanilla CSS with custom properties as design tokens. No utility-class soup, no component library, no runtime.
+The site is built with [Astro](https://astro.build). It ships zero JavaScript by default, so most pages are pure HTML and CSS. The styling is vanilla CSS with custom properties as design tokens. No utility-class soup, no component library, no runtime to babysit.
 
-Fonts are self-hosted rather than pulled from a CDN, so there is no third-party call and no layout shift. The whole thing is static output that I can leave alone for years and trust to still work.
+Fonts are self-hosted instead of pulled from a CDN, so there is no third-party call and no layout shift while the page settles. The whole thing compiles to static output that I can leave alone for years and still trust to work.
 
 ## Where the character lives
 
-The signature is the homepage. It is a masthead and a typographic contents list, each entry a title and a one-line blurb, cobalt on hover. Carried across every page is a small mono label and a thin cobalt rule, a quiet wayfinding device that tells you where you are without a heavy nav.
+The signature is the homepage: a masthead and a typographic contents list, each entry a title and a one-line blurb, turning cobalt on hover. Carried across every page is a small mono label and a thin cobalt rule, a quiet wayfinding device that tells you where you are without a heavy nav bar shouting at you.
 
-None of this is novel technology. That is the point. The interesting part is the editing: deciding what to leave out. A site that ships almost no JavaScript and says one thing clearly will outlast a site that says nothing loudly.
+None of this is novel technology, and that is the point. The interesting work was the editing, deciding what to leave out. A site that ships almost no JavaScript and says one thing clearly will outlast a site that says nothing loudly.

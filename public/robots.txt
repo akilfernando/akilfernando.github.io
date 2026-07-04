@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /sc300/
 
 Sitemap: https://akilfernando.dev/sitemap-index.xml

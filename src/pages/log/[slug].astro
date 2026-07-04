@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Stars from '../../components/Stars.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('library', ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+type Props = { entry: CollectionEntry<'library'> };
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const d = entry.data;
+
+const typeLabel: Record<string, string> = { game: 'Game', movie: 'Film', show: 'Show', book: 'Book' };
+function statusLabel(type: string, status: string): string {
+  if (status === 'backlog') return 'Backlog';
+  if (status === 'active') return type === 'book' ? 'Reading' : type === 'game' ? 'Playing' : 'Watching';
+  return type === 'book' ? 'Read' : type === 'game' ? 'Played' : 'Watched';
+}
+const creatorLabel: Record<string, string> = { game: 'Studio', movie: 'Director', show: 'Network', book: 'Author' };
+const fmt = (dt: Date) => dt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const hasReview = entry.body.trim().length > 0;
+---
+<BaseLayout title={`${d.title} (${typeLabel[d.type]})`} description={`${statusLabel(d.type, d.status)}. My log entry for ${d.title}.`}>
+  <p class="eyebrow">Log</p>
+  <div class="wayrule"></div>
+  <article class="article">
+    <div class="meta">
+      <span class="badge">{typeLabel[d.type]}</span>
+      <span class="status" data-status={d.status}>{statusLabel(d.type, d.status)}</span>
+      {d.favorite && <span class="fav" title="Favourite">&#9829; Favourite</span>}
+    </div>
+    <h1 class="display title">{d.title}</h1>
+    <p class="sub">
+      {d.year && <span>{d.year}</span>}
+      {d.year && d.creator && <span class="dot" aria-hidden="true">&middot;</span>}
+      {d.creator && <span>{creatorLabel[d.type]}: {d.creator}</span>}
+    </p>
+
+    {d.rating != null && (
+      <p class="rating"><Stars rating={d.rating} /> <span class="num">{d.rating.toFixed(1)} / 5</span></p>
+    )}
+
+    {(d.started || d.finished) && (
+      <ul class="dates">
+        {d.started && <li><span class="k">Started</span> {fmt(d.started)}</li>}
+        {d.finished && <li><span class="k">Finished</span> {fmt(d.finished)}</li>}
+      </ul>
+    )}
+
+    {hasReview ? (
+      <div class="prose"><Content /></div>
+    ) : (
+      <p class="noreview">No review written yet.</p>
+    )}
+
+    <a class="back" href="/log/">&#8592; All entries</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .article { max-width: var(--measure); }
+  .meta { display: flex; align-items: center; gap: 10px; margin-top: var(--space-2); font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .badge { color: var(--cobalt); }
+  .status { color: var(--ink-muted); }
+  .status[data-status='active'] { color: var(--ink); }
+  .fav { color: var(--cobalt); }
+  .title { font-size: clamp(2rem, 5vw, 3rem); margin-top: 6px; }
+  .sub { font-size: 0.9rem; color: var(--ink-muted); margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .dot { color: var(--rule); }
+  .rating { margin-top: var(--space-3); display: flex; align-items: center; gap: 10px; }
+  .rating .num { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink-muted); }
+  .dates { list-style: none; padding: 0; margin-top: var(--space-3); display: flex; gap: var(--space-4); flex-wrap: wrap; }
+  .dates li { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink); }
+  .dates .k { display: block; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
+  .prose { margin-top: var(--space-4); }
+  .prose :global(p) { margin-bottom: var(--space-2); }
+  .prose :global(> p:first-of-type::first-letter) {
+    font-family: var(--font-display); font-weight: 500; float: left; font-size: 3.2em; line-height: 0.8; padding: 0.06em 0.1em 0 0; color: var(--cobalt);
+  }
+  .prose :global(h2) { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; margin: var(--space-4) 0 var(--space-1); }
+  .prose :global(a) { color: var(--cobalt); text-underline-offset: 3px; }
+  .prose :global(blockquote) { border-left: 2px solid var(--cobalt); padding-left: var(--space-2); margin: var(--space-2) 0; color: var(--ink-muted); font-style: italic; }
+  .noreview { margin-top: var(--space-4); color: var(--ink-muted); font-family: var(--font-mono); font-size: 0.85rem; }
+  .back { display: inline-block; margin-top: var(--space-6); font-family: var(--font-mono); font-size: 0.8125rem; color: var(--cobalt); text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+</style>

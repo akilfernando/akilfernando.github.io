@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Stars from '../../components/Stars.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('library', ({ data }) => !data.draft);
+
+const typeLabel: Record<string, string> = { game: 'Game', movie: 'Film', show: 'Show', book: 'Book' };
+
+// Status reads differently per medium (Playing vs Watching vs Reading).
+function statusLabel(type: string, status: string): string {
+  if (status === 'backlog') return 'Backlog';
+  if (status === 'active') return type === 'book' ? 'Reading' : type === 'game' ? 'Playing' : 'Watching';
+  return type === 'book' ? 'Read' : type === 'game' ? 'Played' : 'Watched';
+}
+
+const statusRank: Record<string, number> = { active: 0, finished: 1, backlog: 2 };
+const entriesSorted = entries.sort((a, b) => {
+  const s = statusRank[a.data.status] - statusRank[b.data.status];
+  if (s !== 0) return s;
+  const af = a.data.finished?.valueOf() ?? 0;
+  const bf = b.data.finished?.valueOf() ?? 0;
+  if (bf !== af) return bf - af;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+const typeFilters = [
+  { key: 'all', label: 'All' },
+  { key: 'game', label: 'Games' },
+  { key: 'movie', label: 'Films' },
+  { key: 'show', label: 'Shows' },
+  { key: 'book', label: 'Books' },
+];
+const statusFilters = [
+  { key: 'all', label: 'All' },
+  { key: 'active', label: 'In progress' },
+  { key: 'finished', label: 'Finished' },
+  { key: 'backlog', label: 'Backlog' },
+];
+// Only show filter chips for dimensions that actually vary.
+const presentTypes = new Set(entries.map((e) => e.data.type));
+const presentStatuses = new Set(entries.map((e) => e.data.status));
+---
+<BaseLayout title="Log" description="A backlog and reviews of games, films, shows, and books.">
+  <p class="eyebrow">Log</p>
+  <div class="wayrule"></div>
+  <h1 class="display h1">Backlog and reviews.</h1>
+  <p class="intro">What I am playing, watching, and reading, plus what is queued up and what I made
+    of it once I finished. Ratings out of five, reviews are my own.</p>
+
+  {entries.length === 0 ? (
+    <p class="empty">Nothing logged yet. Entries live under <code>src/content/library/</code>.</p>
+  ) : (
+    <>
+      <div class="filters">
+        <div class="frow" role="group" aria-label="Filter by type">
+          {typeFilters.filter((f) => f.key === 'all' || presentTypes.has(f.key)).map((f, i) => (
+            <button type="button" class="chip" data-dim="type" data-key={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>{f.label}</button>
+          ))}
+        </div>
+        <div class="frow" role="group" aria-label="Filter by status">
+          {statusFilters.filter((f) => f.key === 'all' || presentStatuses.has(f.key)).map((f, i) => (
+            <button type="button" class="chip" data-dim="status" data-key={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>{f.label}</button>
+          ))}
+        </div>
+      </div>
+
+      <ul class="list" id="log-list">
+        {entriesSorted.map((e) => (
+          <li class="row" data-type={e.data.type} data-status={e.data.status}>
+            <div class="meta">
+              <span class="badge" data-type={e.data.type}>{typeLabel[e.data.type]}</span>
+              <span class="status" data-status={e.data.status}>{statusLabel(e.data.type, e.data.status)}</span>
+              {e.data.favorite && <span class="fav" title="Favourite">&#9829;</span>}
+            </div>
+            <h2 class="display t"><a href={`/log/${e.slug}/`}>{e.data.title}</a></h2>
+            <p class="sub">
+              {e.data.year && <span>{e.data.year}</span>}
+              {e.data.year && e.data.creator && <span class="dot" aria-hidden="true">&middot;</span>}
+              {e.data.creator && <span>{e.data.creator}</span>}
+            </p>
+            <div class="rate">
+              {e.data.rating != null ? <Stars rating={e.data.rating} /> : <span class="unrated">Not rated yet</span>}
+              {e.body.trim().length > 0 && <a class="rev" href={`/log/${e.slug}/`}>Review &#8599;</a>}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="noresults" hidden>Nothing here in that combination.</p>
+    </>
+  )}
+</BaseLayout>
+
+<script>
+  // Progressive enhancement: two independent filter dimensions (type + status),
+  // combined with AND. With JS off, everything shows.
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.chip'));
+  const rows = Array.from(document.querySelectorAll<HTMLLIElement>('.row'));
+  const noResults = document.querySelector<HTMLParagraphElement>('.noresults');
+  const active = { type: 'all', status: 'all' };
+
+  function apply() {
+    let visible = 0;
+    for (const row of rows) {
+      const okType = active.type === 'all' || row.dataset.type === active.type;
+      const okStatus = active.status === 'all' || row.dataset.status === active.status;
+      const show = okType && okStatus;
+      row.hidden = !show;
+      if (show) visible++;
+    }
+    if (noResults) noResults.hidden = visible !== 0;
+  }
+
+  for (const chip of chips) {
+    chip.addEventListener('click', () => {
+      const dim = chip.dataset.dim as 'type' | 'status';
+      for (const c of chips) {
+        if (c.dataset.dim === dim) c.setAttribute('aria-pressed', String(c === chip));
+      }
+      active[dim] = chip.dataset.key || 'all';
+      apply();
+    });
+  }
+</script>
+
+<style>
+  .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
+  .intro { font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6; max-width: 60ch; margin-top: var(--space-2); }
+  .empty { margin-top: var(--space-4); color: var(--ink-muted); }
+  code { font-family: var(--font-mono); font-size: 0.85em; }
+
+  .filters { margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  .frow { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+  .chip {
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-muted); background: transparent; border: 1px solid var(--rule); border-radius: 0;
+    padding: 7px 13px; cursor: pointer; transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .chip:hover { color: var(--ink); border-color: var(--ink-muted); }
+  .chip[aria-pressed='true'] { color: var(--paper); background: var(--cobalt); border-color: var(--cobalt); }
+
+  .list { list-style: none; padding: 0; margin-top: var(--space-4); border-top: 1px solid var(--ink); }
+  .row { padding: var(--space-3) 0; border-bottom: 1px solid var(--rule); }
+  .meta { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .badge { color: var(--cobalt); }
+  .status { color: var(--ink-muted); }
+  .status[data-status='active'] { color: var(--ink); }
+  .fav { color: var(--cobalt); margin-left: auto; font-size: 0.85rem; }
+  .t { font-size: 1.4rem; margin-top: 6px; line-height: 1.15; }
+  .t a { color: inherit; text-decoration: none; }
+  .t a:hover { color: var(--cobalt); }
+  .sub { font-size: 0.85rem; color: var(--ink-muted); margin-top: 2px; display: flex; gap: 7px; flex-wrap: wrap; }
+  .dot { color: var(--rule); }
+  .rate { display: flex; align-items: center; gap: var(--space-2); margin-top: 9px; }
+  .unrated { font-family: var(--font-mono); font-size: 0.7rem; color: var(--rule); text-transform: uppercase; letter-spacing: 0.08em; }
+  .rev { font-family: var(--font-mono); font-size: 0.72rem; color: var(--cobalt); text-decoration: none; letter-spacing: 0.04em; }
+  .rev:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .noresults { margin-top: var(--space-4); color: var(--ink-muted); font-size: 0.9rem; }
+</style>

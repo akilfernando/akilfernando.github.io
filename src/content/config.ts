@@ -38,4 +38,22 @@ const writing = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, writing };
+// Backlog and reviews: games, films, shows, books. Letterboxd-style tracker.
+// The markdown body is the review (Akil's own words). rating is 0-5, half steps.
+const library = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    type: z.enum(['game', 'movie', 'show', 'book']),
+    status: z.enum(['backlog', 'active', 'finished']),
+    rating: z.number().min(0).max(5).optional(),
+    year: z.number().optional(),
+    creator: z.string().optional(), // studio, director, author, or network
+    started: z.coerce.date().optional(),
+    finished: z.coerce.date().optional(),
+    favorite: z.boolean().default(false),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, projects, writing, library };

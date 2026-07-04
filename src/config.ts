@@ -11,6 +11,7 @@ export const sections = [
   { label: 'Projects', href: '/projects', blurb: 'Security tooling, internal platforms, games, and graphics.' },
   { label: 'Blog',     href: '/blog',     blurb: 'Notes on building, breaking, and learning.' },
   { label: 'Writing',  href: '/writing',  blurb: 'Fiction and other creative writing. Always a work in progress.' },
+  { label: 'Log',      href: '/log',      blurb: 'A backlog and reviews of games, films, shows, and books.' },
   { label: 'About',    href: '/about',    blurb: 'Who I am and what keeps me curious.' },
 ];
 

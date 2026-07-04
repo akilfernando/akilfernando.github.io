@@ -1,0 +1,20 @@
+---
+// Half-step star rating, 0-5. Renders a fill layer clipped over an outline layer,
+// so any fractional rating (e.g. 4.5) shows precisely.
+interface Props { rating?: number; }
+const { rating = 0 } = Astro.props;
+const pct = Math.max(0, Math.min(5, rating)) / 5 * 100;
+---
+<span class="stars" role="img" aria-label={`${rating} out of 5`}>
+  <span class="stars-empty" aria-hidden="true">★★★★★</span>
+  <span class="stars-fill" style={`width:${pct}%`} aria-hidden="true">★★★★★</span>
+</span>
+
+<style>
+  .stars { position: relative; display: inline-block; line-height: 1; letter-spacing: 2px; font-size: 0.95rem; }
+  .stars-empty { color: var(--rule); }
+  .stars-fill {
+    position: absolute; left: 0; top: 0; overflow: hidden; white-space: nowrap;
+    color: var(--cobalt); letter-spacing: 2px;
+  }
+</style>

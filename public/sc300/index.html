@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>SC-300 Practice Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1017;--surface:#141C28;--surface-2:#1B2534;--line:#26313F;--line-soft:#1F2937;
+    --text:#E7EEF6;--muted:#8797AC;--accent:#2DD4BF;--accent-dim:#134E4A;
+    --correct:#4ADE80;--correct-bg:#0F2A1A;--wrong:#FB7185;--wrong-bg:#2C1620;
+    --amber:#FBBF24;--radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--text);font-family:"Inter",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  .wrap{max-width:840px;margin:0 auto;padding:0 20px}
+
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0E1620 0%,var(--ink) 100%);padding:38px 0 26px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+  h1{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(28px,5vw,42px);line-height:1.05;letter-spacing:-.02em;margin-bottom:10px}
+  h1 .sub{color:var(--muted);font-weight:500;display:block;font-size:clamp(15px,2.6vw,18px);margin-top:6px;letter-spacing:0}
+  .lead{color:var(--muted);max-width:640px;font-size:15px}
+
+  .variants{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
+  .vtab{font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--muted);transition:.15s}
+  .vtab:hover{color:var(--text)}
+  .vtab.active{background:var(--accent);color:#04201C;border-color:var(--accent)}
+  .vtab small{display:block;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:10px;letter-spacing:.08em;opacity:.8;margin-top:2px}
+
+  .scorebar{position:sticky;top:0;z-index:20;background:rgba(11,16,23,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:11px 0}
+  .scorebar .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .stat{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted)}
+  .stat b{color:var(--text);font-weight:600}
+  .stat .big{color:var(--accent);font-size:16px}
+  .scaled{font-family:"JetBrains Mono",monospace;font-size:13px;padding:4px 11px;border-radius:8px;border:1px solid var(--line);color:var(--muted)}
+  .scaled b{font-size:15px}
+  .scaled.pass{color:var(--correct);border-color:var(--correct);background:var(--correct-bg)}
+  .scaled.fail{color:var(--wrong);border-color:var(--wrong);background:var(--wrong-bg)}
+  .bar-track{flex:1;min-width:120px;height:8px;background:var(--line-soft);border-radius:99px;overflow:hidden;position:relative}
+  .bar-fill{height:100%;width:0;background:var(--accent);transition:width .35s ease}
+  .bar-track::after{content:"";position:absolute;top:-3px;bottom:-3px;left:70%;width:2px;background:var(--amber);opacity:.9}
+  .reset{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);background:none;border:1px solid var(--line);padding:6px 12px;border-radius:8px;cursor:pointer;transition:.15s}
+  .reset:hover{color:var(--text);border-color:var(--muted)}
+
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 8px}
+  .pill{font-family:"JetBrains Mono",monospace;font-size:12px;padding:7px 13px;border-radius:99px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--muted);transition:.15s}
+  .pill:hover{color:var(--text)}
+  .pill.active{background:var(--accent);color:#04201C;border-color:var(--accent);font-weight:600}
+
+  .domain{margin-top:40px;scroll-margin-top:64px}
+  .domain-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:6px;border-bottom:1px solid var(--line);margin-bottom:20px}
+  .domain-num{font-family:"JetBrains Mono",monospace;color:var(--accent);font-size:13px;font-weight:600}
+  .domain-head h2{font-family:"Space Grotesk",sans-serif;font-size:21px;font-weight:600;letter-spacing:-.01em}
+  .weight{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);white-space:nowrap}
+
+  .q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 20px 18px;margin-bottom:16px}
+  .q-tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.05em;color:var(--muted);margin-bottom:10px;text-transform:uppercase}
+  .q-text{font-size:15.5px;font-weight:500;margin-bottom:15px;color:var(--text)}
+  .q-text code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--surface-2);padding:2px 6px;border-radius:5px;color:var(--amber)}
+  .opts{display:flex;flex-direction:column;gap:9px}
+  .opt{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:12px 13px;cursor:pointer;transition:.13s;font-size:14.5px}
+  .opt:hover{border-color:var(--muted)}
+  .opt .key{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:13px;width:22px;height:22px;flex-shrink:0;border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--line);color:var(--muted);margin-top:1px}
+  .opt.sel{border-color:var(--accent);background:var(--accent-dim)}
+  .opt.sel .key{background:var(--accent);color:#04201C}
+  .opt.correct{border-color:var(--correct);background:var(--correct-bg)}
+  .opt.correct .key{background:var(--correct);color:#04250F}
+  .opt.wrong{border-color:var(--wrong);background:var(--wrong-bg)}
+  .opt.wrong .key{background:var(--wrong);color:#2C0912}
+  .locked .opt{cursor:default}
+  .locked .opt:hover{border-color:var(--line)}
+  .locked .opt.correct:hover{border-color:var(--correct)}
+  .locked .opt.wrong:hover{border-color:var(--wrong)}
+
+  .q-actions{display:flex;align-items:center;gap:12px;margin-top:15px}
+  .check{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;background:var(--accent);color:#04201C;border:none;padding:9px 18px;border-radius:9px;cursor:pointer;transition:.15s}
+  .check:hover{filter:brightness(1.08)}
+  .check:disabled{background:var(--line);color:var(--muted);cursor:not-allowed}
+  .verdict{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600}
+  .verdict.ok{color:var(--correct)}
+  .verdict.no{color:var(--wrong)}
+
+  .rationale{margin-top:14px;border-left:2px solid var(--amber);background:rgba(251,191,36,.05);padding:12px 15px;border-radius:0 8px 8px 0;font-size:14px;color:#D8E0EA;display:none}
+  .rationale.show{display:block}
+  .rationale .lbl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:5px}
+  .rationale code{font-family:"JetBrains Mono",monospace;font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:4px;color:var(--amber)}
+  .rationale strong{color:var(--text)}
+
+  footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  footer code{font-family:"JetBrains Mono",monospace;color:var(--accent)}
+  @media (max-width:520px){.q{padding:16px 14px}.scorebar .wrap{gap:10px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Microsoft Identity &amp; Access Administrator</div>
+    <h1>SC-300 Practice Bank<span class="sub">Three variants, scenario drills across all four exam domains, answer + rationale.</span></h1>
+    <p class="lead">Pick option, hit <b>Check</b>. Green = correct, red = your miss, amber block = why. Pass line marks the exam standard: <b>700/1000</b>. Real score is scaled, so this tool uses <b>70% correct</b> as a practice proxy (amber tick on the bar).</p>
+    <div class="variants" id="variants"></div>
+    <div class="filters" id="filters"></div>
+  </div>
+</header>
+
+<div class="scorebar">
+  <div class="wrap">
+    <div class="stat">Score <span class="big" id="s-correct">0</span> / <b id="s-answered">0</b> answered</div>
+    <div class="scaled" id="s-scaled">— / 1000</div>
+    <div class="bar-track"><div class="bar-fill" id="s-bar"></div></div>
+    <div class="stat"><b id="s-total">0</b> in variant</div>
+    <button class="reset" id="reset">Reset variant</button>
+  </div>
+</div>
+
+<div class="wrap" id="app"></div>
+
+<div class="wrap">
+  <footer>
+    Weighting to blueprint: <code>User Identities 20-25%</code> · <code>Auth &amp; Access 25-30%</code> · <code>Workload Identities 20-25%</code> · <code>Governance 20-25%</code>. Exam is scenario-heavy, 40-60 items, <code>700/1000</code> scaled to pass, Nov 2025 skills refresh. Verify live objectives on Microsoft Learn before test day.
+  </footer>
+</div>
+
+<script>
+const PASS = 0.70; // practice proxy for 700/1000 scaled
+const DOMAINS = [
+  {id:"d1", num:"01", name:"Implement and manage user identities", weight:"20-25%"},
+  {id:"d2", num:"02", name:"Implement authentication and access management", weight:"25-30%"},
+  {id:"d3", num:"03", name:"Plan and implement workload identities", weight:"20-25%"},
+  {id:"d4", num:"04", name:"Plan and implement identity governance", weight:"20-25%"},
+];
+
+const VARIANTS = {
+/* ========================= VARIANT 1 ========================= */
+v1:[
+{d:"d1",tag:"Dynamic groups",q:"You need a group that automatically contains every user whose department is Sales, updating as users change departments. What do you configure?",opts:["Assigned security group plus a scheduled script","Dynamic user group with rule <code>(user.department -eq \"Sales\")</code>","Dynamic device group with rule <code>(device.department -eq \"Sales\")</code>","M365 group with an access review"],a:1,r:"Membership type must be <strong>Dynamic User</strong> since targets are users and the attribute is on the user object (<code>user.department</code>). Dynamic Device groups key off device attributes. Requires Entra ID P1."},
+{d:"d1",tag:"External identities",q:"Partner staff must collaborate in your Teams and SharePoint using their existing home-org accounts. Which capability fits?",opts:["Entra B2C","Pass-through authentication","B2B collaboration","Entra Domain Services"],a:2,r:"<strong>B2B collaboration</strong> invites external users as guests who authenticate with their own home tenant. B2C is for consumer apps; PTA and Domain Services are hybrid auth features."},
+{d:"d1",tag:"Cross-tenant access",q:"What is the primary purpose of cross-tenant access settings?",opts:["Sync on-prem AD to multiple tenants","Define how your tenant trusts MFA, device claims, and other signals from partner tenants for B2B","Merge two tenants into one directory","Enable password hash sync across forests"],a:1,r:"Cross-tenant access settings govern inbound/outbound B2B and let you <strong>trust MFA and device compliance/hybrid-join claims</strong> from a partner so guests aren't re-challenged."},
+{d:"d1",tag:"Hybrid identity",q:"On-prem UPNs use non-routable <code>contoso.local</code> that can't change. Users must sign in to Entra cleanly. What do you configure in Entra Connect?",opts:["Password writeback","Group writeback","Alternate login ID (sign in with mail instead of UPN)","Seamless SSO only"],a:2,r:"A non-routable UPN can't be verified. <strong>Alternate login ID</strong> lets users sign in with a routable attribute such as <code>mail</code> instead of userPrincipalName."},
+{d:"d1",tag:"Connect vs Cloud Sync",q:"Sync three disconnected AD forests with a lightweight agent and HA via multiple active agents, no device sync or Exchange hybrid writeback needed. Which tool?",opts:["Entra Connect Sync","Entra Cloud Sync","AD FS","Manual bulk CSV"],a:1,r:"<strong>Cloud Sync</strong> uses lightweight agents, supports disconnected forests, and gives HA through multiple active agents. It does not do device sync or Exchange hybrid writeback, which none are needed here."},
+{d:"d1",tag:"Administrative units",q:"Regional helpdesk should reset passwords only for users in their region, without tenant-wide rights. What do you use?",opts:["Global Admin scoped by CA","Administrative unit for the region plus a scoped Password/Helpdesk Admin role over it","Password Administrator tenant-wide","Dynamic group with Owner rights"],a:1,r:"<strong>Administrative units</strong> scope a role to a subset of users. Assigning Helpdesk/Password Admin over the AU gives least-privilege, region-limited reset."},
+{d:"d1",tag:"User lifecycle",q:"An account was deleted two days ago. What is true about recovery?",opts:["Permanently gone, must recreate","Soft-deleted users restore within 30 days, keeping original objectID and attributes","Recoverable only via a support ticket","Only licenses restore, not the account"],a:1,r:"Deleted users are <strong>soft-deleted for 30 days</strong> and restore with the same objectID and assignments. After 30 days deletion is permanent."},
+{d:"d1",tag:"Device identity",q:"An employee enrolls a personal Windows laptop (BYOD) for some corporate access while keeping personal control. Which device state?",opts:["Entra hybrid joined","Entra joined","Entra registered","Domain joined only"],a:2,r:"<strong>Entra registered</strong> is the BYOD state: an Entra identity for SSO/CA on a user-owned device. Joined is cloud-owned corporate; hybrid joined is AD-joined plus Entra-registered."},
+{d:"d1",tag:"Bulk operations",q:"Onboard 400 users from an HR export at once. Most appropriate native method?",opts:["Create each manually","Bulk create CSV in the admin center, or <code>New-MgUser</code> in a script","Invite all as B2B guests","Use a dynamic group to create them"],a:1,r:"Native bulk provisioning uses <strong>Bulk create CSV</strong> or Graph PowerShell <code>New-MgUser</code>. Dynamic groups only manage membership, never create accounts."},
+
+{d:"d2",tag:"Auth methods / TAP",q:"A new hire has no password yet and must register a FIDO2 passkey on day one. What bootstraps registration?",opts:["Temporary Access Pass (TAP)","App password","SSPR link","OATH hardware token"],a:0,r:"A <strong>Temporary Access Pass</strong> is a time-limited passcode satisfying MFA, letting a user register strong methods without an existing password."},
+{d:"d2",tag:"CA logic",q:"CA policy grant controls: Require MFA AND Require compliant device. User passes MFA from a non-compliant device. Result?",opts:["Granted, one control met","Blocked, multiple grant controls default to AND","Granted in report-only only","Device auto-enrolls then grants"],a:1,r:"Multiple grant controls default to <strong>Require all (AND)</strong>. MFA alone is insufficient without a compliant device, so access is <strong>blocked</strong>."},
+{d:"d2",tag:"Report-only",q:"You deploy a new CA policy in report-only mode. Effect on users?",opts:["Blocks non-compliant, logs nothing","Enforces for admins only","No grant or block; only logs the would-be outcome","Applies after 24-hour delay"],a:2,r:"<strong>Report-only</strong> evaluates against real sign-ins and records the would-be result without enforcing, so you can validate impact before turning it On."},
+{d:"d2",tag:"Auth strengths",q:"Admins must sign in only with phishing-resistant methods (FIDO2, WHfB, or CBA). Which control enforces exactly that set?",opts:["Require MFA","Require an authentication strength (built-in Phishing-resistant MFA)","Require compliant device","Block legacy authentication"],a:1,r:"<strong>Authentication strengths</strong> demand a specific method set. The built-in <strong>Phishing-resistant MFA</strong> strength allows only FIDO2, WHfB, and CBA. Plain Require MFA still accepts SMS/push."},
+{d:"d2",tag:"Identity Protection",q:"ID Protection flags a sign-in high risk (anonymous IP, impossible travel) but the account is not compromised. Which policy challenges that session with MFA?",opts:["User risk policy requiring password change","Sign-in risk policy requiring MFA","Tenant-wide SSPR policy","Smart lockout"],a:1,r:"<strong>Sign-in risk</strong> = probability a request is illegitimate, remediated with a <strong>sign-in risk policy requiring MFA</strong>. User risk = account compromise, remediated with password change. Match risk type to policy."},
+{d:"d2",tag:"SSPR / writeback",q:"Hybrid users must reset cloud password via SSPR and have it written back to on-prem AD. What must be enabled?",opts:["Group writeback","Password writeback in Entra Connect (or Cloud Sync) plus SSPR enabled","Seamless SSO","Pass-through authentication only"],a:1,r:"<strong>Password writeback</strong> pushes SSPR resets back to on-prem AD so both stay in sync. Without it, the cloud reset never reaches Active Directory."},
+{d:"d2",tag:"CAE",q:"An admin disables a user. You need active tokens to stop working in near real time, not after up to an hour. What provides this?",opts:["Shorten token lifetime to 5 min","Continuous Access Evaluation (CAE)","A report-only CA policy","Sign-in frequency of 1 hour"],a:1,r:"<strong>CAE</strong> lets Exchange, SharePoint, Teams, and Graph revoke access near-instantly on critical events (disable, password reset, risk) instead of honoring a token to expiry."},
+{d:"d2",tag:"Legacy auth",q:"Stop sign-ins over legacy protocols (POP, IMAP, SMTP AUTH) that can't enforce MFA. Correct approach?",opts:["Delete the mailboxes","CA policy blocking legacy authentication clients","Enable security defaults and nothing else","Require SSPR for all"],a:1,r:"A CA policy scoped to the <strong>legacy authentication clients</strong> condition, set to Block, shuts down protocols that bypass modern auth. CA gives targeted control over blanket security defaults."},
+{d:"d2",tag:"MFA hardening",q:"Defend against MFA fatigue / accidental push approvals in Authenticator. Which feature?",opts:["Number matching (type the displayed number)","App passwords","Trusted IPs","Converged registration"],a:0,r:"<strong>Number matching</strong> forces the user to type a number shown on screen into Authenticator, so a blind Approve can't grant an attacker request. Now default for push."},
+{d:"d2",tag:"FIDO2",q:"Which method is BOTH passwordless AND phishing-resistant, binding the credential to the origin so it can't be replayed on a lookalike site?",opts:["SMS one-time code","Authenticator push with number matching","FIDO2 security key / passkey","OATH software token"],a:2,r:"<strong>FIDO2 (passkeys)</strong> use origin-bound public-key crypto, so a credential proven to one domain can't be phished on another. SMS/OATH are phishable; push is strong but not classed phishing-resistant."},
+{d:"d2",tag:"CA device targeting",q:"Apply a CA policy only to devices NOT marked compliant, using device attributes not user/app. What do you use?",opts:["Named locations","Filter for devices","Sign-in frequency","Terms of use"],a:1,r:"<strong>Filter for devices</strong> targets by device object attributes (compliance, model, OS, extension attributes), e.g. <code>device.isCompliant -ne True</code>."},
+{d:"d2",tag:"CA troubleshooting",q:"Simulate how a policy would evaluate for a specific user, app, and condition before enabling. Which tool?",opts:["Sign-in logs export","Conditional Access What If tool","PIM audit history","Access reviews"],a:1,r:"The <strong>What If</strong> tool feeds in user, app, device, location, and risk, then shows which CA policies apply and why, without affecting real sign-ins."},
+
+{d:"d3",tag:"App / SP model",q:"You grant an API permission to a gallery app in your tenant. Which object are you modifying?",opts:["The Application object owned by the publisher","The Service Principal (enterprise app) in your tenant","Both equally in every tenant","A managed identity"],a:1,r:"Each app has one global <strong>Application object</strong> plus a <strong>Service Principal</strong> per tenant. Consent, permissions, and user assignment happen on the <strong>service principal</strong> in your tenant."},
+{d:"d3",tag:"SSO protocol",q:"Integrate an older enterprise app that supports federated SSO via signed XML assertions. Which protocol?",opts:["OpenID Connect","OAuth 2.0 client credentials","SAML 2.0","Password-based SSO"],a:2,r:"Signed XML assertions = <strong>SAML 2.0</strong>, standard for legacy enterprise web apps. OIDC suits modern apps, OAuth handles API authorization, password-based SSO is a vaulted fallback."},
+{d:"d3",tag:"Managed identities",q:"Several Azure VMs and Function Apps must share one identity to reach Key Vault, surviving deletion of any single resource. Which?",opts:["System-assigned on each resource","User-assigned managed identity shared across them","App registration with a secret on each VM","Service principal with a certificate"],a:1,r:"A <strong>user-assigned managed identity</strong> is standalone, attachable to many resources, with an independent lifecycle. System-assigned is 1:1 and deleted with its resource. Managed identities work only for Azure resources."},
+{d:"d3",tag:"Permission types",q:"A nightly background service (no signed-in user) reads all users' calendars via Graph. Which permission type?",opts:["Delegated permissions","Application permissions with admin consent","Dynamic consent","User consent only"],a:1,r:"A daemon runs as itself, needing <strong>application permissions</strong>, which always require <strong>admin consent</strong>. Delegated permissions require a signed-in user."},
+{d:"d3",tag:"Consent workflow",q:"Users keep hitting apps needing permissions they can't grant. Provide a governed path for them to request admin approval. What do you enable?",opts:["Turn user consent fully on","Admin consent workflow (admin consent requests)","Password-based SSO","Security defaults"],a:1,r:"The <strong>admin consent workflow</strong> lets users request an app needing privileges they lack; reviewers approve or deny, keeping consent governed."},
+{d:"d3",tag:"App provisioning",q:"Auto-create new hires and deprovision leavers in a SaaS app from Entra assignments, using a standard protocol. What do you configure?",opts:["Monthly CSV export","Automatic user provisioning via SCIM in the enterprise app","B2B guest invitations","A dynamic group in the SaaS app"],a:1,r:"Entra <strong>app provisioning uses SCIM</strong> to push create/update/disable operations to supported SaaS apps, driven by assignment and attribute mapping."},
+{d:"d3",tag:"App registration control",q:"By default any user can register apps. Stop that while letting a delegated team still do it. Correct combination?",opts:["Leave defaults; rely on CA","Set 'Users can register applications' = No, assign Application Developer role to the team","Make everyone Global Admin","Block registration with DLP"],a:1,r:"Set <strong>Users can register applications = No</strong>, then grant the <strong>Application Developer</strong> role to specific people. Least-privilege delegation of registration."},
+
+{d:"d4",tag:"Entitlement mgmt",q:"External partners self-request a bundle (group, app, SharePoint site) with approval and 90-day expiry. Which feature?",opts:["Dynamic group","Access package in entitlement management with approval policy and expiration","Conditional Access","PIM role assignment"],a:1,r:"<strong>Access packages</strong> bundle resources into a governed self-service request flow with approvers, reviews, and <strong>expiration</strong>. Connected orgs let external users request them."},
+{d:"d4",tag:"PIM assignment",q:"Eliminate standing Global Admin. Admins hold the role but activate only when needed with justification. Which assignment?",opts:["Active permanent","Eligible requiring just-in-time activation","Dynamic group membership","CA exclusion"],a:1,r:"An <strong>eligible</strong> assignment grants no standing access; the admin does <strong>just-in-time activation</strong> (time-bound, justified, optional MFA/approval). Active is always-on standing access."},
+{d:"d4",tag:"Break-glass",q:"Correct practice for emergency access (break-glass) accounts?",opts:["Enroll in the same MFA policies as everyone","Cloud-only, excluded from CA MFA policies, strong credentials, sign-in monitoring/alerts","Federated from on-prem AD","Shared with the whole IT team by email"],a:1,r:"Break-glass accounts are <strong>cloud-only</strong>, <strong>excluded</strong> from CA that could lock them out, protected with long credentials, and <strong>closely alerted</strong> on use. Usually two are kept."},
+{d:"d4",tag:"Access reviews",q:"Guests accumulate. You want a recurring quarterly review; unreviewed guests lose access automatically. What do you configure?",opts:["A CA policy","Access review with recurrence and 'remove access' for denied/non-responded users","A dynamic group","PIM activation settings"],a:1,r:"<strong>Access reviews</strong> recur, route decisions to reviewers, and <strong>auto-apply results</strong>, removing access for denied or non-responding users. Ideal for guest hygiene."},
+{d:"d4",tag:"PIM activation",q:"For Privileged Role Administrator you require approval, MFA, and justification before activation. Where set?",opts:["CA grant controls","PIM role settings (activation requirements) for that role","User's authentication methods","Access package policy"],a:1,r:"Each role's <strong>PIM role settings</strong> define activation: max duration, require MFA, justification, approval and approvers, ticket info. Configured per role."},
+{d:"d4",tag:"Lifecycle Workflows",q:"On last day, auto-disable account, remove groups, revoke sessions, triggered by an attribute like employeeLeaveDateTime. Which feature?",opts:["Access packages","Lifecycle Workflows","Smart lockout","Conditional Access"],a:1,r:"<strong>Lifecycle Workflows</strong> automate joiner/mover/leaver tasks on time and attributes (<code>employeeLeaveDateTime</code>): disable, remove groups, revoke sessions."},
+{d:"d4",tag:"Terms of use",q:"External users must accept a legal agreement before app access, recorded for audit. What do you configure?",opts:["Terms of Use enforced via a CA grant control","An email disclaimer","A PIM approval","A dynamic group rule"],a:0,r:"Entra <strong>Terms of Use</strong> presents a document, enforced via a <strong>CA</strong> grant control, with acceptances logged for compliance."},
+{d:"d4",tag:"Package expiry",q:"An assigned access package reaches its expiration date. What happens to the user's resources?",opts:["Nothing, access is permanent","Access provisioned by the package is removed automatically","The user is deleted from the tenant","It converts to a PIM eligible role"],a:1,r:"At <strong>expiration</strong> entitlement management <strong>removes the access</strong> the package provisioned (groups, apps, sites). Automatic deprovisioning is a core benefit."},
+{d:"d4",tag:"PIM for Groups",q:"Need JIT, approval-gated membership of a security group that grants sensitive access. What do you use?",opts:["A dynamic membership rule","PIM for Groups (onboard the group, make users eligible)","An access review","Number matching"],a:1,r:"<strong>PIM for Groups</strong> brings JIT activation, approval, and time-bound assignment to group membership and ownership, extending PIM beyond directory roles."},
+],
+
+/* ========================= VARIANT 2 ========================= */
+v2:[
+{d:"d1",tag:"Cross-tenant sync",q:"After a merger, users from the acquired tenant should appear as B2B guests in your tenant automatically, provisioned and kept in sync. What do you configure?",opts:["Entra Connect Sync","Cross-tenant synchronization","A dynamic guest group","Manual B2B invitations"],a:1,r:"<strong>Cross-tenant synchronization</strong> automatically provisions and de-provisions B2B users from a source tenant into a target tenant, keeping them in sync, ideal for multi-tenant orgs and mergers."},
+{d:"d1",tag:"Guest restrictions",q:"Guests should not be able to enumerate other users, groups, or memberships in your directory. What do you set?",opts:["Delete guest accounts weekly","External collaboration settings: guest access to the most restrictive level","A CA policy blocking guests","Convert guests to members"],a:1,r:"In <strong>External collaboration settings</strong>, set guest user access to the <strong>most restrictive</strong> option so guests can't read other users' or groups' properties and memberships."},
+{d:"d1",tag:"Dynamic device group",q:"You need a group of all Windows devices. Which membership rule?",opts:["<code>(user.deviceOSType -eq \"Windows\")</code>","Dynamic device rule <code>(device.deviceOSType -eq \"Windows\")</code>","Assigned group updated manually","<code>(device.displayName -contains \"WIN\")</code>"],a:1,r:"A <strong>dynamic device</strong> group evaluates device attributes; <code>device.deviceOSType -eq \"Windows\"</code> captures all Windows devices reliably, unlike name matching which is fragile."},
+{d:"d1",tag:"Group lifecycle",q:"Stale Microsoft 365 groups pile up. You want owners to periodically confirm a group is still needed or have it deleted. What do you enable?",opts:["Group naming policy","Group expiration policy for M365 groups","Dynamic membership","Access package"],a:1,r:"The <strong>M365 group expiration policy</strong> requires owners to renew groups at an interval; unrenewed groups are deleted (and recoverable for 30 days). Naming policy only governs names."},
+{d:"d1",tag:"Sync scoping",q:"You must sync only users in specific on-prem OUs to Entra ID. Where do you configure this?",opts:["Dynamic groups in the cloud","Domain and OU filtering in Entra Connect","Administrative units","Cross-tenant access settings"],a:1,r:"<strong>Domain/OU-based filtering</strong> in Entra Connect controls which on-prem objects sync to the cloud. Cloud-side groups and AUs don't influence what synchronizes."},
+{d:"d1",tag:"UserType",q:"An external consultant, originally invited as a guest, is now a full employee and should have member-level directory access. What do you change?",opts:["Their license only","The UserType attribute from Guest to Member","Their MFA registration","Their manager attribute"],a:1,r:"The <strong>UserType</strong> attribute (Guest vs Member) drives default directory permissions. Converting the consultant to <strong>Member</strong> grants standard member access; a mailbox/license alone doesn't change permissions."},
+{d:"d1",tag:"Self-service groups",q:"You want users to request to join certain security groups with owner approval, reducing helpdesk load. What do you enable?",opts:["Dynamic membership","Self-service group management with owner approval","PIM for Groups","Access reviews"],a:1,r:"<strong>Self-service group management</strong> lets users request to join groups, with the group owner approving. Dynamic membership removes choice; PIM/reviews serve different governance goals."},
+{d:"d1",tag:"Deletion nuance",q:"An admin deletes a security group and an M365 group. Which is recoverable and for how long?",opts:["Both recoverable for 30 days","Only the M365 group is soft-deleted (30 days); the security group is permanently deleted","Neither is recoverable","Both permanently deleted immediately"],a:1,r:"<strong>M365 groups</strong> are soft-deleted and restorable for <strong>30 days</strong>. Standard <strong>security groups</strong> are hard-deleted immediately with no restore, a common exam trap."},
+{d:"d1",tag:"Tenant architecture",q:"A multinational firm has strict data-residency rules requiring some staff data to stay in a separate directory boundary, while still centralizing collaboration. Which approach fits best?",opts:["Single tenant only","Multi-tenant architecture with cross-tenant access/sync where collaboration is needed","B2C tenant","Security defaults"],a:1,r:"Hard data-residency or administrative-isolation requirements point to a <strong>multi-tenant</strong> design, bridged by cross-tenant access settings and synchronization for collaboration. A single tenant can't enforce separate directory boundaries."},
+
+{d:"d2",tag:"Passwordless phone",q:"You want users to sign in passwordless using Microsoft Authenticator phone sign-in. Where do you enable it?",opts:["Per-user MFA legacy portal","Authentication methods policy (Microsoft Authenticator, passwordless mode)","SSPR settings","Security defaults"],a:1,r:"Passwordless phone sign-in is enabled in the <strong>Authentication methods policy</strong> by setting Microsoft Authenticator to allow passwordless (or any) mode and scoping target users."},
+{d:"d2",tag:"OATH tokens",q:"A user in a no-signal secure area needs MFA without push or SMS. Which method suits?",opts:["SMS code","OATH hardware/software token (TOTP)","Voice call","Email OTP"],a:1,r:"<strong>OATH TOTP tokens</strong> generate time-based codes offline with no network dependency, fitting isolated environments where push, SMS, and calls fail."},
+{d:"d2",tag:"CBA",q:"You want cloud-native certificate-based authentication for smartcards without deploying AD FS. What supports this?",opts:["Federated CBA via AD FS only","Entra certificate-based authentication (cloud CBA)","Password-based SSO","OAuth client credentials"],a:1,r:"<strong>Entra CBA</strong> validates X.509 certificates directly against the cloud, no federation server needed, and counts as phishing-resistant MFA."},
+{d:"d2",tag:"Sign-in frequency",q:"A finance app must force re-authentication every 4 hours regardless of token lifetime. Which CA control?",opts:["Grant: require MFA","Session: sign-in frequency set to 4 hours","Grant: require compliant device","Block legacy auth"],a:1,r:"The <strong>sign-in frequency</strong> session control forces periodic reauthentication at a defined interval, overriding default token lifetimes for sensitive apps."},
+{d:"d2",tag:"Persistent browser",q:"On shared/unmanaged devices you want to stop 'Stay signed in' persistent sessions. Which CA control?",opts:["Sign-in frequency","Persistent browser session set to Never persistent","Require MFA","Named locations"],a:1,r:"The <strong>persistent browser session</strong> session control set to <strong>Never persistent</strong> stops sessions surviving browser close, reducing risk on shared devices."},
+{d:"d2",tag:"App-enforced restrictions",q:"Users on unmanaged devices should get web-only, download-blocked access to SharePoint/Exchange. Which CA session control?",opts:["Conditional Access App Control (MDCA)","Use app-enforced restrictions","Sign-in frequency","Require hybrid join"],a:1,r:"<strong>App-enforced restrictions</strong> pass device state to SharePoint/Exchange, which apply limited web-only, no-download access on unmanaged devices."},
+{d:"d2",tag:"Named locations",q:"What does defining a named location as 'trusted' let you do in Conditional Access?",opts:["Automatically grant Global Admin","Build policies that include/exclude by that location, e.g. skip MFA prompts on corporate network (use cautiously)","Encrypt traffic","Replace MFA entirely"],a:1,r:"<strong>Named locations</strong> (IP ranges or countries) can be marked trusted and used as CA conditions to include or exclude sign-ins, though excluding MFA by location weakens posture and is used carefully."},
+{d:"d2",tag:"Licensing",q:"Risk-based Conditional Access using user risk and sign-in risk conditions requires which license?",opts:["Entra ID Free","Entra ID P1","Entra ID P2","No license"],a:2,r:"Risk-based policies driven by <strong>Identity Protection</strong> (user risk / sign-in risk) require <strong>Entra ID P2</strong>. P1 covers standard Conditional Access without risk signals."},
+{d:"d2",tag:"Country block",q:"Block all sign-ins originating from countries where you have no operations. What do you configure?",opts:["Smart lockout","A named location for those countries plus a CA policy set to Block","SSPR","Number matching"],a:1,r:"Define a <strong>country/region named location</strong>, then a CA policy targeting it with <strong>Block</strong> access. This geo-fences sign-ins."},
+{d:"d2",tag:"Windows Hello",q:"You want cloud-only Windows Hello for Business with no on-prem certificate infrastructure and access to on-prem resources via Kerberos. Which trust model?",opts:["Certificate trust","Key trust","Cloud Kerberos trust","AD FS trust"],a:2,r:"<strong>Cloud Kerberos trust</strong> is the recommended simplest WHfB deployment: uses Entra Kerberos so users reach on-prem resources without deploying a PKI/cert-trust model."},
+{d:"d2",tag:"Smart lockout",q:"What does smart lockout protect against, and how?",opts:["Phishing, by blocking links","Brute-force/password-spray, by locking accounts after failed attempts while distinguishing attacker traffic from the real user","MFA fatigue","Token theft"],a:1,r:"<strong>Smart lockout</strong> locks accounts after a threshold of failed sign-ins to slow brute-force and spray, while using familiarity signals to avoid locking out the genuine user."},
+{d:"d2",tag:"Registration campaign",q:"You want to nudge users still on SMS/voice to set up Microsoft Authenticator during sign-in. What do you use?",opts:["SSPR","Authentication method registration campaign","Number matching","Terms of Use"],a:1,r:"A <strong>registration campaign</strong> prompts targeted users during sign-in to set up a stronger method (Authenticator), moving the tenant off weaker SMS/voice."},
+
+{d:"d3",tag:"Require assignment",q:"An enterprise app should only be accessible to users you explicitly assign, not everyone in the tenant. What do you set?",opts:["Delete the service principal","Set 'Assignment required?' = Yes on the enterprise app, then assign users/groups","Change the app registration owner","Grant admin consent"],a:1,r:"Setting <strong>Assignment required = Yes</strong> on the enterprise application restricts access to explicitly assigned users/groups. Otherwise any user in the tenant can access it."},
+{d:"d3",tag:"App credentials",q:"For a confidential app authenticating to Graph, which credential is more secure and recommended over a client secret?",opts:["A shared password","A certificate credential","A username","An API key in the query string"],a:1,r:"A <strong>certificate</strong> credential is preferred over a client secret: stronger, and secrets are prone to leakage and expiry mismanagement. Rotate before expiry either way."},
+{d:"d3",tag:"Redirect URI",q:"A single-page app fails auth with a redirect mismatch error. What must be correctly configured on the app registration?",opts:["The client secret","The redirect URI (reply URL) matching the app's callback, with the SPA platform type","A managed identity","App-enforced restrictions"],a:1,r:"The <strong>redirect URI</strong> must exactly match the app's configured callback and use the correct platform type (SPA). Mismatches cause redirect errors during the OAuth/OIDC flow."},
+{d:"d3",tag:"Managed identity + Key Vault",q:"An Azure Function uses a system-assigned managed identity to read secrets from Key Vault. What grants it access under RBAC?",opts:["A client secret in app settings","A Key Vault RBAC role assignment (e.g. Key Vault Secrets User) to the identity","A dynamic group","Admin consent"],a:1,r:"Assign the managed identity a <strong>Key Vault RBAC role</strong> such as Key Vault Secrets User (or an access policy on the vault). No stored secret is needed, the identity authenticates itself."},
+{d:"d3",tag:"Token types",q:"In OIDC, which token proves the user's identity to the client application?",opts:["Access token","ID token","Refresh token","SAML assertion"],a:1,r:"The <strong>ID token</strong> conveys authenticated user identity/claims to the client (OIDC). The access token authorizes API calls; the refresh token obtains new tokens."},
+{d:"d3",tag:"Risky OAuth consent",q:"You discover a suspicious third-party app users consented to, pulling mail data. Immediate remediation?",opts:["Delete all user accounts","Disable/remove the app's service principal and revoke its granted permissions, then restrict user consent","Reset the tenant","Enable SSPR"],a:1,r:"Contain an illicit consent grant by <strong>disabling the service principal and revoking its permissions</strong>, then tighten <strong>user consent settings</strong> so risky apps need admin consent going forward."},
+{d:"d3",tag:"User consent policy",q:"You want users to consent only to apps from verified publishers requesting low-risk delegated permissions. What do you configure?",opts:["Turn off all consent","Configure user consent settings to 'allow for verified publishers, selected permissions'","Make all users admins","Block app registration"],a:1,r:"Entra <strong>user consent settings</strong> can restrict consent to apps from <strong>verified publishers</strong> for a curated set of low-risk permissions, balancing usability and safety."},
+
+{d:"d4",tag:"Review privileged roles",q:"You must periodically recertify who holds privileged directory roles and remove stale assignments. What do you use?",opts:["A dynamic group","Access reviews for Entra roles (integrated with PIM)","Smart lockout","Terms of Use"],a:1,r:"<strong>Access reviews for directory roles</strong>, integrated with PIM, let reviewers recertify privileged role holders on a schedule and auto-remove those denied."},
+{d:"d4",tag:"Catalog",q:"In entitlement management, what is a catalog?",opts:["A billing report","A container that groups resources (groups, apps, sites) and can have delegated owners for access packages","A CA policy set","A PIM role"],a:1,r:"A <strong>catalog</strong> is a container of resources used to build access packages, with <strong>delegated catalog owners</strong> so non-global admins can manage their own access packages."},
+{d:"d4",tag:"Connected org",q:"You want partner-company users from a specific external tenant/domain to request access packages. What do you define?",opts:["A dynamic group","A connected organization","A named location","A break-glass account"],a:1,r:"A <strong>connected organization</strong> defines an external partner (by tenant or domain) so its users can be scoped as eligible requestors for access packages."},
+{d:"d4",tag:"PIM alerts",q:"Which is a built-in PIM security alert you'd act on?",opts:["'A user changed their theme'","'There are too many global administrators' / 'Roles are being assigned outside of PIM'","'A file was downloaded'","'MFA was used'"],a:1,r:"PIM surfaces <strong>security alerts</strong> like too many global admins, roles assigned outside PIM, or stale/unused privileged roles, guiding least-privilege cleanup."},
+{d:"d4",tag:"Least privilege role",q:"A helpdesk lead needs to manage users and reset passwords but nothing else. Which built-in role?",opts:["Global Administrator","User Administrator","Security Administrator","Privileged Role Administrator"],a:1,r:"<strong>User Administrator</strong> covers user management and password resets (with limits on admins), granting far less than Global Admin. Match tasks to the narrowest built-in role."},
+{d:"d4",tag:"PIM approval",q:"When a role requires approval to activate, what happens on request?",opts:["Activation is instant, no review","The request goes to designated approvers who approve/deny before activation","The user is deleted","MFA is disabled"],a:1,r:"With approval required, the activation request is routed to <strong>designated approvers</strong>; the role activates only after approval, adding a human control to privileged elevation."},
+{d:"d4",tag:"Inactive user review",q:"You want an access review that recommends removing users who haven't signed in recently. What supports this?",opts:["Manual guessing","Access reviews with inactivity-based recommendations (last sign-in)","Smart lockout","Named locations"],a:1,r:"<strong>Access reviews</strong> can surface <strong>recommendations</strong> based on sign-in inactivity, helping reviewers deny access for dormant accounts quickly."},
+{d:"d4",tag:"Separation of duties",q:"You want to prevent a user from holding two access packages that together grant conflicting/excessive access. What do you configure?",opts:["A dynamic group","Separation of duties (incompatible access packages) in entitlement management","A CA policy","Smart lockout"],a:1,r:"Entitlement management <strong>separation of duties</strong> marks access packages as incompatible, blocking a user from requesting one if they already hold a conflicting one."},
+{d:"d4",tag:"Global admin count",q:"What is Microsoft's guidance on Global Administrator assignments?",opts:["Assign to everyone in IT","Keep the number small (commonly fewer than ~5), prefer eligible via PIM, use least-privilege roles otherwise","Never assign any","Assign permanently to all admins"],a:1,r:"Guidance is to <strong>minimize Global Admins</strong>, make them PIM-eligible rather than standing, keep dedicated break-glass accounts, and use least-privilege roles for everything else."},
+],
+
+/* ========================= VARIANT 3 ========================= */
+v3:[
+{d:"d1",tag:"Guest to member",q:"A long-term guest is hired. Beyond a mailbox, what single attribute change grants standard employee directory access?",opts:["accountEnabled","UserType set to Member","department","usageLocation"],a:1,r:"<strong>UserType = Member</strong> gives default member-level directory permissions. Guests are restricted by design; flipping UserType (not licensing) changes the access tier."},
+{d:"d1",tag:"Rule operators",q:"You need a dynamic group for users whose job title contains 'Nurse' anywhere in the string. Which operator?",opts:["<code>-eq</code>","<code>-contains</code>","<code>-startsWith</code>","<code>-in</code>"],a:1,r:"<code>-contains</code> matches a substring within an attribute value, so <code>(user.jobTitle -contains \"Nurse\")</code> captures Nurse, Head Nurse, etc. <code>-eq</code> needs an exact match; <code>-in</code> tests membership in a list."},
+{d:"d1",tag:"Sponsors",q:"You want an internal employee accountable for each guest, able to be used in approval and review flows. Which feature?",opts:["Manager attribute only","The Sponsors feature for guests","Dynamic groups","PIM"],a:1,r:"The <strong>Sponsors</strong> capability assigns internal owners to guest accounts, usable in entitlement management approvals and access reviews to keep external accounts accountable."},
+{d:"d1",tag:"Connect health",q:"You want to monitor sync errors, latency, and agent status for your hybrid identity infrastructure. What do you use?",opts:["Smart lockout","Microsoft Entra Connect Health","Access reviews","Named locations"],a:1,r:"<strong>Entra Connect Health</strong> monitors sync engine, agents, AD FS, and AD DS health, surfacing sync errors and alerts for hybrid identity."},
+{d:"d1",tag:"Source anchor",q:"To support a future domain rename and reliable object matching, which source anchor does Entra Connect recommend?",opts:["objectGUID only","<code>ms-DS-ConsistencyGuid</code>","sAMAccountName","UPN"],a:1,r:"<strong>ms-DS-ConsistencyGuid</strong> is the recommended source anchor (immutableId): it's writable, survives forest migrations/renames, and avoids the fragility of using UPN or account names."},
+{d:"d1",tag:"Auth method choice",q:"You want cloud authentication with on-prem password validation kept at the domain controller and no password hashes stored in the cloud. Which sign-in method?",opts:["Password hash synchronization","Pass-through authentication (PTA)","Federation with AD FS","B2B"],a:1,r:"<strong>Pass-through authentication</strong> validates passwords against on-prem DCs via agents, storing no hashes in the cloud. PHS syncs hashes; federation adds AD FS complexity."},
+{d:"d1",tag:"Company branding",q:"You must show a localized sign-in page with company logo and text per language. What do you configure?",opts:["A CA policy","Company branding in Entra ID (with language-specific variants)","A dynamic group","Terms of Use"],a:1,r:"<strong>Company branding</strong> customizes the sign-in experience (logo, background, text) and supports <strong>per-language</strong> variants shown based on the browser locale."},
+{d:"d1",tag:"Restricted AU",q:"You need an admin unit whose members can ONLY be managed by explicitly assigned admins, blocking even tenant-level role holders. Which feature?",opts:["Standard administrative unit","Restricted management administrative unit","Dynamic group","Access package"],a:1,r:"A <strong>restricted management administrative unit</strong> protects its members so only admins scoped to that AU (not tenant-wide role holders) can modify them, useful for sensitive/executive accounts."},
+{d:"d1",tag:"Combined registration",q:"You want users to register MFA and SSPR methods in a single unified experience. What provides this?",opts:["Legacy SSPR portal only","Combined security information registration","Smart lockout","Number matching"],a:1,r:"<strong>Combined registration</strong> lets users set up MFA and SSPR methods in one place, replacing the separate legacy flows."},
+
+{d:"d2",tag:"Methods policy migration",q:"Your tenant still uses legacy MFA and SSPR method controls. Microsoft directs you to consolidate. Where should methods now be managed?",opts:["Per-user MFA portal","The Authentication methods policy (converged management)","SSPR-only blade","Security defaults"],a:1,r:"The <strong>Authentication methods policy</strong> is the modern, converged place to enable/scope methods, superseding the legacy MFA and SSPR method settings that are being retired."},
+{d:"d2",tag:"Token protection",q:"You want to bind sign-in session tokens to a device so stolen tokens can't be replayed elsewhere, for specific desktop apps. Which CA control?",opts:["Sign-in frequency","Require token protection for sign-in sessions","Persistent browser","Named locations"],a:1,r:"<strong>Token protection</strong> (token binding) cryptographically ties a session token to the device, so exfiltrated tokens fail on other machines. Currently scoped to certain desktop clients."},
+{d:"d2",tag:"App protection policy",q:"On mobile, corporate data in Outlook/Teams must be protected by Intune app protection (MAM) without full device enrollment. Which CA grant control?",opts:["Require compliant device","Require app protection policy","Require hybrid join","Require MFA"],a:1,r:"<strong>Require app protection policy</strong> enforces Intune MAM (approved apps with data-protection policies) without requiring device enrollment, fitting BYOD mobile."},
+{d:"d2",tag:"Device grant OR",q:"You want to allow access only from devices that are hybrid Entra joined OR compliant. How do you set grant controls?",opts:["Select both and require all","Select both hybrid-join and compliant, then choose 'Require one of the selected controls'","Use two separate blocking policies","Filter for devices only"],a:1,r:"Selecting multiple controls and choosing <strong>Require one of the selected controls</strong> makes them OR, so either hybrid-joined or compliant satisfies the policy."},
+{d:"d2",tag:"Sign-in risk self-remediation",q:"For a medium sign-in risk, how can a user self-remediate and clear the risk without admin help?",opts:["Reinstall the OS","Complete MFA, which can automatically remediate the sign-in risk","Delete cookies","Call the helpdesk only"],a:1,r:"A sign-in risk policy requiring MFA lets the user <strong>self-remediate</strong>: successful MFA confirms legitimacy and can auto-close the sign-in risk event."},
+{d:"d2",tag:"User risk self-remediation",q:"To let users self-remediate high USER risk via a secure password change, what must be in place (hybrid)?",opts:["Only MFA","SSPR enabled plus password writeback, with a user-risk policy requiring password change","Named locations","Legacy MFA portal"],a:1,r:"A user-risk policy requiring <strong>password change</strong> needs <strong>SSPR</strong> so users can reset, plus <strong>password writeback</strong> in hybrid so the reset reaches on-prem AD; a successful secure change clears user risk."},
+{d:"d2",tag:"Report suspicious activity",q:"A user gets an MFA prompt they didn't initiate. Which capability lets them flag it, potentially raising their risk and alerting admins?",opts:["Number matching","Report suspicious activity (fraud alert)","Smart lockout","TAP"],a:1,r:"<strong>Report suspicious activity</strong> lets the user flag an unexpected MFA request; it can elevate the user's risk in Identity Protection and notify admins of possible compromise."},
+{d:"d2",tag:"Workload identity CA",q:"You want Conditional Access to restrict a service principal's sign-ins by location and block on detected workload-identity risk. What licensing/feature enables this?",opts:["It's impossible for service principals","Conditional Access for workload identities (requires Workload Identities Premium)","Standard user CA only","Security defaults"],a:1,r:"<strong>Conditional Access for workload identities</strong> applies location and risk controls to service principals, licensed via <strong>Microsoft Entra Workload ID Premium</strong>."},
+{d:"d2",tag:"TAP one-time",q:"For a one-off passwordless registration you want a Temporary Access Pass usable exactly once. What setting?",opts:["Multi-use TAP","One-time TAP (single use)","Permanent TAP","No expiry"],a:1,r:"A TAP can be issued as <strong>one-time</strong> (consumed on first use) or <strong>multi-use</strong> within its lifetime. For a single registration, choose one-time for tighter control."},
+{d:"d2",tag:"Platform condition",q:"You must block access from personal Android/iOS while allowing Windows corporate machines. Which CA condition targets this?",opts:["Sign-in risk","Device platforms condition (with grant/block)","Named locations","User risk"],a:1,r:"The <strong>device platforms</strong> condition scopes a policy to specific OS platforms (Windows, iOS, Android, macOS), which you pair with grant/block and compliance controls."},
+{d:"d2",tag:"Custom auth strength",q:"None of the built-in authentication strengths matches your exact allowed method set. What do you do?",opts:["Use Require MFA instead","Create a custom authentication strength selecting the exact allowed combinations","File a support ticket","Disable CA"],a:1,r:"You can define a <strong>custom authentication strength</strong> choosing the precise method combinations allowed, then reference it in a CA grant control."},
+
+{d:"d3",tag:"User consent scope",q:"You want to permit user consent only for delegated permissions classified as low risk. What do you configure?",opts:["Disable all consent","User consent settings allowing consent for classified low-risk permissions","Make users admins","Block sign-ins"],a:1,r:"Configure <strong>user consent settings</strong> plus permission classifications so users can consent only to <strong>low-risk delegated permissions</strong>; anything else routes to admin consent."},
+{d:"d3",tag:"App roles",q:"Your app needs to expose Admin vs Reader access enforced via a claim in the token. What do you define on the app?",opts:["Managed identities","App roles (appRoles), assigned to users/groups, surfaced in the roles claim","Named locations","Client secrets"],a:1,r:"<strong>App roles</strong> are defined on the app registration and assigned to users/groups; Entra emits them in the <strong>roles</strong> claim so the app enforces role-based authorization."},
+{d:"d3",tag:"Group claims",q:"A SAML app authorizes based on group membership. How do you get groups into the token?",opts:["Add a client secret","Configure a groups claim in the app's token/optional claims","Use a dynamic group only","Enable SSPR"],a:1,r:"Configure the <strong>groups claim</strong> (optional claims / token configuration) so the user's group memberships (or assigned groups) are emitted in the SAML/OIDC token for the app to authorize on."},
+{d:"d3",tag:"Workload identity federation",q:"A GitHub Actions pipeline must authenticate to Entra to deploy Azure resources without storing a secret. What do you configure?",opts:["A long-lived client secret","Workload identity federation (federated credentials) on the app/managed identity","A user password","A dynamic group"],a:1,r:"<strong>Workload identity federation</strong> lets external workloads (GitHub, other OIDC issuers) exchange their own token for Entra tokens using <strong>federated credentials</strong>, eliminating stored secrets."},
+{d:"d3",tag:"SP sign-in logs",q:"You need to audit how and from where a service principal authenticated. Where do you look?",opts:["User sign-in logs only","Service principal sign-in logs in Entra monitoring","SSPR logs","Smart lockout reports"],a:1,r:"Entra provides dedicated <strong>service principal sign-in logs</strong> (and managed identity sign-ins) separate from interactive user logs, for auditing workload identity activity."},
+{d:"d3",tag:"Who can consent",q:"You must ensure only specific admins can grant tenant-wide admin consent to apps. Which role is appropriate and least-privileged?",opts:["Global Administrator for everyone","Cloud Application Administrator (or Application Administrator) for the delegated few","Guest Inviter","Reports Reader"],a:1,r:"<strong>Cloud Application Administrator</strong> / Application Administrator can manage enterprise apps and grant admin consent, a least-privileged alternative to handing out Global Admin."},
+{d:"d3",tag:"Credential rotation",q:"An app's client secret expires next week, risking an outage. Best practice?",opts:["Ignore it","Proactively generate a new secret/certificate, update the app, then remove the old one before expiry","Delete the app","Convert users to guests"],a:1,r:"Rotate ahead of expiry: <strong>add the new credential, deploy it, then remove the old</strong>, avoiding downtime. Prefer certificates and track expiries to prevent surprise outages."},
+
+{d:"d4",tag:"Multi-stage approval",q:"An access package for contractors needs approval first by the manager, then by a resource owner. What do you configure?",opts:["A single approver","A multi-stage approval in the access package policy","A dynamic group","Smart lockout"],a:1,r:"Access package request policies support <strong>multi-stage approval</strong>, routing sequentially (e.g., manager then resource owner) before access is granted."},
+{d:"d4",tag:"Activation ticket",q:"For a role activation you must require a change/ticket number for audit traceability. Where set?",opts:["CA policy","PIM role setting requiring ticket information on activation","Dynamic group","SSPR"],a:1,r:"PIM <strong>role settings</strong> can require <strong>ticket information</strong> (and justification) on activation, tying privileged elevation to a tracked work item."},
+{d:"d4",tag:"Apply results",q:"After an access review completes, what determines whether denied users are actually removed?",opts:["It's always automatic","Whether 'auto-apply results' is enabled; otherwise an admin applies decisions manually","Smart lockout","Named locations"],a:1,r:"Access reviews can <strong>auto-apply</strong> results on completion, or leave decisions for an admin to <strong>apply manually</strong>. Without auto-apply, denials don't remove access on their own."},
+{d:"d4",tag:"Internal vs external policy",q:"One access package must be requestable by both internal staff and external partners with different rules. How?",opts:["Two separate packages always","Multiple assignment policies on the same access package (one for internal, one for connected-org users)","A dynamic group","A CA policy"],a:1,r:"An access package can hold <strong>multiple assignment policies</strong>, each scoping a different requestor population (internal users vs connected-org externals) with its own approval and lifecycle."},
+{d:"d4",tag:"PIM for Azure resources",q:"You must give JIT elevation to an Azure subscription Contributor role, not an Entra directory role. Which PIM scope?",opts:["PIM for Entra roles","PIM for Azure (resource) roles","PIM for Groups","Access reviews"],a:1,r:"<strong>PIM for Azure resources</strong> manages just-in-time activation of Azure RBAC roles at management group/subscription/RG/resource scope, distinct from PIM for Entra directory roles."},
+{d:"d4",tag:"Review recommendations",q:"To speed a large access review, reviewers want system guidance on each decision. What does Entra provide?",opts:["Nothing","Recommendations based on last sign-in / activity to guide approve or deny","Automatic deletion of all users","Random decisions"],a:1,r:"Access reviews offer <strong>recommendations</strong> (e.g., based on sign-in activity or peer analysis) to help reviewers decide quickly and consistently across many users."},
+{d:"d4",tag:"Pre-hire workflow",q:"You want a Lifecycle Workflow to generate a Temporary Access Pass and notify the manager a few days before a new hire's start date. Which workflow category?",opts:["Leaver","Joiner (pre-hire scheduled task)","Mover","Break-glass"],a:1,r:"A <strong>joiner</strong> Lifecycle Workflow can run scheduled pre-hire tasks, such as generating a <strong>TAP</strong> and emailing the manager, offset relative to <code>employeeHireDate</code>."},
+{d:"d4",tag:"Custom security attributes",q:"You want to tag sensitive service principals/users with business metadata and later filter or govern by it, with delegated attribute management. What do you use?",opts:["Extension attributes only","Custom security attributes (with Attribute Definition/Assignment admin roles)","Named locations","Smart lockout"],a:1,r:"<strong>Custom security attributes</strong> add governed, access-controlled metadata to objects (users, service principals), manageable via dedicated attribute admin roles and usable in filtering/ABAC scenarios."},
+],
+};
+
+/* -------- render -------- */
+const app = document.getElementById('app');
+const state = {v1:{}, v2:{}, v3:{}};
+let variant = "v1";
+let filter = "all";
+
+function optLetter(i){return ["A","B","C","D","E"][i]}
+
+function buildVariants(){
+  const c=document.getElementById('variants');
+  const meta={v1:"Set A",v2:"Set B",v3:"Set C"};
+  c.innerHTML='';
+  Object.keys(VARIANTS).forEach(v=>{
+    const b=document.createElement('button');
+    b.className='vtab'+(variant===v?' active':'');
+    b.innerHTML='Variant '+v.slice(1)+'<small>'+meta[v]+' \u00b7 '+VARIANTS[v].length+' Q</small>';
+    b.onclick=()=>{variant=v;filter="all";buildVariants();buildFilters();render();window.scrollTo({top:0,behavior:'smooth'});};
+    c.appendChild(b);
+  });
+}
+
+function buildFilters(){
+  const f=document.getElementById('filters');
+  const mk=(id,label)=>{const b=document.createElement('button');b.className='pill'+(filter===id?' active':'');b.textContent=label;b.onclick=()=>{filter=id;render();buildFilters();};return b;};
+  f.innerHTML='';
+  f.appendChild(mk('all','All domains'));
+  DOMAINS.forEach(d=>f.appendChild(mk(d.id, d.num+' \u00b7 '+d.name.split(' ').slice(-2).join(' '))));
+}
+
+function render(){
+  const Q=VARIANTS[variant];
+  app.innerHTML='';
+  DOMAINS.forEach(dom=>{
+    if(filter!=="all" && filter!==dom.id) return;
+    const items=Q.map((q,i)=>({q,i})).filter(x=>x.q.d===dom.id);
+    const sec=document.createElement('section');
+    sec.className='domain';sec.id=dom.id;
+    sec.innerHTML='<div class="domain-head"><span class="domain-num">'+dom.num+'</span><h2>'+dom.name+'</h2><span class="weight">'+dom.weight+' \u00b7 '+items.length+' Q</span></div>';
+    items.forEach(({q,i})=>sec.appendChild(card(q,i)));
+    app.appendChild(sec);
+  });
+  updateScore();
+}
+
+function card(q,i){
+  const st=state[variant][i]||{sel:null,checked:false};
+  const el=document.createElement('div');
+  el.className='q'+(st.checked?' locked':'');
+  el.innerHTML='<div class="q-tag">'+q.tag+'</div><div class="q-text">'+q.q+'</div>';
+  const opts=document.createElement('div');opts.className='opts';
+  q.opts.forEach((o,oi)=>{
+    const opt=document.createElement('div');
+    let cls='opt';
+    if(st.checked){if(oi===q.a)cls+=' correct';else if(oi===st.sel)cls+=' wrong';}
+    else if(st.sel===oi)cls+=' sel';
+    opt.className=cls;
+    opt.innerHTML='<span class="key">'+optLetter(oi)+'</span><span>'+o+'</span>';
+    if(!st.checked)opt.onclick=()=>{state[variant][i]={sel:oi,checked:false};render();};
+    opts.appendChild(opt);
+  });
+  el.appendChild(opts);
+  const actions=document.createElement('div');actions.className='q-actions';
+  const btn=document.createElement('button');btn.className='check';btn.textContent=st.checked?'Checked':'Check';
+  btn.disabled=st.sel===null||st.checked;
+  btn.onclick=()=>{state[variant][i]={sel:st.sel,checked:true};render();};
+  actions.appendChild(btn);
+  if(st.checked){
+    const v=document.createElement('span');const ok=st.sel===q.a;
+    v.className='verdict '+(ok?'ok':'no');
+    v.textContent=ok?'Correct':'Correct answer: '+optLetter(q.a);
+    actions.appendChild(v);
+  }
+  el.appendChild(actions);
+  const rat=document.createElement('div');
+  rat.className='rationale'+(st.checked?' show':'');
+  rat.innerHTML='<span class="lbl">Rationale</span>'+q.r;
+  el.appendChild(rat);
+  return el;
+}
+
+function updateScore(){
+  const Q=VARIANTS[variant];
+  const s=state[variant];
+  const answered=Object.values(s).filter(x=>x.checked).length;
+  const correct=Object.entries(s).filter(([i,x])=>x.checked&&x.sel===Q[i].a).length;
+  document.getElementById('s-correct').textContent=correct;
+  document.getElementById('s-answered').textContent=answered;
+  document.getElementById('s-total').textContent=Q.length;
+  const pctAnswered=answered?correct/answered:0;
+  document.getElementById('s-bar').style.width=(pctAnswered*100)+'%';
+
+  const scaledEl=document.getElementById('s-scaled');
+  const projected=Math.round((correct/Q.length)*1000);
+  if(answered===0){
+    scaledEl.textContent='\u2014 / 1000';scaledEl.className='scaled';
+  } else if(answered<Q.length){
+    scaledEl.innerHTML='~<b>'+projected+'</b> / 1000 <span style="opacity:.6">so far</span>';
+    scaledEl.className='scaled';
+  } else {
+    const pass=pctAnswered>=PASS;
+    scaledEl.innerHTML='<b>'+projected+'</b> / 1000 \u00b7 '+(pass?'PASS':'NOT YET');
+    scaledEl.className='scaled '+(pass?'pass':'fail');
+  }
+}
+
+document.getElementById('reset').onclick=()=>{state[variant]={};render();};
+
+buildVariants();
+buildFilters();
+render();
+</script>
+</body>
+</html>

@@ -275,6 +275,26 @@ let filter = "all";
 
 function optLetter(i){return ["A","B","C","D","E"][i]}
 
+// Fisher-Yates shuffle in place, returns the array.
+function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
+
+// Per-variant randomized layout: question order within each domain, and option
+// order within each question. Built once per variant so it stays stable across
+// re-renders and clicks; regenerated on Reset. Correctness keys off the original
+// option index, so only display order is shuffled.
+const layouts={};
+function buildLayout(v){
+  const Q=VARIANTS[v];
+  const qOrder={};
+  DOMAINS.forEach(d=>{qOrder[d.id]=[];});
+  Q.forEach((q,i)=>{if(qOrder[q.d])qOrder[q.d].push(i);});
+  Object.keys(qOrder).forEach(k=>shuffle(qOrder[k]));
+  const optOrder={};
+  Q.forEach((q,i)=>{optOrder[i]=shuffle(q.opts.map((_,oi)=>oi));});
+  layouts[v]={qOrder,optOrder};
+}
+function ensureLayout(v){if(!layouts[v])buildLayout(v);}
+
 function buildVariants(){
   const c=document.getElementById('variants');
   const meta={v1:"Set A",v2:"Set B",v3:"Set C"};
@@ -297,15 +317,17 @@ function buildFilters(){
 }
 
 function render(){
+  ensureLayout(variant);
   const Q=VARIANTS[variant];
+  const layout=layouts[variant];
   app.innerHTML='';
   DOMAINS.forEach(dom=>{
     if(filter!=="all" && filter!==dom.id) return;
-    const items=Q.map((q,i)=>({q,i})).filter(x=>x.q.d===dom.id);
+    const order=layout.qOrder[dom.id]||[];
     const sec=document.createElement('section');
     sec.className='domain';sec.id=dom.id;
-    sec.innerHTML='<div class="domain-head"><span class="domain-num">'+dom.num+'</span><h2>'+dom.name+'</h2><span class="weight">'+dom.weight+' \u00b7 '+items.length+' Q</span></div>';
-    items.forEach(({q,i})=>sec.appendChild(card(q,i)));
+    sec.innerHTML='<div class="domain-head"><span class="domain-num">'+dom.num+'</span><h2>'+dom.name+'</h2><span class="weight">'+dom.weight+' \u00b7 '+order.length+' Q</span></div>';
+    order.forEach(i=>sec.appendChild(card(Q[i],i)));
     app.appendChild(sec);
   });
   updateScore();
@@ -317,13 +339,15 @@ function card(q,i){
   el.className='q'+(st.checked?' locked':'');
   el.innerHTML='<div class="q-tag">'+q.tag+'</div><div class="q-text">'+q.q+'</div>';
   const opts=document.createElement('div');opts.className='opts';
-  q.opts.forEach((o,oi)=>{
+  const optOrder=layouts[variant].optOrder[i];
+  optOrder.forEach((oi,pos)=>{
+    const o=q.opts[oi];
     const opt=document.createElement('div');
     let cls='opt';
     if(st.checked){if(oi===q.a)cls+=' correct';else if(oi===st.sel)cls+=' wrong';}
     else if(st.sel===oi)cls+=' sel';
     opt.className=cls;
-    opt.innerHTML='<span class="key">'+optLetter(oi)+'</span><span>'+o+'</span>';
+    opt.innerHTML='<span class="key">'+optLetter(pos)+'</span><span>'+o+'</span>';
     if(!st.checked)opt.onclick=()=>{state[variant][i]={sel:oi,checked:false};render();};
     opts.appendChild(opt);
   });
@@ -335,8 +359,9 @@ function card(q,i){
   actions.appendChild(btn);
   if(st.checked){
     const v=document.createElement('span');const ok=st.sel===q.a;
+    const correctPos=layouts[variant].optOrder[i].indexOf(q.a);
     v.className='verdict '+(ok?'ok':'no');
-    v.textContent=ok?'Correct':'Correct answer: '+optLetter(q.a);
+    v.textContent=ok?'Correct':'Correct answer: '+optLetter(correctPos);
     actions.appendChild(v);
   }
   el.appendChild(actions);
@@ -372,7 +397,7 @@ function updateScore(){
   }
 }
 
-document.getElementById('reset').onclick=()=>{state[variant]={};render();};
+document.getElementById('reset').onclick=()=>{state[variant]={};buildLayout(variant);render();};
 
 buildVariants();
 buildFilters();

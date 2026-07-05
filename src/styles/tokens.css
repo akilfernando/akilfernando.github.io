@@ -16,7 +16,7 @@
   /* type families */
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-body:    "Inter Variable", system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-mono:    "Courier Prime", ui-monospace, "Courier New", monospace;
 
   /* type scale */
   --fs-xs:   0.75rem;

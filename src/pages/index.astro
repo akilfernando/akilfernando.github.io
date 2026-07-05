@@ -117,7 +117,7 @@ import { site, sections } from '../config';
 </script>
 
 <style>
-  .hero { padding: var(--space-8) 0 var(--space-5); }
+  .hero { padding: var(--space-8) 0 var(--space-4); }
   .name {
     font-size: var(--fs-display);
     margin-top: var(--space-1);
@@ -149,8 +149,8 @@ import { site, sections } from '../config';
     .caret { animation: none; }
   }
 
-  /* Ask box */
-  .ask { margin: 0 0 var(--space-6); max-width: 44rem; }
+  /* Ask box: set apart from the hero above and the index below. */
+  .ask { margin: var(--space-6) 0 var(--space-8); max-width: 44rem; }
   .ask-label {
     display: block;
     font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
@@ -179,7 +179,11 @@ import { site, sections } from '../config';
     margin-top: var(--space-2); min-height: 1.2em;
   }
   .ask-suggest {
-    list-style: none; padding: 0; margin-top: var(--space-1);
+    list-style: none; padding: 0; margin-top: var(--space-2);
+  }
+  /* Only the no-match fallback should show these; keep [hidden] working
+     (a bare `display: flex` would override the hidden attribute). */
+  .ask-suggest:not([hidden]) {
     display: flex; flex-wrap: wrap; gap: var(--space-3);
   }
   .ask-suggest a {

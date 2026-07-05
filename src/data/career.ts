@@ -11,7 +11,7 @@ export const experience = [
       'Lead IAM administration on Microsoft Entra ID: MFA, Conditional Access, app registrations, and identity governance.',
       'Administer the Microsoft 365 tenant, endpoint security (Bitdefender GravityZone), and RMM (NinjaOne) across the contractor base.',
       'Hardened security posture, monitoring, and access controls across a distributed MSP environment.',
-      'Drove the organization-wide ISO 27001 ISMS implementation (in progress, 2026).',
+      'Serve as the appointed ISO 27001 ISMS Officer, driving the organization-wide implementation (in progress, 2026).',
       'Sole-authored internal platforms and led an inherited production client portal.',
     ],
   },
@@ -46,7 +46,6 @@ export const education = [
 
 export const certifications = [
   'Microsoft Certified: Identity and Access Administrator Associate (SC-300, 2026)',
-  'ISO 27001 ISMS Officer (in progress, 2026)',
 ];
 
 export const skills = [

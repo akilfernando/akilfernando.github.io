@@ -7,7 +7,8 @@ import { site, sections } from '../config';
     <p class="eyebrow">Portfolio</p>
     <div class="wayrule"></div>
     <h1 class="display name">{site.name}</h1>
-    <p class="tag"><strong>{site.tagline}</strong> {site.taglineSub}<span class="caret" aria-hidden="true"></span></p>
+    {/* Drop the trailing period so the caret reads as a live typing cursor. */}
+    <p class="tag"><strong>{site.tagline}</strong> {site.taglineSub.replace(/\.$/, '')}<span class="caret" aria-hidden="true"></span></p>
   </section>
 
   {/* Ask box: progressive enhancement. Hidden until the router script reveals it,

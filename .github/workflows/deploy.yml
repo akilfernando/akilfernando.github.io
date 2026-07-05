@@ -10,9 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+# Don't cancel an in-flight deployment; let it finish (GitHub Pages guidance).
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -31,8 +32,28 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      # Whichever attempt succeeds provides the page URL.
+      url: ${{ steps.deploy1.outputs.page_url || steps.deploy2.outputs.page_url || steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
+      # GitHub Pages intermittently rejects deployments with
+      # "Deployment failed, try again later." Retry up to three times with
+      # backoff so a transient blip doesn't fail the whole publish.
+      - name: Deploy to GitHub Pages (attempt 1)
+        id: deploy1
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+      - name: Wait before retry
+        if: steps.deploy1.outcome == 'failure'
+        run: sleep 45
+      - name: Deploy to GitHub Pages (attempt 2)
+        id: deploy2
+        if: steps.deploy1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+      - name: Wait before final attempt
+        if: steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure'
+        run: sleep 75
+      - name: Deploy to GitHub Pages (final attempt)
         id: deployment
+        if: steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure'
         uses: actions/deploy-pages@v5

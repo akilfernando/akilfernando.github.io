@@ -24,7 +24,7 @@ import { site, sections } from '../config';
           enterkeyhint="go"
           placeholder="e.g. what's your security experience?"
         />
-        <button type="submit" aria-label="Go">&#8599;</button>
+        <button type="submit" class="ask-btn"><span class="word">Ask</span></button>
       </div>
     </form>
     <p class="ask-status" id="ask-status" role="status" aria-live="polite"></p>
@@ -134,11 +134,11 @@ import { site, sections } from '../config';
      eye toward the ask box below. */
   .caret {
     display: inline-block;
-    width: 0.5ch;
-    height: 1.05em;
-    margin-left: 3px;
+    width: 0.7ch;
+    height: 2px;
+    margin-left: 2px;
     background: var(--cobalt);
-    vertical-align: -0.16em;
+    vertical-align: -0.08em;
     animation: caret-blink 1.15s steps(1, end) infinite;
   }
   @keyframes caret-blink {
@@ -170,10 +170,26 @@ import { site, sections } from '../config';
   #ask-input:focus { outline: none; }
   #ask-input::placeholder { color: var(--ink-muted); }
   .ask-row button {
-    font-family: var(--font-mono); font-size: 1.15rem; line-height: 1;
-    color: var(--cobalt); background: transparent; border: 0; cursor: pointer; padding: 4px 6px;
+    background: transparent; border: 0; cursor: pointer; line-height: 1;
+    color: var(--cobalt); padding: 4px 0 4px 10px;
   }
   .ask-row button:hover { color: var(--cobalt-deep); }
+  /* "Ask" text button; types itself out on hover (typewriter reveal). */
+  .ask-btn .word {
+    display: inline-block; overflow: hidden; white-space: nowrap;
+    vertical-align: bottom; width: 3.5ch;
+    border-right: 2px solid transparent;
+    font-family: var(--font-mono); font-weight: 500; font-size: 0.8125rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .ask-btn:hover .word {
+    border-right-color: currentColor;
+    animation: type-ask 0.5s steps(3, end);
+  }
+  @keyframes type-ask { from { width: 0; } to { width: 3.5ch; } }
+  @media (prefers-reduced-motion: reduce) {
+    .ask-btn:hover .word { animation: none; }
+  }
   .ask-status {
     font-family: var(--font-mono); font-size: 0.8125rem; color: var(--cobalt);
     margin-top: var(--space-2); min-height: 1.2em;

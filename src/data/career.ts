@@ -45,8 +45,8 @@ export const education = [
 ];
 
 export const certifications = [
+  'Microsoft Certified: Identity and Access Administrator Associate (SC-300, 2026)',
   'ISO 27001 ISMS Officer (in progress, 2026)',
-  'Microsoft Identity and Access Administrator, SC-300 (in progress)',
 ];
 
 export const skills = [

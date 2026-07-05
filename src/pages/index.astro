@@ -7,7 +7,7 @@ import { site, sections } from '../config';
     <p class="eyebrow">Portfolio</p>
     <div class="wayrule"></div>
     <h1 class="display name">{site.name}</h1>
-    <p class="tag"><strong>{site.tagline}</strong> {site.taglineSub}</p>
+    <p class="tag"><strong>{site.tagline}</strong> {site.taglineSub}<span class="caret" aria-hidden="true"></span></p>
   </section>
 
   {/* Ask box: progressive enhancement. Hidden until the router script reveals it,
@@ -130,6 +130,24 @@ import { site, sections } from '../config';
     line-height: 1.5;
   }
   .tag strong { color: var(--ink); font-weight: 500; }
+  /* Blinking terminal caret: the code/techy note in the type mix. Points the
+     eye toward the ask box below. */
+  .caret {
+    display: inline-block;
+    width: 0.5ch;
+    height: 1.05em;
+    margin-left: 3px;
+    background: var(--cobalt);
+    vertical-align: -0.16em;
+    animation: caret-blink 1.15s steps(1, end) infinite;
+  }
+  @keyframes caret-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .caret { animation: none; }
+  }
 
   /* Ask box */
   .ask { margin: 0 0 var(--space-6); max-width: 44rem; }

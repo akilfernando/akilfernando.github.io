@@ -111,16 +111,18 @@ P_LMS = proj("Contractor Training Platform (sole author)",
              "and a core ISO 27001 compliance system that delivers the mandatory ISMS training; "
              "Next.js, TypeScript, PostgreSQL.")
 P_ALLOC = proj("Device Allocation System (sole author)",
-               "tracks the company laptop fleet across five countries and auto-recommends allocations, with three-way "
-               "sync to SharePoint inventory, Notion onboarding, and NinjaOne remote monitoring and management (RMM).")
+               "grew from an allocation engine into the system of record for the entire device fleet: inventory, "
+               "endpoint provisioning via close NinjaOne remote monitoring and management (RMM) integration, and an "
+               "ISO 27001 audit trail (auto-logged remote support sessions plus full purchase, allocation, and "
+               "handover history). Next.js, Supabase, Drizzle ORM.")
 P_PORTAL = proj("Client Portal / company hub (sole developer)",
                 "inherited a client-only portal and extended it into the company's central coordination dashboard, "
                 "where internal staff, clients, and their team members synchronize their work; currently coordinating "
                 "a phased rollout with stakeholders. TypeScript, React.")
 P_SECREP = proj("Security Posture Reporting Tool (inherited, significantly extended)",
                 "automated weekly fleet reporting with AI-assisted risk scoring and a derived Composite Risk Index "
-                "in scheduled PDF reports; I added integration with NinjaOne (RMM) and with the internal device "
-                "inventory tool I built, on top of Bitdefender GravityZone (EDR) data.")
+                "in scheduled PDF reports; I added integration with NinjaOne (RMM) and with the Device Allocation "
+                "System I built, on top of Bitdefender GravityZone (EDR) data.")
 P_CART = proj("CartCloud (team capstone)",
               "collaborative shopping web application; github.com/TobiOnibudo/cartcloud.")
 P_HAPPBIT = proj("Happbit (Dalhousie Mobile Development course, final project)",
@@ -144,8 +146,9 @@ A_TS = ts_entry([
     "Secure and administer endpoints for staff working remotely across many countries and embedded in external "
     "client environments: Microsoft 365, Bitdefender GravityZone endpoint detection and response (EDR), and "
     "NinjaOne remote monitoring and management (RMM).",
-    "Built an internal Device Allocation System tracking the laptop fleet across five countries, with three-way "
-    "sync to SharePoint inventory, Notion onboarding, and NinjaOne.",
+    "Built the internal Device Allocation System, now the system of record for the device fleet: inventory, "
+    "endpoint provisioning integrated with NinjaOne (RMM), and an ISO 27001 audit trail of remote support sessions "
+    "and full device purchase, allocation, and handover history.",
     "Hardened internal products: Entra ID single sign-on (SSO), personally identifiable information (PII) leak "
     "remediation, security headers, and credential rotation.",
 ])

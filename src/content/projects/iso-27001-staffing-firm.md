@@ -1,33 +1,33 @@
 ---
-title: "Implementing ISO 27001 at a Managed Service Provider"
+title: "Implementing ISO 27001 at a Global Remote Staffing Firm"
 year: 2026
 role: "ISMS Officer, implementation lead"
 category: "security"
 stack: ["ISO 27001", "ISMS", "Risk assessment", "Statement of Applicability", "Microsoft Entra ID", "Microsoft 365"]
-blurb: "Standing up an Information Security Management System from scratch at a Microsoft-stack MSP: scoping, risk assessment, Statement of Applicability, and audit preparation."
+blurb: "Standing up an Information Security Management System from scratch at a global remote staffing firm: scoping, risk assessment, Statement of Applicability, and audit preparation."
 links: []
 ---
 
-Standing up an Information Security Management System (ISMS) from nothing, as the appointed officer for it, at a Managed Service Provider (MSP). This is the piece of work I point people to first, since it is the one where the Governance, Risk, and Compliance (GRC) side and the hands-on security side had to meet in the same place and hold.
+Standing up an Information Security Management System (ISMS) from nothing, as the appointed officer for it, at a global remote staffing firm. This is the piece of work I point people to first, since it is the one where the Governance, Risk, and Compliance (GRC) side and the hands-on security side had to meet in the same place and hold.
 
 ## Context
 
-The organization is a Microsoft-stack MSP: a small internal team supporting a much larger contractor base across several countries, on behalf of clients in more than one market. <!-- TODO: Akil: confirm the headcount / contractor / client figures you are comfortable stating publicly, or leave them out entirely -->
+The organization is a global remote staffing firm, legal-first and now multi-industry, that places skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Microsoft Entra ID stack. I own internal IT and security, so the ISMS was mine to build. <!-- TODO: Akil: confirm the headcount / client-company figures you are comfortable stating publicly, or leave them out entirely -->
 
 Certification was a business requirement, not a vanity exercise. Clients were beginning to ask for it, so the ask landed on me: take the organization from no formal management system to something a certification body would sign off on. I had done plenty of the technical controls before. I had never owned the management system that is supposed to hold them together.
 
 ## Constraints
 
-- **A distributed team on someone else's clock.** Most of the people in scope are contractors, spread across time zones, working on client systems. Any control that assumed everyone sat in one office, on managed hardware, on one network, was a control that would not survive contact with reality.
+- **A distributed team on someone else's clock.** Most of the people in scope are team members embedded in client companies, spread across time zones and working inside client environments. Any control that assumed everyone sat in one office, on managed hardware, on one network, was a control that would not survive contact with reality.
 - **Small team, no dedicated GRC function.** The management system had to be light enough that a handful of people could actually run it, month after month, without a compliance department behind them. A framework nobody maintains is worse than no framework, since it lies about where you stand.
 - **Certification timeline.** There was a date to be ready by. <!-- TODO: Akil: add the target audit window / certification deadline if you want it stated -->
-- **Live business.** None of this could stop the actual work of supporting clients. The ISMS had to be built around operations that were already running.
+- **Live business.** None of this could stop the day-to-day running of the company or the team members placed at clients. The ISMS had to be built around operations that were already running.
 
 ## Approach
 
 I started where the standard makes you start, which is not with controls. It is with scope and risk.
 
-**Scoping.** First job was drawing an honest boundary. What information, what systems, what people, what locations are inside the ISMS, and what is deliberately outside it. For an MSP that line is genuinely hard, because you are handling your own information and, in places, your clients'. I wrote the scope statement to be specific about that split rather than papering over it. <!-- TODO: Akil: the exact scope boundary wording is internal; keep this generic in public copy -->
+**Scoping.** First job was drawing an honest boundary. What information, what systems, what people, what locations are inside the ISMS, and what is deliberately outside it. For a staffing firm that line is genuinely hard, because you are handling your own information and, in places, information that sits inside the client environments your team members work in. I wrote the scope statement to be specific about that split rather than papering over it. <!-- TODO: Akil: the exact scope boundary wording is internal; keep this generic in public copy -->
 
 **Risk assessment.** I built a risk assessment methodology the team could actually apply, not a spreadsheet that looked rigorous and died on first use. Assets and information flows first, then threats and vulnerabilities against them, then a consistent way to score likelihood and impact so two people scoring the same risk landed in roughly the same place. For a team this size the honest risks were rarely exotic. A stale account nobody deprovisioned. A shared credential. An unpatched laptop on a home network. The methodology had to surface the boring, real risks and not get lost chasing the dramatic ones. <!-- TODO: Akil: the scoring scale and specific risk register entries are internal; do not reproduce -->
 

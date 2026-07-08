@@ -12,7 +12,7 @@ Standing up an Information Security Management System (ISMS) from nothing, as th
 
 ## Context
 
-The organization is a global remote staffing firm, legal-first and now multi-industry, that places skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Microsoft Entra ID stack. I own internal IT and security, so the ISMS was mine to build. <!-- TODO: Akil: confirm the headcount / client-company figures you are comfortable stating publicly, or leave them out entirely -->
+The organization is a global remote staffing firm, legal-first and now multi-industry, that places skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Microsoft Entra ID stack. I lead IT and security for the company and its contractors, which puts me in regular contact with clients and their IT teams, and the ISMS was mine to build. <!-- TODO: Akil: confirm the headcount / client-company figures you are comfortable stating publicly, or leave them out entirely -->
 
 Certification was a business requirement, not a vanity exercise. Clients were beginning to ask for it, so the ask landed on me: take the organization from no formal management system to something a certification body would sign off on. I had done plenty of the technical controls before. I had never owned the management system that is supposed to hold them together.
 

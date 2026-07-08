@@ -17,9 +17,9 @@ ELIGIBILITY = ("Authorized to work in Canada: Post-Graduation Work Permit (PGWP)
                "IELTS General CLB 10.")
 
 CSS = """
-@page { size: letter; margin: 0.5in 0.6in; }
+@page { size: letter; margin: 0.44in 0.6in; }
 * { box-sizing: border-box; }
-body { font-family: "Liberation Sans", Arial, sans-serif; font-size: 9.4pt; line-height: 1.26;
+body { font-family: "Liberation Sans", Arial, sans-serif; font-size: 9.2pt; line-height: 1.22;
        color: #1a1a1a; margin: 0; }
 h1 { font-size: 17pt; margin: 0 0 2px 0; letter-spacing: 0.3px; }
 .contact { font-size: 8.6pt; color: #333; margin-bottom: 4px; }

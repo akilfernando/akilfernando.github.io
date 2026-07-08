@@ -110,7 +110,7 @@ P_LMS = proj("Contractor Training Platform (sole author)",
              "learning management system (LMS) serving the contractor base, primarily lawyers studying legal topics, "
              "and a core ISO 27001 compliance system that delivers the mandatory ISMS training; "
              "Next.js, TypeScript, PostgreSQL.")
-P_ALLOC = proj("Device Allocation System (sole author)",
+P_ALLOC = proj("Fleet Management System (sole author)",
                "grew from an allocation engine into the system of record for the entire device fleet: inventory, "
                "endpoint provisioning via close NinjaOne remote monitoring and management (RMM) integration, and an "
                "ISO 27001 audit trail (auto-logged remote support sessions plus full purchase, allocation, and "
@@ -121,7 +121,7 @@ P_PORTAL = proj("Client Portal / company hub (sole developer)",
                 "a phased rollout with stakeholders. TypeScript, React.")
 P_SECREP = proj("Security Posture Reporting Tool (inherited, significantly extended)",
                 "automated weekly fleet reporting with AI-assisted risk scoring and a derived Composite Risk Index "
-                "in scheduled PDF reports; I added integration with NinjaOne (RMM) and with the Device Allocation "
+                "in scheduled PDF reports; I added integration with NinjaOne (RMM) and with the Fleet Management "
                 "System I built, on top of Bitdefender GravityZone (EDR) data.")
 P_CART = proj("CartCloud (team capstone)",
               "collaborative shopping web application; github.com/TobiOnibudo/cartcloud.")
@@ -146,7 +146,7 @@ A_TS = ts_entry([
     "Secure and administer endpoints for staff working remotely across many countries and embedded in external "
     "client environments: Microsoft 365, Bitdefender GravityZone endpoint detection and response (EDR), and "
     "NinjaOne remote monitoring and management (RMM).",
-    "Built the internal Device Allocation System, now the system of record for the device fleet: inventory, "
+    "Built the internal Fleet Management System, now the system of record for the device fleet: inventory, "
     "endpoint provisioning integrated with NinjaOne (RMM), and an ISO 27001 audit trail of remote support sessions "
     "and full device purchase, allocation, and handover history.",
     "Hardened internal products: Entra ID single sign-on (SSO), personally identifiable information (PII) leak "
@@ -172,7 +172,7 @@ C_SUMMARY = ("Full-stack developer building and running production TypeScript an
              "Computer Science graduate, Dalhousie University (GPA 3.92).")
 C_TS = ts_entry([
     "Sole-authored internal production platforms in TypeScript and Python: a contractor training platform and "
-    "a device allocation system; also significantly extended an inherited security-posture reporting tool.",
+    "a fleet management system; also significantly extended an inherited security-posture reporting tool.",
     "As sole developer, extended an inherited client-only portal into the company's central coordination hub used "
     "by internal staff, clients, and their team members; hardened it (Microsoft Entra ID single sign-on, security "
     "headers, webhook signature verification) and am coordinating a phased rollout.",

@@ -117,11 +117,11 @@ P_ALLOC = proj("Fleet Management System (sole author)",
                "endpoint provisioning via close NinjaOne remote monitoring and management (RMM) integration, and an "
                "ISO 27001 audit trail (auto-logged remote support sessions plus full purchase, allocation, and "
                "handover history). Next.js, Supabase, Drizzle ORM.")
-P_PORTAL = proj("Client Portal / company hub (sole developer)",
-                "inherited a client-only portal and extended it into the company's central coordination dashboard, "
-                "where internal staff, clients, and their team members synchronize their work; currently coordinating "
-                "a phased rollout with stakeholders. TypeScript, React.")
-P_SECREP = proj("Security Posture Reporting Tool (inherited, significantly extended)",
+P_PORTAL = proj("Client Portal (inherited, sole developer)",
+                "extended a client-only portal into the company's central coordination hub, where internal staff, "
+                "clients, and their team members synchronize their work; currently coordinating a phased rollout "
+                "with stakeholders. TypeScript, React.")
+P_SECREP = proj("Security Posture Reporting Tool (inherited, primary developer)",
                 "automated weekly fleet reporting with AI-assisted risk scoring and a derived Composite Risk Index "
                 "in scheduled PDF reports; I added integration with NinjaOne (RMM) and with the Fleet Management "
                 "System I built, on top of Bitdefender GravityZone (EDR) data.")

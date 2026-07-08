@@ -19,15 +19,15 @@ ELIGIBILITY = ("Authorized to work in Canada: Post-Graduation Work Permit (PGWP)
 CSS = """
 @page { size: letter; margin: 0.44in 0.6in; }
 * { box-sizing: border-box; }
-body { font-family: "Liberation Sans", Arial, sans-serif; font-size: 9.2pt; line-height: 1.22;
+body { font-family: "Liberation Sans", Arial, sans-serif; font-size: 9.2pt; line-height: 1.2;
        color: #1a1a1a; margin: 0; }
 h1 { font-size: 17pt; margin: 0 0 2px 0; letter-spacing: 0.3px; }
 .contact { font-size: 8.6pt; color: #333; margin-bottom: 4px; }
 .eligibility { font-size: 8.6pt; color: #333; border-top: 1px solid #bbb; border-bottom: 1px solid #bbb;
                padding: 3px 0; margin-bottom: 6px; }
 h2 { font-size: 10pt; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #999;
-     padding-bottom: 1px; margin: 8px 0 4px 0; }
-.entry { margin-bottom: 5px; }
+     padding-bottom: 1px; margin: 6px 0 3px 0; }
+.entry { margin-bottom: 4px; }
 .row { display: flex; justify-content: space-between; }
 .org { font-weight: bold; }
 .title { font-style: italic; }
@@ -41,7 +41,9 @@ b { font-weight: bold; }
 """
 
 def page(name, contact, summary, sections):
-    body = f"<h1>{name}</h1><div class='contact'>{contact}</div>"
+    # Trailing nbsp keeps the name from fusing with the contact line in the
+    # PDF text layer (ATS parsers read that stream to extract the name).
+    body = f"<h1>{name}&nbsp;</h1><div class='contact'>{contact}</div>"
     body += f"<div class='eligibility'>{ELIGIBILITY}</div>"
     body += f"<p class='summary'>{summary}</p>"
     for heading, content in sections:
@@ -152,12 +154,15 @@ A_TS = ts_entry([
     "Hardened internal products: Entra ID single sign-on (SSO), personally identifiable information (PII) leak "
     "remediation, security headers, and credential rotation.",
 ])
-A_SKILLS = ("<div class='skills'><p>ISO 27001 &middot; Governance, risk, and compliance (GRC) &middot; "
-            "Identity and access management (IAM) &middot; Microsoft Entra ID &middot; Conditional Access &middot; "
-            "Privileged Identity Management (PIM) &middot; Microsoft 365 &middot; Endpoint management &middot; "
-            "Bitdefender GravityZone (EDR) &middot; NinjaOne (RMM) &middot; Zero Trust &middot; "
-            "Networking (TCP/IP, DNS) &middot; Risk assessment &middot; Security policy &middot; "
-            "Scripting and automation (Python) &middot; TypeScript</p></div>")
+A_SKILLS = ("<div class='skills'>"
+            "<p><b>Governance &amp; risk:</b> ISO 27001 &middot; Governance, risk, and compliance (GRC) &middot; "
+            "Risk assessment &middot; Security policy &middot; Zero Trust</p>"
+            "<p><b>Identity &amp; access:</b> Identity and access management (IAM) &middot; Microsoft Entra ID &middot; "
+            "Conditional Access &middot; Privileged Identity Management (PIM)</p>"
+            "<p><b>Endpoint &amp; infrastructure:</b> Microsoft 365 &middot; Endpoint management &middot; "
+            "Bitdefender GravityZone (EDR) &middot; NinjaOne (RMM) &middot; Networking (TCP/IP, DNS)</p>"
+            "<p><b>Automation:</b> Python &middot; TypeScript</p>"
+            "</div>")
 variant_a = page("Akil Fernando", CONTACT, A_SUMMARY, [
     ("Experience", A_TS + UBISOFT_SHORT),
     ("Certifications", CERTS),
@@ -181,9 +186,13 @@ C_TS = ts_entry([
     "Also lead IT systems and security for the company (Microsoft 365, Entra ID), including an ISO 27001 "
     "implementation as the appointed ISMS Officer.",
 ])
-C_SKILLS = ("<div class='skills'><p>TypeScript &middot; React &middot; Next.js &middot; Node.js &middot; "
-            "Python &middot; FastAPI &middot; PostgreSQL &middot; Prisma &middot; Drizzle ORM &middot; "
-            "Supabase &middot; REST APIs &middot; Git &middot; Claude Code &middot; C# &middot; Unity</p></div>")
+C_SKILLS = ("<div class='skills'>"
+            "<p><b>Languages:</b> TypeScript &middot; Python &middot; C#</p>"
+            "<p><b>Frontend:</b> React &middot; Next.js &middot; Node.js</p>"
+            "<p><b>Backend &amp; data:</b> FastAPI &middot; PostgreSQL &middot; Prisma &middot; Drizzle ORM &middot; "
+            "Supabase &middot; REST APIs</p>"
+            "<p><b>Tools:</b> Git &middot; Claude Code &middot; Unity</p>"
+            "</div>")
 variant_c = page("Akil Fernando", CONTACT, C_SUMMARY, [
     ("Experience", C_TS + UBISOFT_SHORT),
     ("Selected Projects", f"<ul>{P_LMS}{P_ALLOC}{P_PORTAL}{P_CART}{P_HAPPBIT}</ul>"),
@@ -200,10 +209,13 @@ D_TS = ts_entry([
     "Build and maintain internal production software (full-stack TypeScript and Python) and lead IT systems "
     "and security for a globally distributed team.",
 ], detail=False)
-D_SKILLS = ("<div class='skills'><p>C# &middot; Unity &middot; C++ &middot; Vulkan &middot; OpenGL &middot; "
-            "Cinemachine &middot; NavMesh &middot; Behavior trees &middot; Gameplay and camera systems &middot; "
-            "Maya &middot; Blender &middot; Three.js &middot; Godot &middot; Hex-grid systems &middot; "
-            "Debug tooling &middot; Git &middot; Linear algebra and 3D math</p></div>")
+D_SKILLS = ("<div class='skills'>"
+            "<p><b>Engines &amp; languages:</b> C# &middot; Unity &middot; C++ &middot; Godot</p>"
+            "<p><b>Graphics:</b> Vulkan &middot; OpenGL &middot; Three.js &middot; Linear algebra and 3D math</p>"
+            "<p><b>Gameplay systems:</b> Cinemachine &middot; NavMesh &middot; Behavior trees &middot; "
+            "Gameplay and camera systems &middot; Hex-grid systems</p>"
+            "<p><b>Content &amp; tools:</b> Maya &middot; Blender &middot; Debug tooling &middot; Git</p>"
+            "</div>")
 variant_d = page("Akil Fernando", CONTACT_GD, D_SUMMARY, [
     ("Experience", UBISOFT_FULL + D_TS),
     ("Selected Projects", f"<ul>{P_ITCH}{P_3D}</ul>"),

@@ -126,60 +126,35 @@ P_3D = proj("Cross-platform 3D scene (personal)",
 P_ITCH = proj("Published games and demos (personal)",
               "Ammo = Life (game jam), Vulkan Graphics Demo, OpenGL Flight Simulator; playable at akilf.itch.io.")
 
-# ---------------- Variant A: Cybersecurity / GRC ----------------
-A_SUMMARY = ("Cybersecurity and governance, risk, and compliance (GRC) professional leading identity and access "
-             "management (IAM), endpoint security, and an ISO 27001 implementation for a globally distributed "
-             "workforce at a remote staffing firm. Microsoft SC-300 certified. Computer Science graduate, Dalhousie University (GPA 3.92).")
+# ---------------- Variant A: Security & IT Systems (merged) ----------------
+A_SUMMARY = ("Security and IT systems lead running identity and access management (IAM), endpoint security, and an "
+             "ISO 27001 implementation for a globally distributed workforce at a remote staffing firm. "
+             "Microsoft SC-300 certified. Computer Science graduate, Dalhousie University (GPA 3.92).")
 A_TS = ts_entry([
     ISMS_BULLET,
-    "Lead identity and access management (IAM) on Microsoft Entra ID for a distributed cross-border workforce: "
-    "multi-factor authentication (MFA), Conditional Access policies, app registrations, and identity governance.",
-    "Secure endpoints for team members working remotely across many countries and embedded in external client "
-    "environments: Microsoft 365 tenant administration, Bitdefender GravityZone endpoint detection and response "
-    "(EDR), and NinjaOne remote monitoring and management (RMM).",
-    "Co-built an automated security-posture reporting tool pulling Bitdefender GravityZone and NinjaOne data, "
-    "with AI-assisted risk scoring and a derived Composite Risk Index in scheduled PDF reports.",
-    "Hardened internal products: Microsoft Entra ID single sign-on (SSO), personally identifiable information (PII) "
-    "leak remediation, security headers, webhook signature verification, and credential rotation.",
+    "Lead identity and access management (IAM) on Microsoft Entra ID for a distributed cross-border workforce of "
+    "over 130 team members: multi-factor authentication (MFA), Conditional Access, app registrations, and "
+    "identity governance.",
+    "Secure and administer endpoints for staff working remotely across many countries and embedded in external "
+    "client environments: Microsoft 365, Bitdefender GravityZone endpoint detection and response (EDR), and "
+    "NinjaOne remote monitoring and management (RMM).",
+    "Built an internal Device Allocation System tracking the laptop fleet across five countries, with three-way "
+    "sync to SharePoint inventory, Notion onboarding, and NinjaOne.",
+    "Hardened internal products: Entra ID single sign-on (SSO), personally identifiable information (PII) leak "
+    "remediation, security headers, and credential rotation.",
 ])
 A_SKILLS = ("<div class='skills'><p>ISO 27001 &middot; Governance, risk, and compliance (GRC) &middot; "
             "Identity and access management (IAM) &middot; Microsoft Entra ID &middot; Conditional Access &middot; "
-            "Privileged Identity Management (PIM) &middot; Microsoft 365 security &middot; "
+            "Privileged Identity Management (PIM) &middot; Microsoft 365 &middot; Endpoint management &middot; "
             "Bitdefender GravityZone (EDR) &middot; NinjaOne (RMM) &middot; Zero Trust &middot; "
-            "Risk assessment &middot; Security policy &middot; Python &middot; TypeScript</p></div>")
+            "Networking (TCP/IP, DNS) &middot; Risk assessment &middot; Security policy &middot; "
+            "Scripting and automation (Python) &middot; TypeScript</p></div>")
 variant_a = page("Akil Fernando", CONTACT, A_SUMMARY, [
     ("Experience", A_TS + UBISOFT_SHORT),
     ("Certifications", CERTS),
     ("Education", EDUCATION),
-    ("Selected Projects", f"<ul>{P_SECREP}{P_ALLOC}{P_PORTAL}</ul>"),
+    ("Selected Projects", f"<ul>{P_ALLOC}{P_SECREP}{P_PORTAL}</ul>"),
     ("Skills", A_SKILLS),
-])
-
-# ---------------- Variant B: IT Systems / Infrastructure ----------------
-B_SUMMARY = ("IT systems lead running Microsoft 365, identity, endpoint, and device operations for a globally "
-             "distributed remote staffing firm. Microsoft SC-300 certified; leading an ISO 27001 implementation. "
-             "Computer Science graduate, Dalhousie University (GPA 3.92).")
-B_TS = ts_entry([
-    "Administer Microsoft 365 and Microsoft Entra ID (identity and access) for a globally distributed workforce "
-    "of over 130 team members working remotely across many countries and serving over 100 client companies.",
-    "Manage the endpoint fleet for remote and client-embedded staff via NinjaOne remote monitoring and management "
-    "(RMM) and Bitdefender GravityZone endpoint detection and response (EDR).",
-    "Built an internal Device Allocation System tracking the laptop fleet across five countries and "
-    "auto-recommending allocations, with three-way sync to SharePoint inventory, Notion onboarding, and NinjaOne.",
-    "Built automated weekly fleet security-posture reporting from Bitdefender GravityZone and NinjaOne "
-    "(AI-assisted scoring, scheduled PDF output).",
-    ISMS_BULLET,
-])
-B_SKILLS = ("<div class='skills'><p>Systems administration &middot; Microsoft 365 &middot; Microsoft Entra ID &middot; "
-            "NinjaOne (RMM) &middot; Bitdefender GravityZone (EDR) &middot; Endpoint management &middot; "
-            "Identity and access management (IAM) &middot; Networking (TCP/IP, DNS) &middot; ISO 27001 &middot; "
-            "User support &middot; Scripting and automation (Python)</p></div>")
-variant_b = page("Akil Fernando", CONTACT, B_SUMMARY, [
-    ("Experience", B_TS + UBISOFT_SHORT),
-    ("Certifications", CERTS),
-    ("Education", EDUCATION),
-    ("Selected Projects", f"<ul>{P_ALLOC}{P_SECREP}{P_LMS}</ul>"),
-    ("Skills", B_SKILLS),
 ])
 
 # ---------------- Variant C: Software / Web ----------------
@@ -228,8 +203,7 @@ variant_d = page("Akil Fernando", CONTACT_GD, D_SUMMARY, [
 ])
 
 files = {
-    f"{OUT}/akil-fernando-cybersecurity.pdf": variant_a,
-    f"{OUT}/akil-fernando-it-systems.pdf": variant_b,
+    f"{OUT}/akil-fernando-security-it.pdf": variant_a,
     f"{OUT}/akil-fernando-software.pdf": variant_c,
     f"{OUT}/akil-fernando-gamedev.pdf": variant_d,
 }

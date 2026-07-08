@@ -73,8 +73,7 @@ export const skills = [
 
 // Field-tailored CVs. The visitor picks the lens that fits them.
 export const cvs = [
+  { field: 'Security & IT', file: '/cv/akil-fernando-security-it.pdf' },
   { field: 'Software', file: '/cv/akil-fernando-software.pdf' },
   { field: 'Game dev', file: '/cv/akil-fernando-gamedev.pdf' },
-  { field: 'Cybersecurity', file: '/cv/akil-fernando-cybersecurity.pdf' },
-  { field: 'IT systems', file: '/cv/akil-fernando-it-systems.pdf' },
 ];

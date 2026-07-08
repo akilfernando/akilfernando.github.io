@@ -18,7 +18,7 @@ Alongside that I added debug tools inside the client to make systems like the he
 
 ## Character pipeline and a portable demo
 
-The role was not only gameplay code. I built character art in Maya and Blender and merged it into the project's existing character systems to get a new, fully animating character into the game, then documented the process so it could be repeated. On a separate project I built a 3D scene and a rigged, animated character in Blender and used Three.js and Capacitor to turn it into a webkit-compatible playable scene, wrapped as an installable Android app. When dependencies broke partway through a milestone, I wrote workarounds to keep the build playable for the demo.
+The role was not only gameplay code. I built character art in Maya and Blender and merged it into the project's existing character systems to get a new, fully animating character into the game, then documented the process so it could be repeated. On a separate project, working alongside another co-op in my cohort, I built a 3D scene and a rigged, animated character in Blender and used Three.js and Capacitor to turn it into a webkit-compatible playable scene, wrapped as an installable Android app. When dependencies broke partway through a milestone, I wrote workarounds to keep the build playable for the demo.
 
 ## What I took from it
 

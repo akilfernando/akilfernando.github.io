@@ -14,6 +14,6 @@ A first-person shooter I built in Unity around a single rule: there is no health
 
 I made it as a constraint exercise, to see how much design pressure one honest rule could carry. The answer was a lot. Aggression and caution collapsed into the same dial, ammo pickups quietly became the real pacing tool, and accuracy started to matter more than fire rate. The build is rough and was never meant to ship, but it taught me to look for the one mechanic that does the most work and then trust it.
 
-This is also the demo I brought to Ubisoft Halifax, and it is what landed my gameplay programming co-op there. One stubborn idea, executed cleanly, turned out to say more about how I think than a longer feature list would have.
+I built it as my portfolio demo for Ubisoft Halifax, and it is what landed my gameplay programming co-op there. One stubborn idea, executed cleanly, turned out to say more about how I think than a longer feature list would have.
 
 I wrote more about the design in [a short post](/blog/ammo-equals-life/).

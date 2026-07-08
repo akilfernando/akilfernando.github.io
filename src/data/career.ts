@@ -11,8 +11,8 @@ export const experience = [
       'Lead IAM administration on Microsoft Entra ID: MFA, app registrations, and identity governance.',
       'Administer the Microsoft 365 tenant, endpoint security (Bitdefender GravityZone), and RMM (NinjaOne) across the contractor base.',
       'Hardened security posture, monitoring, and access controls across a globally distributed workforce.',
-      'Serve as the appointed ISO 27001 ISMS Officer, driving the organization-wide implementation (in progress, 2026).',
-      'Sole-authored internal platforms and led an inherited production client portal.',
+      'Serve as the appointed ISO 27001 ISMS Officer, driving the organization-wide implementation toward a certification audit at the end of August 2026, including the mandatory ISMS training delivered through a platform I built.',
+      'Sole-authored internal platforms, and as sole developer grew an inherited client portal into the company-wide coordination hub for staff, clients, and their teams.',
     ],
   },
   {

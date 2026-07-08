@@ -4,15 +4,15 @@ year: 2026
 role: "Sole author"
 category: "software"
 stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "NextAuth", "Entra ID SSO"]
-blurb: "Training platform serving contractors, primarily lawyers learning legal topics. Built end to end with Entra ID single sign-on."
+blurb: "Training platform serving contractors, primarily lawyers, and a core part of our ISO 27001 compliance: it delivers the mandatory ISMS training. Built end to end with Entra ID single sign-on."
 links: []
 ---
 
-A Learning Management System (LMS) I built end to end, sole author, for the contractor workforce at our business, many of them lawyers working through legal material. It is a Next.js and React app with a Prisma and PostgreSQL data layer, and it signs people in through Microsoft Entra ID single sign-on (SSO) using NextAuth. It is the internal platform I point to when someone wants to see where the development side and the security side of my work meet in one codebase.
+A Learning Management System (LMS) I built end to end, sole author, for the contractor workforce at our business, many of them lawyers working through legal material. It is a Next.js and React app with a Prisma and PostgreSQL data layer, and it signs people in through Microsoft Entra ID single sign-on (SSO) using NextAuth. It is the internal platform I point to when someone wants to see where the development side and the security side of my work meet in one codebase. It is also load-bearing for compliance: it delivers the mandatory Information Security Management System (ISMS) training our ISO 27001 program requires, and holds the record of who has completed it.
 
 ## Context
 
-The organization is a global remote staffing firm, legal-first and now multi-industry, with a distributed contractor workforce. Those team members need structured training, tracked, with a record of who completed what. Off-the-shelf platforms existed, but bringing one in would have meant a separate identity silo, a separate set of credentials, and a separate thing to secure and pay for. Building it in-house meant the training platform could live inside the same identity and governance perimeter as everything else the team runs. <!-- TODO: Akil: confirm any audience / headcount specifics you want stated publicly, or keep this generic -->
+The organization is a global remote staffing firm, legal-first and now multi-industry, with a distributed contractor workforce. Those team members need structured training, tracked, with a record of who completed what. That includes the mandatory ISMS awareness training our ISO 27001 program requires every contractor to complete, so accurate completion records are not a nicety here, they are audit evidence. Off-the-shelf platforms existed, but bringing one in would have meant a separate identity silo, a separate set of credentials, and a separate thing to secure and pay for. Building it in-house meant the training platform could live inside the same identity and governance perimeter as everything else the team runs. <!-- TODO: Akil: confirm any audience / headcount specifics you want stated publicly, or keep this generic -->
 
 ## Constraints
 

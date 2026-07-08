@@ -8,7 +8,7 @@ export const experience = [
     summary:
       'Global remote staffing firm, legal-first and now multi-industry, placing skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Entra ID stack. I lead IT and security for the company and its contractors, which means working directly with clients and their IT teams as well.',
     highlights: [
-      'Lead IAM administration on Microsoft Entra ID: MFA, Conditional Access, app registrations, and identity governance.',
+      'Lead IAM administration on Microsoft Entra ID: MFA, app registrations, and identity governance.',
       'Administer the Microsoft 365 tenant, endpoint security (Bitdefender GravityZone), and RMM (NinjaOne) across the contractor base.',
       'Hardened security posture, monitoring, and access controls across a globally distributed workforce.',
       'Serve as the appointed ISO 27001 ISMS Officer, driving the organization-wide implementation (in progress, 2026).',

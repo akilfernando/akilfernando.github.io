@@ -17,7 +17,7 @@ const projects = defineCollection({
     title: z.string(),
     year: z.number(),
     role: z.string(),
-    category: z.enum(['game', 'software', 'academic']),
+    category: z.enum(['security', 'game', 'software', 'academic']),
     stack: z.array(z.string()).default([]),
     blurb: z.string(),
     links: z.array(z.object({ label: z.string(), url: z.string().url() })).default([]),

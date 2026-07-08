@@ -45,7 +45,7 @@ export const education = [
 ];
 
 export const certifications = [
-  'Microsoft Certified: Identity and Access Administrator Associate (SC-300, 2026)',
+  'Microsoft Certified: Identity and Access Administrator Associate (SC-300), July 2026',
 ];
 
 export const skills = [

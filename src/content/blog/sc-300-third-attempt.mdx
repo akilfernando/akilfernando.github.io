@@ -1,0 +1,45 @@
+---
+title: "SC-300 on the Third Attempt: What Finally Worked"
+date: 2026-07-06
+description: "I passed the SC-300 on my third try. The exam did not get easier. The way I studied for it, and the way I read the questions, is what changed."
+tags: ["sc-300", "certification", "identity"]
+draft: true
+---
+
+I passed the SC-300, Microsoft's Identity and Access Administrator Associate exam, on the third attempt. I am not going to dress that up. Two fails, then a pass, and the exam did not get easier in between. What changed was how I studied and, more than that, how I read the thing while sitting in front of it.
+
+{/* TODO: Akil: add your real timeline here. Gap between attempts, scores if you want to share them, what your day job context was while studying. */}
+
+If you are staring at a second fail wondering what you are missing, this is the post I wish I had read.
+
+## The scoring is more brutal than it looks
+
+The single thing that reframed the exam for me was understanding how multi-response questions are scored. The ones that say "select all that apply" or "choose three."
+
+They are all-or-nothing. There is no partial credit. If a question has three correct answers and you get two right and one wrong, you do not get two thirds of the marks. You get zero. A near-miss and a total blank score exactly the same.
+
+Once that landed, a lot of my earlier result made sense. I had walked out of my first two attempts feeling like I "mostly knew it," and mostly knowing it is precisely the profile that fails this format. Every multi-select question is a small trap where being roughly right is worth nothing. So the bar is not "recognize the right answers." It is "recognize the right answers and reject the plausible wrong ones," on the same question, every time. {/* TODO: Akil: if you remember specific topic areas where the multi-selects hurt you, name them here. */}
+
+## The feedback tells you almost nothing
+
+The other hard part is that when you fail, the report is thin. You get a score and a breakdown by domain, the broad topic areas the exam is organized into, and that is essentially it. No per-question feedback. No "you missed these three." Just domain-level percentages telling you, vaguely, that you were weaker over here than over there.
+
+That is genuinely difficult to study against. You cannot go back and drill the exact questions you got wrong, because you are never told. So the instinct to re-study by hunting for "the questions I missed" does not work. There are no questions to hunt for.
+
+What the domain breakdown is actually good for is coarse triage. It will not tell you which facts you lack, but it will tell you which whole area to go rebuild. I stopped trying to reverse-engineer individual mistakes and started treating a weak domain as a signal to relearn that domain from the ground up, not patch it. {/* TODO: Akil: drop in which domains were your weak ones and how you rebuilt them, e.g. Conditional Access, identity governance, external identities. */}
+
+## What actually changed between attempts
+
+A few things, and none of them were "study harder."
+
+**I stopped studying for recognition and started studying for decisions.** Early on I revised by reading and re-reading until the material felt familiar. Familiarity is a liar on this exam. The questions do not ask "have you seen this before." They ask "which of these five things do you do, given this specific situation." So I switched to practicing decisions: given a scenario, what is the right control, and just as important, why are the other options wrong. That second half is what the all-or-nothing scoring is really testing.
+
+**I built things instead of only reading about them.** A lot of the identity material stops being abstract the moment you actually do it in a tenant. Conditional Access policies read one way in a study guide and another way entirely once you have watched one lock the wrong person out in report-only mode. My day job put me hands-on with a lot of this, which is probably the biggest unfair advantage I had by the third attempt. {/* TODO: Akil: connect this to your real Entra ID / Conditional Access work if you want the credibility of it. */}
+
+**I slowed down on the multi-selects.** Knowing they were all-or-nothing, I gave them the time that respect implies. On a "choose three" I would find my three, then go back and actively argue myself out of each of the other options. If I could not say why a distractor was wrong, I treated that as a sign I did not actually know the question yet.
+
+## If you are about to sit it again
+
+Study for the decision, not the definition. Treat every multi-select as a place where "close" is worth zero, so verify each option in and each option out. Use the domain breakdown as a map of what to rebuild, not a list of what to memorize. And if you can, get your hands into a real tenant, because the exam is testing whether you would make the right call on the job, and there is no faster way to learn that than making the wrong call somewhere it does not matter.
+
+Third time worked. Not because I finally out-memorized it, but because I finally started answering the question it was actually asking.

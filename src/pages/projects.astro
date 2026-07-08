@@ -5,17 +5,18 @@ import { getCollection } from 'astro:content';
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
 
 const categoryLabels: Record<string, string> = {
+  security: 'Security',
   game: 'Game dev',
   software: 'Software',
   academic: 'Academic',
 };
 
 // Only show filter chips for categories that actually have entries.
-const order = ['game', 'software', 'academic'];
+const order = ['security', 'game', 'software', 'academic'];
 const present = order.filter((c) => projects.some((p) => p.data.category === c));
 const filters = [{ key: 'all', label: 'All' }, ...present.map((c) => ({ key: c, label: categoryLabels[c] }))];
 ---
-<BaseLayout title="Projects" description="Game dev, software, and academic work.">
+<BaseLayout title="Projects" description="Security and identity case studies, internal platforms, games, and graphics.">
   <p class="eyebrow">Projects</p>
   <div class="wayrule"></div>
   <h1 class="display h1">Things built.</h1>

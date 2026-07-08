@@ -6,11 +6,11 @@ export const experience = [
     org: 'Teams Squared',
     location: 'Colombo, Sri Lanka',
     summary:
-      'Microsoft-stack MSP: ~15 internal staff supporting ~100 contractors across ~75 clients, with primary markets in Australia and the Philippines.',
+      'Global remote staffing firm, legal-first and now multi-industry, placing skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Entra ID stack. I own internal IT and security.',
     highlights: [
       'Lead IAM administration on Microsoft Entra ID: MFA, Conditional Access, app registrations, and identity governance.',
       'Administer the Microsoft 365 tenant, endpoint security (Bitdefender GravityZone), and RMM (NinjaOne) across the contractor base.',
-      'Hardened security posture, monitoring, and access controls across a distributed MSP environment.',
+      'Hardened security posture, monitoring, and access controls across a globally distributed workforce.',
       'Serve as the appointed ISO 27001 ISMS Officer, driving the organization-wide implementation (in progress, 2026).',
       'Sole-authored internal platforms and led an inherited production client portal.',
     ],
@@ -55,7 +55,7 @@ export const skills = [
   },
   {
     group: 'Infrastructure',
-    items: ['Microsoft 365', 'NinjaOne RMM', 'endpoint management', 'MSP operations'],
+    items: ['Microsoft 365', 'NinjaOne RMM', 'endpoint management', 'systems administration'],
   },
   {
     group: 'Development',

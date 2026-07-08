@@ -12,7 +12,7 @@ Designing the Conditional Access policy architecture in Microsoft Entra ID for a
 
 ## Context
 
-The organization is a Managed Service Provider (MSP) whose contractor base works from their own locations, often their own hardware, on client systems, across several time zones. Identity is the real perimeter here. There is no office network to hide behind, so who can authenticate, from where, on what, under which conditions, is most of the security story.
+The organization is a global remote staffing firm whose team members work from their own locations, often their own hardware, embedded in client company environments, across several time zones. Identity is the real perimeter here. There is no office network to hide behind, so who can authenticate, from where, on what, under which conditions, is most of the security story.
 
 Conditional Access is the tool Entra ID gives you to make those decisions. Signals in, a decision out: grant, block, or grant with a requirement like multi-factor authentication (MFA) or a compliant device. Powerful, and unforgiving. A policy written slightly too broad does not warn you. It just stops people working. <!-- TODO: Akil: confirm any workforce / geography specifics you want stated publicly, or keep this generic -->
 

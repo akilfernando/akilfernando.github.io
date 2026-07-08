@@ -22,7 +22,7 @@ The organization is a global remote staffing firm, legal-first and now multi-ind
 
 ## Approach
 
-**Identity first, through Entra ID SSO.** The single sign-on piece is where my security work and my development work meet most directly. Rather than bolting an authentication system onto the app, I made the platform defer to Entra ID through NextAuth, so the same identity, Conditional Access, and multi-factor authentication (MFA) that protect everything else protect this too. No separate passwords, no parallel account lifecycle. When someone is offboarded from the organization, they lose the LMS with everything else, automatically, because it was never a separate account to remember to close.
+**Identity first, through Entra ID SSO.** The single sign-on piece is where my security work and my development work meet most directly. Rather than bolting an authentication system onto the app, I made the platform defer to Entra ID through NextAuth, so the same identity and multi-factor authentication (MFA) that protect everything else protect this too. No separate passwords, no parallel account lifecycle. When someone is offboarded from the organization, they lose the LMS with everything else, automatically, because it was never a separate account to remember to close.
 
 **Owning every layer.** Sole author meant the data model for courses and progress, the authentication and access rules, the content delivery, and the interface people actually learn in were all mine to get right. I built the schema for courses, enrolments, and completion first, since a training record is only worth anything if it is accurate and hard to fudge, and got that stable before building the interface on top of it.
 

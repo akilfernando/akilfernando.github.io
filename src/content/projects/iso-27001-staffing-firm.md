@@ -20,7 +20,7 @@ Certification was a business requirement, not a vanity exercise. Clients were be
 
 - **A distributed team on someone else's clock.** Most of the people in scope are team members embedded in client companies, spread across time zones and working inside client environments. Any control that assumed everyone sat in one office, on managed hardware, on one network, was a control that would not survive contact with reality.
 - **Small team, no dedicated GRC function.** The management system had to be light enough that a handful of people could actually run it, month after month, without a compliance department behind them. A framework nobody maintains is worse than no framework, since it lies about where you stand.
-- **Certification timeline.** There was a date to be ready by. <!-- TODO: Akil: add the target audit window / certification deadline if you want it stated -->
+- **Certification timeline.** The external certification audit is set for the end of August 2026, so the whole management system had to be real and evidenced by then, not aspirational.
 - **Live business.** None of this could stop the day-to-day running of the company or the team members placed at clients. The ISMS had to be built around operations that were already running.
 
 ## Approach
@@ -33,7 +33,7 @@ I started where the standard makes you start, which is not with controls. It is 
 
 **Statement of Applicability.** Then the Annex A controls, one at a time. The Statement of Applicability (SoA) is the document that says, control by control, this applies and here is why, or it does not and here is why not. This was the part that changed how I think. You cannot wave at best practice. You have to justify your own environment to yourself, in writing, and mean it. Most of the identity and access controls mapped cleanly onto work already live in Microsoft Entra ID and Microsoft 365, so the SoA also became an honest audit of what we really had switched on versus what we told ourselves we had.
 
-**Policy and evidence.** Controls need policy behind them and evidence in front of them. I wrote the policy set to be short and readable, since a policy nobody reads is not a control, and wired each one to evidence that gets produced by the work happening anyway rather than by a separate compliance chore. Access reviews that actually run. Offboarding that is real and not theoretical. Proof that the thing happened, not just the intention to.
+**Policy and evidence.** Controls need policy behind them and evidence in front of them. I wrote the policy set to be short and readable, since a policy nobody reads is not a control, and wired each one to evidence that gets produced by the work happening anyway rather than by a separate compliance chore. Access reviews that actually run. Offboarding that is real and not theoretical. Proof that the thing happened, not just the intention to. Awareness is a control too, so the mandatory ISMS training runs through an internal platform I built, which tracks who completed it and turns that completion into evidence on its own.
 
 ## Outcome
 

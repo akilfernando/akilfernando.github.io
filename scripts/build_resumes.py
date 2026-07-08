@@ -76,8 +76,9 @@ def ts_entry(bullets, detail=True):
 </div>"""
 
 ISMS_BULLET = ("Appointed Information Security Management System (ISMS) Officer; lead the company-wide "
-               "ISO 27001 implementation, policy enforcement, and compliance, including preparation for the "
-               "certification audit (ongoing through 2026).")
+               "ISO 27001 implementation, policy enforcement, and compliance, including mandatory ISMS training "
+               "delivered to contractors through an internal platform I built, ahead of the certification audit "
+               "scheduled for the end of August 2026.")
 
 UBISOFT_FULL = """
 <div class="entry">
@@ -106,25 +107,30 @@ def proj(name, desc):
     return f"<li><b>{name}</b>: {desc}</li>"
 
 P_LMS = proj("Contractor Training Platform (sole author)",
-             "learning management system (LMS) serving the contractor base, primarily lawyers studying legal topics; "
+             "learning management system (LMS) serving the contractor base, primarily lawyers studying legal topics, "
+             "and a core ISO 27001 compliance system that delivers the mandatory ISMS training; "
              "Next.js, TypeScript, PostgreSQL.")
 P_ALLOC = proj("Device Allocation System (sole author)",
                "tracks the company laptop fleet across five countries and auto-recommends allocations, with three-way "
                "sync to SharePoint inventory, Notion onboarding, and NinjaOne remote monitoring and management (RMM).")
-P_PORTAL = proj("Client Portal",
-                "took over lead development of an existing production portal used by client companies; "
-                "hardened and extended it (TypeScript, React).")
-P_SECREP = proj("Security Posture Reporting Tool (co-built)",
-                "automated weekly fleet reporting pulling Bitdefender GravityZone and NinjaOne data, "
-                "AI-assisted risk scoring, and a derived Composite Risk Index in scheduled PDF reports.")
+P_PORTAL = proj("Client Portal / company hub (sole developer)",
+                "inherited a client-only portal and extended it into the company's central coordination dashboard, "
+                "where internal staff, clients, and their team members synchronize their work; currently coordinating "
+                "a phased rollout with stakeholders. TypeScript, React.")
+P_SECREP = proj("Security Posture Reporting Tool (inherited, significantly extended)",
+                "automated weekly fleet reporting with AI-assisted risk scoring and a derived Composite Risk Index "
+                "in scheduled PDF reports; I added integration with NinjaOne (RMM) and with the internal device "
+                "inventory tool I built, on top of Bitdefender GravityZone (EDR) data.")
 P_CART = proj("CartCloud (team capstone)",
               "collaborative shopping web application; github.com/TobiOnibudo/cartcloud.")
-P_HAPPBIT = proj("Happbit (personal)",
+P_HAPPBIT = proj("Happbit (Dalhousie Mobile Development course, final project)",
                  "cross-platform habit tracker, JavaScript; github.com/akilfernando.")
-P_3D = proj("Cross-platform 3D scene (personal)",
-            "Blender (modeling, rigging, animation) rendered via Three.js, packaged with Capacitor into an Android APK.")
+P_3D = proj("Cross-platform 3D scene (Ubisoft Halifax co-op, title under NDA)",
+            "Blender modeling, rigging, and animation rendered via Three.js and packaged with Capacitor into an "
+            "Android APK; built with another co-op in my cohort.")
 P_ITCH = proj("Published games and demos (personal)",
-              "Ammo = Life (game jam), Vulkan Graphics Demo, OpenGL Flight Simulator; playable at akilf.itch.io.")
+              "Ammo = Life (portfolio demo that earned my Ubisoft Halifax co-op), Vulkan Graphics Demo, "
+              "OpenGL Flight Simulator; playable at akilf.itch.io.")
 
 # ---------------- Variant A: Security & IT Systems (merged) ----------------
 A_SUMMARY = ("Security and IT systems lead running identity and access management (IAM), endpoint security, and an "
@@ -162,10 +168,11 @@ C_SUMMARY = ("Full-stack developer building and running production TypeScript an
              "distributed remote staffing firm, with prior AAA gameplay programming experience at Ubisoft. "
              "Computer Science graduate, Dalhousie University (GPA 3.92).")
 C_TS = ts_entry([
-    "Sole-authored internal production platforms in TypeScript and Python: a contractor training platform, "
-    "a device allocation system, and an automated security-reporting tool (see Projects).",
-    "Took over lead development of an existing production client portal; hardened and extended it "
-    "(Microsoft Entra ID single sign-on, security headers, webhook signature verification).",
+    "Sole-authored internal production platforms in TypeScript and Python: a contractor training platform and "
+    "a device allocation system; also significantly extended an inherited security-posture reporting tool.",
+    "As sole developer, extended an inherited client-only portal into the company's central coordination hub used "
+    "by internal staff, clients, and their team members; hardened it (Microsoft Entra ID single sign-on, security "
+    "headers, webhook signature verification) and am coordinating a phased rollout.",
     "Ship with Next.js, React, TypeScript, Python/FastAPI, Prisma and Drizzle ORM, PostgreSQL, and Supabase; "
     "Claude Code as the primary development tool.",
     "Also lead IT systems and security for the company (Microsoft 365, Entra ID), including an ISO 27001 "

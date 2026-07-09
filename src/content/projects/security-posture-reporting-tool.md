@@ -1,7 +1,7 @@
 ---
 title: "Security Posture Reporting Tool"
 year: 2026
-role: "Primary developer (inherited)"
+role: "Sole developer (inherited)"
 category: "software"
 stack: ["Python", "Flask", "Playwright", "Anthropic Claude API", "NinjaOne", "Bitdefender GravityZone"]
 blurb: "Automated security-posture reporting I inherited from my predecessor and significantly extended, adding NinjaOne and device-inventory integration on top of the endpoint data."

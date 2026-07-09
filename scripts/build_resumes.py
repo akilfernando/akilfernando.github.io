@@ -121,7 +121,7 @@ P_PORTAL = proj("Client Portal (inherited, sole developer)",
                 "extended a client-only portal into the company's central coordination hub, where internal staff, "
                 "clients, and their team members synchronize their work; currently coordinating a phased rollout "
                 "with stakeholders. TypeScript, React.")
-P_SECREP = proj("Security Posture Reporting Tool (inherited, primary developer)",
+P_SECREP = proj("Security Posture Reporting Tool (inherited, sole developer)",
                 "automated weekly fleet reporting with AI-assisted risk scoring and a derived Composite Risk Index "
                 "in scheduled PDF reports; I added integration with NinjaOne (RMM) and with the Fleet Management "
                 "System I built, on top of Bitdefender GravityZone (EDR) data.")

@@ -6,8 +6,9 @@ export const experience = [
     org: 'Teams Squared',
     location: 'Colombo, Sri Lanka',
     summary:
-      'Global remote staffing firm, legal-first and now multi-industry, placing skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Entra ID stack. I lead IT and security for the company and its contractors, which means working directly with clients and their IT teams as well.',
+      'Global remote staffing firm, legal-first and now multi-industry, placing skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Entra ID stack. I lead IT and security for the company and its contractors, heading a small cybersecurity team and working directly with clients and their IT teams as well.',
     highlights: [
+      'Lead the cybersecurity function and mentor a security specialist, owning the team’s roadmap, standards, and delivery.',
       'Lead IAM administration on Microsoft Entra ID: MFA, app registrations, and identity governance.',
       'Administer the Microsoft 365 tenant, endpoint security (Bitdefender GravityZone), and RMM (NinjaOne) across the contractor base.',
       'Hardened security posture, monitoring, and access controls across a globally distributed workforce.',

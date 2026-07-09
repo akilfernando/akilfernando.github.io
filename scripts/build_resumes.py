@@ -78,9 +78,8 @@ def ts_entry(bullets, detail=True):
 </div>"""
 
 ISMS_BULLET = ("Appointed Information Security Management System (ISMS) Officer; lead the company-wide "
-               "ISO 27001 implementation, policy enforcement, and compliance, including mandatory ISMS training "
-               "delivered to contractors through an internal platform I built, ahead of the certification audit "
-               "scheduled for the end of August 2026.")
+               "ISO 27001 implementation, policy, and compliance, including the mandatory ISMS training delivered "
+               "through a platform I built, ahead of the end-of-August 2026 certification audit.")
 
 UBISOFT_FULL = """
 <div class="entry">
@@ -137,10 +136,12 @@ P_ITCH = proj("Published games and demos (personal)",
               "OpenGL Flight Simulator; playable at akilf.itch.io.")
 
 # ---------------- Variant A: Security & IT Systems (merged) ----------------
-A_SUMMARY = ("Security and IT systems lead running identity and access management (IAM), endpoint security, and an "
-             "ISO 27001 implementation for a globally distributed workforce at a remote staffing firm. "
-             "Microsoft SC-300 certified. Computer Science graduate, Dalhousie University (GPA 3.92).")
+A_SUMMARY = ("Security and IT systems lead who built and runs the cybersecurity function at a global remote staffing "
+             "firm, leading and mentoring a security specialist across IAM, endpoint security, and an ISO 27001 "
+             "implementation. Microsoft SC-300 certified. Computer Science graduate, Dalhousie University (GPA 3.92).")
 A_TS = ts_entry([
+    "Lead the cybersecurity function and mentor a security specialist, owning the team's roadmap, standards, "
+    "and delivery.",
     ISMS_BULLET,
     "Lead identity and access management (IAM) on Microsoft Entra ID for a distributed cross-border workforce of "
     "over 130 team members: multi-factor authentication (MFA), Conditional Access, app registrations, and "
@@ -148,11 +149,10 @@ A_TS = ts_entry([
     "Secure and administer endpoints for staff working remotely across many countries and embedded in external "
     "client environments: Microsoft 365, Bitdefender GravityZone endpoint detection and response (EDR), and "
     "NinjaOne remote monitoring and management (RMM).",
-    "Built the internal Fleet Management System, now the system of record for the device fleet: inventory, "
-    "endpoint provisioning integrated with NinjaOne (RMM), and an ISO 27001 audit trail of remote support sessions "
-    "and full device purchase, allocation, and handover history.",
-    "Hardened internal products: Entra ID single sign-on (SSO), personally identifiable information (PII) leak "
-    "remediation, security headers, and credential rotation.",
+    "Built the internal Fleet Management System, the system of record for the device fleet: inventory, endpoint "
+    "provisioning via NinjaOne (RMM), and an ISO 27001 audit trail of device and support-session history.",
+    "Hardened internal products: Entra ID single sign-on, PII leak remediation, security headers, and "
+    "credential rotation.",
 ])
 A_SKILLS = ("<div class='skills'>"
             "<p><b>Governance &amp; risk:</b> ISO 27001 &middot; Governance, risk, and compliance (GRC) &middot; "
@@ -183,8 +183,8 @@ C_TS = ts_entry([
     "headers, webhook signature verification) and am coordinating a phased rollout.",
     "Ship with Next.js, React, TypeScript, Python/FastAPI, Prisma and Drizzle ORM, PostgreSQL, and Supabase; "
     "Claude Code as the primary development tool.",
-    "Also lead IT systems and security for the company (Microsoft 365, Entra ID), including an ISO 27001 "
-    "implementation as the appointed ISMS Officer.",
+    "Also lead the company's IT systems and cybersecurity function (Microsoft 365, Entra ID), mentoring a security "
+    "specialist and running an ISO 27001 implementation as the appointed ISMS Officer.",
 ])
 C_SKILLS = ("<div class='skills'>"
             "<p><b>Languages:</b> TypeScript &middot; Python &middot; C#</p>"

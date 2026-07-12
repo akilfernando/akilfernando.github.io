@@ -20,7 +20,7 @@ Certification was a business requirement, not a vanity exercise. Clients were be
 
 - **A distributed team on someone else's clock.** Most of the people in scope are team members embedded in client companies, spread across time zones and working inside client environments. Any control that assumed everyone sat in one office, on managed hardware, on one network, was a control that would not survive contact with reality.
 - **Small team, no dedicated GRC function.** The management system had to be light enough that a handful of people could actually run it, month after month, without a compliance department behind them. A framework nobody maintains is worse than no framework, since it lies about where you stand.
-- **Certification timeline.** The external certification audit is set for the end of August 2026, so the whole management system had to be real and evidenced by then, not aspirational.
+- **Certification timeline.** The external Stage 2 certification audit is set for the end of August 2026, so the whole management system had to be real and evidenced by then, not aspirational. We are in the final stages of preparation now.
 - **Live business.** None of this could stop the day-to-day running of the company or the team members placed at clients. The ISMS had to be built around operations that were already running.
 
 ## Approach

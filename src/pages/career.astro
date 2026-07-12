@@ -46,7 +46,14 @@ const timeline = [
 
   <h2 class="sec-label">Certifications</h2>
   <ul class="certs">
-    {certifications.map((c) => <li>{c}</li>)}
+    {certifications.map((c) => (
+      <li>
+        {c.name}
+        {c.verify && (
+          <a class="verify" href={c.verify} target="_blank" rel="noopener noreferrer">Verify<span aria-hidden="true">&#8599;</span></a>
+        )}
+      </li>
+    ))}
   </ul>
 
   <h2 class="sec-label" id="skills">Skills</h2>
@@ -112,6 +119,12 @@ const timeline = [
     font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink);
     padding: 4px 0; line-height: 1.5;
   }
+  .verify {
+    color: var(--cobalt); text-decoration: none; margin-left: 8px;
+    font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .verify span { font-size: 0.9em; }
+  .verify:hover { text-decoration: underline; text-underline-offset: 3px; }
   .skills { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-3); }
   .skillgrp { min-width: 150px; }
   .skillgrp h3 {

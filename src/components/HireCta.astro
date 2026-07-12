@@ -1,0 +1,34 @@
+---
+// Small hiring call-to-action for leaf pages (project write-ups, blog posts).
+// Recruiters often land on these from search or a shared link and never see
+// the homepage, so give them a next step where they already are.
+---
+<aside class="hire-cta">
+  <p class="line"><span class="lead">Hiring?</span> I am open to security, identity, and software
+    roles in Canada. Work permit valid to 2029, no sponsorship needed.</p>
+  <p class="links">
+    <a href="/hire/">The two-minute brief</a>
+    <a href="mailto:mail@akilfernando.dev">mail@akilfernando.dev</a>
+  </p>
+</aside>
+
+<style>
+  .hire-cta {
+    margin-top: var(--space-6);
+    border-top: 1px solid var(--rule);
+    padding-top: var(--space-3);
+    max-width: var(--measure);
+  }
+  .line { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.55; max-width: 58ch; }
+  .lead {
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--cobalt);
+    margin-right: 6px;
+  }
+  .links { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-1); }
+  .links a {
+    font-family: var(--font-mono); font-size: 0.8125rem; color: var(--cobalt);
+    text-decoration: none;
+  }
+  .links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+</style>

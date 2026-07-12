@@ -7,6 +7,7 @@ export const site = {
 
 // Top-nav + homepage "Index" entries. Blurbs show on the homepage contents list.
 export const sections = [
+  { label: 'Hire',     href: '/hire',     blurb: 'Hiring? Start here. The two-minute brief, with proof and CVs.' },
   { label: 'Career',   href: '/career',   blurb: 'Where I have worked, what I studied, and the CV to download.' },
   { label: 'Projects', href: '/projects', blurb: 'Security tooling, internal platforms, games, and graphics.' },
   { label: 'Blog',     href: '/blog',     blurb: 'Notes on building, breaking, and learning.' },

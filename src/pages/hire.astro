@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { cvs } from '../data/career';
+
+// The condensed, recruiter-facing version of the whole site. Every fact here
+// already appears on Career, About, or a project page; this page just saves
+// the scrolling. Keep it to one screen's worth of reading.
+
+const facts = [
+  { label: 'Role now', value: 'IT Systems and Cybersecurity Lead, Teams Squared. I head the cybersecurity team and serve as ISO 27001 ISMS Officer.' },
+  { label: 'Looking for', value: 'Security and identity roles, or software engineering close to them. Happy to keep wearing more than one hat.' },
+  { label: 'Certification', value: 'Microsoft SC-300, Identity and Access Administrator Associate (July 2026).' },
+  { label: 'Education', value: 'BSc Computer Science (Co-op), Dalhousie University. GPA 3.92, Sexton Scholar.' },
+  { label: 'Work status', value: 'Canadian post-graduation work permit valid to June 2029. No sponsorship required.' },
+  { label: 'Location', value: 'Relocating to Canada, September 2026. Open to anywhere in the country. Eligible for the Atlantic Immigration Program (International Graduate stream). IELTS General CLB 10.' },
+];
+
+const proof = [
+  {
+    title: 'Implementing ISO 27001 at a global staffing firm',
+    href: '/projects/iso-27001-staffing-firm/',
+    note: 'Built the ISMS from nothing as its appointed officer: scope, risk assessment, Statement of Applicability, and the road to a certification audit set for the end of August 2026. For 130+ people across many countries.',
+  },
+  {
+    title: 'Contractor Training LMS',
+    href: '/projects/contractor-training-lms/',
+    note: 'Sole-authored training platform with Entra ID single sign-on. Load-bearing for compliance, since it delivers the mandatory ISMS training and holds the audit evidence.',
+  },
+  {
+    title: 'Client Portal',
+    href: '/projects/client-portal/',
+    note: 'Inherited a live production app with six integrations and grew it into the company-wide coordination hub, as sole developer.',
+  },
+  {
+    title: 'Gameplay programming at Ubisoft Halifax',
+    href: '/projects/ubisoft-gameplay/',
+    note: 'A co-op term writing camera, targeting, and AI code in Unity and C# across two unannounced titles.',
+  },
+];
+---
+<BaseLayout title="Hire" description="The two-minute brief for recruiters and hiring managers: what I do, the proof, and the CVs.">
+  <p class="eyebrow">Hire</p>
+  <div class="wayrule"></div>
+  <h1 class="display h1">The two-minute brief.</h1>
+
+  <p class="lede">You are probably hiring, so here is the short version. I run security, identity,
+    and the systems they depend on for a globally distributed company, and I still build the
+    software my team runs on. Everything below is covered in more depth elsewhere on the site.
+    This page just saves you the scrolling.</p>
+
+  <h2 class="sec-label">The facts</h2>
+  <dl class="facts">
+    {facts.map((f) => (
+      <div class="fact">
+        <dt>{f.label}</dt>
+        <dd>{f.value}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <h2 class="sec-label">Proof, not adjectives</h2>
+  <ul class="proof">
+    {proof.map((p) => (
+      <li>
+        <a href={p.href} class="p-title">{p.title}<span class="arrow" aria-hidden="true">&#8599;</span></a>
+        <p class="p-note">{p.note}</p>
+      </li>
+    ))}
+  </ul>
+
+  <h2 class="sec-label">CV, three lenses</h2>
+  <p class="cv-note">Tailored to the field you are hiring for. Pick the one that fits.</p>
+  <div class="cvs">
+    {cvs.map((c) => (
+      <a class="cv" href={c.file} target="_blank" rel="noopener noreferrer">
+        <span aria-hidden="true">&#8595;</span>&nbsp; {c.field}
+      </a>
+    ))}
+  </div>
+
+  <h2 class="sec-label">Talk to me</h2>
+  <p class="talk">Email is fastest: <a href="mailto:mail@akilfernando.dev">mail@akilfernando.dev</a>.
+    Or find me on <a href="https://www.linkedin.com/in/akilf/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+    If you want the longer story first, start with <a href="/career/">Career</a> or <a href="/about/">About</a>.</p>
+</BaseLayout>
+
+<style>
+  .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
+  .lede {
+    font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6;
+    max-width: 58ch; margin-top: var(--space-2);
+  }
+  .sec-label {
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+    margin: var(--space-6) 0 var(--space-2);
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid var(--rule);
+  }
+  .facts { margin: 0; }
+  .fact {
+    display: grid; grid-template-columns: 10rem 1fr; gap: var(--space-2);
+    padding: var(--space-2) 0; border-bottom: 1px solid var(--rule);
+  }
+  .fact:last-child { border-bottom: none; }
+  .fact dt {
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-muted); padding-top: 3px;
+  }
+  .fact dd { margin: 0; font-size: 0.9rem; line-height: 1.55; max-width: 62ch; }
+  .proof { list-style: none; padding: 0; }
+  .proof li { padding: var(--space-2) 0; border-bottom: 1px solid var(--rule); }
+  .proof li:last-child { border-bottom: none; }
+  .p-title {
+    font-family: var(--font-display); font-weight: 500; font-size: 1.125rem;
+    color: inherit; text-decoration: none;
+  }
+  .p-title:hover { color: var(--cobalt); }
+  .arrow { font-family: var(--font-mono); font-size: 0.8em; color: var(--rule); margin-left: 6px; }
+  .p-title:hover .arrow { color: var(--cobalt); }
+  .p-note { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.55; margin-top: 4px; max-width: 62ch; }
+  .cv-note { font-size: 0.875rem; color: var(--ink-muted); }
+  .cvs { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
+  .cv {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--cobalt); color: var(--paper); padding: 13px 22px; text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .cv:hover { background: var(--cobalt-deep); }
+  .talk { max-width: 58ch; line-height: 1.6; }
+  .talk a { color: var(--cobalt); text-underline-offset: 3px; }
+  .talk a:hover { color: var(--cobalt-deep); }
+  @media (max-width: 620px) {
+    .fact { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

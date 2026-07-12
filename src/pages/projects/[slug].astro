@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import HireCta from '../../components/HireCta.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -51,6 +52,8 @@ const categoryLabels: Record<string, string> = {
     )}
 
     <a class="back" href="/projects/">&#8592; All projects</a>
+
+    <HireCta />
   </article>
 </BaseLayout>
 

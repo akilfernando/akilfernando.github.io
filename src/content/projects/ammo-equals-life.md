@@ -5,6 +5,8 @@ role: "Personal"
 category: "game"
 stack: ["Unity", "C#"]
 blurb: "First-person shooter where your ammo count is your health. The demo that landed my gameplay programming co-op at Ubisoft Halifax."
+cover: "/projects/ammo-equals-life.png"
+coverAlt: "Title card reading AMMO = LIFE in white capitals on a deep blue gradient."
 links:
   - label: "Play the demo on itch.io"
     url: "https://akilf.itch.io/ammo-life-demo"

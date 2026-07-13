@@ -5,6 +5,8 @@ role: "Personal (game jam)"
 category: "game"
 stack: ["Unity", "C#", "MagicaVoxel"]
 blurb: "My first Global Game Jam entry, solo, on the theme 'make me laugh'. A voxel-art idle clicker where you tap to slap a face and watch the counter climb. Built start to finish in a couple of hours."
+cover: "/projects/slap-hand.jpg"
+coverAlt: "A pixel-art pink hand on a pale blue background, the slapping hand from Slap."
 links:
   - label: "Get the Android APK on itch.io"
     url: "https://akilf.itch.io/slap"

@@ -5,6 +5,8 @@ role: "Personal"
 category: "game"
 stack: ["C++", "OpenGL"]
 blurb: "Flight simulator built directly on the OpenGL API, exploring real-time rendering and flight dynamics."
+cover: "/projects/opengl-flight-sim.png"
+coverAlt: "A low-poly twin-propeller plane hovering over turquoise water with a mountainous coast and a burning sunset sky, from the OpenGL flight sim."
 links:
   - label: "See it on itch.io"
     url: "https://akilf.itch.io/opengl-plane-demo"

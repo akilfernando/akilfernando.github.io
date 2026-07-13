@@ -1,10 +1,12 @@
 ---
 title: "Brain Box (Revision Game)"
-year: 2021
+year: 2017
 role: "Team project"
 category: "game"
 stack: ["Unity", "C#"]
 blurb: "An award-winning team learning tool for high schoolers. My piece was the revision game: a side-scrolling platformer where quick-fire questions gate every level, and answering and platforming fast both raise your score."
+cover: "/projects/brainbox-revision-game.png"
+coverAlt: "A neon cyan-to-green ring glowing on a dark field, cover art for the Brain Box revision game."
 links:
   - label: "Download on itch.io"
     url: "https://akilf.itch.io/brainbox"

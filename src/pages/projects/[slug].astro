@@ -20,7 +20,7 @@ const categoryLabels: Record<string, string> = {
   academic: 'Academic',
 };
 ---
-<BaseLayout title={project.data.title} description={project.data.blurb}>
+<BaseLayout title={project.data.title} description={project.data.blurb} image={project.data.cover}>
   <p class="eyebrow">Projects</p>
   <div class="wayrule"></div>
   <article class="article">
@@ -37,6 +37,12 @@ const categoryLabels: Record<string, string> = {
       <ul class="stack" aria-label="Stack">
         {project.data.stack.map((s) => <li>{s}</li>)}
       </ul>
+    )}
+
+    {project.data.cover && (
+      <figure class="cover">
+        <img src={project.data.cover} alt={project.data.coverAlt ?? project.data.title} loading="lazy" />
+      </figure>
     )}
 
     <div class="prose">
@@ -77,6 +83,11 @@ const categoryLabels: Record<string, string> = {
   .stack li {
     font-family: var(--font-mono); font-size: 0.6875rem; color: var(--ink-muted);
     background: var(--paper-panel); padding: 3px 9px;
+  }
+  .cover { margin: var(--space-4) 0 0; }
+  .cover img {
+    display: block; width: 100%; height: auto; max-width: 100%;
+    border: 1px solid var(--rule); background: var(--paper-panel);
   }
   .prose { margin-top: var(--space-5); }
   .prose :global(p) { margin-bottom: var(--space-2); }

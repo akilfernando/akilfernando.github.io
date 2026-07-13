@@ -20,6 +20,10 @@ const projects = defineCollection({
     category: z.enum(['security', 'game', 'software', 'academic']),
     stack: z.array(z.string()).default([]),
     blurb: z.string(),
+    // Optional cover art (itch/engine thumbnail). Shown at the top of the
+    // detail page and used as the per-project social share image.
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
     links: z.array(z.object({ label: z.string(), url: z.string().url() })).default([]),
   }),
 });

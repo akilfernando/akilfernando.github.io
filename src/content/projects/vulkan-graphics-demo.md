@@ -5,7 +5,11 @@ role: "Personal"
 category: "game"
 stack: ["C++", "Vulkan"]
 blurb: "Real-time graphics renderer built to learn the Vulkan API from the ground up."
-links: []
+links:
+  - label: "Watch it run (YouTube)"
+    url: "https://youtu.be/nAL_7nFbHV0"
+  - label: "See it on itch.io"
+    url: "https://akilf.itch.io/vulkan-graphics-demo-project"
 ---
 
 A real-time renderer written from the ground up on Vulkan in C++, built to learn the API the hard way. Vulkan hands you almost nothing for free: you describe the queues, the memory, the synchronization, and the entire pipeline state yourself, and the famous hello triangle runs to hundreds of lines.

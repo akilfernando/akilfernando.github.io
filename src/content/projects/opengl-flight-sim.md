@@ -5,7 +5,9 @@ role: "Personal"
 category: "game"
 stack: ["C++", "OpenGL"]
 blurb: "Flight simulator built directly on the OpenGL API, exploring real-time rendering and flight dynamics."
-links: []
+links:
+  - label: "See it on itch.io"
+    url: "https://akilf.itch.io/opengl-plane-demo"
 ---
 
 A flight simulator written directly against the OpenGL API in C++, with no engine underneath it. Just the API, some math, and a window.

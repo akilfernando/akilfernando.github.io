@@ -6,8 +6,8 @@ category: "game"
 stack: ["Unity", "C#"]
 blurb: "First-person shooter where your ammo count is your health. The demo that landed my gameplay programming co-op at Ubisoft Halifax."
 links:
-  - label: "itch.io"
-    url: "https://akilf.itch.io"
+  - label: "Play the demo on itch.io"
+    url: "https://akilf.itch.io/ammo-life-demo"
 ---
 
 A first-person shooter I built in Unity around a single rule: there is no health bar, and your ammo is your health. Every shot you take spends a little of your own survival, and the only way to heal is to go find more ammunition.

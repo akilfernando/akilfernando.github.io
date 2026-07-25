@@ -24,7 +24,6 @@ const personSchema = {
     <h1 class="display name">{site.name}</h1>
     {/* Drop the trailing period so the caret reads as a live typing cursor. */}
     <p class="tag"><strong>{site.tagline}</strong> {site.taglineSub.replace(/\.$/, '')}<span class="caret" aria-hidden="true"></span></p>
-    <p class="avail">Relocating to Canada, September 2026 &middot; Work permit valid to 2029 &middot; No sponsorship required</p>
   </section>
 
   {/* Ask box: progressive enhancement. Hidden until the router script reveals it,
@@ -147,13 +146,6 @@ const personSchema = {
     line-height: 1.5;
   }
   .tag strong { color: var(--ink); font-weight: 500; }
-  /* Availability label: understated mono line, cobalt accent. One line, no banner. */
-  .avail {
-    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--ink-muted);
-    margin-top: var(--space-3);
-    border-left: 2px solid var(--cobalt); padding-left: var(--space-2);
-  }
   /* Blinking terminal caret: the code/techy note in the type mix. Points the
      eye toward the ask box below. */
   .caret {

@@ -12,13 +12,13 @@ A Learning Management System (LMS) I built end to end, sole author, for the cont
 
 ## Context
 
-The organization is a global remote staffing firm, legal-first and now multi-industry, with a distributed contractor workforce. Those team members need structured training, tracked, with a record of who completed what. That includes the mandatory ISMS awareness training our ISO 27001 program requires every contractor to complete, so accurate completion records are not a nicety here, they are audit evidence. Off-the-shelf platforms existed, but bringing one in would have meant a separate identity silo, a separate set of credentials, and a separate thing to secure and pay for. Building it in-house meant the training platform could live inside the same identity and governance perimeter as everything else the team runs. <!-- TODO: Akil: confirm any audience / headcount specifics you want stated publicly, or keep this generic -->
+The organization is a global remote staffing firm, legal-first and now multi-industry, with a distributed contractor workforce. Those team members need structured training, tracked, with a record of who completed what. That includes the mandatory ISMS awareness training our ISO 27001 program requires every contractor to complete, so accurate completion records are not a nicety here, they are audit evidence. Off-the-shelf platforms existed, but bringing one in would have meant a separate identity silo, a separate set of credentials, and a separate thing to secure and pay for. Building it in-house meant the training platform could live inside the same identity and governance perimeter as everything else the team runs.
 
 ## Constraints
 
 - **Sole author, real users.** One person owning every layer, for a platform people actually depend on to complete required training. So the scope had to stay honest about what one person could build and then maintain.
 - **No new identity silo.** A separate login for this platform would have been a new set of passwords to manage, reset, and leak. The hard constraint was that it authenticate against the identity the organization already trusts.
-- **Sensitive audience.** The learners include lawyers working through legal material, so access and completion records had to be handled with care rather than treated as throwaway data. <!-- TODO: Akil: describe the data-sensitivity handling only to the level you are comfortable with publicly -->
+- **Sensitive audience.** The learners include lawyers working through legal material, so access and completion records had to be handled with care rather than treated as throwaway data.
 
 ## Approach
 
@@ -30,12 +30,12 @@ The organization is a global remote staffing firm, legal-first and now multi-ind
 
 ## Outcome
 
-A working training platform that the contractor base signs into with their existing organizational identity, tracks course progress and completion, and requires no separate credentials to manage or secure. <!-- TODO: Akil: add usage figures, number of courses, or completion metrics here if you want them, and only if non-identifying -->
+A working training platform that the contractor base signs into with their existing organizational identity, tracks course progress and completion, and requires no separate credentials to manage or secure.
 
 The outcome I am most pleased with is not a feature. It is that the platform sits cleanly inside the organization's identity model instead of poking a hole in it. Tying it into Entra ID is the reason a new internal tool made the security posture no worse, and arguably a little better.
 
 ## What I'd do differently
 
-I would separate content authoring from the code sooner. Early on, adding or editing a course meant touching the application, which was fine while I was the only one doing it but made me the bottleneck for every content change. A cleaner authoring path, content managed as data rather than through deployments, would have taken the platform from a thing I run to a thing the team runs. <!-- TODO: Akil: adjust if you did in fact build a content-authoring layer -->
+I would separate content authoring from the code sooner. Early on, adding or editing a course meant touching the application, which was fine while I was the only one doing it but made me the bottleneck for every content change. A cleaner authoring path, content managed as data rather than through deployments, would have taken the platform from a thing I run to a thing the team runs.
 
 I would also invest in automated tests around the completion logic earlier. It is the part users trust most and notice fastest when it is wrong, so it is exactly the part worth pinning down with tests rather than manual checking.

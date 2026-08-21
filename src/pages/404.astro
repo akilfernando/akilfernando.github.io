@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { sections } from '../config';
+---
+<BaseLayout title="404: Page Not Found" description="The page you were looking for does not exist or has moved.">
+  <section class="notfound">
+    <p class="eyebrow">404 Error</p>
+    <div class="wayrule"></div>
+    <h1 class="display title">Nothing here.</h1>
+    <p class="desc">
+      The address might be misspelled, or the page was moved somewhere else.
+      Here are the main sections of the site to get back on track:
+    </p>
+
+    <ul class="navlist">
+      {sections.map((s) => (
+        <li>
+          <a href={s.href}>
+            <span class="label">{s.label}</span>
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a class="home-link" href="/">&#8592; Return home</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound { max-width: var(--measure); margin-top: var(--space-4); }
+  .title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
+  .desc {
+    font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6;
+    margin-top: var(--space-2); max-width: 54ch;
+  }
+  .navlist {
+    list-style: none; padding: 0; margin-top: var(--space-4);
+    border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule);
+  }
+  .navlist li { border-bottom: 1px solid var(--rule); }
+  .navlist li:last-child { border-bottom: none; }
+  .navlist a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: var(--space-2) 0; text-decoration: none; color: inherit;
+    transition: padding-left 0.15s ease;
+  }
+  .navlist a:hover { padding-left: 8px; }
+  .navlist .label { font-family: var(--font-display); font-size: 1.25rem; }
+  .navlist a:hover .label { color: var(--cobalt); }
+  .navlist .arrow { font-family: var(--font-mono); font-size: 0.9rem; color: var(--rule); }
+  .navlist a:hover .arrow { color: var(--cobalt); }
+  .home-link {
+    display: inline-block; margin-top: var(--space-6); font-family: var(--font-mono);
+    font-size: 0.8125rem; color: var(--cobalt); text-decoration: none;
+  }
+  .home-link:hover { text-decoration: underline; }
+</style>

@@ -12,7 +12,7 @@ Standing up an Information Security Management System (ISMS) from nothing, as th
 
 ## Context
 
-The organization is a global remote staffing firm, legal-first and now multi-industry, that places skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Microsoft Entra ID stack. I lead IT and security for the company and its contractors, which puts me in regular contact with clients and their IT teams, and the ISMS was mine to build. <!-- TODO: Akil: confirm the headcount / client-company figures you are comfortable stating publicly, or leave them out entirely -->
+The organization is a global remote staffing firm, legal-first and now multi-industry, that places skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Microsoft Entra ID stack. I lead IT and security for the company and its contractors, which puts me in regular contact with clients and their IT teams, and the ISMS was mine to build.
 
 Certification was a business requirement, not a vanity exercise. Clients were beginning to ask for it, so the ask landed on me: take the organization from no formal management system to something a certification body would sign off on. I had done plenty of the technical controls before. I had never owned the management system that is supposed to hold them together.
 
@@ -27,9 +27,9 @@ Certification was a business requirement, not a vanity exercise. Clients were be
 
 I started where the standard makes you start, which is not with controls. It is with scope and risk.
 
-**Scoping.** First job was drawing an honest boundary. What information, what systems, what people, what locations are inside the ISMS, and what is deliberately outside it. For a staffing firm that line is genuinely hard, because you are handling your own information and, in places, information that sits inside the client environments your team members work in. I wrote the scope statement to be specific about that split rather than papering over it. <!-- TODO: Akil: the exact scope boundary wording is internal; keep this generic in public copy -->
+**Scoping.** First job was drawing an honest boundary. What information, what systems, what people, what locations are inside the ISMS, and what is deliberately outside it. For a staffing firm that line is genuinely hard, because you are handling your own information and, in places, information that sits inside the client environments your team members work in. I wrote the scope statement to be specific about that split rather than papering over it.
 
-**Risk assessment.** I built a risk assessment methodology the team could actually apply, not a spreadsheet that looked rigorous and died on first use. Assets and information flows first, then threats and vulnerabilities against them, then a consistent way to score likelihood and impact so two people scoring the same risk landed in roughly the same place. For a team this size the honest risks were rarely exotic. A stale account nobody deprovisioned. A shared credential. An unpatched laptop on a home network. The methodology had to surface the boring, real risks and not get lost chasing the dramatic ones. <!-- TODO: Akil: the scoring scale and specific risk register entries are internal; do not reproduce -->
+**Risk assessment.** I built a risk assessment methodology the team could actually apply, not a spreadsheet that looked rigorous and died on first use. Assets and information flows first, then threats and vulnerabilities against them, then a consistent way to score likelihood and impact so two people scoring the same risk landed in roughly the same place. For a team this size the honest risks were rarely exotic. A stale account nobody deprovisioned. A shared credential. An unpatched laptop on a home network. The methodology had to surface the boring, real risks and not get lost chasing the dramatic ones.
 
 **Statement of Applicability.** Then the Annex A controls, one at a time. The Statement of Applicability (SoA) is the document that says, control by control, this applies and here is why, or it does not and here is why not. This was the part that changed how I think. You cannot wave at best practice. You have to justify your own environment to yourself, in writing, and mean it. Most of the identity and access controls mapped cleanly onto work already live in Microsoft Entra ID and Microsoft 365, so the SoA also became an honest audit of what we really had switched on versus what we told ourselves we had.
 
@@ -37,7 +37,7 @@ I started where the standard makes you start, which is not with controls. It is 
 
 ## Outcome
 
-The organization went from no formal management system to one that is scoped, risk-assessed, documented, and operating, with a Statement of Applicability and evidence trail ready for external audit. <!-- TODO: Akil: state the certification outcome / audit result here once it is final, and only what you are comfortable making public -->
+The organization went from no formal management system to one that is scoped, risk-assessed, documented, and operating, with a Statement of Applicability and evidence trail ready for external audit.
 
 The more durable outcome is that the ISMS is a loop, not a one-time push. Assess, treat, monitor, review, improve, and around again. It runs at a size the team can sustain, which was the whole point.
 

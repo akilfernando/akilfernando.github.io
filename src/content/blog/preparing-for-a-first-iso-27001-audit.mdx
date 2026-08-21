@@ -8,8 +8,6 @@ draft: true
 
 Preparing for your first ISO 27001 audit is a strange kind of stress, because the work is mostly done by the time the audit shows up. ISO 27001 is the standard for an Information Security Management System (ISMS), and the audit is not there to catch you doing security wrong. It is there to check that the management system you built is real, is running, and can prove it. Those are three different things, and the third one is where first-timers get caught.
 
-{/* TODO: Akil: set the scene with your real context. What organization, what scope, whether this was a Stage 1 / Stage 2 certification audit or a surveillance audit, and the timeline. */}
-
 These are the notes I would hand my past self a few weeks out.
 
 ## The auditor is testing the system, not your opinions
@@ -22,7 +20,7 @@ So the unit of preparation is not the control. It is the evidence that the contr
 
 This is the mistake I made, so I will name it plainly. I treated documentation as something to tidy up near the end, once the controls were in place. That led to a scramble to reconstruct proof of things we had genuinely been doing for months. The work was real. The record of it was thin, and to an auditor those are the same problem.
 
-Evidence is not a document you write the week before. It is a byproduct that should accumulate as the controls run. Access review records, offboarding tickets, risk treatment decisions, management review minutes, corrective actions and what closed them. If those are being produced by the work anyway, prep is mostly gathering. If they are not, prep is archaeology, and archaeology under a deadline is miserable. Wire the trail in from the start. {/* TODO: Akil: mention the specific evidence you scrambled on, if you are comfortable, so the lesson has teeth. */}
+Evidence is not a document you write the week before. It is a byproduct that should accumulate as the controls run. Access review records, offboarding tickets, risk treatment decisions, management review minutes, corrective actions and what closed them. If those are being produced by the work anyway, prep is mostly gathering. If they are not, prep is archaeology, and archaeology under a deadline is miserable. Wire the trail in from the start.
 
 ## Know your core documents cold
 
@@ -31,13 +29,13 @@ There is a small set of documents the audit will orbit, and you want to know the
 - **Scope statement.** What is inside the ISMS and what is deliberately outside it. Be ready to defend the boundary, especially the exclusions.
 - **Statement of Applicability (SoA).** The Annex A controls, each marked applicable or not, each with a justification. Expect the auditor to pick a few and ask you to walk from the SoA entry to the control operating in reality. The SoA is the spine of the audit, so treat it as the document you know best.
 - **Risk assessment and treatment.** How you identified risks, how you scored them, and what you decided to do about each. They will trace a risk through to the control that treats it.
-- **Policies.** Short, current, approved, and actually followed. A policy that describes a process nobody runs is worse than no policy, because it is a documented gap. {/* TODO: Akil: list your real core document set and version state here. */}
+- **Policies.** Short, current, approved, and actually followed. A policy that describes a process nobody runs is worse than no policy, because it is a documented gap.
 
 ## Rehearse the traceability, both directions
 
 The audit is largely an exercise in tracing threads, and they run both ways. Forward: here is a risk, show me the control that treats it, show me the evidence it operates. Backward: here is a control switched on in your tenant, show me where the SoA and risk assessment say why it is there.
 
-I practiced walking both directions out loud before the audit, picking a control at random and narrating the full chain from risk to policy to configuration to evidence. Where I stumbled was where the audit would have stumbled me. It is a cheap rehearsal and it finds the seams. {/* TODO: Akil: note which threads were weakest in your dry run. */}
+I practiced walking both directions out loud before the audit, picking a control at random and narrating the full chain from risk to policy to configuration to evidence. Where I stumbled was where the audit would have stumbled me. It is a cheap rehearsal and it finds the seams.
 
 ## Do not oversell, and do not hide the gaps
 
@@ -47,6 +45,6 @@ Both are worse than the honest move, which is to know your own gaps and have the
 
 ## The day itself
 
-Have the evidence organized and reachable, not scattered across inboxes and drives you have to dig through live. Bring the people who actually run the controls, because the auditor will often want to hear it from the operator, not just the ISMS officer. And answer the question asked, then stop. Volunteering extra usually opens threads you did not need to open. {/* TODO: Akil: add anything specific about how your audit day ran and what you would set up differently. */}
+Have the evidence organized and reachable, not scattered across inboxes and drives you have to dig through live. Bring the people who actually run the controls, because the auditor will often want to hear it from the operator, not just the ISMS officer. And answer the question asked, then stop. Volunteering extra usually opens threads you did not need to open.
 
 The reframe that settles the nerves: you are not being tested on whether you are secure. You are being asked to show that the system you built to stay secure is real and running. If you have been running it honestly, the audit is mostly a matter of being able to prove it. Which is exactly why the proof is the part to start early.

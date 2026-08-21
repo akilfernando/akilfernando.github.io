@@ -1,0 +1,64 @@
+{
+  "generated_at": "2025-02-15T08:30:00Z",
+  "study_scope": "Godot Engine v4.x Crash & Triage Analysis",
+  "sample_size_crashes": 8420,
+  "analyzed_commits": 1240,
+  "categories": [
+    {
+      "id": "scenetree",
+      "name": "SceneTree & Node Lifecycle",
+      "percentage": 34.2,
+      "crash_count": 2880,
+      "mean_triage_time_hours": 1.4,
+      "automated_triage_accuracy_pct": 92.5,
+      "primary_causes": [
+        "Dangling Object pointers post queue_free()",
+        "Parent-child thread safety violations during deferred calls",
+        "Orphan node accumulation causing tree corruption"
+      ],
+      "sample_stack_trace": "Node::_notification(NOTIFICATION_PREDELETE)\nSceneTree::call_group_flags()\nMainLoop::iteration()"
+    },
+    {
+      "id": "memory",
+      "name": "Memory Corruption & Native References",
+      "percentage": 28.5,
+      "crash_count": 2400,
+      "mean_triage_time_hours": 6.8,
+      "automated_triage_accuracy_pct": 84.1,
+      "primary_causes": [
+        "Use-after-free in C++ GDExtensions and custom modules",
+        "Refcounted double-free across GDExtension boundary",
+        "Buffer overruns in custom rendering passes"
+      ],
+      "sample_stack_trace": "Memory::free_static(void* p_ptr)\nRefCounted::unreference()\nRID_Owner<Texture>::free(RID p_rid)"
+    },
+    {
+      "id": "script_vm",
+      "name": "Script VM & GDScript Bytecode",
+      "percentage": 21.3,
+      "crash_count": 1794,
+      "mean_triage_time_hours": 0.8,
+      "automated_triage_accuracy_pct": 96.2,
+      "primary_causes": [
+        "Stack overflow in recursive lambda evaluation",
+        "Type coercion mismatch in untyped dictionary access",
+        "Signal connection dispatch to freed instance"
+      ],
+      "sample_stack_trace": "GDScriptFunction::call()\nGDScriptInstance::callp()\nVariant::callp()"
+    },
+    {
+      "id": "physics_audio",
+      "name": "Physics & Audio Thread Synchronization",
+      "percentage": 16.0,
+      "crash_count": 1346,
+      "mean_triage_time_hours": 9.2,
+      "automated_triage_accuracy_pct": 78.4,
+      "primary_causes": [
+        "PhysicsServer3D lock contention under high body count",
+        "AudioServer buffer underrun race on stream teardown",
+        "Direct state access outside of _physics_process"
+      ],
+      "sample_stack_trace": "PhysicsDirectBodyState3D::_bind_methods()\nGodotSpace3D::step()\nAudioDriverDummy::thread_func()"
+    }
+  ]
+}

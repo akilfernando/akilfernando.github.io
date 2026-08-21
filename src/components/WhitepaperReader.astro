@@ -1,0 +1,439 @@
+---
+const repositories = [
+  {
+    name: 'godot-crash-triage',
+    description: 'Automated crash minidump symbolication and AST-aware stack frame clustering for Godot Engine.',
+    url: 'https://github.com/akilfernando/godot-crash-triage',
+    stars: '142',
+    language: 'Rust / C++',
+  },
+  {
+    name: 'ci-timeout-analyzer',
+    description: 'Log parser and telemetry pipeline for tracking game engine build latency and platform timeouts.',
+    url: 'https://github.com/akilfernando/ci-timeout-analyzer',
+    stars: '98',
+    language: 'Python',
+  },
+  {
+    name: 'game-dev-meta-analysis',
+    description: 'Empirical datasets and statistical analysis scripts for CI performance and engine crash taxonomy.',
+    url: 'https://github.com/akilfernando/game-dev-meta-analysis',
+    stars: '215',
+    language: 'Jupyter / R',
+  },
+];
+---
+
+<div class="deliverables-section">
+  <div class="section-header">
+    <h3 class="section-title">Research Deliverables & Code Repositories</h3>
+    <p class="section-sub">
+      Open-source tools, automated triage pipelines, and raw empirical datasets supporting this research.
+    </p>
+  </div>
+
+  <div class="repo-grid">
+    {
+      repositories.map((repo) => (
+        <a href={repo.url} target="_blank" rel="noopener noreferrer" class="repo-card">
+          <div class="repo-header">
+            <span class="repo-name">{repo.name}</span>
+            <span class="external-icon" aria-hidden="true">&#8599;</span>
+          </div>
+          <p class="repo-desc">{repo.description}</p>
+          <div class="repo-meta">
+            <span class="repo-lang">{repo.language}</span>
+            <span class="repo-stars">&#9733; {repo.stars}</span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="whitepaper-box">
+    <div class="whitepaper-info">
+      <h4 class="whitepaper-title">Meta-Analysis Whitepaper</h4>
+      <p class="whitepaper-desc">
+        Full empirical report detailing methodology, build target latency breakdowns, and crash triage algorithms (PDF/Markdown format).
+      </p>
+    </div>
+    <div class="whitepaper-actions">
+      <button type="button" class="action-btn reader-toggle-btn" id="open-reader-btn">
+        <span class="icon">&#128065;</span> Read Online
+      </button>
+      <a href="/docs/game-engine-ci-meta-analysis.md" download class="action-btn primary-btn">
+        <span class="icon">&#128190;</span> Download Whitepaper (.md)
+      </a>
+    </div>
+  </div>
+
+  <!-- Inline / Modal Reader View -->
+  <div id="whitepaper-reader-modal" class="reader-modal" hidden>
+    <div class="modal-backdrop" id="close-modal-backdrop"></div>
+    <div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title-text">Whitepaper Reader: Game Engine CI & Crash Triage</h3>
+        <button type="button" class="close-btn" id="close-reader-btn" aria-label="Close reader">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body" id="reader-body">
+        <p class="loading-text">Loading whitepaper document...</p>
+      </div>
+      <div class="modal-footer">
+        <a href="/docs/game-engine-ci-meta-analysis.md" download class="action-btn primary-btn">
+          Download File
+        </a>
+        <button type="button" class="action-btn" id="close-reader-footer-btn">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const openBtn = document.getElementById('open-reader-btn');
+  const closeBtn = document.getElementById('close-reader-btn');
+  const closeFooterBtn = document.getElementById('close-reader-footer-btn');
+  const backdrop = document.getElementById('close-modal-backdrop');
+  const modal = document.getElementById('whitepaper-reader-modal');
+  const readerBody = document.getElementById('reader-body');
+  let isLoaded = false;
+
+  async function loadWhitepaper() {
+    if (isLoaded || !readerBody) return;
+    try {
+      const response = await fetch('/docs/game-engine-ci-meta-analysis.md');
+      if (!response.ok) throw new Error('Failed to load document');
+      const text = await response.text();
+
+      // Simple markdown format render for plain text/headers/tables
+      const lines = text.split('\n');
+      let html = '<div class="markdown-view">';
+      let inTable = false;
+
+      for (let line of lines) {
+        line = line.trim();
+        if (line.startsWith('# ')) {
+          html += `<h1>${escapeHtml(line.slice(2))}</h1>`;
+        } else if (line.startsWith('## ')) {
+          html += `<h2>${escapeHtml(line.slice(3))}</h2>`;
+        } else if (line.startsWith('### ')) {
+          html += `<h3>${escapeHtml(line.slice(4))}</h3>`;
+        } else if (line.startsWith('- ')) {
+          html += `<li>${escapeHtml(line.slice(2))}</li>`;
+        } else if (line.startsWith('|')) {
+          if (!inTable) {
+            html += '<table class="reader-table"><tbody>';
+            inTable = true;
+          }
+          const cells = line.split('|').filter(c => c.trim().length > 0);
+          if (line.includes('---')) continue; // skip table header separator
+          html += '<tr>' + cells.map(c => `<td>${escapeHtml(c.trim().replace(/\*\*/g, ''))}</td>`).join('') + '</tr>';
+        } else if (line.length > 0) {
+          if (inTable) {
+            html += '</tbody></table>';
+            inTable = false;
+          }
+          html += `<p>${escapeHtml(line)}</p>`;
+        } else {
+          if (inTable) {
+            html += '</tbody></table>';
+            inTable = false;
+          }
+        }
+      }
+      if (inTable) html += '</tbody></table>';
+      html += '</div>';
+
+      readerBody.innerHTML = html;
+      isLoaded = true;
+    } catch (e) {
+      readerBody.innerHTML = `<p class="error-text">Unable to load whitepaper contents. Please download the file directly.</p>`;
+    }
+  }
+
+  function escapeHtml(str: string) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function openModal() {
+    if (modal) {
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      loadWhitepaper();
+    }
+  }
+
+  function closeModal() {
+    if (modal) {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+    }
+  }
+
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  closeFooterBtn?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.hidden) {
+      closeModal();
+    }
+  });
+</script>
+
+<style>
+  .deliverables-section {
+    margin-block: var(--space-6);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-4);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: 500;
+  }
+
+  .section-sub {
+    font-size: var(--fs-sm);
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .repo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .repo-card {
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    padding: var(--space-3);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .repo-card:hover {
+    border-color: var(--cobalt);
+    transform: translateY(-2px);
+  }
+
+  .repo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .repo-name {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--cobalt);
+  }
+
+  .external-icon {
+    font-family: var(--font-mono);
+    color: var(--ink-muted);
+  }
+
+  .repo-card:hover .external-icon {
+    color: var(--cobalt);
+  }
+
+  .repo-desc {
+    font-size: var(--fs-sm);
+    color: var(--ink-muted);
+    line-height: 1.5;
+    margin-bottom: var(--space-2);
+  }
+
+  .repo-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    border-top: 1px dashed var(--rule);
+    padding-top: 8px;
+  }
+
+  .whitepaper-box {
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--cobalt);
+    padding: var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .whitepaper-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: 500;
+  }
+
+  .whitepaper-desc {
+    font-size: var(--fs-sm);
+    color: var(--ink-muted);
+    margin-top: 4px;
+    max-width: 54ch;
+  }
+
+  .whitepaper-actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 8px 14px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .action-btn:hover {
+    border-color: var(--cobalt);
+    color: var(--cobalt);
+  }
+
+  .action-btn.primary-btn {
+    background: var(--cobalt);
+    color: var(--paper);
+    border-color: var(--cobalt);
+  }
+
+  .action-btn.primary-btn:hover {
+    background: var(--cobalt-deep);
+    color: var(--paper);
+  }
+
+  /* Modal Styles */
+  .reader-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+  }
+
+  .reader-modal[hidden] {
+    display: none !important;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 26, 0.75);
+    backdrop-filter: blur(2px);
+  }
+
+  .modal-content {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    width: 100%;
+    max-width: 800px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 1001;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .modal-header {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-title-text {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .close-btn:hover {
+    color: var(--ink);
+  }
+
+  .modal-body {
+    padding: var(--space-4);
+    overflow-y: auto;
+    font-size: var(--fs-sm);
+    line-height: var(--leading-body);
+  }
+
+  .modal-footer {
+    padding: var(--space-3);
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    background: var(--paper-panel);
+  }
+
+  .loading-text, .error-text {
+    font-family: var(--font-mono);
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 620px) {
+    .whitepaper-box {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .whitepaper-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+    .action-btn {
+      justify-content: center;
+    }
+  }
+</style>

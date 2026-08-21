@@ -1,0 +1,464 @@
+---
+import ciData from '../data/ci-timeout-analyzer.json';
+
+const targets = ciData.targets;
+// Calculate max values for bar scaling
+const maxMeanDuration = Math.max(...targets.map((t) => t.mean_duration_min));
+const maxP95Duration = Math.max(...targets.map((t) => t.p95_duration_min));
+const maxTimeoutRate = Math.max(...targets.map((t) => t.timeout_rate_pct));
+---
+
+<div class="ci-chart-widget">
+  <div class="widget-header">
+    <div class="header-info">
+      <h3 class="widget-title">CI Build Performance & Timeout Analysis</h3>
+      <p class="widget-sub">
+        Based on {ciData.total_builds_analyzed.toLocaleString()} automated build logs across 5 platform targets ({ciData.timeframe}).
+      </p>
+    </div>
+
+    <div class="toggle-group" role="tablist" aria-label="CI Metric View Selector">
+      <button
+        type="button"
+        class="toggle-btn active"
+        data-mode="duration"
+        role="tab"
+        aria-selected="true"
+        aria-controls="ci-bars-container"
+      >
+        Build Durations (min)
+      </button>
+      <button
+        type="button"
+        class="toggle-btn"
+        data-mode="timeouts"
+        role="tab"
+        aria-selected="false"
+        aria-controls="ci-bars-container"
+      >
+        Timeout Rate (%)
+      </button>
+    </div>
+  </div>
+
+  <div id="ci-bars-container" class="chart-body" data-active-mode="duration">
+    <div class="target-list">
+      {
+        targets.map((target) => {
+          const meanPct = (target.mean_duration_min / maxP95Duration) * 100;
+          const p95Pct = (target.p95_duration_min / maxP95Duration) * 100;
+          const timeoutPct = (target.timeout_rate_pct / Math.max(maxTimeoutRate, 15)) * 100;
+
+          return (
+            <div class="target-row" data-target-id={target.id}>
+              <div class="row-label">
+                <span class="platform-name">{target.name}</span>
+                <span class="bottleneck-tag">{target.primary_bottleneck}</span>
+              </div>
+
+              <div class="bar-area">
+                <!-- Durations mode -->
+                <div class="bar-group mode-duration">
+                  <div class="bar-track">
+                    <div
+                      class="bar bar-p95"
+                      style={`width: ${p95Pct}%`}
+                      tabindex="0"
+                      aria-label={`${target.name} P95 duration: ${target.p95_duration_min} minutes`}
+                    >
+                      <div class="tooltip">
+                        <strong>{target.name}</strong>
+                        <div>P95 Duration: <span>{target.p95_duration_min} min</span></div>
+                        <div>Mean Duration: <span>{target.mean_duration_min} min</span></div>
+                        <div>Cache Hit Rate: <span>{target.cache_hit_rate_pct}%</span></div>
+                      </div>
+                    </div>
+                    <div
+                      class="bar bar-mean"
+                      style={`width: ${meanPct}%`}
+                      tabindex="0"
+                      aria-label={`${target.name} Mean duration: ${target.mean_duration_min} minutes`}
+                    >
+                    </div>
+                  </div>
+                  <div class="bar-value">
+                    <span class="value-primary">{target.mean_duration_min}m</span>
+                    <span class="value-sub"> (p95: {target.p95_duration_min}m)</span>
+                  </div>
+                </div>
+
+                <!-- Timeout mode -->
+                <div class="bar-group mode-timeouts" hidden>
+                  <div class="bar-track">
+                    <div
+                      class="bar bar-timeout"
+                      style={`width: ${timeoutPct}%`}
+                      tabindex="0"
+                      aria-label={`${target.name} Timeout rate: ${target.timeout_rate_pct}%`}
+                    >
+                      <div class="tooltip">
+                        <strong>{target.name}</strong>
+                        <div>Timeout Rate: <span>{target.timeout_rate_pct}%</span></div>
+                        <div>Primary Stage: <span>Compilation ({target.timeouts_by_stage.compilation}%)</span></div>
+                        <div>Total Builds: <span>{target.total_builds}</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bar-value">
+                    <span class="value-primary">{target.timeout_rate_pct}%</span>
+                    <span class="value-sub"> ({target.total_builds} builds)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-breakdown" hidden>
+                <div class="stage-title">Timeout Stage Breakdown:</div>
+                <div class="stage-chips">
+                  <span>Checkout: {target.timeouts_by_stage.checkout_and_fetch}%</span>
+                  <span>Deps: {target.timeouts_by_stage.dependency_restore}%</span>
+                  <span>Compile: {target.timeouts_by_stage.compilation}%</span>
+                  <span>Assets: {target.timeouts_by_stage.asset_import}%</span>
+                  <span>Tests: {target.timeouts_by_stage.test_suite}%</span>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div class="legend">
+      <div class="legend-item duration-legend">
+        <span class="swatch swatch-mean"></span> Mean Build Time
+        <span class="swatch swatch-p95"></span> P95 Tail Latency
+      </div>
+      <div class="legend-item timeout-legend" hidden>
+        <span class="swatch swatch-timeout"></span> Job Timeout Percentage
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toggleBtns = document.querySelectorAll<HTMLButtonElement>('.ci-chart-widget .toggle-btn');
+  const chartBody = document.querySelector<HTMLDivElement>('#ci-bars-container');
+  const durationGroups = document.querySelectorAll<HTMLDivElement>('.mode-duration');
+  const timeoutGroups = document.querySelectorAll<HTMLDivElement>('.mode-timeouts');
+  const stageBreakdowns = document.querySelectorAll<HTMLDivElement>('.stage-breakdown');
+  const durationLegend = document.querySelector<HTMLDivElement>('.duration-legend');
+  const timeoutLegend = document.querySelector<HTMLDivElement>('.timeout-legend');
+
+  toggleBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+
+      toggleBtns.forEach((b) => {
+        const isSelected = b === btn;
+        b.classList.toggle('active', isSelected);
+        b.setAttribute('aria-selected', String(isSelected));
+      });
+
+      if (chartBody) {
+        chartBody.dataset.activeMode = mode;
+      }
+
+      const isDuration = mode === 'duration';
+
+      durationGroups.forEach((el) => (el.hidden = !isDuration));
+      timeoutGroups.forEach((el) => (el.hidden = isDuration));
+      stageBreakdowns.forEach((el) => (el.hidden = isDuration));
+
+      if (durationLegend) durationLegend.hidden = !isDuration;
+      if (timeoutLegend) timeoutLegend.hidden = isDuration;
+    });
+  });
+</script>
+
+<style>
+  .ci-chart-widget {
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    padding: var(--space-4);
+    margin-block: var(--space-4);
+  }
+
+  .widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .widget-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: 500;
+  }
+
+  .widget-sub {
+    font-size: var(--fs-sm);
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .toggle-group {
+    display: flex;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+
+  .toggle-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .toggle-btn:hover {
+    color: var(--ink);
+  }
+
+  .toggle-btn.active {
+    background: var(--cobalt);
+    color: var(--paper);
+  }
+
+  .chart-body {
+    padding-top: var(--space-3);
+  }
+
+  .target-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .target-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .target-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .row-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .platform-name {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .bottleneck-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+  }
+
+  .bar-area {
+    width: 100%;
+  }
+
+  .bar-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 22px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    position: relative;
+    overflow: visible;
+  }
+
+  .bar {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
+    cursor: pointer;
+  }
+
+  .bar-p95 {
+    background: rgba(22, 66, 158, 0.25);
+    z-index: 1;
+  }
+
+  .bar-mean {
+    background: var(--cobalt);
+    z-index: 2;
+  }
+
+  .bar-timeout {
+    background: #a32a2a;
+    z-index: 2;
+  }
+
+  /* Tooltip styling */
+  .tooltip {
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--ink) transparent transparent transparent;
+  }
+
+  .bar:hover .tooltip,
+  .bar:focus .tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+  }
+
+  .tooltip strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--paper);
+    border-bottom: 1px solid var(--ink-muted);
+    padding-bottom: 2px;
+  }
+
+  .tooltip div {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .tooltip span {
+    color: #e0e0e0;
+  }
+
+  .bar-value {
+    min-width: 110px;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .value-primary {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .value-sub {
+    color: var(--ink-muted);
+    font-size: 0.6875rem;
+  }
+
+  .stage-breakdown {
+    margin-top: 4px;
+    padding: 6px 10px;
+    background: var(--paper);
+    border-left: 2px solid #a32a2a;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+  }
+
+  .stage-title {
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+  }
+
+  .stage-chips {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    color: var(--ink);
+  }
+
+  .legend {
+    margin-top: var(--space-3);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+  }
+
+  .swatch-mean {
+    background: var(--cobalt);
+  }
+
+  .swatch-p95 {
+    background: rgba(22, 66, 158, 0.25);
+    border: 1px solid var(--cobalt);
+  }
+
+  .swatch-timeout {
+    background: #a32a2a;
+  }
+
+  @media (max-width: 620px) {
+    .widget-header {
+      flex-direction: column;
+    }
+    .toggle-group {
+      width: 100%;
+    }
+    .toggle-btn {
+      flex: 1;
+      text-align: center;
+    }
+    .bar-value {
+      min-width: 80px;
+    }
+  }
+</style>

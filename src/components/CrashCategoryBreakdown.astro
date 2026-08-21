@@ -1,0 +1,273 @@
+---
+import crashData from '../data/game-dev-meta-analysis.json';
+
+const categories = crashData.categories;
+---
+
+<div class="crash-breakdown-widget">
+  <div class="widget-header">
+    <div>
+      <h3 class="widget-title">Godot 4 Engine Crash Taxonomy</h3>
+      <p class="widget-sub">
+        Categorization of {crashData.sample_size_crashes.toLocaleString()} crash backtraces across {crashData.analyzed_commits} commits.
+      </p>
+    </div>
+  </div>
+
+  <div class="category-tabs" role="tablist" aria-label="Crash Categories">
+    {
+      categories.map((cat, idx) => (
+        <button
+          type="button"
+          class={`cat-tab ${idx === 0 ? 'active' : ''}`}
+          data-cat-id={cat.id}
+          role="tab"
+          aria-selected={idx === 0 ? 'true' : 'false'}
+          aria-controls={`panel-${cat.id}`}
+        >
+          <span class="cat-tab-name">{cat.name}</span>
+          <span class="cat-tab-pct">{cat.percentage}%</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="panels-container">
+    {
+      categories.map((cat, idx) => (
+        <div
+          id={`panel-${cat.id}`}
+          class={`cat-panel ${idx === 0 ? 'active' : ''}`}
+          data-panel-id={cat.id}
+          role="tabpanel"
+          hidden={idx !== 0}
+        >
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Frequency Share</span>
+              <span class="metric-value">{cat.percentage}%</span>
+              <span class="metric-sub">{cat.crash_count.toLocaleString()} occurrences</span>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-label">Mean Triage Duration</span>
+              <span class="metric-value">{cat.mean_triage_time_hours}h</span>
+              <span class="metric-sub">Human verification required</span>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-label">Auto-Triage Accuracy</span>
+              <span class="metric-value">{cat.automated_triage_accuracy_pct}%</span>
+              <span class="metric-sub">AST frame match rate</span>
+            </div>
+          </div>
+
+          <div class="details-section">
+            <h4 class="section-heading">Primary Failure Vectors</h4>
+            <ul class="causes-list">
+              {cat.primary_causes.map((cause) => (
+                <li>
+                  <span class="cause-bullet" aria-hidden="true">&gt;</span>
+                  <span>{cause}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="stack-section">
+            <h4 class="section-heading">Representative Frame Signature</h4>
+            <pre class="stack-trace"><code>{cat.sample_stack_trace}</code></pre>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.crash-breakdown-widget .cat-tab');
+  const panels = document.querySelectorAll<HTMLDivElement>('.crash-breakdown-widget .cat-panel');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const catId = tab.dataset.catId;
+
+      tabs.forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', String(active));
+      });
+
+      panels.forEach((p) => {
+        const active = p.dataset.panelId === catId;
+        p.classList.toggle('active', active);
+        p.hidden = !active;
+      });
+    });
+  });
+</script>
+
+<style>
+  .crash-breakdown-widget {
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    padding: var(--space-4);
+    margin-block: var(--space-4);
+  }
+
+  .widget-header {
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .widget-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: 500;
+  }
+
+  .widget-sub {
+    font-size: var(--fs-sm);
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .category-tabs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-1);
+    margin-block: var(--space-3);
+  }
+
+  .cat-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-2);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .cat-tab:hover {
+    border-color: var(--ink-muted);
+  }
+
+  .cat-tab.active {
+    background: var(--cobalt-tint);
+    border-color: var(--cobalt);
+    border-left: 3px solid var(--cobalt);
+  }
+
+  .cat-tab-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .cat-tab-pct {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--cobalt);
+    margin-top: 4px;
+  }
+
+  .panels-container {
+    padding-top: var(--space-2);
+  }
+
+  .cat-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+
+  .metric-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: var(--space-2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .metric-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+  }
+
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    color: var(--cobalt);
+    margin-top: 2px;
+  }
+
+  .metric-sub {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+
+  .section-heading {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: var(--space-1);
+  }
+
+  .causes-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .causes-list li {
+    font-size: var(--fs-sm);
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    color: var(--ink);
+  }
+
+  .cause-bullet {
+    font-family: var(--font-mono);
+    color: var(--cobalt);
+  }
+
+  .stack-trace {
+    background: var(--ink);
+    color: #e0e0e0;
+    padding: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    border-left: 3px solid var(--cobalt);
+  }
+
+  @media (max-width: 620px) {
+    .category-tabs {
+      grid-template-columns: 1fr 1fr;
+    }
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

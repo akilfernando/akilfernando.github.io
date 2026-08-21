@@ -1,0 +1,94 @@
+{
+  "generated_at": "2025-02-15T08:30:00Z",
+  "tool": "ci-timeout-analyzer",
+  "version": "1.4.0",
+  "total_builds_analyzed": 14250,
+  "timeframe": "Q4 2024 - Q1 2025",
+  "targets": [
+    {
+      "id": "linux",
+      "name": "Linux (x86_64)",
+      "mean_duration_min": 14.2,
+      "p95_duration_min": 22.8,
+      "timeout_rate_pct": 2.1,
+      "total_builds": 3200,
+      "cache_hit_rate_pct": 84.5,
+      "primary_bottleneck": "Shader compilation & lld linking",
+      "timeouts_by_stage": {
+        "checkout_and_fetch": 5,
+        "dependency_restore": 12,
+        "compilation": 38,
+        "asset_import": 15,
+        "test_suite": 30
+      }
+    },
+    {
+      "id": "windows",
+      "name": "Windows (MSVC / Direct3D12)",
+      "mean_duration_min": 28.6,
+      "p95_duration_min": 44.1,
+      "timeout_rate_pct": 8.4,
+      "total_builds": 3500,
+      "cache_hit_rate_pct": 61.2,
+      "primary_bottleneck": "MSVC PDB generation & template instantiation",
+      "timeouts_by_stage": {
+        "checkout_and_fetch": 4,
+        "dependency_restore": 18,
+        "compilation": 52,
+        "asset_import": 14,
+        "test_suite": 12
+      }
+    },
+    {
+      "id": "macos",
+      "name": "macOS / iOS (Xcode / Metal)",
+      "mean_duration_min": 34.1,
+      "p95_duration_min": 58.5,
+      "timeout_rate_pct": 12.3,
+      "total_builds": 2800,
+      "cache_hit_rate_pct": 48.0,
+      "primary_bottleneck": "Code signing & Metal shader archive compilation",
+      "timeouts_by_stage": {
+        "checkout_and_fetch": 8,
+        "dependency_restore": 14,
+        "compilation": 41,
+        "asset_import": 11,
+        "test_suite": 26
+      }
+    },
+    {
+      "id": "web",
+      "name": "Web (Emscripten / WebAssembly)",
+      "mean_duration_min": 18.9,
+      "p95_duration_min": 31.2,
+      "timeout_rate_pct": 5.7,
+      "total_builds": 2400,
+      "cache_hit_rate_pct": 72.1,
+      "primary_bottleneck": "Binaryen LLVM passes & asm.js memory allocation",
+      "timeouts_by_stage": {
+        "checkout_and_fetch": 3,
+        "dependency_restore": 9,
+        "compilation": 62,
+        "asset_import": 21,
+        "test_suite": 5
+      }
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile (Android NDK / Vulkan)",
+      "mean_duration_min": 24.3,
+      "p95_duration_min": 39.0,
+      "timeout_rate_pct": 7.1,
+      "total_builds": 2350,
+      "cache_hit_rate_pct": 66.8,
+      "primary_bottleneck": "Gradle APK packaging & DEX byte-code optimization",
+      "timeouts_by_stage": {
+        "checkout_and_fetch": 6,
+        "dependency_restore": 15,
+        "compilation": 44,
+        "asset_import": 25,
+        "test_suite": 10
+      }
+    }
+  ]
+}

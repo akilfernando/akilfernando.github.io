@@ -9,6 +9,7 @@ export const site = {
 export const sections = [
   { label: 'Career',   href: '/career',   blurb: 'Where I have worked, what I studied, and the CV to download.' },
   { label: 'Projects', href: '/projects', blurb: 'Security tooling, internal platforms, games, and graphics.' },
+  { label: 'Research', href: '/research', blurb: 'Empirical studies on CI performance and automated engine triage.' },
   { label: 'Blog',     href: '/blog',     blurb: 'Notes on building, breaking, and learning.' },
   { label: 'Writing',  href: '/writing',  blurb: 'Fiction and other creative writing. Always a work in progress.' },
   { label: 'Log',      href: '/log',      blurb: 'A backlog and reviews of games, films, shows, and books.' },

@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const studies = [
+  {
+    title: 'Game Engine CI Bottlenecks & Automated Crash Triage',
+    slug: 'game-engine-ci',
+    date: 'February 2025',
+    summary: 'Empirical analysis of 14,250 CI builds and 8,420 Godot 4 crash reports. Explores build latency drivers across 5 targets and AST-aware automated triage.',
+    tags: ['Continuous Integration', 'Godot 4', 'Crash Analysis', 'Automated Triage'],
+  },
+];
+---
+
+<BaseLayout title="Research & Meta-Analysis" description="Empirical research on game engine continuous integration and automated crash triage.">
+  <p class="eyebrow">Research & Meta-Analysis</p>
+  <div class="wayrule"></div>
+
+  <h1 class="display h1">Empirical Studies</h1>
+  <p class="subtitle">
+    Data-driven investigations, telemetry analyses, and tooling for software engineering and game engine development.
+  </p>
+
+  <div class="studies-list">
+    {
+      studies.map((s) => (
+        <article class="study-card">
+          <div class="meta">
+            <span class="date">{s.date}</span>
+          </div>
+          <h2 class="display study-title">
+            <a href={`/research/${s.slug}`}>{s.title}</a>
+          </h2>
+          <p class="summary">{s.summary}</p>
+          <div class="tags">
+            {s.tags.map((t) => (
+              <span class="tag">{t}</span>
+            ))}
+          </div>
+          <div class="link-row">
+            <a href={`/research/${s.slug}`} class="read-link">
+              Explore Study & Visualizations <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .h1 {
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    margin-top: var(--space-1);
+  }
+
+  .subtitle {
+    font-size: var(--fs-md);
+    color: var(--ink-muted);
+    margin-top: var(--space-2);
+    max-width: var(--measure);
+  }
+
+  .studies-list {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    border-top: 1px solid var(--ink);
+  }
+
+  .study-card {
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+
+  .study-title {
+    font-size: var(--fs-lg);
+    margin-top: 6px;
+  }
+
+  .study-title a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .study-title a:hover {
+    color: var(--cobalt);
+  }
+
+  .summary {
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+    margin-top: var(--space-2);
+    max-width: var(--measure);
+    line-height: var(--leading-body);
+  }
+
+  .tags {
+    display: flex;
+    gap: var(--space-1);
+    flex-wrap: wrap;
+    margin-top: var(--space-3);
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    background: var(--paper-panel);
+    color: var(--ink-muted);
+    padding: 3px 8px;
+  }
+
+  .link-row {
+    margin-top: var(--space-3);
+  }
+
+  .read-link {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--cobalt);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .read-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

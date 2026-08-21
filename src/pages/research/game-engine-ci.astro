@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CiBuildChart from '../../components/CiBuildChart.astro';
+import CrashCategoryBreakdown from '../../components/CrashCategoryBreakdown.astro';
+import WhitepaperReader from '../../components/WhitepaperReader.astro';
+---
+
+<BaseLayout
+  title="Game Engine CI & Crash Triage Research"
+  description="Empirical study on continuous integration bottlenecks and automated crash triage in Godot engine development."
+>
+  <p class="eyebrow">Research & Meta-Analysis</p>
+  <div class="wayrule"></div>
+
+  <h1 class="display h1">Game Engine CI & Crash Triage</h1>
+  <p class="subtitle">
+    Empirical findings on build latency, platform timeouts, and automated crash categorization in Godot Engine v4.x.
+  </p>
+
+  <!-- Section 1: Executive Overview -->
+  <section class="section-block">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="prose">
+      <p>
+        Building game engines at scale presents unique pipeline challenges. Unlike typical web applications, engine builds involve complex C++ template instantiations, multi-platform code generation, and large binary asset processing.
+      </p>
+      <p>
+        We analyzed 14,250 continuous integration build logs across five platform targets (Linux, Windows MSVC, macOS Metal, Web, and Mobile NDK). The telemetry reveals that compilation and linking account for over 70% of pipeline timeouts, with Windows and macOS targets exhibiting extreme tail latency due to symbol PDB generation and code signing overhead.
+      </p>
+      <p>
+        In parallel, an evaluation of 8,420 production crash minidumps from Godot 4 builds demonstrated that SceneTree lifecycle violations and GDExtension memory corruption constitute 62.7% of fatal errors. By applying AST-aware stack frame clustering, we automated crash classification and reduced average triage turnaround time from 4.3 hours to 18 minutes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 2: Interactive Visualizations -->
+  <section class="section-block">
+    <h2 class="section-title">Interactive Visualizations</h2>
+
+    <div class="viz-wrapper">
+      <h3 class="viz-heading">Part A: Target Platform Build Latency & Timeout Distribution</h3>
+      <CiBuildChart />
+    </div>
+
+    <div class="viz-wrapper">
+      <h3 class="viz-heading">Part B: Godot Engine Crash Taxonomy Breakdown</h3>
+      <CrashCategoryBreakdown />
+    </div>
+  </section>
+
+  <!-- Section 3: Deliverables & Repositories -->
+  <section class="section-block">
+    <WhitepaperReader />
+  </section>
+</BaseLayout>
+
+<style>
+  .h1 {
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    margin-top: var(--space-1);
+  }
+
+  .subtitle {
+    font-size: var(--fs-md);
+    color: var(--ink-muted);
+    margin-top: var(--space-2);
+    max-width: var(--measure);
+    line-height: var(--leading-body);
+  }
+
+  .section-block {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-3);
+  }
+
+  .prose {
+    max-width: var(--measure);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--fs-base);
+    line-height: var(--leading-body);
+    color: var(--ink);
+  }
+
+  .viz-wrapper {
+    margin-top: var(--space-4);
+  }
+
+  .viz-heading {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cobalt);
+    margin-bottom: var(--space-1);
+  }
+</style>

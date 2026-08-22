@@ -20,11 +20,12 @@ const fmt = (d: Date) =>
   ) : (
     <ul class="list">
       {pieces.map((p) => (
-        <li class="piece">
+        <li class="piece" data-slug={p.slug}>
           <a href={`/writing/${p.slug}/`}>
             <span class="meta">
               <span class="date">{fmt(p.data.date)}</span>
               {p.data.status && <span class="status" data-s={p.data.status}>{p.data.status}</span>}
+              <span class="bm-indicator" id={`bm-${p.slug}`} hidden></span>
             </span>
             <h2 class="display pt">{p.data.title}</h2>
             <p class="desc">{p.data.description}</p>
@@ -40,6 +41,30 @@ const fmt = (d: Date) =>
   )}
 </BaseLayout>
 
+<script>
+  // Show saved bookmark status on story cards
+  document.addEventListener('DOMContentLoaded', () => {
+    const pieces = document.querySelectorAll('.piece[data-slug]');
+    pieces.forEach((item) => {
+      const slug = (item as HTMLElement).dataset.slug;
+      if (!slug) return;
+      try {
+        const raw = localStorage.getItem(`story_bookmark_${slug}`);
+        if (raw) {
+          const saved = JSON.parse(raw);
+          if (saved && typeof saved.pct === 'number' && saved.pct >= 2 && saved.pct < 98) {
+            const indicator = document.getElementById(`bm-${slug}`);
+            if (indicator) {
+              indicator.textContent = `🔖 ${saved.pct}% read · Resume →`;
+              indicator.hidden = false;
+            }
+          }
+        }
+      } catch (e) {}
+    });
+  });
+</script>
+
 <style>
   .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
   .intro { font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6; max-width: 58ch; margin-top: var(--space-2); }
@@ -49,11 +74,22 @@ const fmt = (d: Date) =>
   .piece { border-bottom: 1px solid var(--rule); }
   .piece a { display: block; padding: var(--space-3) 0; text-decoration: none; color: inherit; transition: padding-left 0.18s ease; }
   .piece a:hover { padding-left: 10px; }
-  .meta { display: flex; align-items: baseline; gap: 10px; }
+  .meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; }
   .date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); }
   .status {
     font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--cobalt); border: 1px solid var(--rule); padding: 2px 7px;
+  }
+  .bm-indicator {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cobalt);
+    background: var(--cobalt-tint, #e8edf8);
+    border: 1px solid var(--cobalt);
+    padding: 2px 7px;
+    font-weight: 600;
   }
   .pt { font-size: 1.5rem; margin-top: 6px; }
   .piece a:hover .pt { color: var(--cobalt); }

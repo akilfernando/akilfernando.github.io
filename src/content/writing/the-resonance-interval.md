@@ -32,20 +32,20 @@ draft: false
 
 ## TABLE OF CONTENTS
 
-1. Prologue: The Acoustic Drift
-2. Chapter 1: The Core Bore & The Deep Lag
-3. Chapter 2: Spectral Anomalies & The Forty-Five Minute Void
-4. Chapter 3: The Orbital Triage & Delta-V Ledger
-5. Chapter 4: Thermal Dissipation & The Mutiny of Mass
-6. Chapter 5: Acoustic Fracture & The Caelus Trajectory
-7. Chapter 6: The Sabatier Dilemma & The Locked Burn
-8. Chapter 7: The Kinetic Pivot & The Cold Horizon
-9. Chapter 8: The Drift Equation & The Civilian Armada
-10. Epilogue: The Ledger of the Unseen
-    * Part I: The Docking Ring Standoff
-    * Part II: The General Strike & The Geneva Inquiry
-    * Part III: The Ganymede Reunion
-11. Author's Technical Note & Astrodynamics Glossary
+1. [Prologue: The Acoustic Drift](#prologue-the-acoustic-drift)
+2. [Chapter 1: The Core Bore & The Deep Lag](#chapter-1-the-core-bore--the-deep-lag)
+3. [Chapter 2: Spectral Anomalies & The Forty-Five Minute Void](#chapter-2-spectral-anomalies--the-forty-five-minute-void)
+4. [Chapter 3: The Orbital Triage & Delta-V Ledger](#chapter-3-the-orbital-triage--delta-v-ledger)
+5. [Chapter 4: Thermal Dissipation & The Mutiny of Mass](#chapter-4-thermal-dissipation--the-mutiny-of-mass)
+6. [Chapter 5: Acoustic Fracture & The Caelus Trajectory](#chapter-5-acoustic-fracture--the-caelus-trajectory)
+7. [Chapter 6: The Sabatier Dilemma & The Locked Burn](#chapter-6-the-sabatier-dilemma--the-locked-burn)
+8. [Chapter 7: The Kinetic Pivot & The Cold Horizon](#chapter-7-the-kinetic-pivot--the-cold-horizon)
+9. [Chapter 8: The Drift Equation & The Civilian Armada](#chapter-8-the-drift-equation--the-civilian-armada)
+10. [Epilogue: The Ledger of the Unseen](#epilogue-the-ledger-of-the-unseen)
+    * [Part I: The Docking Ring Standoff](#part-i-the-docking-ring-standoff)
+    * [Part II: The General Strike & The Geneva Inquiry](#part-ii-the-general-strike--the-geneva-inquiry)
+    * [Part III: The Ganymede Reunion](#part-iii-the-ganymede-reunion)
+11. [Author's Technical Note & Astrodynamics Glossary](#authors-technical-note--astrodynamics-glossary)
 
 ---
 

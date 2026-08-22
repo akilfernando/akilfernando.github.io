@@ -20,30 +20,370 @@ const fmt = (d: Date) =>
   type="article"
   publishedTime={piece.data.date.toISOString()}
 >
+  <!-- Reading Progress Bar at the top of viewport -->
+  <div class="reading-progress-track" aria-hidden="true">
+    <div class="reading-progress-bar" id="reading-progress-bar"></div>
+  </div>
+
   <p class="eyebrow">Writing</p>
   <div class="wayrule"></div>
-  <article class="article">
+
+  <article class="article" data-slug={piece.slug}>
     <p class="meta">
       <span class="date">{fmt(piece.data.date)}</span>
       {piece.data.status && <span class="status">{piece.data.status}</span>}
     </p>
+
     <h1 class="display title">{piece.data.title}</h1>
+
     {piece.data.tags.length > 0 && (
       <ul class="tags" aria-label="Tags">
         {piece.data.tags.map((t) => <li>{t}</li>)}
       </ul>
     )}
-    <div class="prose">
+
+    <!-- Resume Reading Notification Banner -->
+    <div class="resume-banner" id="resume-banner" hidden>
+      <div class="resume-info">
+        <span class="resume-icon" aria-hidden="true">🔖</span>
+        <div class="resume-text">
+          <span class="resume-label">Saved Bookmark</span>
+          <span class="resume-heading" id="resume-heading">Chapter</span>
+          <span class="resume-pct" id="resume-pct">(0%)</span>
+        </div>
+      </div>
+      <div class="resume-actions">
+        <button type="button" class="btn-resume" id="btn-resume">Resume reading &rarr;</button>
+        <button type="button" class="btn-clear-bm" id="btn-clear-bm" title="Clear bookmark">Start over</button>
+      </div>
+    </div>
+
+    <!-- Chapter Quick Jump & Reading Control Bar -->
+    <div class="reading-toolbar" id="reading-toolbar" hidden>
+      <div class="chapter-nav-wrapper">
+        <button type="button" class="chapter-menu-btn" id="chapter-menu-btn" aria-haspopup="true" aria-expanded="false">
+          <span class="chapter-tag">Chapter</span>
+          <span class="current-chapter-title" id="current-chapter-title">Select chapter...</span>
+          <span class="chevron" aria-hidden="true">&#9662;</span>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div class="chapter-dropdown" id="chapter-dropdown" hidden>
+          <div class="chapter-dropdown-header">
+            <span>Skip to Chapter</span>
+            <span class="chapter-count" id="chapter-count"></span>
+          </div>
+          <ul class="chapter-list" id="chapter-list" role="menu">
+            <!-- Populated via client-side JavaScript -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="toolbar-meta">
+        <span class="read-pct-badge" id="read-pct-badge">0% read</span>
+        <button type="button" class="quick-bm-btn" id="quick-bm-btn" title="Save current position as bookmark">
+          <span class="bm-icon" id="quick-bm-icon">🔖</span>
+          <span class="bm-text" id="quick-bm-text">Bookmark</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="prose" id="story-prose">
       <Content />
     </div>
+
     {piece.data.status === 'in progress' && (
       <p class="wip">This piece is still being written. More to come.</p>
     )}
+
     <a class="back" href="/writing/">&#8592; All writing</a>
   </article>
 </BaseLayout>
 
+<script>
+  // ============================================================
+  // READING BOOKMARK & CHAPTER SKIP CONTROLLER
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', () => {
+    const article = document.querySelector('.article') as HTMLElement | null;
+    if (!article) return;
+
+    const slug = article.dataset.slug || window.location.pathname.replace(/\/writing\/?|\//g, '');
+    const storageKey = `story_bookmark_${slug}`;
+    const prose = document.getElementById('story-prose');
+    const progressBar = document.getElementById('reading-progress-bar');
+    const resumeBanner = document.getElementById('resume-banner');
+    const resumeHeading = document.getElementById('resume-heading');
+    const resumePct = document.getElementById('resume-pct');
+    const btnResume = document.getElementById('btn-resume');
+    const btnClearBm = document.getElementById('btn-clear-bm');
+    const readingToolbar = document.getElementById('reading-toolbar');
+    const chapterMenuBtn = document.getElementById('chapter-menu-btn');
+    const currentChapterTitle = document.getElementById('current-chapter-title');
+    const chapterDropdown = document.getElementById('chapter-dropdown');
+    const chapterList = document.getElementById('chapter-list');
+    const chapterCount = document.getElementById('chapter-count');
+    const readPctBadge = document.getElementById('read-pct-badge');
+    const quickBmBtn = document.getElementById('quick-bm-btn');
+    const quickBmText = document.getElementById('quick-bm-text');
+
+    if (!prose) return;
+
+    // 1. Gather all H2 headings in the story
+    const headings = Array.from(prose.querySelectorAll('h2')) as HTMLHeadingElement[];
+    
+    if (headings.length > 0) {
+      if (readingToolbar) readingToolbar.hidden = false;
+      if (chapterCount) chapterCount.textContent = `${headings.length} sections`;
+
+      // Build chapter dropdown items
+      if (chapterList) {
+        chapterList.innerHTML = '';
+        headings.forEach((h, idx) => {
+          if (!h.id) {
+            h.id = `section-${idx + 1}`;
+          }
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'chapter-item-btn';
+          btn.dataset.targetId = h.id;
+          btn.innerHTML = `<span class="ch-num">${idx + 1}.</span> <span class="ch-name">${h.textContent || ''}</span>`;
+
+          btn.addEventListener('click', () => {
+            scrollToHeading(h);
+            closeDropdown();
+          });
+
+          li.appendChild(btn);
+          chapterList.appendChild(li);
+        });
+      }
+    }
+
+    // Dropdown toggling
+    function toggleDropdown() {
+      if (!chapterDropdown || !chapterMenuBtn) return;
+      const isExpanded = chapterMenuBtn.getAttribute('aria-expanded') === 'true';
+      chapterMenuBtn.setAttribute('aria-expanded', String(!isExpanded));
+      chapterDropdown.hidden = isExpanded;
+    }
+
+    function closeDropdown() {
+      if (!chapterDropdown || !chapterMenuBtn) return;
+      chapterMenuBtn.setAttribute('aria-expanded', 'false');
+      chapterDropdown.hidden = true;
+    }
+
+    if (chapterMenuBtn) {
+      chapterMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleDropdown();
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (chapterDropdown && !chapterDropdown.hidden) {
+        if (!chapterDropdown.contains(e.target as Node) && e.target !== chapterMenuBtn) {
+          closeDropdown();
+        }
+      }
+    });
+
+    // Helper: Scroll to specific heading smoothly with highlight effect
+    function scrollToHeading(headingEl: HTMLElement) {
+      const navOffset = 64;
+      const elementPosition = headingEl.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+
+      // Highlight section briefly
+      headingEl.classList.remove('highlight-pulse');
+      void headingEl.offsetWidth; // trigger reflow
+      headingEl.classList.add('highlight-pulse');
+      setTimeout(() => headingEl.classList.remove('highlight-pulse'), 2500);
+
+      // Save bookmark state
+      saveCurrentState();
+    }
+
+    // 2. Calculate reading progress & active heading
+    function getReadingProgress(): { pct: number; activeHeading: HTMLHeadingElement | null } {
+      const rect = article!.getBoundingClientRect();
+      const scrollY = window.pageYOffset;
+      const start = article!.offsetTop;
+      const totalHeight = article!.offsetHeight;
+      const viewportHeight = window.innerHeight;
+
+      const maxScroll = Math.max(1, totalHeight - viewportHeight);
+      const current = Math.max(0, scrollY - start);
+      const pct = Math.min(100, Math.max(0, Math.round((current / maxScroll) * 100)));
+
+      // Find current active heading
+      let activeHeading: HTMLHeadingElement | null = null;
+      for (let i = headings.length - 1; i >= 0; i--) {
+        const h = headings[i];
+        const hTop = h.getBoundingClientRect().top;
+        if (hTop <= 160) {
+          activeHeading = h;
+          break;
+        }
+      }
+      if (!activeHeading && headings.length > 0) {
+        activeHeading = headings[0];
+      }
+
+      return { pct, activeHeading };
+    }
+
+    // Update UI on scroll
+    function updateUI() {
+      const { pct, activeHeading } = getReadingProgress();
+
+      if (progressBar) {
+        progressBar.style.width = `${pct}%`;
+      }
+      if (readPctBadge) {
+        readPctBadge.textContent = `${pct}% read`;
+      }
+      if (activeHeading && currentChapterTitle) {
+        currentChapterTitle.textContent = activeHeading.textContent || 'Select chapter...';
+
+        // Update active class in dropdown list
+        const items = chapterList?.querySelectorAll('.chapter-item-btn') || [];
+        items.forEach((btn) => {
+          if ((btn as HTMLElement).dataset.targetId === activeHeading!.id) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    // 3. Save bookmark to localStorage
+    function saveCurrentState() {
+      const { pct, activeHeading } = getReadingProgress();
+      if (pct >= 99) {
+        // Finished story, mark complete
+        const data = {
+          scrollY: window.pageYOffset,
+          pct: 100,
+          headingTitle: 'Finished',
+          headingId: '',
+          updatedAt: Date.now()
+        };
+        localStorage.setItem(storageKey, JSON.stringify(data));
+        return;
+      }
+
+      if (pct >= 1) {
+        const data = {
+          scrollY: window.pageYOffset,
+          pct,
+          headingTitle: activeHeading?.textContent || '',
+          headingId: activeHeading?.id || '',
+          updatedAt: Date.now()
+        };
+        localStorage.setItem(storageKey, JSON.stringify(data));
+      }
+    }
+
+    // Debounced scroll listener
+    let scrollTimeout: number | undefined;
+    window.addEventListener('scroll', () => {
+      updateUI();
+      clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        saveCurrentState();
+      }, 400);
+    }, { passive: true });
+
+    // Initial UI update
+    updateUI();
+
+    // 4. Manual Bookmark Button click
+    if (quickBmBtn) {
+      quickBmBtn.addEventListener('click', () => {
+        saveCurrentState();
+        if (quickBmText) {
+          const orig = quickBmText.textContent;
+          quickBmText.textContent = 'Saved!';
+          setTimeout(() => {
+            quickBmText.textContent = orig;
+          }, 1800);
+        }
+      });
+    }
+
+    // 5. Check for existing bookmark on load
+    try {
+      const savedRaw = localStorage.getItem(storageKey);
+      if (savedRaw) {
+        const saved = JSON.parse(savedRaw);
+        if (saved && typeof saved.pct === 'number' && saved.pct >= 2 && saved.pct < 98 && saved.scrollY > 150) {
+          if (resumeBanner && resumeHeading && resumePct) {
+            resumeHeading.textContent = saved.headingTitle || 'Saved point';
+            resumePct.textContent = `(${saved.pct}% read)`;
+            resumeBanner.hidden = false;
+
+            if (btnResume) {
+              btnResume.addEventListener('click', () => {
+                window.scrollTo({
+                  top: saved.scrollY,
+                  behavior: 'smooth'
+                });
+                resumeBanner.hidden = true;
+                
+                // If there was a target heading, pulse it
+                if (saved.headingId) {
+                  const targetEl = document.getElementById(saved.headingId);
+                  if (targetEl) {
+                    targetEl.classList.add('highlight-pulse');
+                    setTimeout(() => targetEl.classList.remove('highlight-pulse'), 2500);
+                  }
+                }
+              });
+            }
+
+            if (btnClearBm) {
+              btnClearBm.addEventListener('click', () => {
+                localStorage.removeItem(storageKey);
+                resumeBanner.hidden = true;
+              });
+            }
+          }
+        }
+      }
+    } catch (e) {
+      // Ignore storage read errors
+    }
+  });
+</script>
+
 <style>
+  /* Reading Progress Bar */
+  .reading-progress-track {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 3px;
+    background: transparent;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  .reading-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--cobalt);
+    transition: width 0.1s ease-out;
+  }
+
   .article { max-width: var(--measure); }
   .meta { display: flex; align-items: baseline; gap: 10px; margin-top: var(--space-2); }
   .date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); }
@@ -57,8 +397,272 @@ const fmt = (d: Date) =>
     font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--ink-muted); background: var(--paper-panel); padding: 3px 9px;
   }
+
+  /* Resume Reading Notification Banner */
+  .resume-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    background: var(--paper-panel);
+    border: 1px solid var(--cobalt);
+    border-left: 4px solid var(--cobalt);
+    padding: var(--space-3);
+    margin-top: var(--space-4);
+    animation: fadeIn 0.3s ease;
+  }
+  .resume-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+  .resume-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  .resume-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 0.875rem;
+  }
+  .resume-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cobalt);
+    font-weight: 600;
+  }
+  .resume-heading {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .resume-pct {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+  .resume-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+  }
+  .btn-resume {
+    background: var(--cobalt);
+    color: var(--paper);
+    border: none;
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .btn-resume:hover {
+    background: var(--cobalt-deep, #0e2c6b);
+  }
+  .btn-clear-bm {
+    background: transparent;
+    color: var(--ink-muted);
+    border: 1px solid var(--rule);
+    padding: 5px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    cursor: pointer;
+  }
+  .btn-clear-bm:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  /* Reading Control Toolbar */
+  .reading-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    padding: 8px 12px;
+    margin-top: var(--space-4);
+    position: sticky;
+    top: 10px;
+    z-index: 50;
+    backdrop-filter: blur(8px);
+  }
+  .chapter-nav-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+  }
+  .chapter-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    padding: 4px 6px;
+    color: var(--ink);
+  }
+  .chapter-tag {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--cobalt-tint, #e8edf8);
+    color: var(--cobalt);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .current-chapter-title {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--ink);
+  }
+  .chapter-menu-btn:hover .current-chapter-title {
+    color: var(--cobalt);
+  }
+  .chevron {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* Chapter Dropdown */
+  .chapter-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: min(440px, 90vw);
+    max-height: 380px;
+    overflow-y: auto;
+    background: var(--paper-card, #ffffff);
+    border: 1px solid var(--ink);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+  }
+  .chapter-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--paper-panel);
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-muted);
+  }
+  .chapter-count {
+    color: var(--cobalt);
+    font-weight: 600;
+  }
+  .chapter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .chapter-item-btn {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.15s ease, padding-left 0.15s ease;
+  }
+  .chapter-item-btn:hover {
+    background: var(--cobalt-tint, #e8edf8);
+    color: var(--cobalt);
+    padding-left: 18px;
+  }
+  .chapter-item-btn.active {
+    font-weight: 600;
+    color: var(--cobalt);
+    background: var(--cobalt-tint, #e8edf8);
+    border-left: 3px solid var(--cobalt);
+  }
+  .ch-num {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    min-width: 18px;
+  }
+
+  .toolbar-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .read-pct-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+  }
+  .quick-bm-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .quick-bm-btn:hover {
+    color: var(--cobalt);
+    border-color: var(--cobalt);
+    background: var(--paper);
+  }
+  .bm-icon { font-size: 0.75rem; }
+
+  /* Heading pulse effect */
+  :global(.highlight-pulse) {
+    animation: headingPulse 2.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes headingPulse {
+    0% {
+      background-color: var(--cobalt-tint, #e8edf8);
+      outline: 4px solid var(--cobalt);
+    }
+    100% {
+      background-color: transparent;
+      outline: 4px solid transparent;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .prose { margin-top: var(--space-4); }
-  .prose :global(p) { margin-bottom: var(--space-2); }
+  .prose :global(p) { margin-bottom: var(--space-2); line-height: 1.7; }
   /* magazine drop cap on the opening paragraph */
   .prose :global(> p:first-of-type::first-letter) {
     font-family: var(--font-display);
@@ -71,18 +675,53 @@ const fmt = (d: Date) =>
   }
   /* chapter headings */
   .prose :global(h2) {
-    font-family: var(--font-mono); font-weight: 500; font-size: 0.75rem;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+    font-family: var(--font-mono); font-weight: 500; font-size: 0.875rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
     margin: var(--space-6) 0 var(--space-2); padding-bottom: var(--space-1);
     border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 70px;
   }
   .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(h3) {
+    font-family: var(--font-mono); font-weight: 600; font-size: 0.75rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted);
+    margin: var(--space-4) 0 var(--space-1);
+    scroll-margin-top: 70px;
+  }
   .prose :global(em) { font-style: italic; }
-  .prose :global(blockquote) { border-left: 2px solid var(--cobalt); padding-left: var(--space-2); margin: var(--space-2) 0; color: var(--ink-muted); font-style: italic; }
+  .prose :global(blockquote) {
+    border-left: 2px solid var(--cobalt); padding-left: var(--space-2);
+    margin: var(--space-2) 0; color: var(--ink-muted); font-style: italic;
+  }
+  .prose :global(ul), .prose :global(ol) {
+    margin: var(--space-2) 0; padding-left: var(--space-3);
+  }
+  .prose :global(li) { margin-bottom: 4px; line-height: 1.6; }
+  .prose :global(code) {
+    font-family: var(--font-mono); font-size: 0.8125rem;
+    background: var(--paper-panel); padding: 2px 6px;
+  }
+  .prose :global(a) {
+    color: var(--cobalt); text-decoration: underline; text-underline-offset: 2px;
+  }
+  .prose :global(a:hover) {
+    color: var(--cobalt-deep, #0e2c6b);
+  }
   .wip {
     margin-top: var(--space-4); font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.6;
     color: var(--ink-muted); border-left: 2px solid var(--cobalt); padding-left: var(--space-2);
   }
   .back { display: inline-block; margin-top: var(--space-6); font-family: var(--font-mono); font-size: 0.8125rem; color: var(--cobalt); text-decoration: none; }
   .back:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .resume-banner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .resume-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
 </style>

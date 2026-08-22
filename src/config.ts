@@ -7,7 +7,7 @@ export const site = {
 
 export const sections = [
   { label: 'Career',   href: '/career',   blurb: 'Industry experience, IT & security operations, game development, and CV downloads.' },
-  { label: 'Research', href: '/research', blurb: 'Research in software engineering, CI pipeline reliability, and automated crash triage.' },
+  { label: 'Research', href: '/research', blurb: 'Automated PRISMA pipeline scaffolding, CI build reliability, and crash triage tooling.' },
   { label: 'Projects', href: '/projects', blurb: 'Internal software platforms, security tooling, graphics engines, and games.' },
   { label: 'Blog',     href: '/blog',     blurb: 'Technical essays on infrastructure, low-level graphics, and security governance.' },
   { label: 'Writing',  href: '/writing',  blurb: 'Short stories, creative prose, and personal narrative pieces.' },

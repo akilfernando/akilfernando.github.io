@@ -20,7 +20,7 @@ const projects = defineCollection({
     category: z.enum(['security', 'game', 'software', 'academic']),
     stack: z.array(z.string()).default([]),
     blurb: z.string(),
-    links: z.array(z.object({ label: z.string(), url: z.string().url() })).default([]),
+    links: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
   }),
 });
 

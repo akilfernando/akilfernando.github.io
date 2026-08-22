@@ -68,7 +68,7 @@ export const skills = [
   },
   {
     group: 'Tools',
-    items: ['Claude Code', 'Playwright', 'Git'],
+    items: ['Claude Code', 'Gemini CLI', 'Google Antigravity', 'Playwright', 'Git'],
   },
 ];
 

@@ -69,6 +69,7 @@ const personSchema = {
 
   // Ordered most-specific first; ties resolve to the earlier entry.
   const ROUTES: Route[] = [
+    { dest: '/research', label: 'Research', terms: ['research', 'meta-analysis', 'meta analysis', 'prisma', 'quest', 'quest research', 'ci timeout', 'ci timeouts', 'crash triage', 'fault localization', 'apr', 'program repair', 'ossgamebench', 'forest plot', 'academic research', 'paper', 'manuscript', 'tosem', 'literature review', 'empirical study'] },
     { dest: '/writing', label: 'Writing', terms: ['writing', 'write', 'writes', 'fiction', 'story', 'stories', 'creative', 'old rails', 'rails', 'novel', 'prose', 'poem', 'poetry', 'literary', 'short story'] },
     { dest: '/blog', label: 'Blog', terms: ['blog', 'notes', 'article', 'articles', 'post', 'posts', 'essay', 'essays', 'thoughts', 'wrote about', 'writes about', 'blog post'] },
     { dest: '/projects', label: 'Projects', terms: ['project', 'projects', 'built', 'build', 'building', 'made', 'make', 'app', 'apps', 'portfolio work', 'game', 'games', 'gaming', 'shooter', 'ammo', 'graphics', 'vulkan', 'opengl', 'unity', 'flight sim', 'renderer', 'render', 'lms', 'training platform', 'portal', 'client portal', 'device', 'cartcloud', 'happbit', 'ecommerce', 'e-commerce', 'demo'] },

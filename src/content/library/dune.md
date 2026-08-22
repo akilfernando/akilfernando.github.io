@@ -2,11 +2,11 @@
 title: "Dune"
 type: "movie"
 status: "finished"
-rating: 4.5
+rating: 4
 year: 2021
 creator: "Denis Villeneuve"
-favorite: true
+favorite: false
 draft: false
 ---
 
-Colossal scale handled with architectural discipline. Greig Fraser's brutalist framing and Hans Zimmer's percussive soundscape give Frank Herbert's ecology and imperial politics tangible weight. It achieves worldbuilding through sheer texture, scale, and atmosphere rather than tedious exposition.
+To me, it is all about the sheer spectacle. The way the visuals and audio come together to stir emotions and express these larger-than-life forces as they clash and tangle is breathtaking.

@@ -1,11 +1,11 @@
 ---
 title: "The Odyssey"
-type: "book"
+type: "movie"
 status: "finished"
-rating: 5
-creator: "Homer (trans. Emily Wilson)"
-favorite: true
+rating: 4
+creator: "Christopher Nolan"
+favorite: false
 draft: false
 ---
 
-The foundational adventure narrative that remains piercingly modern in its examination of cunning, trauma, pride, and homecoming. Emily Wilson's translation strips away decades of archaic filler, restoring the swift, direct cadence of oral poetry without losing any of its psychological weight.
+I enjoyed it, though I did not find the plot as compelling - an issue with Homer rather than Nolan, but it still affected my enjoyment. Nolan did an exceptional job directing it, and the second half was far stronger than the first.

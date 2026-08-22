@@ -1,12 +1,11 @@
 ---
 title: "Widow's Bay"
-type: "game"
+type: "show"
 status: "finished"
-rating: 4
-year: 2024
-creator: "Indie"
+rating: 3
+creator: "Apple TV+"
 favorite: false
 draft: false
 ---
 
-Suffocating atmosphere done right. It leans into ambient sound design, oppressive coastal fog, and mechanical restraint rather than cheap jump scares. The environmental storytelling carries the dread of an isolated fishing outpost where every creaking timber feels heavy with history.
+A great blend of comedy and Lovecraftian horror, which is exactly the kind of thing I enjoy. Only one season so far, and I enjoyed it thoroughly.

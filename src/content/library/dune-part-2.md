@@ -2,11 +2,11 @@
 title: "Dune: Part Two"
 type: "movie"
 status: "finished"
-rating: 5
+rating: 4
 year: 2024
 creator: "Denis Villeneuve"
-favorite: true
+favorite: false
 draft: false
 ---
 
-A ruthless escalation of everything introduced in the first chapter. The monochrome infrared sequence on Giedi Prime is a masterclass in visual tension, but the real triumph is how deliberately the film frames Paul's transition from reluctant survivor into fanatical messiah. Blockbuster filmmaking operating at the peak of craft.
+Visual and sonic spectacle on a colossal scale. The way the visual craft and sound design bring the clashing forces to life is incredible. The soundtrack was especially impressive - by the end, I was practically yelling Lisan al-Gaib.

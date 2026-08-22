@@ -2,7 +2,7 @@ export const experience = [
   {
     start: 'Mar 2026',
     end: 'Present',
-    role: 'IT Systems and Cybersecurity Lead',
+    role: 'IT Operations & Cybersecurity Lead',
     org: 'Teams Squared',
     location: 'Colombo, Sri Lanka',
     summary:

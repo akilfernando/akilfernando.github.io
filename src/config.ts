@@ -1,7 +1,7 @@
 export const site = {
   name: 'Akil Fernando',
-  tagline: 'I work across systems engineering, security, and game tech.',
-  taglineSub: 'Focused on engine reliability, developer tooling, and empirical software research.',
+  tagline: 'IT Operations & Cybersecurity Lead, software builder, and aspiring researcher.',
+  taglineSub: 'Leading security and ISO 27001 by day, building software with AI developer tools, and exploring empirical research toward a PhD.',
   url: 'https://akilfernando.dev',
 };
 

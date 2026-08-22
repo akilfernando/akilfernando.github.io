@@ -1,15 +1,19 @@
 ---
 title: "OpenGL Flight Sim"
 year: 2024
-role: "Personal"
+role: "Academic (Dalhousie University)"
 category: "game"
-stack: ["C++", "OpenGL"]
-blurb: "Flight simulator built directly on the OpenGL API, exploring real-time rendering and flight dynamics."
+stack: ["C++", "OpenGL", "FreeGLUT"]
+blurb: "Flight simulator built directly on OpenGL and FreeGLUT with procedurally generated terrain."
 links: []
 ---
 
-A flight simulator written directly against the OpenGL API in C++, with no engine underneath it. Just the API, some math, and a window.
+A flight simulator built from scratch in C++ using OpenGL and FreeGLUT for a Computer Graphics course at Dalhousie University. 
 
-I built it to understand the graphics pipeline from the inside: vertex buffers, the shader stages, transformation and projection matrices, the depth buffer. Writing a flight sim meant living inside the camera and projection math until it stopped being abstract and started being something I could reason about. It never became a real game, and that was never the point. It was about removing a layer of mystery between me and the GPU.
+The project focuses on real-time rendering fundamentals without a commercial engine:
+- Rendering 3D geometry directly from vertex lists and vertex buffer objects.
+- Procedural terrain generation powered by a custom random noise algorithm.
+- Dynamic aircraft animations including roll, pitch, yaw, and responsive control surfaces (ailerons, elevators, rudder).
+- Lighting models and texture mapping applied across the flight environment.
 
-I wrote about what I learned here, alongside the Vulkan project, in [a post on learning graphics from scratch](/blog/learning-graphics-from-scratch/).
+I wrote in depth about building this project alongside a subsequent Vulkan renderer in [a post on learning graphics from scratch](/blog/learning-graphics-from-scratch/).

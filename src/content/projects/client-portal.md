@@ -1,15 +1,18 @@
 ---
 title: "Client Portal"
 year: 2026
-role: "Sole developer (inherited)"
+role: "Sole developer (inherited & expanded)"
 category: "software"
-stack: ["TypeScript", "React", "Python", "FastAPI"]
-blurb: "A client-only portal I inherited and grew into the company's central coordination hub, one place where internal staff, clients, and their team members synchronize their work."
+stack: ["TypeScript", "React", "Python", "FastAPI", "Microsoft Entra", "Resend"]
+blurb: "Inherited an unreleased portal and expanded it into an all-in-one platform replacing Zelt and Clockify for client management and contractor timesheets."
 links: []
 ---
 
-A production app I inherited from my predecessor and now own as the sole developer. It started life as a client-only portal. Since taking it over I have extended it into something closer to the company's central nervous system: a dashboard where internal staff, clients, and the team members placed with those clients all coordinate in one place, synchronizing their activities instead of scattering them across email threads and separate tools. The front end is TypeScript and React over a Python and FastAPI back end.
+An internal platform I inherited as an unreleased prototype from my predecessor and developed into Teams Squared's central operational hub as the sole developer.
 
-Taking over software you did not write is its own skill, and nobody really teaches it. Before I could add anything I had to read, the way you read a map of a city you just moved to. How requests flow. Where each integration is wired in. Which parts are load-bearing, and which are leftovers nobody has touched in years. Most of the early work was building that map and tightening the seams, and only then extending it into the hub it is becoming.
+Originally envisioned as a read-only client portal pulling data from external services, I re-architected and expanded the platform to replace **Zelt** (HRIS) and **Clockify** (time tracking) entirely:
+- **Two-Sided Coordination**: A unified dashboard for clients to review team engagements, invoices, and approvals, paired with a contractor portal for logging hours, viewing timesheets, and requesting leave.
+- **Enterprise Integrations**: Integrated **Resend** for transactional email notifications and configured **Microsoft Entra ID** authentication.
+- **Modern AI & CI Workflows**: Leveraged modern AI developer tools (Claude Code, Google Antigravity) alongside staging/production pipelines to reliably deploy updates and maintain rapid iteration cycles.
 
-Right now I am coordinating with stakeholders across the company on a phased rollout to clients and contractors, since a system this central has to land smoothly. It is the project that taught me how much of real engineering is careful archaeology before any new code gets written, and how much of shipping is the coordination around the code rather than the code itself.
+I wrote in detail about the lessons learned from this solo rollout and moving from feature-first to UX-first design in [a post on inheriting a production app](/blog/inheriting-a-production-app/).

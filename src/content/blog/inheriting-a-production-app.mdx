@@ -1,29 +1,46 @@
 ---
 title: "Inheriting a production app"
 date: 2026-04-20
-description: "Taking over a live portal I did not write, with six integrations holding it together, and learning that the first real work is reading."
-tags: ["software", "engineering", "maintenance"]
+description: "Taking over an unreleased dashboard, expanding its scope to replace legacy third-party tools, and the hard lessons of rolling out software as a solo developer."
+tags: ["software", "engineering", "architecture", "ai"]
 draft: false
 ---
 
-One of the systems I look after, I did not build. I inherited it. A live client portal, already in production, already relied on, with six separate third-party integrations quietly holding it together. No green field to start from. Real users on the other side, and a codebase I had never seen.
+When I joined Teams Squared, I inherited two key software projects from my predecessor: an internal cybersecurity posture reporting tool and an unreleased client dashboard app. Other legacy prototypes were on the table, but we deprecated them to focus entirely on building tools that directly drove company operations.
 
-Taking over software you did not write is its own distinct skill, and almost nobody teaches it. Writing code from scratch is the part school prepares you for. Walking into a working system and earning the right to change it is the part you only learn by doing.
+The client dashboard was not yet live—there were no active users, but there was an ambitious vision and a codebase I had never seen. 
 
-## The first work is reading, not writing
+Getting that application over the finish line and into real production turned into one of the most intense, humbling, and educational software engineering experiences of my career.
 
-My instinct, the first time, was to start fixing. That instinct was wrong. The honest first task was to read, the way you read a map of a city you just moved to. Where do requests come in. How does each integration get called, and what happens when one of them is slow or down. Which pieces are load-bearing, and which are leftovers from a decision somebody made two years ago for reasons that no longer apply.
+## From client viewer to complete internal platform
 
-Until I could hold that map in my head, every change I might make was a guess. Once I could, the work got calmer. A change stops being a gamble when you can see what it touches.
+Originally, the app was designed as a lightweight client portal. Clients could log in to check the status of their engagements with Teams Squared, view active team members, and check due invoices and notifications. To populate this, the app pulled timesheets and leave requests via APIs and scraping from the third-party platforms we were already using—primarily **Zelt** for HRIS and **Clockify** for time tracking.
 
-## Respect what is already running
+As we evaluated our operational needs, the scope expanded dramatically: rather than relying on brittle scrapers and fragmented external tools, why not replace Zelt and Clockify entirely?
 
-There is a particular humility to working on something that is already serving people. The code may not be how I would have written it. But it works, and it has survived contact with reality, which my hypothetical rewrite has not. That earns it some respect.
+We evolved the application from a read-only client viewer into a two-sided platform. On one side, clients manage their account, billing, and team roster. On the other, our distributed remote contractors log their daily working hours, manage timesheets, and submit leave requests. We integrated **Resend** for automated transactional emails and built out enterprise single sign-on with **Microsoft Entra ID** (currently staged for production release).
 
-So the rule I settled on. Understand before I touch. Tighten the seams before I add anything new. Small, reversible changes, each one made only after I knew what it was load-bearing for. Most of the early wins were not features at all. They were the system becoming more legible and a little harder to break.
+## The trap of feature-first development
 
-## What it taught me
+Taking a system from an unreleased prototype to an all-in-one company hub as a solo developer was a massive undertaking, and in the beginning, I made mistakes.
 
-This project is the reason I now think most of real engineering is careful archaeology before it is construction. The exciting version of the job is building something new. The everyday version is meeting a system where it is, learning why it is the way it is, and leaving it a little clearer than you found it.
+My early focus was intensely feature-driven: how quickly can I build timesheet approvals? How fast can I wire up leave tracking? But in my haste to ship raw functionality, I paid too little attention to the end-to-end user experience. 
 
-That is true of more than code. It is most of what good maintenance is, whether the thing you inherited is an application, a tenant, or a process nobody has looked at in a while.
+The result was that some features, while functionally "complete," were confusing or awkward to navigate. I had built what was asked for, but not how a real client or contractor naturally expected to use it. 
+
+If I were to start that rollout over again, my approach would be inverted: start with the user's mental model and daily workflow first, and build the minimal, polished mechanics that support those user flows seamlessly. Prioritizing UX over feature velocity might feel slower initially, but it saves countless hours of retrofitting and prevents user friction.
+
+## Solo rollouts and modern AI workflows
+
+Rolling out a major platform solo with no dedicated QA or testing team is a trial by fire. When we launched to real clients and contractors, edge cases and bugs were naturally surfaced live in production, and I was the only developer on the hook to investigate, fix, and deploy patches.
+
+What made that manageable was transforming my development workflow with modern AI developer tooling:
+
+- **AI-Accelerated Engineering**: Leveraging tools like **Claude Code** and **Google Antigravity** allowed me to rapidly diagnose production issues, trace complex state across our React frontend and FastAPI backend, and scaffold robust fixes in minutes instead of hours.
+- **Guardrails and Environments**: I established strict separation between staging and production environments, wired up automated CI/CD pipelines, and used agentic workflows to write regression tests and verify builds before deployment.
+
+## What building in production actually teaches
+
+Inheriting software that other people will rely on every day strips away academic theory. It teaches you that real software engineering is rarely about writing code in a clean green field. 
+
+It is about understanding existing constraints, listening closely to where users struggle, maintaining discipline in your deployment pipelines, and having the humility to iterate when your first assumptions don't survive contact with reality.

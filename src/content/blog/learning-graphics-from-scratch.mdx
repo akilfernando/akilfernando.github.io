@@ -1,31 +1,47 @@
 ---
 title: "Learning graphics by writing the renderer yourself"
 date: 2025-03-22
-description: "I wanted to know how a triangle becomes a pixel, so I wrote two renderers in C++, one on OpenGL and one on Vulkan. Here is what stuck."
-tags: ["graphics", "c++", "game dev"]
+description: "From a FreeGLUT flight sim in university to raw Vulkan in C++: demystifying the graphics pipeline and understanding how modern engines actually work."
+tags: ["graphics", "c++", "vulkan", "opengl", "game dev"]
 draft: false
 ---
 
-It is easy to put something on screen in a modern engine. Drop in a model, point a camera, press play. I love that convenience. It also always nagged at me, since it hides the exact part I wanted to understand: how a triangle actually becomes a pixel. So I went the slow way and wrote two renderers in C++ by hand, one on OpenGL and one on Vulkan.
+In modern engines like Unity or Unreal, rendering a scene is practically effortless: import a model, place a camera, add a light, and press play. While that convenience is essential for shipping games, it hides the exact layer I wanted to understand—how a stream of vertices and mathematical matrices actually becomes pixels on a screen.
 
-## OpenGL taught me the pipeline
+To demystify that pipeline, I went the low-level route: first building an OpenGL flight simulator in C++ during university, and later constructing a raw Vulkan renderer from the ground up.
 
-The first was a flight simulator built straight on OpenGL. No engine. Just the API, some math, and a window.
+## OpenGL and procedural terrain in university
 
-OpenGL is forgiving enough to learn on, which is what I needed. It carries a lot of state for you, so you can get a spinning, shaded mesh on screen in an afternoon, then spend the next few weeks working out what you actually did. Vertex buffers. The vertex and fragment shader stages. Transformation matrices, the depth buffer. Building a flight sim meant living inside the camera and projection math until, one evening, it stopped being abstract and just made sense. That click is the whole reason I do these projects.
+My first deep dive into real-time rendering was for a Computer Graphics course at Dalhousie University. We were tasked with building a 3D application from scratch in C++ using raw OpenGL and FreeGLUT—no engine scaffolding, just an API context, math, and a window.
 
-## Vulkan taught me how much the driver was doing
+I built a flight simulator. Rather than writing a full aerodynamic physics engine, the movement was straightforward: a constant forward velocity coupled with vertical and lateral velocity driven by keyboard inputs. To make the aircraft feel alive, I animated its roll, pitch, and yaw in response to turns, along with the physical control surfaces (the ailerons, elevators, and rudder) on the plane model.
 
-Then I rebuilt the idea on Vulkan, and it humbled me.
+The core technical challenge was implementing the graphics fundamentals:
+- Rendering 3D polygons directly from vertex lists and configuring vertex buffer objects.
+- Applying texture coordinates and configuring lighting models to give depth to the scene.
+- Writing a custom random noise algorithm from scratch to procedurally generate undulating terrain beneath the plane.
 
-Vulkan hands you almost nothing for free. You describe everything yourself: the queues, the memory allocations, the synchronization, the entire pipeline state up front. The famous hello triangle runs to hundreds of lines. The first time I typed all of it, I genuinely thought this cannot be the intended way. Then it clicked. Every line Vulkan makes you write is work OpenGL and the driver had been quietly doing on my behalf the whole time. Vulkan just makes you the one holding it.
+It took weeks of manual debugging, calculating transformation matrices, and wrestling with OpenGL boilerplate. Looking back now, it is amusing to realize that much of that initial scaffolding could probably be generated in an afternoon with modern AI developer tools. But doing it manually by hand forced me to understand the camera, view-projection math, and rasterization pipeline from the inside out.
 
-## Why bother
+## Stepping down to the metal with Vulkan
 
-I am not going to argue everyone should write Vulkan by hand. If you want to ship a game, use the engine. I will too. But writing the renderer yourself changes how you think, for good:
+More than a year after finishing the flight sim, I wanted to understand where modern real-time graphics had evolved. Vulkan is the industry successor to OpenGL, designed to eliminate driver overhead and give developers explicit control over the GPU.
 
-- You stop treating the GPU as magic and start treating it as a machine with a model you can reason about.
-- Performance advice finally lands, because you have felt where the cost lives.
-- Engine abstractions become readable. You know what they are hiding, and why.
+To tackle the steep learning curve, I followed Brendan Galea's excellent Vulkan C++ tutorial series on YouTube, building an engine architecture step by step using **GLFW** for window management and **GLM** for vector and matrix math.
 
-The flight sim never became a real game. The Vulkan renderer never drew anything fancy. That was always fine. The point was to remove a layer of mystery, and that part stayed removed.
+If OpenGL is a forgiving state machine that does heavy lifting behind your back, Vulkan is uncompromising. You manage everything explicitly:
+- Memory allocation and buffer staging.
+- Command buffers, render passes, and framebuffers.
+- Pipeline layouts, descriptor sets, and synchronization barriers.
+
+In Vulkan, writing and binding SPIR-V shaders is not a background detail—it is central to configuring the immutable graphics pipeline. Every line of code that felt tedious at first was actually revealing work that OpenGL and graphics drivers had silently handled for years. Vulkan simply puts you in direct control of the hardware queue.
+
+## Why low-level graphics matters for high-level engines
+
+I don't write raw Vulkan when I want to build a quick game prototype; engines like Unity, Godot, or Unreal exist for good reason. But having built custom renderers changes how you work with high-level tools:
+
+- **Demystifying the engine**: You understand what draw calls, batching, depth testing, and material passes are doing under the hood.
+- **Better performance intuition**: Optimization stops being guesswork because you know where GPU synchronization stalls, memory bandwidth bottlenecks, and shader overhead actually live.
+- **Architecture clarity**: Concepts in modern game engines stop feeling like arbitrary black boxes and start feeling like logical abstractions over real hardware.
+
+The flight sim was never meant to be a commercial flight game, and the Vulkan renderer wasn't built to compete with commercial engines. Their value was peeling back the curtain on the GPU—and that mental model has stayed with me ever since.

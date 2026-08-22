@@ -6,13 +6,13 @@ export const experience = [
     org: 'Teams Squared',
     location: 'Colombo, Sri Lanka',
     summary:
-      'Global remote staffing firm placing skilled professionals from emerging markets into client companies worldwide. I lead IT infrastructure and cybersecurity across a distributed team of 130+ members, managing identity governance on Entra ID, leading an organization-wide ISO 27001 implementation, and heading our internal security function.',
+      'Global remote staffing firm placing skilled professionals into client companies worldwide. I lead IT infrastructure and cybersecurity across a distributed workforce of 130+ members, directing identity governance on Entra ID, orchestrating our ISO 27001 implementation, and engineering internal software platforms.',
     highlights: [
-      'Lead cybersecurity operations and mentor a security specialist, establishing operational roadmaps, security standards, and incident response procedures.',
-      'Oversee enterprise IAM on Microsoft Entra ID: MFA, conditional access policies, application registrations, and identity lifecycle governance.',
-      'Administer Microsoft 365 tenant infrastructure, endpoint security (Bitdefender GravityZone), and RMM systems (NinjaOne) across a global workforce.',
-      'Serve as appointed ISO 27001 ISMS Officer, leading the organization-wide implementation toward accreditation audit and delivering mandatory staff training via a custom LMS.',
-      'Architect and build internal software platforms, growing an inherited client portal into a centralized operations hub for staff, contractors, and client teams.',
+      'Lead cybersecurity operations and mentor security team members, defining standards, security roadmaps, and incident response protocols.',
+      'Manage enterprise IAM on Microsoft Entra ID, including MFA, conditional access policies, application registrations, and lifecycle governance.',
+      'Administer Microsoft 365 tenant infrastructure, endpoint security (Bitdefender GravityZone), and RMM management (NinjaOne) across distributed teams.',
+      'Serve as appointed ISO 27001 ISMS Officer, guiding organization-wide implementation toward audit certification and delivering security awareness training.',
+      'Architect and develop internal software platforms, growing an inherited portal into a unified operations hub for staff, contractors, and clients.',
     ],
   },
   {
@@ -22,13 +22,13 @@ export const experience = [
     org: 'Ubisoft Halifax',
     location: 'Halifax, NS',
     summary:
-      'Gameplay programming in Unity and C# across two unannounced titles, developing prototype tooling, camera mechanics, targeting systems, and character AI.',
+      'Engineered gameplay systems in Unity and C# across two unannounced titles, developing camera mechanics, targeting algorithms, character AI, and debug tooling.',
     highlights: [
-      'Implemented dynamic camera framing and extended camera-clipping solutions using Cinemachine and physics raycasting.',
-      'Built a flexible targeting system calculating distance over NavMesh paths and hex-grid topologies.',
-      'Configured and tuned character AI behavior trees, developing in-engine visual debugging tools for state transitions.',
-      'Integrated 3D assets and animation rigs through a Maya and Blender pipeline, creating standardized documentation for the team.',
-      'Ported an animated 3D scene to Android using Three.js and Capacitor, resolving build dependency conflicts to ensure stable execution.',
+      'Implemented dynamic camera framing and camera-clipping solutions using Cinemachine and custom physics raycasting.',
+      'Developed a multi-topology targeting system calculating path distance over NavMesh and hex-grid spatial layouts.',
+      'Configured character AI behavior trees and built in-engine visual debugging tools for state transition analysis.',
+      'Integrated 3D assets and animation rigs from Maya and Blender, establishing clear pipeline documentation for the team.',
+      'Ported an animated 3D scene to Android via Three.js and Capacitor, streamlining dependency resolution for mobile builds.',
     ],
   },
 ];
@@ -41,7 +41,7 @@ export const education = [
     org: 'Dalhousie University',
     location: 'Halifax, NS',
     summary:
-      'Dual undergraduate certificates in Cyber Security and Web & Mobile Development. Sexton Scholar, Dean’s List (multiple terms), and Dalhousie In-Course Scholarship (2025). Grounded in systems architecture, algorithms, and empirical research methods.',
+      'Dual certificates in Cyber Security and Web & Mobile Development. Sexton Scholar, Dean’s List, and Dalhousie In-Course Scholarship recipient. Grounded in algorithms, systems architecture, security principles, and research methodologies.',
   },
 ];
 
@@ -68,7 +68,7 @@ export const skills = [
   },
   {
     group: 'Research & tooling',
-    items: ['Empirical Software Engineering', 'PRISMA Synthesis', '.NET 8 / CLR', 'AST Fault Localization', 'Automated Program Repair', 'Git / CI Automation'],
+    items: ['Software Engineering Research', 'PRISMA Synthesis', '.NET 8 / CLR', 'AST Fault Localization', 'Automated Program Repair', 'Git / CI Automation'],
   },
 ];
 

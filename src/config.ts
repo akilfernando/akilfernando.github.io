@@ -1,18 +1,18 @@
 export const site = {
   name: 'Akil Fernando',
-  tagline: 'IT Operations & Cybersecurity Lead, software builder, and aspiring researcher.',
-  taglineSub: 'Leading security and ISO 27001 by day, building software with AI developer tools, and exploring empirical research toward a PhD.',
+  tagline: 'IT operations lead, cybersecurity practitioner, software builder, and researcher.',
+  taglineSub: 'Managing security and ISO 27001 by day, building production software, and pursuing research across software engineering, AI, and systems.',
   url: 'https://akilfernando.dev',
 };
 
 export const sections = [
-  { label: 'Career',   href: '/career',   blurb: 'Industry roles, academic background, and tailored CVs across security, software, and games.' },
-  { label: 'Research', href: '/research', blurb: 'Empirical meta-analysis and diagnostic tooling for game engine CI pipelines and crash triage.' },
-  { label: 'Projects', href: '/projects', blurb: 'Security platforms, internal tools, graphics renderers, and game prototypes.' },
-  { label: 'Blog',     href: '/blog',     blurb: 'Technical notes on systems engineering, security audits, and low-level graphics.' },
-  { label: 'Writing',  href: '/writing',  blurb: 'Fiction, personal essays, and creative prose in progress.' },
-  { label: 'Log',      href: '/log',      blurb: 'A media log and honest reviews of games, films, and books.' },
-  { label: 'About',    href: '/about',    blurb: 'Background, research motivations, and what I am looking for next.' },
+  { label: 'Career',   href: '/career',   blurb: 'Industry experience, IT & security operations, game development, and CV downloads.' },
+  { label: 'Research', href: '/research', blurb: 'Research in software engineering, CI pipeline reliability, and automated crash triage.' },
+  { label: 'Projects', href: '/projects', blurb: 'Internal software platforms, security tooling, graphics engines, and games.' },
+  { label: 'Blog',     href: '/blog',     blurb: 'Technical essays on infrastructure, low-level graphics, and security governance.' },
+  { label: 'Writing',  href: '/writing',  blurb: 'Short stories, creative prose, and personal narrative pieces.' },
+  { label: 'Log',      href: '/log',      blurb: 'Tracked notes and reviews on games, books, and film.' },
+  { label: 'About',    href: '/about',    blurb: 'Background, multi-disciplinary interests, and future direction.' },
 ];
 
 export const socials = [

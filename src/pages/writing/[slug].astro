@@ -81,12 +81,137 @@ const fmt = (d: Date) =>
 
       <div class="toolbar-meta">
         <span class="read-pct-badge" id="read-pct-badge">0% read</span>
-        <button type="button" class="quick-bm-btn" id="quick-bm-btn" title="Save current position as bookmark">
-          <span class="bm-icon" id="quick-bm-icon">🔖</span>
+        
+        <!-- Open Annotations Drawer Button -->
+        <button type="button" class="tool-btn notes-drawer-btn" id="open-notes-btn" title="View all annotations & notes">
+          <span class="tool-icon">📝</span>
+          <span class="notes-count-label" id="notes-count-label">Notes (0)</span>
+        </button>
+
+        <!-- Quick Bookmark Button -->
+        <button type="button" class="tool-btn quick-bm-btn" id="quick-bm-btn" title="Save current position as bookmark">
+          <span class="tool-icon" id="quick-bm-icon">🔖</span>
           <span class="bm-text" id="quick-bm-text">Bookmark</span>
         </button>
       </div>
     </div>
+
+    <!-- Floating Highlight & Note Action Tooltip -->
+    <div class="selection-tooltip" id="selection-tooltip" hidden>
+      <button type="button" class="btn-sel-action" id="btn-create-annotation">
+        <span aria-hidden="true">🖋️</span> Add Note / Highlight
+      </button>
+    </div>
+
+    <!-- Annotation Composer Modal -->
+    <div class="annotation-modal-backdrop" id="annotation-modal-backdrop" hidden>
+      <div class="annotation-modal" id="annotation-modal" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-header">
+          <h3 id="modal-title" class="modal-heading">Add Note to Selection</h3>
+          <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+          <div class="quote-preview-box">
+            <span class="quote-icon" aria-hidden="true">&ldquo;</span>
+            <p class="quote-preview-text" id="modal-quote-text"></p>
+          </div>
+
+          <label for="modal-comment-input" class="field-label">Your Note / Analysis (Optional):</label>
+          <textarea
+            id="modal-comment-input"
+            class="comment-textarea"
+            rows="3"
+            placeholder="Write a thought, note, or reaction to this passage..."
+          ></textarea>
+
+          <div class="color-picker-section">
+            <span class="field-label">Highlight Tint:</span>
+            <div class="color-options" id="color-options" role="radiogroup" aria-label="Highlight Color">
+              <label class="color-option">
+                <input type="radio" name="hl-color" value="cobalt" checked />
+                <span class="color-swatch color-cobalt"></span> Cobalt
+              </label>
+              <label class="color-option">
+                <input type="radio" name="hl-color" value="amber" />
+                <span class="color-swatch color-amber"></span> Amber
+              </label>
+              <label class="color-option">
+                <input type="radio" name="hl-color" value="sage" />
+                <span class="color-swatch color-sage"></span> Sage
+              </label>
+              <label class="color-option">
+                <input type="radio" name="hl-color" value="rose" />
+                <span class="color-swatch color-rose"></span> Rose
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" id="modal-cancel-btn">Cancel</button>
+          <button type="button" class="btn-save-note" id="modal-save-btn">Save Note</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotation Inspector Popover (for viewing/editing a note) -->
+    <div class="annotation-popover" id="annotation-popover" hidden>
+      <div class="popover-header">
+        <span class="popover-badge" id="popover-color-badge">Cobalt</span>
+        <span class="popover-date" id="popover-date">Just now</span>
+        <button type="button" class="popover-close-btn" id="popover-close-btn" aria-label="Close popover">&times;</button>
+      </div>
+
+      <div class="popover-body">
+        <blockquote class="popover-quote" id="popover-quote"></blockquote>
+        <div class="popover-comment" id="popover-comment"></div>
+        <div class="popover-edit-area" id="popover-edit-area" hidden>
+          <textarea id="popover-edit-input" class="comment-textarea" rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="popover-footer">
+        <div class="popover-view-actions" id="popover-view-actions">
+          <button type="button" class="btn-pop-action" id="btn-edit-note">Edit</button>
+          <button type="button" class="btn-pop-action btn-pop-delete" id="btn-delete-note">Delete</button>
+        </div>
+        <div class="popover-edit-actions" id="popover-edit-actions" hidden>
+          <button type="button" class="btn-cancel" id="btn-cancel-edit-note">Cancel</button>
+          <button type="button" class="btn-save-note" id="btn-save-edit-note">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotations Slide-Over Drawer -->
+    <aside class="annotations-drawer" id="annotations-drawer" hidden aria-label="Annotations and Notes">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <h3 class="drawer-title">Story Notes &amp; Highlights</h3>
+          <span class="drawer-counter" id="drawer-total-count">0 annotations</span>
+        </div>
+        <button type="button" class="drawer-close-btn" id="drawer-close-btn" aria-label="Close notes panel">&times;</button>
+      </div>
+
+      <div class="drawer-toolbar">
+        <div class="drawer-filters" id="drawer-filters">
+          <button type="button" class="filter-btn active" data-filter="all">All</button>
+          <button type="button" class="filter-btn" data-filter="cobalt">Cobalt</button>
+          <button type="button" class="filter-btn" data-filter="amber">Amber</button>
+          <button type="button" class="filter-btn" data-filter="sage">Sage</button>
+          <button type="button" class="filter-btn" data-filter="rose">Rose</button>
+        </div>
+      </div>
+
+      <div class="drawer-content" id="drawer-notes-list">
+        <!-- Dynamically rendered notes cards -->
+      </div>
+
+      <div class="drawer-footer">
+        <button type="button" class="btn-drawer-action" id="btn-export-notes">Export as Markdown</button>
+        <button type="button" class="btn-drawer-action btn-clear-all" id="btn-clear-all-notes">Clear All</button>
+      </div>
+    </aside>
 
     <div class="prose" id="story-prose">
       <Content />
@@ -102,15 +227,34 @@ const fmt = (d: Date) =>
 
 <script>
   // ============================================================
-  // READING BOOKMARK & CHAPTER SKIP CONTROLLER
+  // READING CONTROLLER: BOOKMARKING, CHAPTER NAVIGATION & ANNOTATIONS
   // ============================================================
+
+  interface StoryAnnotation {
+    id: string;
+    slug: string;
+    text: string;
+    comment: string;
+    color: 'cobalt' | 'amber' | 'sage' | 'rose';
+    createdAt: number;
+    chapterTitle?: string;
+    anchor: {
+      prefix: string;
+      exact: string;
+      suffix: string;
+      paragraphIndex?: number;
+    };
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const article = document.querySelector('.article') as HTMLElement | null;
     if (!article) return;
 
     const slug = article.dataset.slug || window.location.pathname.replace(/\/writing\/?|\//g, '');
-    const storageKey = `story_bookmark_${slug}`;
-    const prose = document.getElementById('story-prose');
+    const bookmarkStorageKey = `story_bookmark_${slug}`;
+    const annotationsStorageKey = `story_annotations_${slug}`;
+
+    const prose = document.getElementById('story-prose') as HTMLElement | null;
     const progressBar = document.getElementById('reading-progress-bar');
     const resumeBanner = document.getElementById('resume-banner');
     const resumeHeading = document.getElementById('resume-heading');
@@ -127,16 +271,61 @@ const fmt = (d: Date) =>
     const quickBmBtn = document.getElementById('quick-bm-btn');
     const quickBmText = document.getElementById('quick-bm-text');
 
+    // Annotation Elements
+    const selectionTooltip = document.getElementById('selection-tooltip');
+    const btnCreateAnnotation = document.getElementById('btn-create-annotation');
+    const annotationModalBackdrop = document.getElementById('annotation-modal-backdrop');
+    const modalQuoteText = document.getElementById('modal-quote-text');
+    const modalCommentInput = document.getElementById('modal-comment-input') as HTMLTextAreaElement | null;
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalCancelBtn = document.getElementById('modal-cancel-btn');
+    const modalSaveBtn = document.getElementById('modal-save-btn');
+    const notesCountLabel = document.getElementById('notes-count-label');
+    const openNotesBtn = document.getElementById('open-notes-btn');
+    const annotationsDrawer = document.getElementById('annotations-drawer');
+    const drawerCloseBtn = document.getElementById('drawer-close-btn');
+    const drawerNotesList = document.getElementById('drawer-notes-list');
+    const drawerTotalCount = document.getElementById('drawer-total-count');
+    const drawerFilters = document.getElementById('drawer-filters');
+    const btnExportNotes = document.getElementById('btn-export-notes');
+    const btnClearAllNotes = document.getElementById('btn-clear-all-notes');
+
+    // Popover Elements
+    const annotationPopover = document.getElementById('annotation-popover');
+    const popoverColorBadge = document.getElementById('popover-color-badge');
+    const popoverDate = document.getElementById('popover-date');
+    const popoverQuote = document.getElementById('popover-quote');
+    const popoverComment = document.getElementById('popover-comment');
+    const popoverCloseBtn = document.getElementById('popover-close-btn');
+    const btnEditNote = document.getElementById('btn-edit-note');
+    const btnDeleteNote = document.getElementById('btn-delete-note');
+    const popoverEditArea = document.getElementById('popover-edit-area');
+    const popoverEditInput = document.getElementById('popover-edit-input') as HTMLTextAreaElement | null;
+    const popoverViewActions = document.getElementById('popover-view-actions');
+    const popoverEditActions = document.getElementById('popover-edit-actions');
+    const btnCancelEditNote = document.getElementById('btn-cancel-edit-note');
+    const btnSaveEditNote = document.getElementById('btn-save-edit-note');
+
     if (!prose) return;
 
-    // 1. Gather all H2 headings in the story
+    let activeFilter = 'all';
+    let currentInspectingAnnotationId: string | null = null;
+    let pendingSelectionData: {
+      text: string;
+      prefix: string;
+      suffix: string;
+      paragraphIndex?: number;
+    } | null = null;
+
+    // ------------------------------------------------------------
+    // 1. CHAPTER LIST & SCROLL SPY
+    // ------------------------------------------------------------
     const headings = Array.from(prose.querySelectorAll('h2')) as HTMLHeadingElement[];
     
     if (headings.length > 0) {
       if (readingToolbar) readingToolbar.hidden = false;
       if (chapterCount) chapterCount.textContent = `${headings.length} sections`;
 
-      // Build chapter dropdown items
       if (chapterList) {
         chapterList.innerHTML = '';
         headings.forEach((h, idx) => {
@@ -161,7 +350,6 @@ const fmt = (d: Date) =>
       }
     }
 
-    // Dropdown toggling
     function toggleDropdown() {
       if (!chapterDropdown || !chapterMenuBtn) return;
       const isExpanded = chapterMenuBtn.getAttribute('aria-expanded') === 'true';
@@ -190,7 +378,6 @@ const fmt = (d: Date) =>
       }
     });
 
-    // Helper: Scroll to specific heading smoothly with highlight effect
     function scrollToHeading(headingEl: HTMLElement) {
       const navOffset = 64;
       const elementPosition = headingEl.getBoundingClientRect().top;
@@ -201,19 +388,15 @@ const fmt = (d: Date) =>
         behavior: 'smooth'
       });
 
-      // Highlight section briefly
       headingEl.classList.remove('highlight-pulse');
-      void headingEl.offsetWidth; // trigger reflow
+      void headingEl.offsetWidth;
       headingEl.classList.add('highlight-pulse');
       setTimeout(() => headingEl.classList.remove('highlight-pulse'), 2500);
 
-      // Save bookmark state
-      saveCurrentState();
+      saveBookmarkState();
     }
 
-    // 2. Calculate reading progress & active heading
     function getReadingProgress(): { pct: number; activeHeading: HTMLHeadingElement | null } {
-      const rect = article!.getBoundingClientRect();
       const scrollY = window.pageYOffset;
       const start = article!.offsetTop;
       const totalHeight = article!.offsetHeight;
@@ -223,7 +406,6 @@ const fmt = (d: Date) =>
       const current = Math.max(0, scrollY - start);
       const pct = Math.min(100, Math.max(0, Math.round((current / maxScroll) * 100)));
 
-      // Find current active heading
       let activeHeading: HTMLHeadingElement | null = null;
       for (let i = headings.length - 1; i >= 0; i--) {
         const h = headings[i];
@@ -240,8 +422,7 @@ const fmt = (d: Date) =>
       return { pct, activeHeading };
     }
 
-    // Update UI on scroll
-    function updateUI() {
+    function updateReadingUI() {
       const { pct, activeHeading } = getReadingProgress();
 
       if (progressBar) {
@@ -253,7 +434,6 @@ const fmt = (d: Date) =>
       if (activeHeading && currentChapterTitle) {
         currentChapterTitle.textContent = activeHeading.textContent || 'Select chapter...';
 
-        // Update active class in dropdown list
         const items = chapterList?.querySelectorAll('.chapter-item-btn') || [];
         items.forEach((btn) => {
           if ((btn as HTMLElement).dataset.targetId === activeHeading!.id) {
@@ -265,11 +445,9 @@ const fmt = (d: Date) =>
       }
     }
 
-    // 3. Save bookmark to localStorage
-    function saveCurrentState() {
+    function saveBookmarkState() {
       const { pct, activeHeading } = getReadingProgress();
       if (pct >= 99) {
-        // Finished story, mark complete
         const data = {
           scrollY: window.pageYOffset,
           pct: 100,
@@ -277,7 +455,7 @@ const fmt = (d: Date) =>
           headingId: '',
           updatedAt: Date.now()
         };
-        localStorage.setItem(storageKey, JSON.stringify(data));
+        localStorage.setItem(bookmarkStorageKey, JSON.stringify(data));
         return;
       }
 
@@ -289,27 +467,24 @@ const fmt = (d: Date) =>
           headingId: activeHeading?.id || '',
           updatedAt: Date.now()
         };
-        localStorage.setItem(storageKey, JSON.stringify(data));
+        localStorage.setItem(bookmarkStorageKey, JSON.stringify(data));
       }
     }
 
-    // Debounced scroll listener
     let scrollTimeout: number | undefined;
     window.addEventListener('scroll', () => {
-      updateUI();
+      updateReadingUI();
       clearTimeout(scrollTimeout);
       scrollTimeout = window.setTimeout(() => {
-        saveCurrentState();
+        saveBookmarkState();
       }, 400);
     }, { passive: true });
 
-    // Initial UI update
-    updateUI();
+    updateReadingUI();
 
-    // 4. Manual Bookmark Button click
     if (quickBmBtn) {
       quickBmBtn.addEventListener('click', () => {
-        saveCurrentState();
+        saveBookmarkState();
         if (quickBmText) {
           const orig = quickBmText.textContent;
           quickBmText.textContent = 'Saved!';
@@ -320,9 +495,9 @@ const fmt = (d: Date) =>
       });
     }
 
-    // 5. Check for existing bookmark on load
+    // Restore Bookmark
     try {
-      const savedRaw = localStorage.getItem(storageKey);
+      const savedRaw = localStorage.getItem(bookmarkStorageKey);
       if (savedRaw) {
         const saved = JSON.parse(savedRaw);
         if (saved && typeof saved.pct === 'number' && saved.pct >= 2 && saved.pct < 98 && saved.scrollY > 150) {
@@ -339,7 +514,6 @@ const fmt = (d: Date) =>
                 });
                 resumeBanner.hidden = true;
                 
-                // If there was a target heading, pulse it
                 if (saved.headingId) {
                   const targetEl = document.getElementById(saved.headingId);
                   if (targetEl) {
@@ -352,20 +526,602 @@ const fmt = (d: Date) =>
 
             if (btnClearBm) {
               btnClearBm.addEventListener('click', () => {
-                localStorage.removeItem(storageKey);
+                localStorage.removeItem(bookmarkStorageKey);
                 resumeBanner.hidden = true;
               });
             }
           }
         }
       }
-    } catch (e) {
-      // Ignore storage read errors
+    } catch (e) {}
+
+    // ------------------------------------------------------------
+    // 2. ANNOTATION & HIGHLIGHT ENGINE (CSS Custom Highlights)
+    // ------------------------------------------------------------
+
+    function getStoredAnnotations(): StoryAnnotation[] {
+      try {
+        const raw = localStorage.getItem(annotationsStorageKey);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
     }
+
+    function saveStoredAnnotations(items: StoryAnnotation[]) {
+      try {
+        localStorage.setItem(annotationsStorageKey, JSON.stringify(items));
+        renderHighlights();
+        updateDrawerNotesList();
+        updateNotesBadge();
+      } catch (e) {}
+    }
+
+    function updateNotesBadge() {
+      const items = getStoredAnnotations();
+      if (notesCountLabel) {
+        notesCountLabel.textContent = `Notes (${items.length})`;
+      }
+      if (drawerTotalCount) {
+        drawerTotalCount.textContent = `${items.length} annotation${items.length === 1 ? '' : 's'}`;
+      }
+    }
+
+    // Collect all text nodes inside #story-prose
+    function getAllTextNodes(): Text[] {
+      if (!prose) return [];
+      const walker = document.createTreeWalker(prose, NodeFilter.SHOW_TEXT);
+      const nodes: Text[] = [];
+      let n = walker.nextNode();
+      while (n) {
+        nodes.push(n as Text);
+        n = walker.nextNode();
+      }
+      return nodes;
+    }
+
+    // Locate ranges for saved annotations
+    function findRangesForAnnotation(ann: StoryAnnotation, textNodes: Text[]): Range[] {
+      const ranges: Range[] = [];
+      const searchText = ann.text.trim();
+      if (!searchText) return ranges;
+
+      // Find by matching full text or paragraph text
+      const fullDocText = textNodes.map((n) => n.textContent || '').join('');
+      let searchIndex = fullDocText.indexOf(searchText);
+
+      if (searchIndex === -1 && ann.anchor.prefix) {
+        const combined = (ann.anchor.prefix + searchText).slice(-searchText.length);
+        searchIndex = fullDocText.indexOf(combined);
+      }
+
+      if (searchIndex !== -1) {
+        let currentPos = 0;
+        let startNode: Text | null = null;
+        let startOffset = 0;
+        let endNode: Text | null = null;
+        let endOffset = 0;
+        const targetEnd = searchIndex + searchText.length;
+
+        for (const node of textNodes) {
+          const len = (node.textContent || '').length;
+          const nodeStart = currentPos;
+          const nodeEnd = currentPos + len;
+
+          if (!startNode && searchIndex >= nodeStart && searchIndex < nodeEnd) {
+            startNode = node;
+            startOffset = searchIndex - nodeStart;
+          }
+
+          if (startNode && targetEnd > nodeStart && targetEnd <= nodeEnd) {
+            endNode = node;
+            endOffset = targetEnd - nodeStart;
+            break;
+          }
+
+          currentPos += len;
+        }
+
+        if (startNode && endNode) {
+          try {
+            const range = new Range();
+            range.setStart(startNode, startOffset);
+            range.setEnd(endNode, endOffset);
+            ranges.push(range);
+          } catch (e) {}
+        }
+      }
+
+      return ranges;
+    }
+
+    // Render highlights using CSS Custom Highlight API
+    function renderHighlights() {
+      const annotations = getStoredAnnotations();
+      const textNodes = getAllTextNodes();
+
+      const colorRanges: Record<string, Range[]> = {
+        cobalt: [],
+        amber: [],
+        sage: [],
+        rose: []
+      };
+
+      // Clear existing gutter indicator badges
+      prose?.querySelectorAll('.margin-note-badge').forEach((el) => el.remove());
+
+      const paragraphNoteCount = new Map<HTMLElement, StoryAnnotation[]>();
+
+      annotations.forEach((ann) => {
+        const ranges = findRangesForAnnotation(ann, textNodes);
+        if (ranges.length > 0) {
+          colorRanges[ann.color]?.push(...ranges);
+
+          // Find containing paragraph for gutter badge
+          const startContainer = ranges[0].startContainer;
+          const parentBlock = (startContainer instanceof HTMLElement ? startContainer : startContainer.parentElement)?.closest('p, blockquote, li, h2, h3') as HTMLElement | null;
+          if (parentBlock) {
+            const existing = paragraphNoteCount.get(parentBlock) || [];
+            existing.push(ann);
+            paragraphNoteCount.set(parentBlock, existing);
+          }
+        }
+      });
+
+      // Register Custom Highlights in browser
+      if (typeof CSS !== 'undefined' && 'highlights' in CSS) {
+        try {
+          const HighlightConstructor = (window as any).Highlight;
+          if (HighlightConstructor) {
+            ['cobalt', 'amber', 'sage', 'rose'].forEach((c) => {
+              const ranges = colorRanges[c] || [];
+              if (ranges.length > 0) {
+                const hl = new HighlightConstructor(...ranges);
+                (CSS as any).highlights.set(`hl-${c}`, hl);
+              } else {
+                (CSS as any).highlights.delete(`hl-${c}`);
+              }
+            });
+          }
+        } catch (e) {}
+      }
+
+      // Add Margin Note Badges to paragraphs with annotations
+      paragraphNoteCount.forEach((notes, blockEl) => {
+        blockEl.style.position = 'relative';
+        const badge = document.createElement('button');
+        badge.type = 'button';
+        badge.className = 'margin-note-badge';
+        badge.title = `${notes.length} note${notes.length === 1 ? '' : 's'} on this paragraph. Click to view.`;
+        badge.innerHTML = `<span aria-hidden="true">💬</span> <span class="note-pill-num">${notes.length}</span>`;
+
+        badge.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openPopoverForAnnotation(notes[0], badge);
+        });
+
+        blockEl.appendChild(badge);
+      });
+    }
+
+    // ------------------------------------------------------------
+    // 3. TEXT SELECTION & ANNOTATION CREATION
+    // ------------------------------------------------------------
+
+    function handleSelectionChange() {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !prose) {
+        hideSelectionTooltip();
+        return;
+      }
+
+      const text = sel.toString().trim();
+      if (text.length < 2) {
+        hideSelectionTooltip();
+        return;
+      }
+
+      // Ensure selection is strictly inside #story-prose
+      const range = sel.getRangeAt(0);
+      if (!prose.contains(range.commonAncestorContainer)) {
+        hideSelectionTooltip();
+        return;
+      }
+
+      const rect = range.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      // Extract surrounding prefix and suffix context
+      const fullText = prose.textContent || '';
+      const exact = text;
+      const idx = fullText.indexOf(exact);
+      const prefix = idx !== -1 ? fullText.slice(Math.max(0, idx - 32), idx) : '';
+      const suffix = idx !== -1 ? fullText.slice(idx + exact.length, idx + exact.length + 32) : '';
+
+      pendingSelectionData = {
+        text: exact,
+        prefix,
+        suffix
+      };
+
+      showSelectionTooltip(rect);
+    }
+
+    function showSelectionTooltip(rect: DOMRect) {
+      if (!selectionTooltip) return;
+      selectionTooltip.hidden = false;
+      const scrollX = window.pageXOffset;
+      const scrollY = window.pageYOffset;
+
+      const top = rect.top + scrollY - 42;
+      const left = Math.max(10, rect.left + scrollX + rect.width / 2 - 80);
+
+      selectionTooltip.style.top = `${top}px`;
+      selectionTooltip.style.left = `${left}px`;
+    }
+
+    function hideSelectionTooltip() {
+      if (selectionTooltip) selectionTooltip.hidden = true;
+    }
+
+    document.addEventListener('mouseup', () => {
+      setTimeout(handleSelectionChange, 10);
+    });
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'Shift' || e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        setTimeout(handleSelectionChange, 10);
+      }
+    });
+
+    // Open Annotation Composer Modal
+    if (btnCreateAnnotation) {
+      btnCreateAnnotation.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!pendingSelectionData) return;
+
+        if (modalQuoteText) {
+          modalQuoteText.textContent = pendingSelectionData.text;
+        }
+        if (modalCommentInput) {
+          modalCommentInput.value = '';
+        }
+        if (annotationModalBackdrop) {
+          annotationModalBackdrop.hidden = false;
+          modalCommentInput?.focus();
+        }
+        hideSelectionTooltip();
+      });
+    }
+
+    function closeModal() {
+      if (annotationModalBackdrop) annotationModalBackdrop.hidden = true;
+      pendingSelectionData = null;
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalCancelBtn) modalCancelBtn.addEventListener('click', closeModal);
+
+    if (modalSaveBtn) {
+      modalSaveBtn.addEventListener('click', () => {
+        if (!pendingSelectionData) return;
+
+        const colorInput = document.querySelector('input[name="hl-color"]:checked') as HTMLInputElement | null;
+        const color = (colorInput?.value as StoryAnnotation['color']) || 'cobalt';
+        const comment = modalCommentInput?.value.trim() || '';
+
+        const { activeHeading } = getReadingProgress();
+        const newAnnotation: StoryAnnotation = {
+          id: `ann_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+          slug,
+          text: pendingSelectionData.text,
+          comment,
+          color,
+          createdAt: Date.now(),
+          chapterTitle: activeHeading?.textContent || '',
+          anchor: {
+            prefix: pendingSelectionData.prefix,
+            exact: pendingSelectionData.text,
+            suffix: pendingSelectionData.suffix
+          }
+        };
+
+        const existing = getStoredAnnotations();
+        existing.push(newAnnotation);
+        saveStoredAnnotations(existing);
+
+        window.getSelection()?.removeAllRanges();
+        closeModal();
+      });
+    }
+
+    // ------------------------------------------------------------
+    // 4. ANNOTATION POPOVER (INSPECTOR / EDIT / DELETE)
+    // ------------------------------------------------------------
+
+    function openPopoverForAnnotation(ann: StoryAnnotation, anchorEl?: HTMLElement) {
+      if (!annotationPopover) return;
+      currentInspectingAnnotationId = ann.id;
+
+      if (popoverColorBadge) {
+        popoverColorBadge.textContent = ann.color.toUpperCase();
+        popoverColorBadge.className = `popover-badge badge-${ann.color}`;
+      }
+      if (popoverDate) {
+        const d = new Date(ann.createdAt);
+        popoverDate.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      }
+      if (popoverQuote) {
+        popoverQuote.textContent = `“${ann.text}”`;
+      }
+      if (popoverComment) {
+        popoverComment.textContent = ann.comment || '(No note written — highlight only)';
+        popoverComment.hidden = false;
+      }
+      if (popoverEditArea) popoverEditArea.hidden = true;
+      if (popoverViewActions) popoverViewActions.hidden = false;
+      if (popoverEditActions) popoverEditActions.hidden = true;
+
+      annotationPopover.hidden = false;
+
+      if (anchorEl) {
+        const rect = anchorEl.getBoundingClientRect();
+        const top = rect.bottom + window.pageYOffset + 8;
+        const left = Math.min(window.innerWidth - 340, Math.max(16, rect.left + window.pageXOffset - 120));
+        annotationPopover.style.top = `${top}px`;
+        annotationPopover.style.left = `${left}px`;
+      } else {
+        annotationPopover.style.top = `${window.pageYOffset + 120}px`;
+        annotationPopover.style.left = '50%';
+        annotationPopover.style.transform = 'translateX(-50%)';
+      }
+    }
+
+    function closePopover() {
+      if (annotationPopover) annotationPopover.hidden = true;
+      currentInspectingAnnotationId = null;
+    }
+
+    if (popoverCloseBtn) popoverCloseBtn.addEventListener('click', closePopover);
+
+    if (btnEditNote) {
+      btnEditNote.addEventListener('click', () => {
+        const ann = getStoredAnnotations().find((a) => a.id === currentInspectingAnnotationId);
+        if (!ann) return;
+
+        if (popoverComment) popoverComment.hidden = true;
+        if (popoverEditArea) popoverEditArea.hidden = false;
+        if (popoverEditInput) {
+          popoverEditInput.value = ann.comment || '';
+          popoverEditInput.focus();
+        }
+        if (popoverViewActions) popoverViewActions.hidden = true;
+        if (popoverEditActions) popoverEditActions.hidden = false;
+      });
+    }
+
+    if (btnCancelEditNote) {
+      btnCancelEditNote.addEventListener('click', () => {
+        if (popoverComment) popoverComment.hidden = false;
+        if (popoverEditArea) popoverEditArea.hidden = true;
+        if (popoverViewActions) popoverViewActions.hidden = false;
+        if (popoverEditActions) popoverEditActions.hidden = true;
+      });
+    }
+
+    if (btnSaveEditNote) {
+      btnSaveEditNote.addEventListener('click', () => {
+        const all = getStoredAnnotations();
+        const idx = all.findIndex((a) => a.id === currentInspectingAnnotationId);
+        if (idx !== -1 && popoverEditInput) {
+          all[idx].comment = popoverEditInput.value.trim();
+          saveStoredAnnotations(all);
+          openPopoverForAnnotation(all[idx]);
+        }
+      });
+    }
+
+    if (btnDeleteNote) {
+      btnDeleteNote.addEventListener('click', () => {
+        if (!currentInspectingAnnotationId) return;
+        const all = getStoredAnnotations().filter((a) => a.id !== currentInspectingAnnotationId);
+        saveStoredAnnotations(all);
+        closePopover();
+      });
+    }
+
+    // ------------------------------------------------------------
+    // 5. ANNOTATIONS DRAWER & EXPORT
+    // ------------------------------------------------------------
+
+    function updateDrawerNotesList() {
+      if (!drawerNotesList) return;
+      const all = getStoredAnnotations();
+      const filtered = activeFilter === 'all' ? all : all.filter((a) => a.color === activeFilter);
+
+      drawerNotesList.innerHTML = '';
+
+      if (filtered.length === 0) {
+        drawerNotesList.innerHTML = `
+          <div class="drawer-empty-state">
+            <p>No notes ${activeFilter === 'all' ? 'yet' : 'in this color'}.</p>
+            <p class="empty-sub">Highlight any text in the story to create your first note.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach((ann) => {
+        const card = document.createElement('div');
+        card.className = `note-card note-card-${ann.color}`;
+        
+        const d = new Date(ann.createdAt);
+        const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        card.innerHTML = `
+          <div class="note-card-meta">
+            <span class="note-card-chapter">${ann.chapterTitle || 'Passage'}</span>
+            <span class="note-card-date">${dateStr}</span>
+          </div>
+          <blockquote class="note-card-quote">&ldquo;${ann.text}&rdquo;</blockquote>
+          ${ann.comment ? `<p class="note-card-comment">${ann.comment}</p>` : ''}
+          <div class="note-card-actions">
+            <button type="button" class="btn-card-jump" data-id="${ann.id}">Jump to text &rarr;</button>
+            <button type="button" class="btn-card-delete" data-id="${ann.id}" title="Delete note">&times;</button>
+          </div>
+        `;
+
+        card.querySelector('.btn-card-jump')?.addEventListener('click', () => {
+          jumpToAnnotation(ann);
+          if (window.innerWidth < 768) {
+            closeDrawer();
+          }
+        });
+
+        card.querySelector('.btn-card-delete')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const remaining = getStoredAnnotations().filter((a) => a.id !== ann.id);
+          saveStoredAnnotations(remaining);
+        });
+
+        drawerNotesList.appendChild(card);
+      });
+    }
+
+    function jumpToAnnotation(ann: StoryAnnotation) {
+      const textNodes = getAllTextNodes();
+      const ranges = findRangesForAnnotation(ann, textNodes);
+      if (ranges.length > 0) {
+        const startNode = ranges[0].startContainer;
+        const targetEl = (startNode instanceof HTMLElement ? startNode : startNode.parentElement) as HTMLElement | null;
+        if (targetEl) {
+          const offsetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+
+          targetEl.classList.remove('highlight-pulse');
+          void targetEl.offsetWidth;
+          targetEl.classList.add('highlight-pulse');
+          setTimeout(() => targetEl.classList.remove('highlight-pulse'), 2500);
+
+          openPopoverForAnnotation(ann, targetEl);
+        }
+      }
+    }
+
+    function openDrawer() {
+      if (annotationsDrawer) {
+        updateDrawerNotesList();
+        annotationsDrawer.hidden = false;
+      }
+    }
+
+    function closeDrawer() {
+      if (annotationsDrawer) annotationsDrawer.hidden = true;
+    }
+
+    if (openNotesBtn) openNotesBtn.addEventListener('click', openDrawer);
+    if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
+
+    // Drawer Color Filter Pills
+    drawerFilters?.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        drawerFilters.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = (btn as HTMLElement).dataset.filter || 'all';
+        updateDrawerNotesList();
+      });
+    });
+
+    // Export as Markdown
+    if (btnExportNotes) {
+      btnExportNotes.addEventListener('click', () => {
+        const notes = getStoredAnnotations();
+        if (notes.length === 0) {
+          alert('No annotations to export.');
+          return;
+        }
+
+        const title = document.querySelector('h1.title')?.textContent || 'Story';
+        let md = `# Notes & Highlights: ${title}\n\n`;
+        md += `*Exported on ${new Date().toLocaleDateString()}*\n\n---\n\n`;
+
+        notes.forEach((n, i) => {
+          md += `### ${i + 1}. ${n.chapterTitle || 'Passage'}\n\n`;
+          md += `> "${n.text}"\n\n`;
+          if (n.comment) {
+            md += `**Note**: ${n.comment}\n\n`;
+          }
+          md += `*Color: ${n.color.toUpperCase()} · ${new Date(n.createdAt).toLocaleDateString()}*\n\n---\n\n`;
+        });
+
+        // Copy to clipboard with confirmation
+        navigator.clipboard.writeText(md).then(() => {
+          const orig = btnExportNotes.textContent;
+          btnExportNotes.textContent = 'Copied Markdown!';
+          setTimeout(() => {
+            btnExportNotes.textContent = orig;
+          }, 2000);
+        }).catch(() => {
+          // Fallback download
+          const blob = new Blob([md], { type: 'text/markdown' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${slug}-notes.md`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      });
+    }
+
+    // Clear All
+    if (btnClearAllNotes) {
+      btnClearAllNotes.addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete all notes and highlights for this story?')) {
+          saveStoredAnnotations([]);
+          closePopover();
+        }
+      });
+    }
+
+    // Initial render of highlights & notes
+    renderHighlights();
+    updateNotesBadge();
   });
 </script>
 
 <style>
+  /* ============================================================
+     CSS CUSTOM HIGHLIGHTS STYLING
+     Handles overlapping highlights seamlessly with zero DOM mutation!
+     ============================================================ */
+  ::highlight(hl-cobalt) {
+    background-color: rgba(22, 66, 158, 0.22);
+    color: var(--ink);
+    text-decoration: underline solid var(--cobalt) 2px;
+    text-underline-offset: 3px;
+  }
+  ::highlight(hl-amber) {
+    background-color: rgba(245, 158, 11, 0.28);
+    color: var(--ink);
+    text-decoration: underline solid #D97706 2px;
+    text-underline-offset: 3px;
+  }
+  ::highlight(hl-sage) {
+    background-color: rgba(16, 185, 129, 0.24);
+    color: var(--ink);
+    text-decoration: underline solid #059669 2px;
+    text-underline-offset: 3px;
+  }
+  ::highlight(hl-rose) {
+    background-color: rgba(244, 63, 94, 0.22);
+    color: var(--ink);
+    text-decoration: underline solid #E11D48 2px;
+    text-underline-offset: 3px;
+  }
+
   /* Reading Progress Bar */
   .reading-progress-track {
     position: fixed;
@@ -613,7 +1369,7 @@ const fmt = (d: Date) =>
   .toolbar-meta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-shrink: 0;
   }
   .read-pct-badge {
@@ -621,27 +1377,539 @@ const fmt = (d: Date) =>
     font-size: 0.6875rem;
     color: var(--ink-muted);
   }
-  .quick-bm-btn {
+  .tool-btn {
     display: flex;
     align-items: center;
     gap: 4px;
     background: transparent;
     border: 1px solid var(--rule);
-    padding: 3px 8px;
+    padding: 4px 8px;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     color: var(--ink-muted);
     cursor: pointer;
     transition: all 0.15s ease;
   }
-  .quick-bm-btn:hover {
+  .tool-btn:hover {
     color: var(--cobalt);
     border-color: var(--cobalt);
     background: var(--paper);
   }
-  .bm-icon { font-size: 0.75rem; }
+  .notes-drawer-btn {
+    color: var(--cobalt);
+    border-color: var(--cobalt);
+    background: var(--cobalt-tint, #e8edf8);
+    font-weight: 600;
+  }
+  .tool-icon { font-size: 0.75rem; }
 
-  /* Heading pulse effect */
+  /* Floating Selection Action Tooltip */
+  .selection-tooltip {
+    position: absolute;
+    z-index: 200;
+    animation: fadeIn 0.2s ease;
+  }
+  .btn-sel-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-sel-action:hover {
+    background: var(--cobalt);
+    transform: translateY(-2px);
+  }
+
+  /* Annotation Composer Modal */
+  .annotation-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+  }
+  .annotation-modal {
+    background: var(--paper-card, #ffffff);
+    border: 1px solid var(--ink);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: min(540px, 95vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: fadeIn 0.2s ease;
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-panel);
+  }
+  .modal-heading {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .modal-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+  .modal-body {
+    padding: 18px;
+  }
+  .quote-preview-box {
+    position: relative;
+    background: var(--paper-panel);
+    border-left: 3px solid var(--cobalt);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+  .quote-icon {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--cobalt);
+    line-height: 1;
+  }
+  .quote-preview-text {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--ink);
+    margin: 4px 0 0;
+    line-height: 1.5;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  .field-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .comment-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 10px;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--ink);
+    resize: vertical;
+    outline: none;
+    margin-bottom: 16px;
+  }
+  .comment-textarea:focus {
+    border-color: var(--cobalt);
+  }
+  .color-picker-section {
+    margin-top: 8px;
+  }
+  .color-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .color-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .color-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .color-cobalt { background: #16429E; }
+  .color-amber { background: #D97706; }
+  .color-sage { background: #059669; }
+  .color-rose { background: #E11D48; }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--rule);
+    background: var(--paper-panel);
+  }
+  .btn-cancel {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-muted);
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+  .btn-cancel:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .btn-save-note {
+    background: var(--cobalt);
+    border: 1px solid var(--cobalt);
+    color: var(--paper);
+    padding: 6px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-save-note:hover {
+    background: var(--cobalt-deep, #0e2c6b);
+  }
+
+  /* Annotation Inspector Popover */
+  .annotation-popover {
+    position: absolute;
+    width: min(340px, 90vw);
+    background: var(--paper-card, #ffffff);
+    border: 1px solid var(--ink);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 250;
+    animation: fadeIn 0.2s ease;
+  }
+  .popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-panel);
+  }
+  .popover-badge {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 2px 6px;
+  }
+  .badge-cobalt { background: var(--cobalt-tint, #e8edf8); color: var(--cobalt); }
+  .badge-amber { background: #FEF3C7; color: #B45309; }
+  .badge-sage { background: #D1FAE5; color: #047857; }
+  .badge-rose { background: #FFE4E6; color: #BE185D; }
+  .popover-date {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+  }
+  .popover-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.125rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+  .popover-body {
+    padding: 12px;
+  }
+  .popover-quote {
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    border-left: 2px solid var(--cobalt);
+    padding-left: 8px;
+    margin: 0 0 10px;
+    line-height: 1.45;
+  }
+  .popover-comment {
+    font-size: 0.875rem;
+    color: var(--ink);
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .popover-footer {
+    padding: 8px 12px;
+    border-top: 1px solid var(--rule);
+    background: var(--paper-panel);
+    display: flex;
+    justify-content: flex-end;
+  }
+  .popover-view-actions, .popover-edit-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-pop-action {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    cursor: pointer;
+  }
+  .btn-pop-action:hover {
+    border-color: var(--cobalt);
+    color: var(--cobalt);
+  }
+  .btn-pop-delete {
+    color: #DC2626;
+  }
+  .btn-pop-delete:hover {
+    border-color: #DC2626;
+    color: #DC2626;
+  }
+
+  /* Gutter / Margin Note Indicator Badges */
+  :global(.margin-note-badge) {
+    position: absolute;
+    right: -38px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--paper-card, #ffffff);
+    border: 1px solid var(--cobalt);
+    color: var(--cobalt);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    padding: 2px 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, background 0.15s ease;
+    z-index: 10;
+  }
+  :global(.margin-note-badge:hover) {
+    transform: scale(1.1);
+    background: var(--cobalt-tint, #e8edf8);
+  }
+
+  /* Annotations Slide-Over Drawer */
+  .annotations-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(420px, 95vw);
+    height: 100vh;
+    background: var(--paper-card, #ffffff);
+    border-left: 1px solid var(--ink);
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
+    z-index: 400;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.25s ease;
+  }
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-panel);
+  }
+  .drawer-title {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .drawer-counter {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--cobalt);
+    font-weight: 600;
+    display: block;
+    margin-top: 2px;
+  }
+  .drawer-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+  .drawer-toolbar {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .drawer-filters {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+  }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    cursor: pointer;
+    color: var(--ink-muted);
+  }
+  .filter-btn.active {
+    background: var(--cobalt);
+    color: var(--paper);
+    border-color: var(--cobalt);
+    font-weight: 600;
+  }
+  .drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .drawer-empty-state {
+    text-align: center;
+    padding: var(--space-6) var(--space-2);
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+  .empty-sub {
+    font-size: 0.75rem;
+    margin-top: 6px;
+    color: var(--ink-light);
+  }
+  .note-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--cobalt);
+    padding: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .note-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+  }
+  .note-card-amber { border-left-color: #D97706; }
+  .note-card-sage { border-left-color: #059669; }
+  .note-card-rose { border-left-color: #E11D48; }
+
+  .note-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .note-card-chapter {
+    font-weight: 600;
+    color: var(--cobalt);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .note-card-quote {
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin: 0 0 8px;
+    line-height: 1.45;
+  }
+  .note-card-comment {
+    font-size: 0.875rem;
+    color: var(--ink);
+    margin: 0 0 10px;
+    line-height: 1.5;
+  }
+  .note-card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--rule);
+    padding-top: 8px;
+  }
+  .btn-card-jump {
+    background: transparent;
+    border: none;
+    color: var(--cobalt);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+  }
+  .btn-card-jump:hover {
+    text-decoration: underline;
+  }
+  .btn-card-delete {
+    background: transparent;
+    border: none;
+    color: var(--ink-muted);
+    font-size: 1.125rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .btn-card-delete:hover {
+    color: #DC2626;
+  }
+
+  .drawer-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--rule);
+    background: var(--paper-panel);
+  }
+  .btn-drawer-action {
+    background: transparent;
+    border: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink);
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  .btn-drawer-action:hover {
+    border-color: var(--cobalt);
+    color: var(--cobalt);
+  }
+  .btn-clear-all {
+    color: #DC2626;
+  }
+  .btn-clear-all:hover {
+    border-color: #DC2626;
+    color: #DC2626;
+  }
+
+  /* Pulse highlight effect */
   :global(.highlight-pulse) {
     animation: headingPulse 2.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
@@ -659,6 +1927,10 @@ const fmt = (d: Date) =>
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-4px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
   }
 
   .prose { margin-top: var(--space-4); }
@@ -722,6 +1994,9 @@ const fmt = (d: Date) =>
     .resume-actions {
       width: 100%;
       justify-content: flex-end;
+    }
+    :global(.margin-note-badge) {
+      right: -8px;
     }
   }
 </style>

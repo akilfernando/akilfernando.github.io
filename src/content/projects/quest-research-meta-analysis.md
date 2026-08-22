@@ -11,7 +11,7 @@ links:
   - label: "Download Full Manuscript (PDF)"
     url: "/research/Meta_Analysis_Manuscript.pdf"
   - label: "GitHub Repository"
-    url: "https://github.com/quest-research-group/quest_outreach_showcase"
+    url: "https://github.com/akilfernando/quest-outreach-showcase"
 ---
 
 A comprehensive **PRISMA 2020-compliant systematic literature review and meta-analysis** evaluating Continuous Integration (CI) build timeouts, Automated Program Repair (APR), and automated crash triage in game engineering and interactive software systems.

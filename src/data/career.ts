@@ -6,14 +6,13 @@ export const experience = [
     org: 'Teams Squared',
     location: 'Colombo, Sri Lanka',
     summary:
-      'Global remote staffing firm, legal-first and now multi-industry, placing skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Entra ID stack. I lead IT and security for the company and its contractors, heading a small cybersecurity team and working directly with clients and their IT teams as well.',
+      'Global remote staffing firm placing skilled professionals from emerging markets into client companies worldwide. I lead IT infrastructure and cybersecurity across a distributed team of 130+ members, managing identity governance on Entra ID, leading an organization-wide ISO 27001 implementation, and heading our internal security function.',
     highlights: [
-      'Lead the cybersecurity function and mentor a security specialist, owning the team’s roadmap, standards, and delivery.',
-      'Lead IAM administration on Microsoft Entra ID: MFA, app registrations, and identity governance.',
-      'Administer the Microsoft 365 tenant, endpoint security (Bitdefender GravityZone), and RMM (NinjaOne) across the contractor base.',
-      'Hardened security posture, monitoring, and access controls across a globally distributed workforce.',
-      'Serve as the appointed ISO 27001 ISMS Officer, driving the organization-wide implementation toward a certification audit at the end of August 2026, including the mandatory ISMS training delivered through a platform I built.',
-      'Sole-authored internal platforms, and as sole developer grew an inherited client portal into the company-wide coordination hub for staff, clients, and their teams.',
+      'Lead cybersecurity operations and mentor a security specialist, establishing operational roadmaps, security standards, and incident response procedures.',
+      'Oversee enterprise IAM on Microsoft Entra ID: MFA, conditional access policies, application registrations, and identity lifecycle governance.',
+      'Administer Microsoft 365 tenant infrastructure, endpoint security (Bitdefender GravityZone), and RMM systems (NinjaOne) across a global workforce.',
+      'Serve as appointed ISO 27001 ISMS Officer, leading the organization-wide implementation toward accreditation audit and delivering mandatory staff training via a custom LMS.',
+      'Architect and build internal software platforms, growing an inherited client portal into a centralized operations hub for staff, contractors, and client teams.',
     ],
   },
   {
@@ -22,13 +21,14 @@ export const experience = [
     role: 'Gameplay Programmer (Co-op)',
     org: 'Ubisoft Halifax',
     location: 'Halifax, NS',
-    summary: 'Gameplay programming in Unity and C# across two unannounced titles, from prototype tooling to camera, targeting, and AI systems.',
+    summary:
+      'Gameplay programming in Unity and C# across two unannounced titles, developing prototype tooling, camera mechanics, targeting systems, and character AI.',
     highlights: [
-      'Added dynamic camera angles and extended a camera-clipping solution using Cinemachine and Unity raycasting.',
-      'Extended a tile-based targeting system to measure distance over NavMesh paths and hex-grid tiles.',
-      'Tuned character AI behavior trees to match game design direction, and built in-client debug tools for systems like the hex grid.',
-      'Built and integrated character assets through a Maya and Blender pipeline, documenting the process for reuse.',
-      'Ported a rigged, animated 3D scene to Android with Three.js and Capacitor, and kept builds playable by working around broken dependencies.',
+      'Implemented dynamic camera framing and extended camera-clipping solutions using Cinemachine and physics raycasting.',
+      'Built a flexible targeting system calculating distance over NavMesh paths and hex-grid topologies.',
+      'Configured and tuned character AI behavior trees, developing in-engine visual debugging tools for state transitions.',
+      'Integrated 3D assets and animation rigs through a Maya and Blender pipeline, creating standardized documentation for the team.',
+      'Ported an animated 3D scene to Android using Three.js and Capacitor, resolving build dependency conflicts to ensure stable execution.',
     ],
   },
 ];
@@ -41,7 +41,7 @@ export const education = [
     org: 'Dalhousie University',
     location: 'Halifax, NS',
     summary:
-      'Undergraduate certificates in Communications Technology and Cyber Security, and in Web and Mobile Development. Sexton Scholar, Dean’s List (multiple terms), and Dalhousie In-Course Scholarship (2025).',
+      'Dual undergraduate certificates in Cyber Security and Web & Mobile Development. Sexton Scholar, Dean’s List (multiple terms), and Dalhousie In-Course Scholarship (2025). Grounded in systems architecture, algorithms, and empirical research methods.',
   },
 ];
 
@@ -52,23 +52,23 @@ export const certifications = [
 export const skills = [
   {
     group: 'Identity & security',
-    items: ['Entra ID', 'IAM', 'MFA', 'Conditional Access', 'identity governance', 'ISO 27001 ISMS', 'Bitdefender GravityZone'],
+    items: ['Microsoft Entra ID', 'IAM Architecture', 'MFA & Conditional Access', 'Identity Governance', 'ISO 27001 ISMS', 'Bitdefender GravityZone'],
   },
   {
     group: 'Infrastructure',
-    items: ['Microsoft 365', 'NinjaOne RMM', 'endpoint management', 'systems administration'],
+    items: ['Microsoft 365 Administration', 'NinjaOne RMM', 'Endpoint Management', 'Systems Administration', 'Windows & Linux'],
   },
   {
-    group: 'Development',
-    items: ['TypeScript', 'React', 'Next.js', 'Python (FastAPI, Flask)', 'Prisma', 'PostgreSQL', 'Supabase', 'Drizzle ORM', 'MERN', 'NextAuth'],
+    group: 'Software engineering',
+    items: ['TypeScript', 'React', 'Next.js', 'Python (FastAPI, Flask)', 'PostgreSQL', 'Supabase', 'Prisma / Drizzle ORM', 'REST APIs'],
   },
   {
     group: 'Game & graphics',
-    items: ['Unity', 'C#', 'Cinemachine', 'behavior trees', 'NavMesh', 'Maya', 'C++', 'Vulkan', 'OpenGL'],
+    items: ['Unity (C#)', 'Godot 4', 'Cinemachine', 'Behavior Trees', 'NavMesh Pathfinding', 'C++', 'Vulkan', 'OpenGL', 'GLSL/HLSL'],
   },
   {
-    group: 'Tools',
-    items: ['Claude Code', 'Gemini CLI', 'Google Antigravity', 'Playwright', 'Git'],
+    group: 'Research & tooling',
+    items: ['Empirical Software Engineering', 'PRISMA Synthesis', '.NET 8 / CLR', 'AST Fault Localization', 'Automated Program Repair', 'Git / CI Automation'],
   },
 ];
 

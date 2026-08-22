@@ -1,18 +1,18 @@
 export const site = {
   name: 'Akil Fernando',
-  tagline: 'I look after security, identity, and the systems they run on.',
-  taglineSub: 'A security lead who came up through engineering, and still makes games at night.',
+  tagline: 'I work across systems engineering, security, and game tech.',
+  taglineSub: 'Focused on engine reliability, developer tooling, and empirical software research.',
   url: 'https://akilfernando.dev',
 };
 
 export const sections = [
-  { label: 'Career',   href: '/career',   blurb: 'Where I have worked, what I studied, and the CV to download.' },
-  { label: 'Research', href: '/research', blurb: 'PRISMA meta-analysis on game CI timeouts, APR speedups, and automated crash triage.' },
-  { label: 'Projects', href: '/projects', blurb: 'Security tooling, internal platforms, games, and graphics.' },
-  { label: 'Blog',     href: '/blog',     blurb: 'Notes on building, breaking, and learning.' },
-  { label: 'Writing',  href: '/writing',  blurb: 'Fiction and other creative writing. Always a work in progress.' },
-  { label: 'Log',      href: '/log',      blurb: 'A backlog and reviews of games, films, shows, and books.' },
-  { label: 'About',    href: '/about',    blurb: 'Who I am and what keeps me curious.' },
+  { label: 'Career',   href: '/career',   blurb: 'Industry roles, academic background, and tailored CVs across security, software, and games.' },
+  { label: 'Research', href: '/research', blurb: 'Empirical meta-analysis and diagnostic tooling for game engine CI pipelines and crash triage.' },
+  { label: 'Projects', href: '/projects', blurb: 'Security platforms, internal tools, graphics renderers, and game prototypes.' },
+  { label: 'Blog',     href: '/blog',     blurb: 'Technical notes on systems engineering, security audits, and low-level graphics.' },
+  { label: 'Writing',  href: '/writing',  blurb: 'Fiction, personal essays, and creative prose in progress.' },
+  { label: 'Log',      href: '/log',      blurb: 'A media log and honest reviews of games, films, and books.' },
+  { label: 'About',    href: '/about',    blurb: 'Background, research motivations, and what I am looking for next.' },
 ];
 
 export const socials = [

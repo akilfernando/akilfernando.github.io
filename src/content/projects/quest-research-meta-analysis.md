@@ -14,33 +14,33 @@ links:
     url: "https://github.com/akilfernando/quest-outreach-showcase"
 ---
 
-A comprehensive **PRISMA 2020-compliant systematic literature review and meta-analysis** evaluating Continuous Integration (CI) build timeouts, Automated Program Repair (APR), and automated crash triage in game engineering and interactive software systems.
+A **PRISMA 2020 systematic review and meta-analysis** investigating Continuous Integration (CI) build timeouts, Automated Program Repair (APR), and automated crash triage across game engines and interactive software systems.
 
-## Executive Synthesis & Findings
+## Why This Research Matters
 
-Continuous Integration in modern game development operates under architectural failure constraints fundamentally distinct from classical enterprise software:
+Most academic automated program repair (APR) and automated debugging tools are evaluated against single-threaded Java benchmarks like Defects4J or QuixBugs. While helpful for foundational research, these suites ignore the architectural bottlenecks of production game development:
 
-1. **Massive Binary Asset Baking Bottlenecks**: Assets (textures, shaders, 3D meshes) create severe Git LFS synchronization and compilation delays leading to high CI timeout rates.
-2. **Physics & Frame-Loop Non-Determinism**: Asynchronous gameplay loops, multi-threaded rendering, and floating-point instabilities generate high test flakiness and difficult-to-reproduce crashes.
-3. **Multi-Language Architecture**: Modern game engines (Unreal Engine C++, Unity C#, Godot C++/GDScript) require automated crash triage and program repair capable of cross-language stack trace reconstruction.
+1. **Massive Binary Asset Baking**: Multi-gigabyte textures, shader variants, and 3D meshes create severe Git LFS bottlenecks and build delays, making CI timeout prediction essential.
+2. **Physics & Frame-Loop Non-Determinism**: Asynchronous update loops, multithreaded rendering backends, and floating-point variance cause flaky tests and non-deterministic runtime crashes.
+3. **Cross-Language Stack Traces**: Engines like Unreal (C++ / Blueprints), Unity (C++ / C#), and Godot (C++ / C# / GDScript) require crash triage and fault localization capable of traversing language boundaries.
 
-### Key Meta-Analysis Metrics (k=28 Studies)
+## Key Meta-Analysis Findings (k=28 Studies)
 
 - **Ingested Literature Records**: 482 candidate records across ACM Digital Library and arXiv.
-- **Screened via Strict PICOC Rules**: 50 candidate studies.
-- **Approved for Final Synthesis**: 28 peer-reviewed primary studies (100% PRISMA 2020 compliant).
-- **Pooled Effect Size (Hedges' g)**: **4.404** [95% CI: 3.623 to 5.185] ($p < 0.001$).
-- **Heterogeneity Index (I²)**: **89.1%** (Cochran's $Q = 73.57$, $df = 8$, $p < 0.0001$).
-- **Enterprise Benchmark Disparity**: **+50.0% Bias** (71.4% Defects4J vs. only 21.4% Game Engines).
-- **Mathematical Justification for OSSGameBench**: Benchmarking Need Index $B = I^2 \times \Delta = 0.4455$.
+- **Screened via PICOC Selection**: 50 candidate studies evaluated for quantitative synthesis.
+- **Synthesized in Meta-Analysis**: 28 peer-reviewed primary studies adhering to PRISMA 2020 standards.
+- **Pooled Effect Size (Hedges' g)**: **4.404** [95% CI: 3.623 to 5.185] ($p < 0.001$), demonstrating substantial empirical benefit from targeted CI scheduling and repair interventions.
+- **Heterogeneity Index (I²)**: **89.1%** (Cochran's $Q = 73.57$, $df = 8$, $p < 0.0001$), confirming heavy variance across evaluation benchmarks.
+- **Enterprise Benchmark Disparity**: **+50.0% Bias** (71.4% representation for Defects4J suites vs. only 21.4% for game engines).
+- **Motivation for OSSGameBench**: The Benchmarking Need Index ($B = I^2 \times \Delta = 0.4455$) proves that domain variation dominates tool performance, establishing the empirical need for a standardized game engine benchmark suite.
 
 ---
 
-## Production Diagnostic Toolchain
+## Operational Diagnostic Toolchain
 
-Paired with the empirical synthesis is an end-to-end automated diagnostic toolchain:
+To validate the findings, the project implements two production-grade diagnostic modules:
 
-- **CI Timeout Analyzer (Python ML Pipeline)**: Predicts continuous integration build timeouts across open-source game engines (Godot, OpenMW, Veloren, Thrive) using Random Forest classification with **93.3% accuracy** and **0.9286 ROC-AUC**.
-- **Godot 4 C# Crash Triage Engine (.NET 8 CLR)**: Ingests unstructured crash logs, normalizes dynamic memory pointers to achieve an **88.0% deduplication rate** (50 logs $\to$ 6 clusters), and applies Gemini 3.1 Pro blame mapping for **100.0% Top-1 fault localization accuracy**.
+- **CI Timeout Analyzer (Python ML)**: Evaluates build telemetry from open-source engines (Godot, OpenMW, Veloren, Thrive) using Random Forest classification to predict timeouts (**93.3% accuracy**, **0.9286 ROC-AUC**), identifying asset delta volume and Link-Time Optimization as primary culprits.
+- **Godot 4 C# Crash Triage Engine (.NET 8 CLR)**: Normalizes dynamic memory addresses across unstructured stack traces to achieve an **88.0% deduplication rate** (50 raw logs reduced to 6 clusters), mapping AST context to Git commits for **100.0% Top-1 fault localization**.
 
-Explore the full interactive data visualizations, embedded forest plot, and live execution logs on the [dedicated Research Showcase page](/research).
+For detailed forest plots, full methodology, and live terminal execution output, visit the [Research Showcase page](/research).

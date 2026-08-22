@@ -12,7 +12,7 @@ CONTACT = (f"mail@akilfernando.dev &middot; {PHONE} &middot; akilfernando.dev "
 CONTACT_GD = CONTACT + " &middot; akilf.itch.io"
 
 ELIGIBILITY = ("Authorized to work in Canada: Post-Graduation Work Permit (PGWP) valid through June 2029, "
-               "no sponsorship required. Relocating September 2026, open to anywhere in Canada. "
+               "no sponsorship required. Open to relocation anywhere in Canada. "
                "Eligible for the Atlantic Immigration Program (International Graduate stream). "
                "IELTS General CLB 10.")
 

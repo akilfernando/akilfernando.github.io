@@ -41,7 +41,7 @@ export const education = [
     org: 'Dalhousie University',
     location: 'Halifax, NS',
     summary:
-      'Dual certificates in Cyber Security and Web & Mobile Development. Sexton Scholar, Dean’s List, and Dalhousie In-Course Scholarship recipient. Grounded in algorithms, systems architecture, security principles, and research methodologies.',
+      'Dual certificates in Cyber Security and Web & Mobile Development. Sexton Scholar, Dean’s List, and Dalhousie In-Course Scholarship recipient. Grounded in algorithms, systems architecture, security principles, and empirical methods.',
   },
 ];
 

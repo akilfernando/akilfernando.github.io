@@ -1,0 +1,529 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Prototypes"
+  description="Exploratory developer tooling prototypes for CI build duration analysis and game engine crash log triage."
+>
+  <!-- ============================================================
+       HEADER & MASTHEAD
+       ============================================================ -->
+  <header class="proto-hero">
+    <p class="eyebrow">Developer Tooling &middot; Exploratory Prototypes</p>
+    <div class="wayrule" aria-hidden="true"></div>
+
+    <h1 class="display h1">CI Diagnostics &amp; Crash Triage Tooling</h1>
+    <p class="tagline">Exploratory developer tooling and pipeline experiments</p>
+
+    <p class="lede">
+      Two exploratory developer tooling prototypes built to investigate common engineering bottlenecks: analyzing build phase durations and continuous integration timeouts in game pipelines, and automating stack trace normalization for engine crash triage. Both prototypes were evaluated on synthetic data fixtures to validate the processing pipelines and algorithms.
+    </p>
+
+    <div class="disclaimer-banner" role="note">
+      <div class="disclaimer-badge">Prototype Context</div>
+      <p class="disclaimer-text">
+        These tools are proof-of-concept prototypes evaluated on synthetic data fixtures to test log parsing, stack normalization, and fault localization heuristics. They represent exploratory engineering tooling, not published academic studies.
+      </p>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       1. ENGINEERING PILLARS & BACKGROUND
+       ============================================================ -->
+  <h2 class="sec-label">
+    01 / Background &amp; Engineering Context
+    <span>CS Degree &middot; Ubisoft Game Dev &middot; Toolchain Automation</span>
+  </h2>
+
+  <div class="triad-grid">
+    <!-- Pillar 1: Computer Science Degree & Academics -->
+    <article class="triad-card">
+      <div>
+        <div class="triad-header">
+          <p class="triad-number">PILLAR I</p>
+          <h3 class="triad-title display">BSc in Computer Science</h3>
+        </div>
+        <p class="triad-body">
+          Graduated from <strong>Dalhousie University (GPA 3.92, Sexton Scholar, Dean's List)</strong> with certificates in Cybersecurity and Web/Mobile Systems. Grounded in software architecture, algorithm design, empirical methods, and systems engineering.
+        </p>
+      </div>
+      <ul class="triad-pills" aria-label="Academic credentials">
+        <li>Dalhousie University</li>
+        <li>GPA 3.92 / 4.30</li>
+        <li>Sexton Scholar</li>
+        <li>Systems Architecture</li>
+      </ul>
+    </article>
+
+    <!-- Pillar 2: Game Industry Engineering Experience -->
+    <article class="triad-card">
+      <div>
+        <div class="triad-header">
+          <p class="triad-number">PILLAR II</p>
+          <h3 class="triad-title display">Game Industry Experience</h3>
+        </div>
+        <p class="triad-body">
+          Former <strong>Gameplay Programmer at Ubisoft Halifax</strong> working on production C# and Unity pipelines, Cinemachine camera systems, and AI behavior trees. First-hand domain insight into multi-gigabyte binary asset baking, build durations, and cross-language runtime debugging.
+        </p>
+      </div>
+      <ul class="triad-pills" aria-label="Game development stack">
+        <li>Ubisoft Halifax</li>
+        <li>Unity &amp; C#</li>
+        <li>Asset Pipelines</li>
+        <li>Engine Debugging</li>
+      </ul>
+    </article>
+
+    <!-- Pillar 3: Toolchain Automation -->
+    <article class="triad-card">
+      <div>
+        <div class="triad-header">
+          <p class="triad-number">PILLAR III</p>
+          <h3 class="triad-title display">Developer Toolchain Automation</h3>
+        </div>
+        <p class="triad-body">
+          Hands-on development of automated workflows in Python and .NET 8: log parsing pipelines, stack frame normalizers, AST fault localization heuristics, and diagnostic tooling to accelerate developer triage.
+        </p>
+      </div>
+      <ul class="triad-pills" aria-label="Toolchain proficiency">
+        <li>Python &amp; .NET 8</li>
+        <li>Log Ingestion</li>
+        <li>AST Analysis</li>
+        <li>CI Automation</li>
+      </ul>
+    </article>
+  </div>
+
+  <!-- ============================================================
+       2. PROTOTYPE 01: CI TIMEOUT & DURATION ANALYZER
+       ============================================================ -->
+  <h2 class="sec-label">
+    02 / Prototype: CI Build Duration &amp; Timeout Analyzer
+    <span>Python &middot; scikit-learn &middot; Log Segmentation</span>
+  </h2>
+
+  <div class="proto-card">
+    <div class="proto-grid">
+      <div class="proto-col">
+        <h3 class="proto-heading">What was built</h3>
+        <p class="proto-text">
+          A Python prototype for parsing unstructured continuous integration build logs, segmenting execution phases (asset cooking, shader compilation, C++ compilation, and Link-Time Optimization), and evaluating how phase durations and asset delta volumes correlate with pipeline timeouts using Random Forest regression.
+        </p>
+
+        <h3 class="proto-heading">Synthetic data used</h3>
+        <p class="proto-text">
+          Simulated build telemetry generating varying asset diff volumes, shader cache miss rates, and dependency graph depths across hundreds of mock pipeline runs to stress-test phase segmentation and model fitting.
+        </p>
+      </div>
+
+      <div class="proto-col">
+        <h3 class="proto-heading">What I was trying to learn</h3>
+        <p class="proto-text">
+          Whether multi-stage build logs can be segmented reliably without custom build-system hooks, and whether early-phase duration spikes (e.g., asset cooking or shader compilation) serve as dependable early-warning predictors for downstream job timeouts before long compiler links run.
+        </p>
+
+        <h3 class="proto-heading">What I would want real data for</h3>
+        <p class="proto-text">
+          Production CI telemetry from open-source game engines (like Godot) or large C++ repositories to test model accuracy against real-world runner contention, distributed cache hit variance, flaky network steps, and heterogeneous worker hardware.
+        </p>
+      </div>
+    </div>
+
+    <ul class="proto-features" aria-label="Key features of CI analyzer">
+      <li>Log phase segmentation for asset baking, compilation, and linking stages.</li>
+      <li>Feature extraction on asset delta volume and dependency graph modifications.</li>
+      <li>Threshold-based early warning heuristics for pipeline timeouts.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================
+       3. PROTOTYPE 02: GAME ENGINE CRASH LOG TRIAGE
+       ============================================================ -->
+  <h2 class="sec-label">
+    03 / Prototype: Game Engine Crash Log Triage
+    <span>.NET 8 (C#) &middot; Stack Normalization &middot; Fault Localization</span>
+  </h2>
+
+  <div class="proto-card">
+    <div class="proto-grid">
+      <div class="proto-col">
+        <h3 class="proto-heading">What was built</h3>
+        <p class="proto-text">
+          A high-throughput .NET 8 CLI tool that ingests raw game engine crash logs, strips volatile dynamic memory pointers and thread identifiers, normalizes call stack frames into canonical SHA-256 cluster signatures for deduplication, and applies deterministic heuristic rules to map stack frames to recent Git commit changes.
+        </p>
+
+        <h3 class="proto-heading">Synthetic data used</h3>
+        <p class="proto-text">
+          A suite of 50 synthetic crash logs spanning 6 common game engine failure archetypes: NodePath resolution breaks after scene reparenting, null physics body states during asynchronous raycasts, shader uniform buffer binding mismatches, cross-thread object disposal race conditions during scene unload, signal emissions to deleted UI elements, and navigation waypoint array index overflows.
+        </p>
+      </div>
+
+      <div class="proto-col">
+        <h3 class="proto-heading">What I was trying to learn</h3>
+        <p class="proto-text">
+          How cleanly pointer-stripped normalization clusters noisy engine crashes across repeated runs, and whether simple heuristic commit mapping (matching modified methods in recent commits to top-of-stack frames) can accurately isolate the introducing change in simulated regressions.
+        </p>
+
+        <h3 class="proto-heading">What I would want real data for</h3>
+        <p class="proto-text">
+          Real issue tracker dumps and crash reports from open-source game engines (such as Godot GitHub issues) to evaluate real-world stack trace noise, inlined compiler frames, multi-threaded inter-leaved logs, and complex multi-commit regressions.
+        </p>
+      </div>
+    </div>
+
+    <ul class="proto-features" aria-label="Key features of crash triage engine">
+      <li>Memory-independent stack frame normalization (stripping dynamic pointers to canonical cluster hashes).</li>
+      <li>Automated deduplication clustering across raw crash log collections (88% reduction on test fixtures).</li>
+      <li>Deterministic heuristic mapping from call stack frames to suspect Git commits and AST changes.</li>
+    </ul>
+  </div>
+
+  <!-- Terminal Execution Demonstration -->
+  <div class="terminal-wrapper" role="region" aria-label="Crash Triage Engine Execution Log">
+    <div class="terminal-header">
+      <div class="terminal-controls" aria-hidden="true">
+        <span class="control-dot dot-red"></span>
+        <span class="control-dot dot-yellow"></span>
+        <span class="control-dot dot-green"></span>
+      </div>
+      <div class="terminal-title">godot_triage_engine.exe &middot; Terminal Output</div>
+      <div class="terminal-badge">SYNTHETIC FIXTURE DEMO &middot; ARCHITECTURAL PROOF</div>
+    </div>
+
+    <pre class="terminal-content"><code><span class="t-banner">===========================================================================
+    EXPLORATORY GAME ENGINE CRASH LOG TRIAGE & FAULT LOCALIZATION ENGINE
+           Synthetic Fixture Pipeline & Stack NormalIZATION Demo
+===========================================================================</span>
+
+<span class="t-step">[Step 1/4]</span> Ingesting raw C# crash log fixtures (simulated game-engine failure modes)...
+ <span class="t-success">&rarr;</span> Ingested 50 synthetic crash logs with dynamic memory addresses and timestamps.
+
+<span class="t-step">[Step 2/4]</span> Executing memory-independent stack frame normalization & SHA-256 deduplication...
+ <span class="t-success">&rarr;</span> Formed 6 unique crash clusters from 50 raw logs.
+ <span class="t-success">&rarr;</span> Normalized dynamic pointers across all frames into canonical cluster hashes.
+
+<span class="t-step">[Step 3/4]</span> Running heuristic fault localization & Git commit mapping on simulated fixtures...
+   * <span class="t-cluster">[CLUSTER_01] NodePath Resolution Failure (Scene Reparenting)</span>
+     - Exception  : <span class="t-file">System.NullReferenceException</span>
+     - Occurrences: 9 logs (18.0%)
+     - Suspect Commit: <span class="t-commit">a3f89b1c7d...</span> ("refactor(scene): move WeaponHolder node under CharacterRig hierarchy")
+     - File & Method : <span class="t-file">Source/Combat/WeaponController.cs &rarr; GameEngine.Core.Combat.WeaponController._Ready()</span>
+     - Root Cause    : Stale NodePath string literal in WeaponController._Ready(). Hierarchy was refactored, moving WeaponHolder under CharacterRig without updating the path constant.
+
+   * <span class="t-cluster">[CLUSTER_02] Null PhysicsDirectBodyState3D Reference in _PhysicsProcess</span>
+     - Exception  : <span class="t-file">System.NullReferenceException</span>
+     - Occurrences: 9 logs (18.0%)
+     - Suspect Commit: <span class="t-commit">c4d7e2a9b8...</span> ("feat(physics): implement asynchronous raycast sweep for character movement")
+     - File & Method : <span class="t-file">Source/Physics/PlayerCharacter3D.cs &rarr; GameEngine.Core.Physics.PlayerCharacter3D._PhysicsProcess(Double delta)</span>
+     - Root Cause    : Missing null check on KinematicCollision3D.GetCollider(). Asynchronous raycasts and concurrent body despawns leave the collider reference null upon slide resolution.
+
+   * <span class="t-cluster">[CLUSTER_03] Shader Uniform Buffer Layout Binding Mismatch</span>
+     - Exception  : <span class="t-file">Engine.GraphicsException</span>
+     - Occurrences: 8 logs (16.0%)
+     - Suspect Commit: <span class="t-commit">f9a8b7c6d5...</span> ("feat(rendering): add chromatic aberration and vignette compute shader")
+     - File & Method : <span class="t-file">Source/Rendering/CustomPostProcessPipeline.cs &rarr; GameEngine.Rendering.CustomPostProcessPipeline.CreateComputePipeline()</span>
+     - Root Cause    : UniformSet layout descriptor mismatch at binding index 2. Compute shader was updated to require a new uniform buffer, but UniformSetCreate was passed an outdated descriptor array.
+
+   * <span class="t-cluster">[CLUSTER_04] Multi-Threaded RenderingServer Race Condition on Scene Unload</span>
+     - Exception  : <span class="t-file">System.ObjectDisposedException</span>
+     - Occurrences: 8 logs (16.0%)
+     - Suspect Commit: <span class="t-commit">e1f2a3b4c5...</span> ("perf(world): offload voxel chunk mesh generation to background Task workers")
+     - File & Method : <span class="t-file">Source/World/ChunkRenderer.cs &rarr; GameEngine.World.ChunkRenderer.AsyncMeshUpdateWorker()</span>
+     - Root Cause    : Cross-thread Object disposal race condition. ChunkRenderer dispatches async background Task workers that access engine pointers while the main thread frees chunks during scene unloading.
+
+   * <span class="t-cluster">[CLUSTER_05] Signal Emission to Disposed UI Callable Target</span>
+     - Exception  : <span class="t-file">Engine.SignalException</span>
+     - Occurrences: 8 logs (16.0%)
+     - Suspect Commit: <span class="t-commit">b2c3d4e5f6...</span> ("ui(hud): recreate player health bar widget on scene respawn")
+     - File & Method : <span class="t-file">Source/Gameplay/HealthComponent.cs &rarr; GameEngine.Gameplay.HealthComponent.ApplyDamage(Single amount)</span>
+     - Root Cause    : Signal emission to a stale Callable on a disposed UI instance. HealthComponent emits HealthChanged to a widget queued for deletion without unhooking signal handlers.
+
+   * <span class="t-cluster">[CLUSTER_06] NavigationAgent3D Empty Path Waypoint Index Overflow</span>
+     - Exception  : <span class="t-file">System.IndexOutOfRangeException</span>
+     - Occurrences: 8 logs (16.0%)
+     - Suspect Commit: <span class="t-commit">d8e9f01a2b...</span> ("ai(navigation): optimize waypoint path stepping for patrol agents")
+     - File & Method : <span class="t-file">Source/AI/EnemyNavigationController.cs &rarr; GameEngine.AI.EnemyNavigationController.GetNextSteeringVector()</span>
+     - Root Cause    : IndexOutOfRangeException in EnemyNavigationController. Path query returned an empty Vector3 array during dynamic navigation mesh rebaking, causing an unchecked index [0] access.
+
+<span class="t-step">[Step 4/4]</span> Exporting structured triage results to JSON artifact...
+ <span class="t-success">&rarr;</span> Structured triage results saved to: <span class="t-file">'triage_engine_results.json'</span>
+
+<span class="t-banner">===========================================================================
+               TRIAGE ENGINE EXECUTION COMPLETE
+===========================================================================</span>
+ Total Simulated Logs Processed  : <span class="t-accent">50</span>
+ Unique Crash Clusters Isolated  : <span class="t-accent">6</span>
+ Deduplication Normalization Rate: <span class="t-success">88.0%</span>
+ Heuristic Commit Matches        : <span class="t-success">6/6 archetypes localized</span>
+ Generated Output Artifact       : <span class="t-file">triage_engine_results.json</span>
+<span class="t-banner">===========================================================================</span></code></pre>
+  </div>
+</BaseLayout>
+
+<style>
+  .h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); margin-top: var(--space-1); }
+  .proto-hero { margin-top: var(--space-1); }
+  .tagline {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--cobalt);
+    margin-top: var(--space-2);
+    letter-spacing: 0.04em;
+  }
+  .lede {
+    font-size: 1.0625rem;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    max-width: 72ch;
+    margin-top: var(--space-2);
+  }
+
+  /* Disclaimer Banner */
+  .disclaimer-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--cobalt);
+    padding: var(--space-3);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+  .disclaimer-badge {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--cobalt);
+    color: var(--paper);
+    padding: 2px 6px;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: 1px;
+  }
+  .disclaimer-text {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .sec-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .sec-label span {
+    font-weight: 400;
+    color: var(--ink-muted);
+  }
+
+  /* Triad Grid */
+  .triad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  @media (max-width: 960px) {
+    .triad-grid { grid-template-columns: 1fr; }
+  }
+  .triad-card {
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  .triad-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--rule);
+    transition: background-color 0.2s ease;
+  }
+  .triad-card:hover::before {
+    background: var(--cobalt);
+  }
+  .triad-number {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--cobalt);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+  }
+  .triad-title {
+    font-size: 1.3rem;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: var(--space-1);
+  }
+  .triad-body {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    margin-bottom: var(--space-3);
+  }
+  .triad-pills {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    padding: 0;
+  }
+  .triad-pills li {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    color: var(--ink-muted);
+    padding: 3px 9px;
+  }
+
+  /* Prototype Cards */
+  .proto-card {
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    padding: var(--space-4);
+    margin-top: var(--space-3);
+  }
+  .proto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+  @media (max-width: 768px) {
+    .proto-grid { grid-template-columns: 1fr; }
+  }
+  .proto-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .proto-heading {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cobalt);
+    margin-top: var(--space-2);
+    margin-bottom: 2px;
+  }
+  .proto-heading:first-of-type {
+    margin-top: 0;
+  }
+  .proto-text {
+    font-size: 0.875rem;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .proto-features {
+    list-style: none;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    border-top: 1px solid var(--rule);
+    padding: var(--space-3) 0 0;
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .proto-features li {
+    position: relative;
+    padding-left: 14px;
+    line-height: 1.4;
+  }
+  .proto-features li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 1px;
+    background: var(--cobalt);
+  }
+
+  /* Terminal Execution Block */
+  .terminal-wrapper {
+    margin-top: var(--space-4);
+    border: 1px solid var(--ink);
+    background: #14161B;
+    color: #E2E8F0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  .terminal-header {
+    background: #1F232B;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #2D333F;
+  }
+  .terminal-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .control-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-red { background: #FF5F56; }
+  .dot-yellow { background: #FFBD2E; }
+  .dot-green { background: #27C93F; }
+  .terminal-title {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: #94A3B8;
+    text-transform: uppercase;
+  }
+  .terminal-badge {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38BDF8;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    padding: 2px 8px;
+  }
+  .terminal-content {
+    padding: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    max-height: 480px;
+    overflow-y: auto;
+    margin: 0;
+  }
+  .t-banner { color: #60A5FA; font-weight: bold; }
+  .t-step { color: #FCD34D; font-weight: 600; }
+  .t-success { color: #4ADE80; }
+  .t-cluster { color: #38BDF8; font-weight: 600; }
+  .t-commit { color: #F472B6; }
+  .t-file { color: #A78BFA; }
+  .t-accent { color: #38BDF8; }
+</style>

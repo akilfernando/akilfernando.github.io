@@ -67,8 +67,8 @@ export const skills = [
     items: ['Unity (C#)', 'Godot 4', 'Cinemachine', 'Behavior Trees', 'NavMesh Pathfinding', 'C++', 'Vulkan', 'OpenGL', 'GLSL/HLSL'],
   },
   {
-    group: 'Research & tooling',
-    items: ['Software Engineering Research', 'PRISMA Synthesis', '.NET 8 / CLR', 'AST Fault Localization', 'Automated Program Repair', 'Git / CI Automation'],
+    group: 'Developer tooling & systems',
+    items: ['Developer Tooling', 'CI Build Analytics', '.NET 8 / CLR', 'Crash Log Triage', 'AST Fault Localization', 'Git Automation'],
   },
 ];
 

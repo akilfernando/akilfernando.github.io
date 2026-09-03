@@ -11,7 +11,7 @@ export const experience = [
       'Lead cybersecurity operations and mentor security team members, defining standards, security roadmaps, and incident response protocols.',
       'Manage enterprise IAM on Microsoft Entra ID, including MFA, conditional access policies, application registrations, and lifecycle governance.',
       'Administer Microsoft 365 tenant infrastructure, endpoint security (Bitdefender GravityZone), and RMM management (NinjaOne) across distributed teams.',
-      'Serve as appointed ISO 27001 ISMS Officer, guiding organization-wide implementation toward audit certification and delivering security awareness training.',
+      'Serve as appointed ISO 27001 ISMS Officer, leading the organization-wide implementation through to certification in August 2026 and delivering security awareness training.',
       'Architect and develop internal software platforms, growing an inherited portal into a unified operations hub for staff, contractors, and clients.',
     ],
   },

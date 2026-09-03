@@ -1,0 +1,295 @@
+/* ============================================================
+   Retro mode. Everything here is scoped under html[data-retro="on"],
+   so the modern site is untouched when the toggle is off.
+
+   The bulk of the work is done by re-pointing the design tokens:
+   every component already reads var(--paper), var(--ink), var(--font-body)
+   and so on, so one block of overrides drags the whole site back to 2001.
+   The rest of this file is the decoration that tokens cannot carry.
+   ============================================================ */
+
+html[data-retro="on"] {
+  /* color: navy background, screaming foreground, no subtlety */
+  --paper:        #000038;
+  --paper-panel:  #000000;
+  --ink:          #FFFF00;
+  --ink-muted:    #00FF00;
+  --rule:         #00FFFF;
+  --cobalt:       #00FFFF;
+  --cobalt-deep:  #FF00FF;
+  --cobalt-tint:  #FF00FF;
+
+  /* type: web-safe only, the way the browser gods intended */
+  --font-display: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Trebuchet MS", cursive;
+  --font-body:    "Times New Roman", Times, Georgia, serif;
+  --font-mono:    "Courier New", Courier, monospace;
+
+  --measure: 100%;
+  --content-max: 62rem;
+
+  --retro-chrome: #C0C0C0;
+  --retro-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='%23000038'/%3E%3Crect x='7' y='11' width='2' height='2' fill='%23ffffff'/%3E%3Crect x='38' y='5' width='1' height='1' fill='%23aab4ff'/%3E%3Crect x='53' y='27' width='2' height='2' fill='%23ffffff'/%3E%3Crect x='20' y='34' width='1' height='1' fill='%23aab4ff'/%3E%3Crect x='45' y='48' width='2' height='2' fill='%23ffffff'/%3E%3Crect x='11' y='57' width='1' height='1' fill='%23aab4ff'/%3E%3Crect x='29' y='19' width='1' height='1' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+
+/* ---------- page chrome ---------- */
+
+html[data-retro="on"] body {
+  background-color: #000038;
+  background-image: var(--retro-tile);
+  background-repeat: repeat;
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: auto;
+  text-rendering: auto;
+}
+
+/* The content column becomes a beveled panel sitting on the starfield. */
+html[data-retro="on"] main.shell {
+  background: #000000;
+  border: 4px ridge var(--retro-chrome);
+  padding: 20px 24px 32px;
+  margin-block: 12px;
+}
+
+html[data-retro="on"] ::selection { background: #FF00FF; color: #FFFFFF; }
+html[data-retro="on"] :focus-visible { outline: 2px dotted #FFFF00; outline-offset: 2px; }
+
+/* ---------- links ---------- */
+
+html[data-retro="on"] a { text-decoration: underline; }
+html[data-retro="on"] main a:not(.row):not(.retro-toggle) { color: #00FFFF; }
+html[data-retro="on"] main a:visited:not(.row) { color: #FF88FF; }
+html[data-retro="on"] main a:hover { color: #FF0000; background: #FFFF00; }
+
+/* ---------- headings ---------- */
+
+html[data-retro="on"] h1,
+html[data-retro="on"] h2,
+html[data-retro="on"] h3,
+html[data-retro="on"] .display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.15;
+  color: #FFFF00;
+  text-shadow: 2px 2px 0 #FF00FF;
+}
+
+/* The big page title gets the full 1999 gradient treatment. */
+html[data-retro="on"] h1.display {
+  background: linear-gradient(90deg, #FF0000, #FF9900, #FFFF00, #00FF00, #00FFFF, #FF00FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+html[data-retro="on"] .sec-label {
+  font-family: var(--font-mono);
+  color: #00FF00;
+  border-bottom: 2px groove var(--retro-chrome);
+  padding-bottom: 4px;
+}
+
+html[data-retro="on"] .eyebrow {
+  font-family: var(--font-mono);
+  color: #FF00FF;
+}
+
+/* The cobalt wayfinding rule becomes a candy-stripe divider. */
+html[data-retro="on"] .wayrule {
+  width: 100%;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #FF0000 0 12px, #FFFF00 12px 24px, #00FF00 24px 36px, #00FFFF 36px 48px, #FF00FF 48px 60px
+  );
+}
+
+/* ---------- prose and panels ---------- */
+
+html[data-retro="on"] .prose,
+html[data-retro="on"] .lede,
+html[data-retro="on"] p { max-width: none; }
+
+html[data-retro="on"] blockquote {
+  border-left: 6px ridge var(--retro-chrome);
+  background: #101040;
+  padding: 8px 12px;
+}
+
+html[data-retro="on"] pre,
+html[data-retro="on"] code {
+  font-family: var(--font-mono);
+  background: #000000;
+  color: #00FF00;
+}
+html[data-retro="on"] pre {
+  border: 3px inset var(--retro-chrome);
+  padding: 10px;
+}
+
+html[data-retro="on"] img { border: 3px ridge var(--retro-chrome); }
+
+/* Anything that reads as a card, row, or list item gets a bevel. */
+html[data-retro="on"] .row,
+html[data-retro="on"] .card,
+html[data-retro="on"] .entry,
+html[data-retro="on"] .item {
+  border: 2px outset var(--retro-chrome) !important;
+  background: #1A1A5E;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+}
+html[data-retro="on"] .row:hover,
+html[data-retro="on"] .card:hover {
+  background: #3A3AA0;
+  border-style: inset !important;
+}
+
+/* ---------- form controls, all Windows 98 ---------- */
+
+html[data-retro="on"] input,
+html[data-retro="on"] textarea,
+html[data-retro="on"] select {
+  font-family: var(--font-mono);
+  background: #FFFFFF;
+  color: #000000;
+  border: 2px inset var(--retro-chrome);
+  border-radius: 0;
+}
+html[data-retro="on"] button {
+  font-family: var(--font-body);
+  background: var(--retro-chrome);
+  color: #000000;
+  border: 3px outset var(--retro-chrome);
+  border-radius: 0;
+  cursor: pointer;
+}
+html[data-retro="on"] button:active { border-style: inset; }
+
+/* ---------- masthead and footer ---------- */
+
+html[data-retro="on"] .masthead {
+  background: var(--retro-chrome);
+  border: 3px outset var(--retro-chrome);
+  padding: 8px 12px;
+  align-items: center;
+  margin-block: 12px 0;
+}
+html[data-retro="on"] .masthead .wordmark {
+  font-family: var(--font-display);
+  color: #000080;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+html[data-retro="on"] .masthead .navlinks a {
+  color: #000080;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-decoration: underline;
+}
+html[data-retro="on"] .masthead .navlinks a:hover { color: #FF0000; }
+html[data-retro="on"] .masthead .navlinks a[aria-current="page"] { color: #FF0000; }
+
+html[data-retro="on"] .footer {
+  background: var(--retro-chrome);
+  border: 3px outset var(--retro-chrome);
+  border-top: 3px outset var(--retro-chrome);
+  padding: 10px 12px 14px;
+  margin-bottom: 24px;
+  color: #000000;
+}
+html[data-retro="on"] .footer .links a,
+html[data-retro="on"] .footer .copy { color: #000080; }
+
+/* The toggle itself, so the alien reads as a chunky beveled button. */
+html[data-retro="on"] .retro-toggle {
+  background: var(--retro-chrome);
+  border: 3px outset var(--retro-chrome);
+  color: #000080;
+}
+html[data-retro="on"] .retro-toggle:hover { color: #FF0000; border-color: var(--retro-chrome); }
+
+/* ---------- retro-only furniture ----------
+   These elements live in the markup year round but stay hidden until
+   the toggle flips, so the modern site ships no extra pixels. */
+
+.retro-only { display: none; }
+html[data-retro="on"] .retro-only { display: block; }
+
+html[data-retro="on"] .retro-marquee {
+  background: #000000;
+  border: 3px inset var(--retro-chrome);
+  color: #00FF00;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 5px 0;
+  margin-top: 10px;
+}
+html[data-retro="on"] .retro-marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: retro-scroll 22s linear infinite;
+  animation-delay: -6s;
+}
+@keyframes retro-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+html[data-retro="on"] .retro-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 2px groove var(--retro-chrome);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #000080;
+}
+html[data-retro="on"] .retro-badge {
+  border: 2px outset var(--retro-chrome);
+  background: #000000;
+  color: #FFFF00;
+  padding: 3px 6px;
+  letter-spacing: 0.08em;
+}
+html[data-retro="on"] .retro-counter {
+  font-family: var(--font-mono);
+  background: #000000;
+  color: #00FF00;
+  border: 2px inset var(--retro-chrome);
+  padding: 3px 6px;
+  letter-spacing: 0.22em;
+}
+
+/* --rule goes cyan in retro, which would make every star look filled.
+   Give the rating back its contrast. */
+html[data-retro="on"] .stars-empty { color: #3A3A70; }
+html[data-retro="on"] .stars-fill { color: #FFFF00; }
+
+html[data-retro="on"] .blink { animation: retro-blink 1.1s steps(1, end) infinite; }
+@keyframes retro-blink { 50% { opacity: 0; } }
+
+/* ---------- code highlighting, back to a green terminal ---------- */
+
+html[data-retro="on"] {
+  --astro-code-color-text:              #00FF00;
+  --astro-code-color-background:        #000000;
+  --astro-code-token-comment:           #888888;
+  --astro-code-token-keyword:           #FF00FF;
+  --astro-code-token-string:            #FFFF00;
+  --astro-code-token-string-expression: #FFFF00;
+  --astro-code-token-constant:          #00FFFF;
+  --astro-code-token-number:            #00FFFF;
+  --astro-code-token-function:          #FFFFFF;
+  --astro-code-token-punctuation:       #00FF00;
+  --astro-code-token-parameter:         #FFFFFF;
+  --astro-code-token-link:              #00FFFF;
+}

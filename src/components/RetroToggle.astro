@@ -1,0 +1,81 @@
+---
+// Retro mode toggle. The icon is a pixel alien (the classic 11x8 invader),
+// drawn as one <rect> per lit pixel so it stays crisp at any size.
+const GRID = [
+  '00100000100',
+  '00010001000',
+  '00111111100',
+  '01101110110',
+  '11111111111',
+  '10111111101',
+  '10100000101',
+  '00011011000',
+];
+const pixels = GRID.flatMap((row, y) =>
+  [...row].map((bit, x) => (bit === '1' ? { x, y } : null)).filter(Boolean)
+);
+---
+<button
+  id="retro-toggle"
+  class="retro-toggle"
+  type="button"
+  aria-pressed="false"
+  title="Retro mode"
+>
+  <svg class="alien" viewBox="0 0 11 8" width="22" height="16" aria-hidden="true" shape-rendering="crispEdges">
+    {pixels.map((p) => <rect x={p.x} y={p.y} width="1" height="1" />)}
+  </svg>
+  <span class="label">Retro</span>
+</button>
+
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('retro-toggle');
+    if (!btn) return;
+
+    function sync() {
+      var on = root.getAttribute('data-retro') === 'on';
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.title = on ? 'Retro mode is on. Back to 2026.' : 'Retro mode. Take the site back to 2001.';
+    }
+
+    btn.addEventListener('click', function () {
+      var on = root.getAttribute('data-retro') === 'on';
+      if (on) {
+        root.removeAttribute('data-retro');
+      } else {
+        root.setAttribute('data-retro', 'on');
+      }
+      try { localStorage.setItem('retro', on ? 'off' : 'on'); } catch (e) { /* private mode */ }
+      sync();
+    });
+
+    sync();
+  })();
+</script>
+
+<style>
+  .retro-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .retro-toggle:hover { color: var(--cobalt); border-color: var(--cobalt); }
+  .alien { fill: currentColor; }
+  .retro-toggle[aria-pressed="true"] { color: var(--cobalt); border-color: var(--cobalt); }
+  @media (max-width: 620px) {
+    .label { display: none; }
+  }
+</style>

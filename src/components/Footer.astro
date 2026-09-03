@@ -7,7 +7,30 @@ const year = new Date().getFullYear();
     {socials.map((s) => <a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>)}
   </div>
   <div class="copy">&copy; {year} {site.name}</div>
+
+  {/* Retro-only furniture. Hidden unless the alien toggle is on. */}
+  <div class="retro-only retro-badges">
+    <span class="retro-badge blink">UNDER CONSTRUCTION</span>
+    <span class="retro-badge">HTML 4.01</span>
+    <span class="retro-badge">NO FRAMES</span>
+    <span>Visitors:</span>
+    <span class="retro-counter" id="retro-counter">000000</span>
+    <span>(yours only, counted right here in your browser)</span>
+  </div>
 </footer>
+
+<script is:inline>
+  (function () {
+    var el = document.getElementById('retro-counter');
+    if (!el) return;
+    var n = 1;
+    try {
+      n = (parseInt(localStorage.getItem('retro-visits'), 10) || 0) + 1;
+      localStorage.setItem('retro-visits', String(n));
+    } catch (e) { /* storage blocked, stay at one */ }
+    el.textContent = String(n).padStart(6, '0');
+  })();
+</script>
 
 <style>
   .footer {

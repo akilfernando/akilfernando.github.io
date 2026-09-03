@@ -1,5 +1,6 @@
 ---
 import { site, sections } from '../config';
+import RetroToggle from './RetroToggle.astro';
 
 const pathname = new URL(Astro.request.url).pathname;
 ---
@@ -18,7 +19,12 @@ const pathname = new URL(Astro.request.url).pathname;
       );
     })}
   </nav>
+  <RetroToggle />
 </header>
+
+<div class="retro-only retro-marquee shell" aria-hidden="true">
+  <span>*** Welcome to my homepage! *** Best viewed in Netscape Navigator 4.0 at 800x600 *** This site is under construction, please sign my guestbook *** You are visitor number a lot ***</span>
+</div>
 
 <style>
   .masthead {

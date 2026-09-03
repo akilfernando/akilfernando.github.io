@@ -5,6 +5,7 @@ import '@fontsource/courier-prime/400.css';
 import '@fontsource/courier-prime/700.css';
 import '@fontsource/courier-prime/400-italic.css';
 import '../styles/global.css';
+import '../styles/retro.css';
 import Masthead from '../components/Masthead.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../config';
@@ -59,6 +60,15 @@ const ogImage = new URL(image, Astro.site).href;
     <meta name="twitter:image" content={ogImage} />
 
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Restore retro mode before first paint, so there is no flash of 2026. -->
+    <script is:inline>
+      try {
+        if (localStorage.getItem('retro') === 'on') {
+          document.documentElement.setAttribute('data-retro', 'on');
+        }
+      } catch (e) { /* storage blocked, stay modern */ }
+    </script>
   </head>
   <body>
     <Masthead />

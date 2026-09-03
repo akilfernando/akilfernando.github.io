@@ -26,6 +26,14 @@ All prose on this site follows the voice spec in [`docs/voice-spec.md`](docs/voi
 
 **Confidentiality:** no client names, no employer-internal codenames, no unannounced product details, no invented metrics. Describe work only to the level the public resume already does.
 
+## Retro mode
+
+The alien button in the masthead flips the whole site into a stereotypical early-2000s page. It works by setting `data-retro="on"` on `<html>` (persisted in `localStorage`, restored by a blocking inline script in `BaseLayout` so there is no flash).
+
+`src/styles/retro.css` holds everything, scoped under `html[data-retro="on"]`. Most of the work is done by re-pointing the design tokens, since every component already reads `var(--paper)`, `var(--ink)`, `var(--font-body)` and so on. So new components inherit retro mode for free as long as they use tokens rather than hard-coded colors or fonts. Only decoration that tokens cannot carry (bevels, the starfield tile, the marquee, the badges) needs an explicit rule.
+
+Retro-only markup lives in the page year round with class `retro-only`, hidden by default, so the modern site ships no extra pixels.
+
 ## Build / check
 
 - `npm run build` must pass before commit.

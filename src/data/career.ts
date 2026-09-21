@@ -6,12 +6,12 @@ export const experience = [
     org: 'Teams Squared',
     location: 'Colombo, Sri Lanka',
     summary:
-      'Global remote staffing firm placing skilled professionals into client companies worldwide. I lead IT infrastructure and cybersecurity across a distributed workforce of 130+ members, directing identity governance on Entra ID, orchestrating our ISO 27001 implementation, and engineering internal software platforms.',
+      'Global remote staffing firm placing skilled professionals into client companies worldwide. I lead IT infrastructure and cybersecurity across a distributed workforce of 130+ members, directing identity governance on Entra ID, maintaining our ISO 27001:2022-certified ISMS, and engineering internal software platforms.',
     highlights: [
       'Lead cybersecurity operations and mentor security team members, defining standards, security roadmaps, and incident response protocols.',
       'Manage enterprise IAM on Microsoft Entra ID, including MFA, conditional access policies, application registrations, and lifecycle governance.',
       'Administer Microsoft 365 tenant infrastructure, endpoint security (Bitdefender GravityZone), and RMM management (NinjaOne) across distributed teams.',
-      'Serve as appointed ISO 27001 ISMS Officer, leading the organization-wide implementation through to certification in August 2026 and delivering security awareness training.',
+      'Serve as appointed ISO 27001 ISMS Officer; successfully drove the organization-wide ISMS to pass its initial certification audit (ISO/IEC 27001:2022 certified, Sep 2026) and delivered mandatory security awareness training.',
       'Architect and develop internal software platforms, growing an inherited portal into a unified operations hub for staff, contractors, and clients.',
     ],
   },

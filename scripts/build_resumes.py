@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Four ATS-safe single-column resume variants. WeasyPrint, Liberation Sans, letter."""
-from weasyprint import HTML
+"""ATS-safe single-column resume variants. WeasyPrint / Headless Browser, Liberation Sans, letter."""
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
 
-OUT = "/mnt/user-data/outputs"
+OUT = Path("/mnt/user-data/outputs") if Path("/mnt/user-data/outputs").exists() else (Path(__file__).resolve().parent.parent / "public" / "cv")
 
 PHONE_SL = "+94 70 225 3435"
 PHONE_CA = "+1 902 989 7984"  # paused; switch PHONE to this on reactivation/landing
@@ -77,9 +82,9 @@ def ts_entry(bullets, detail=True):
   <ul>{lis}</ul>
 </div>"""
 
-ISMS_BULLET = ("Appointed Information Security Management System (ISMS) Officer; lead the company-wide "
-               "ISO 27001 implementation, policy, and compliance, including the mandatory ISMS training delivered "
-               "through a platform I built, ahead of the end-of-August 2026 certification audit.")
+ISMS_BULLET = ("Appointed Information Security Management System (ISMS) Officer; built the company-wide "
+               "ISMS from scratch and successfully drove it to pass its initial certification audit, achieving "
+               "ISO 27001:2022 certification (September 2026); deliver mandatory training via a custom platform I built.")
 
 UBISOFT_FULL = """
 <div class="entry">
@@ -137,8 +142,8 @@ P_ITCH = proj("Published games and demos (personal)",
 
 # ---------------- Variant A: Security & IT Systems (merged) ----------------
 A_SUMMARY = ("Security and IT systems lead who built and runs the cybersecurity function at a global remote staffing "
-             "firm, leading and mentoring a security specialist across IAM, endpoint security, and an ISO 27001 "
-             "implementation. Microsoft SC-300 certified. Computer Science graduate, Dalhousie University (GPA 3.92).")
+             "firm, leading and mentoring a security specialist across IAM, endpoint security, and an ISO 27001:2022-"
+             "certified ISMS. Microsoft SC-300 certified. Computer Science graduate, Dalhousie University (GPA 3.92).")
 A_TS = ts_entry([
     "Lead the cybersecurity function and mentor a security specialist, owning the team's roadmap, standards, "
     "and delivery.",
@@ -184,7 +189,8 @@ C_TS = ts_entry([
     "Ship with Next.js, React, TypeScript, Python/FastAPI, Prisma and Drizzle ORM, PostgreSQL, and Supabase; "
     "Claude Code as the primary development tool.",
     "Also lead the company's IT systems and cybersecurity function (Microsoft 365, Entra ID), mentoring a security "
-    "specialist and running an ISO 27001 implementation as the appointed ISMS Officer.",
+    "specialist; successfully drove the company's ISMS to pass its initial ISO 27001:2022 certification audit as "
+    "appointed ISMS Officer.",
 ])
 C_SKILLS = ("<div class='skills'>"
             "<p><b>Languages:</b> TypeScript &middot; Python &middot; C#</p>"
@@ -224,12 +230,62 @@ variant_d = page("Akil Fernando", CONTACT_GD, D_SUMMARY, [
     ("Skills", D_SKILLS),
 ])
 
+def render_pdf(html_str, out_path):
+    out_path = Path(out_path).resolve()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Try WeasyPrint if available and functional (non-Windows)
+    if sys.platform != "win32":
+        try:
+            from weasyprint import HTML
+            HTML(string=html_str).write_pdf(str(out_path))
+            print("wrote (weasyprint)", out_path)
+            return
+        except Exception:
+            pass
+
+    # Fallback to headless Chromium / Edge
+    browsers = [
+        r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+        r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        "msedge",
+        "chrome",
+        "chromium",
+    ]
+    browser_bin = None
+    for b in browsers:
+        if Path(b).exists() or shutil.which(b):
+            browser_bin = b
+            break
+
+    if not browser_bin:
+        raise RuntimeError("Neither WeasyPrint nor headless Edge/Chrome found to render PDF.")
+
+    with tempfile.TemporaryDirectory() as tmp_user_data:
+        html_file = Path(tempfile.gettempdir()) / f"resume_{out_path.stem}.html"
+        html_file.write_text(html_str, encoding="utf-8")
+        cmd = [
+            browser_bin,
+            "--headless=new",
+            f"--user-data-dir={tmp_user_data}",
+            "--no-sandbox",
+            "--no-pdf-header-footer",
+            f"--print-to-pdf={out_path}",
+            f"file:///{html_file.as_posix()}"
+        ]
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        html_file.unlink(missing_ok=True)
+        if not out_path.exists() or out_path.stat().st_size == 0:
+            raise RuntimeError(f"Failed to render {out_path}: {res.stderr}")
+        print("wrote (browser)", out_path)
+
 files = {
-    f"{OUT}/akil-fernando-security-it.pdf": variant_a,
-    f"{OUT}/akil-fernando-software.pdf": variant_c,
-    f"{OUT}/akil-fernando-gamedev.pdf": variant_d,
+    OUT / "akil-fernando-security-it.pdf": variant_a,
+    OUT / "akil-fernando-software.pdf": variant_c,
+    OUT / "akil-fernando-gamedev.pdf": variant_d,
 }
 for path, doc in files.items():
-    HTML(string=doc).write_pdf(path)
-    print("wrote", path)
+    render_pdf(doc, path)
 print("done")

@@ -4,7 +4,7 @@ year: 2026
 role: "ISMS Officer, implementation lead"
 category: "security"
 stack: ["ISO 27001", "ISMS", "Risk assessment", "Statement of Applicability", "Microsoft Entra ID", "Microsoft 365"]
-blurb: "Standing up an Information Security Management System from scratch at a global remote staffing firm: scoping, risk assessment, Statement of Applicability, and the certification audit we passed on 31 August 2026."
+blurb: "Standing up an Information Security Management System from scratch at a global remote staffing firm: scoping, risk assessment, Statement of Applicability, and successfully passing the initial ISO 27001:2022 certification audit."
 links: []
 ---
 
@@ -20,7 +20,7 @@ Certification was a business requirement, not a vanity exercise. Clients were be
 
 - **A distributed team on someone else's clock.** Most of the people in scope are team members embedded in client companies, spread across time zones and working inside client environments. Any control that assumed everyone sat in one office, on managed hardware, on one network, was a control that would not survive contact with reality.
 - **Small team, no dedicated GRC function.** The management system had to be light enough that a handful of people could actually run it, month after month, without a compliance department behind them. A framework nobody maintains is worse than no framework, since it lies about where you stand.
-- **Certification timeline.** The external certification audit was booked for 31 August 2026, so the whole management system had to be real and evidenced by then, not aspirational.
+- **Certification timeline.** The initial external certification audit was scheduled for late August 2026, creating a hard deadline to prove every control and policy was operating live with authentic evidence.
 - **Live business.** None of this could stop the day-to-day running of the company or the team members placed at clients. The ISMS had to be built around operations that were already running.
 
 ## Approach
@@ -37,7 +37,7 @@ I started where the standard makes you start, which is not with controls. It is 
 
 ## Outcome
 
-The organization went from no formal management system to one that is scoped, risk-assessed, documented, and operating. We passed the Stage 2 certification audit on 31 August 2026, so the firm is now ISO 27001 certified.
+The organization went from zero formal management system to successfully passing its initial Stage 2 certification audit with no major nonconformities, earning official ISO/IEC 27001:2022 certification in September 2026 (Certificate UQSR-9759-TSPL).
 
 The certificate is the visible part, and it is the least interesting part. What the audit actually confirmed is that the evidence trail holds when someone outside the company pulls on it.
 

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="OpenClaw Assistant Hub" description="OpenClaw personal assistant setup, active automations, and system architecture on Akil's PC.">
+  <section class="section">
+    <header class="section-header">
+      <p class="eyebrow">System & Agent</p>
+      <h1 class="display">OpenClaw Control Hub</h1>
+      <p class="tagline">Personal AI assistant overview, active automations, model routing, and environment status.</p>
+    </header>
+
+    <div class="prose">
+      <h2>Environment & Hardware</h2>
+      <ul>
+        <li><strong>Host:</strong> Windows 11 (DESKTOP-FPHMBQE) running WSL2 Ubuntu</li>
+        <li><strong>Node.js:</strong> v24.21.0</li>
+        <li><strong>Runtime:</strong> OpenClaw Main Agent (Telegram Direct Channel)</li>
+      </ul>
+
+      <h2>Model Routing & Budget Tiering</h2>
+      <ul>
+        <li><strong>Monthly Budget:</strong> $40 Google AI Ultra credit pool (rollover enabled).</li>
+        <li><strong>Default Model:</strong> <code>google/gemini-3.5-flash-lite</code> (Fast latency, 1M context, efficient daily workflows).</li>
+        <li><strong>Escalation Model:</strong> <code>google/gemini-3.8-flash</code> / <code>google/gemini-3.1-pro-preview</code> (Complex reasoning, deep synthesis, heavy coding).</li>
+        <li><strong>Fallback Model:</strong> Local <code>ollama/qwen3.5:9b</code> ($0 cost on RTX 4060) upon budget cap.</li>
+      </ul>
+
+      <h2>Active Scheduled Automations</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Automation Name</th>
+            <th>Schedule</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Memory Dreaming Promotion</strong></td>
+            <td>03:00 UTC Daily</td>
+            <td>Consolidates long-term memory, daily logs, and durable facts.</td>
+          </tr>
+          <tr>
+            <td><strong>Morning Dashboard</strong></td>
+            <td>08:00 Asia/Colombo Daily</td>
+            <td>Generates and delivers morning status and briefing summary.</td>
+          </tr>
+          <tr>
+            <td><strong>Calgary UofC Housing Check</strong></td>
+            <td>09:00 Daily</td>
+            <td>Scans NW neighborhoods near UofC for rental listings (CAD $650–$900/mo).</td>
+          </tr>
+          <tr>
+            <td><strong>Weekly System Health & Cleanup</strong></td>
+            <td>Sunday 02:00 AM Asia/Colombo</td>
+            <td>Audits disk space, checks background services, and purges stale temp/cache files.</td>
+          </tr>
+          <tr>
+            <td><strong>Weekly Game Deals & Release Radar</strong></td>
+            <td>Friday 19:30 Asia/Colombo</td>
+            <td>Tracks rally/vehicle simulator updates and title discounts.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Integrations & Tooling</h2>
+      <ul>
+        <li><strong>Messaging:</strong> Telegram direct bot interface with rich markdown support and inline buttons.</li>
+        <li><strong>Torrents:</strong> qBittorrent WebUI integration (<code>http://127.0.0.1:8080</code>) with auto-launch helper CLI (<code>qbit</code>).</li>
+        <li><strong>Research & Inbox:</strong> Automatic PDF filing to Research papers folder and reading-list tracking.</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

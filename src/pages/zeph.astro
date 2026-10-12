@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Zeph · System Specs & Dashboard" description="System specifications, hardware telemetry, and status dashboard for Zeph (DESKTOP-FPHMBQE).">
+  <section class="section">
+    <header class="section-header">
+      <p class="eyebrow">Workstation</p>
+      <h1 class="display">Zeph Dashboard</h1>
+      <p class="tagline">Hardware telemetry, system configuration, and live status for Akil's primary machine (DESKTOP-FPHMBQE).</p>
+    </header>
+
+    <div class="prose">
+      <h2>Hardware & Core Specs</h2>
+      <ul>
+        <li><strong>Hostname:</strong> <code>DESKTOP-FPHMBQE</code> ("Zeph")</li>
+        <li><strong>OS:</strong> Windows 11 Pro + WSL2 Ubuntu (Linux 6.18.33.2-microsoft-standard-WSL2 x64)</li>
+        <li><strong>GPU:</strong> NVIDIA GeForce RTX 4060 ( powers local <code>ollama/qwen3.5:9b</code> fallback model)</li>
+        <li><strong>Node.js:</strong> v24.21.0</li>
+      </ul>
+
+      <h2>Workstation Roles & Services</h2>
+      <ul>
+        <li><strong>AI Assistant Runtime:</strong> OpenClaw (Main Agent with Gemini API & local Qwen fallback)</li>
+        <li><strong>Torrents & Downloads:</strong> qBittorrent WebUI running on <code>http://127.0.0.1:8080</code> (Default save path: <code>C:\Users\Akil Fernando\Downloads</code>)</li>
+        <li><strong>Development Directories:</strong> <code>/mnt/c/Projects/Personal</code> (Antigravity, GeminiPortal, GodotSandbox, OpenQuire, etc.)</li>
+      </ul>
+
+      <h2>Scheduled Maintenance & Health</h2>
+      <ul>
+        <li><strong>Weekly System Health & Cleanup:</strong> Runs every Sunday at 02:00 AM (Asia/Colombo). Audits disk usage, purges stale temp files, and updates this dashboard.</li>
+        <li><strong>Memory Dreaming:</strong> Consolidates durability facts daily at 03:00 UTC.</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

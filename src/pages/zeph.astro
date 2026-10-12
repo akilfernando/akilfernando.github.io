@@ -2,33 +2,60 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Zeph · System Specs & Dashboard" description="System specifications, hardware telemetry, and status dashboard for Zeph (DESKTOP-FPHMBQE).">
-  <section class="section">
-    <header class="section-header">
-      <p class="eyebrow">Workstation</p>
-      <h1 class="display">Zeph Dashboard</h1>
-      <p class="tagline">Hardware telemetry, system configuration, and live status for Akil's primary machine (DESKTOP-FPHMBQE).</p>
+  <section class="section" style="max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem;">
+    <header class="section-header" style="margin-bottom: 3rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <p class="eyebrow" style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.85rem; color: var(--text-muted, #888); margin: 0;">Workstation</p>
+        <span style="font-size: 0.85rem; padding: 0.25rem 0.75rem; background: rgba(70, 130, 180, 0.1); color: #4682b4; border-radius: 99px; font-weight: 500;">Online & Optimal</span>
+      </div>
+      <h1 class="display" style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem;">Zeph Dashboard</h1>
+      <p class="tagline" style="font-size: 1.15rem; color: var(--text-secondary, #555);">Hardware telemetry, system configuration, and live status for Akil's primary machine (DESKTOP-FPHMBQE).</p>
     </header>
 
-    <div class="prose">
-      <h2>Hardware & Core Specs</h2>
-      <ul>
-        <li><strong>Hostname:</strong> <code>DESKTOP-FPHMBQE</code> ("Zeph")</li>
-        <li><strong>OS:</strong> Windows 11 Pro + WSL2 Ubuntu (Linux 6.18.33.2-microsoft-standard-WSL2 x64)</li>
-        <li><strong>GPU:</strong> NVIDIA GeForce RTX 4060 ( powers local <code>ollama/qwen3.5:9b</code> fallback model)</li>
-        <li><strong>Node.js:</strong> v24.21.0</li>
+    <!-- Visual Hardware Status Card -->
+    <div style="margin: 2.5rem 0; padding: 2.5rem; background: linear-gradient(135deg, rgba(240, 245, 250, 0.8) 0%, rgba(250, 250, 255, 0.95) 100%); border: 1px solid rgba(70, 130, 180, 0.2); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="margin: 0; font-family: var(--font-display, serif); font-size: 1.4rem; color: #1a365d;">DESKTOP-FPHMBQE</h3>
+          <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem; color: #4a5568;">Primary Node & AI Execution Engine</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <span style="padding: 0.35rem 0.75rem; background: #e2e8f0; border-radius: 6px; font-size: 0.85rem; font-family: monospace;">RTX 4060</span>
+          <span style="padding: 0.35rem 0.75rem; background: #e2e8f0; border-radius: 6px; font-size: 0.85rem; font-family: monospace;">WSL2 Ubuntu</span>
+        </div>
+      </div>
+
+      <!-- Specs Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        <div style="padding: 1.2rem; background: white; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <div style="font-size: 0.8rem; color: #718096; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">AI Runtime</div>
+          <div style="font-weight: 600; color: #2d3748;">OpenClaw + Gemini</div>
+        </div>
+        <div style="padding: 1.2rem; background: white; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <div style="font-size: 0.8rem; color: #718096; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Local Fallback Model</div>
+          <div style="font-weight: 600; color: #2d3748;">ollama / qwen3.5:9b</div>
+        </div>
+        <div style="padding: 1.2rem; background: white; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <div style="font-size: 0.8rem; color: #718096; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Downloads & Torrents</div>
+          <div style="font-weight: 600; color: #2d3748;">qBittorrent (Port 8080)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Prose Sections -->
+    <div class="prose" style="margin-top: 3rem;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color, #eee); padding-bottom: 0.5rem;">Core Architecture & Services</h2>
+      <ul style="line-height: 1.8;">
+        <li><strong>OS & Environment:</strong> Windows 11 Pro host with WSL2 Ubuntu (Linux 6.18.33.2-microsoft-standard-WSL2 x64).</li>
+        <li><strong>GPU Acceleration:</strong> NVIDIA GeForce RTX 4060 powering local model inference and compute workloads.</li>
+        <li><strong>Node.js Environment:</strong> v24.21.0 running the OpenClaw assistant gateway.</li>
+        <li><strong>Development Directories:</strong> Local repositories mapped under <code>/mnt/c/Projects/Personal</code> (Antigravity, GeminiPortal, GodotSandbox, OpenQuire, etc.).</li>
       </ul>
 
-      <h2>Workstation Roles & Services</h2>
-      <ul>
-        <li><strong>AI Assistant Runtime:</strong> OpenClaw (Main Agent with Gemini API & local Qwen fallback)</li>
-        <li><strong>Torrents & Downloads:</strong> qBittorrent WebUI running on <code>http://127.0.0.1:8080</code> (Default save path: <code>C:\Users\Akil Fernando\Downloads</code>)</li>
-        <li><strong>Development Directories:</strong> <code>/mnt/c/Projects/Personal</code> (Antigravity, GeminiPortal, GodotSandbox, OpenQuire, etc.)</li>
-      </ul>
-
-      <h2>Scheduled Maintenance & Health</h2>
-      <ul>
-        <li><strong>Weekly System Health & Cleanup:</strong> Runs every Sunday at 02:00 AM (Asia/Colombo). Audits disk usage, purges stale temp files, and updates this dashboard.</li>
-        <li><strong>Memory Dreaming:</strong> Consolidates durability facts daily at 03:00 UTC.</li>
+      <h2 style="font-size: 1.5rem; margin: 2.5rem 0 1rem 0; border-bottom: 2px solid var(--border-color, #eee); padding-bottom: 0.5rem;">Scheduled Maintenance & Automation</h2>
+      <ul style="line-height: 1.8;">
+        <li><strong>Weekly System Health & Cleanup:</strong> Runs Sundays at 02:00 AM (Asia/Colombo) to audit disk storage and clean temporary caches.</li>
+        <li><strong>Memory Dreaming & State Sync:</strong> Automated background context consolidation running daily.</li>
       </ul>
     </div>
   </section>

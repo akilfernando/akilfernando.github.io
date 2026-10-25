@@ -1,10 +1,11 @@
 ---
+import { externalLinkAttributes } from '../utils/external-links.mjs';
 import RetroToggle from './RetroToggle.astro';
 import { site, socials } from '../config';
 const year = new Date().getFullYear();
 const archive = [{ label: 'Technical notes', href: '/blog' }, { label: 'Prototypes', href: '/prototypes' }, { label: 'Creative writing', href: '/writing' }, { label: 'Reading & playing', href: '/log' }];
 ---
-<footer class="footer shell"><div class="footer-top"><div class="footer-note"><p class="overline">Elsewhere on this site</p><p>Beyond the projects.</p></div><nav aria-label="More from Akil">{archive.map((s) => <a href={s.href}>{s.label}</a>)}</nav><nav aria-label="Find Akil online">{socials.map((s) => <a href={s.href}>{s.label}<span aria-hidden="true"> ↗</span></a>)}</nav></div><div class="footer-bottom"><p>&copy; {year} {site.name}</p><RetroToggle /><a href="/rss.xml">Subscribe via RSS</a></div></footer>
+<footer class="footer shell"><div class="footer-top"><div class="footer-note"><p class="overline">Elsewhere on this site</p><p>Beyond the projects.</p></div><nav aria-label="More from Akil">{archive.map((s) => <a href={s.href}>{s.label}</a>)}</nav><nav aria-label="Find Akil online">{socials.map((s) => <a href={s.href} {...externalLinkAttributes(s.href)}>{s.label}<span aria-hidden="true"> ↗</span></a>)}</nav></div><div class="footer-bottom"><p>&copy; {year} {site.name}</p><RetroToggle /><a href="/rss.xml">Subscribe via RSS</a></div></footer>
 <style>
   .footer { padding-top: 2.5rem; padding-bottom: 1.5rem; }
   .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; padding-block: 2.5rem 3.5rem; border-top: 1px solid var(--ink); }

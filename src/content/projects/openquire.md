@@ -1,7 +1,7 @@
 ---
 title: "OpenQuire"
 year: 2026
-role: "Creator"
+role: "Creator / Ongoing"
 category: "software"
 stack: ["TypeScript", "MuPDF", "WebAssembly"]
 blurb: "An open-source PDF toolkit for the browser and desktop, with on-device document processing and optional AI requests controlled by the user."

@@ -52,7 +52,7 @@ const presentStatuses = new Set(entries.map((e) => e.data.status));
     <p class="empty">Nothing logged yet. Entries live under <code>src/content/library/</code>.</p>
   ) : (
     <>
-      <div class="filters">
+      <div class="filters" hidden>
         <div class="frow" role="group" aria-label="Filter by type">
           {typeFilters.filter((f) => f.key === 'all' || presentTypes.has(f.key)).map((f, i) => (
             <button type="button" class="chip" data-dim="type" data-key={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>{f.label}</button>
@@ -121,6 +121,8 @@ const presentStatuses = new Set(entries.map((e) => e.data.status));
       apply();
     });
   }
+  const filters = document.querySelector<HTMLDivElement>('.filters');
+  if (filters) filters.hidden = false;
 </script>
 
 <style>

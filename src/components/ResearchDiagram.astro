@@ -1,0 +1,18 @@
+<figure class="research-diagram">
+  <svg viewBox="0 0 400 320" role="img" aria-labelledby="diagram-title diagram-description">
+    <title id="diagram-title">A bug can cross the code and asset boundary</title>
+    <desc id="diagram-description">Illustrative Unity dependencies: a scene references a prefab, which references a script and a material. A fix may involve more than one of these files. This is a conceptual example, not a study result.</desc>
+    <defs><pattern id="diagram-grid" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".15" /></pattern><marker id="dependency-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="none" stroke="currentColor" /></marker></defs>
+    <rect width="400" height="320" fill="url(#diagram-grid)" />
+    <g fill="none" stroke="currentColor" opacity=".65" marker-end="url(#dependency-arrow)"><path d="M200 72 V120" /><path d="M200 162 V190 H98 V228" /><path d="M200 190 H302 V228" /></g>
+    <g fill="var(--paper)" stroke="currentColor"><rect x="133" y="30" width="134" height="42" /><rect x="133" y="120" width="134" height="42" /><rect x="31" y="228" width="134" height="42" /><rect x="235" y="228" width="134" height="42" /></g>
+    <g fill="currentColor" font-family="var(--font-mono)" font-size="13" text-anchor="middle"><text x="200" y="56">Scene</text><text x="200" y="146">Prefab</text><text x="98" y="254">C# script</text><text x="302" y="254">Material</text><text x="98" y="294" font-size="10">CODE</text><text x="302" y="294" font-size="10">ASSET</text></g>
+    <text x="216" y="101" fill="currentColor" font-family="var(--font-mono)" font-size="10">references</text>
+  </svg>
+  <figcaption>One bug. Several connected files.<span>Illustrative Unity dependencies</span></figcaption>
+</figure>
+<style>
+.research-diagram { color: var(--accent); width: 100%; max-width: 400px; }
+figcaption { border-top: 1px solid var(--rule); padding-top: .8rem; font-size: .8125rem; color: var(--ink); }
+figcaption span { display: block; margin-top: .3rem; font-family: var(--font-mono); color: var(--ink-muted); font-size: .675rem; }
+</style>

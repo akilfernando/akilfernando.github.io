@@ -1,45 +1,75 @@
-/* ============================================================
-   Design tokens, source of truth for the portfolio.
-   Mirrors portfolio-spec.md Section 6. Edit here, reflect there.
-   ============================================================ */
 :root {
-  /* color */
-  --paper:        #FBF9F4; /* warm off-white background */
-  --paper-panel:  #F4F0E7; /* subtle raised panel, used sparingly */
-  --ink:          #1A1A1A; /* near-black, warm */
-  --ink-muted:    #57534E; /* warm grey, secondary text */
-  --rule:         #E6E1D6; /* hairline dividers */
-  --cobalt:       #16429E; /* deep cobalt, the single accent */
-  --cobalt-deep:  #0E2C6B; /* hover / active */
-  --cobalt-tint:  #E8EDF8; /* faint cobalt wash for focus / selection */
-
-  /* type families */
+  color-scheme: light;
+  --syntax-string: #536a38;
+  --paper: #f4f2ea;
+  --paper-panel: #eae9df;
+  --ink: #232a26;
+  --ink-muted: #5e655e;
+  --ink-light: var(--ink-muted);
+  --rule: #cccfc3;
+  --accent: #285243;
+  --accent-deep: #193b2f;
+  --accent-tint: #dde5d8;
+  /* Compatibility aliases for the archived essays and project templates. */
+  --cobalt: var(--accent);
+  --cobalt-deep: var(--accent-deep);
+  --cobalt-tint: var(--accent-tint);
+  --paper-card: var(--paper-panel);
+  --bg-card: var(--paper-panel);
+  --border-color: var(--rule);
+  --text-main: var(--ink);
+  --text-muted: var(--ink-muted);
+  --text-secondary: var(--ink-muted);
   --font-display: "Fraunces Variable", Georgia, serif;
-  --font-body:    "Inter Variable", system-ui, sans-serif;
-  --font-mono:    "Courier Prime", ui-monospace, "Courier New", monospace;
-
-  /* type scale */
-  --fs-xs:   0.75rem;
-  --fs-sm:   0.875rem;
-  --fs-base: 1.0625rem;
-  --fs-md:   1.25rem;
-  --fs-lg:   1.5rem;
-  --fs-xl:   2rem;
-  --fs-2xl:  clamp(2.5rem, 5vw, 3.75rem);
-  --fs-display: clamp(2.8rem, 9vw, 6rem);  /* lower floor so the name fits small phones */
-
+  --font-body: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "Courier Prime", ui-monospace, "Courier New", monospace;
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.25rem;
+  --fs-lg: 1.5rem;
+  --fs-xl: 2rem;
+  --fs-2xl: clamp(2.5rem, 5vw, 4rem);
+  --fs-display: clamp(3.75rem, 8.5vw, 8rem);
   --leading-tight: 1.1;
-  --leading-body:  1.6;
-
-  /* spacing */
-  --space-1: 0.5rem;  --space-2: 1rem;   --space-3: 1.5rem;
-  --space-4: 2rem;    --space-6: 3rem;   --space-8: 4rem;
-  --space-12: 6rem;   --space-16: 8rem;
-
-  /* layout */
-  /* Fluid: ~82vw on wide screens so margins stay proportional, but clamped
-     so it never drops below a comfortable width or stretches absurdly wide. */
-  --content-max: clamp(84rem, 82vw, 110rem);
-  --measure: 68ch;        /* reading width for prose stays capped regardless */
+  --leading-body: 1.7;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+  --content-max: 1264px;
+  --measure: 68ch;
   --radius: 0;
+}
+
+:root[data-theme="dark"]:not([data-retro="on"]) {
+  color-scheme: dark;
+  --paper: #171d1a;
+  --paper-panel: #242d27;
+  --ink: #ecece3;
+  --ink-muted: #b0b9b0;
+  --rule: #465248;
+  --accent: #a4cfb5;
+  --accent-deep: #c5e7d0;
+  --accent-tint: #2d4034;
+  --syntax-string: #b7d59b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]):not([data-retro="on"]) {
+  color-scheme: dark;
+  --paper: #171d1a;
+  --paper-panel: #242d27;
+  --ink: #ecece3;
+  --ink-muted: #b0b9b0;
+  --rule: #465248;
+  --accent: #a4cfb5;
+  --accent-deep: #c5e7d0;
+  --accent-tint: #2d4034;
+  --syntax-string: #b7d59b;
+  }
 }

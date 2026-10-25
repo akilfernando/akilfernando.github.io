@@ -37,7 +37,7 @@ export const education = [
   {
     start: '',
     end: 'Oct 2025',
-    role: 'BSc Computer Science (Co-op), GPA 3.92',
+    role: 'Bachelor of Computer Science, GPA 3.92',
     org: 'Dalhousie University',
     location: 'Halifax, NS',
     summary:

@@ -9,13 +9,13 @@ import sharp from 'sharp';
 import { readFileSync } from 'node:fs';
 
 // Keep in sync with src/config.ts (site.name / site.tagline).
-const site = { name: 'Akil Fernando', tagline: 'IT lead, developer, and game-maker.' };
+const site = { name: 'Akil Fernando', tagline: 'Software, games, and research.' };
 
 const FONT = 'node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2';
 const fontB64 = readFileSync(FONT).toString('base64');
 
 const W = 1200, H = 630;
-const paper = '#FBF9F4', ink = '#1A1A1A', muted = '#57534E', cobalt = '#16429E';
+const paper = '#F6F4ED', ink = '#202C26', muted = '#566158', cobalt = '#315C45';
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
@@ -31,7 +31,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
     </style>
   </defs>
   <rect width="${W}" height="${H}" fill="${paper}"/>
-  <text x="90" y="250" class="eyebrow" font-size="22">PORTFOLIO</text>
+  <text x="90" y="250" class="eyebrow" font-size="22">RESEARCH &amp; ENGINEERING</text>
   <rect x="90" y="270" width="56" height="3" fill="${cobalt}"/>
   <text x="86" y="380" class="name" font-size="118">${site.name}</text>
   <text x="90" y="450" class="tag" font-size="40">${site.tagline}</text>

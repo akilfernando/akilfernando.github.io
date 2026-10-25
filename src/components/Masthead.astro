@@ -1,62 +1,25 @@
 ---
+import ThemeControl from './ThemeControl.astro';
 import { site, sections } from '../config';
-import RetroToggle from './RetroToggle.astro';
-
-const pathname = new URL(Astro.request.url).pathname;
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 <header class="masthead shell">
-  <a class="wordmark" href="/">{site.name}</a>
-  <nav class="navlinks" aria-label="Primary">
-    {sections.map((s) => {
-      const isActive = pathname === s.href || (s.href !== '/' && pathname.startsWith(s.href + '/'));
-      return (
-        <a
-          href={s.href}
-          aria-current={isActive ? 'page' : undefined}
-        >
-          {s.label}
-        </a>
-      );
-    })}
-  </nav>
-  <RetroToggle />
+  <a class="wordmark" href="/" aria-label={`${site.name}, home`}><span class="monogram" aria-hidden="true">af<span>.</span></span><span class="wordmark-name">Akil Fernando</span></a>
+  <nav aria-label="Primary">{sections.map((s) => <a href={s.href} aria-current={pathname === s.href || pathname.startsWith(s.href + '/') ? 'page' : undefined}>{s.label}</a>)}</nav><ThemeControl />
 </header>
-
-<div class="retro-only retro-marquee shell" aria-hidden="true">
-  <span>*** Welcome to my homepage! *** Best viewed in Netscape Navigator 4.0 at 800x600 *** This site is under construction, please sign my guestbook *** You are visitor number a lot ***</span>
-</div>
-
 <style>
-  .masthead {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding-block: var(--space-3) 0;
-    gap: var(--space-3);
-  }
-  .wordmark {
-    font-family: var(--font-display);
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-size: 1.0625rem;
-    text-decoration: none;
-  }
-  .navlinks { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-  .navlinks a {
-    font-size: 0.8125rem;
-    color: var(--ink-muted);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-  .navlinks a:hover { color: var(--cobalt); }
-  .navlinks a[aria-current="page"] {
-    color: var(--ink);
-    font-weight: 500;
-  }
-  /* On phones, drop the nav onto its own line and give links tappable height. */
-  @media (max-width: 620px) {
-    .masthead { flex-wrap: wrap; row-gap: var(--space-2); }
-    .navlinks { gap: var(--space-3); width: 100%; }
-    .navlinks a { padding: 4px 0; }
-  }
+  .masthead { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding-block: 1.8rem; position: relative; }
+  .masthead::after { content: ''; position: absolute; bottom: 0; left: clamp(1.25rem, 4.5vw, 4rem); right: clamp(1.25rem, 4.5vw, 4rem); height: 1px; background: var(--rule); }
+  .wordmark { display: flex; align-items: center; gap: 1rem; text-decoration: none; white-space: nowrap; }
+  .monogram { font-family: var(--font-display); font-weight: 500; font-size: 2rem; line-height: 1; letter-spacing: -.08em; }
+  .monogram span { color: var(--accent); }
+  .wordmark:hover .wordmark-name { text-decoration: underline; text-underline-offset: .3em; }
+  .wordmark-name { font-size: .8rem; letter-spacing: -.015em; }
+  nav { display: flex; gap: 2rem; margin-left: auto; }
+  nav a { font-size: .8rem; text-decoration: none; color: var(--ink-muted); padding-block: .7rem; min-height: 44px; display: inline-flex; align-items: center; position: relative; }
+  nav a:hover, nav a[aria-current] { color: var(--accent); }
+  nav a:hover::after, nav a:focus-visible::after, nav a[aria-current]::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: var(--accent); }
+  @media (max-width: 900px) { .masthead { padding-block: 1.25rem; gap: 1rem; flex-wrap: wrap; } nav { gap: 1.4rem; order: 3; width: 100%; margin-left: 0; justify-content: space-between; } }
+  @media (max-width: 430px) { .wordmark:hover .wordmark-name { text-decoration: underline; text-underline-offset: .3em; }
+  .wordmark-name { display: none; } nav { gap: 1rem; } nav a { font-size: .75rem; } }
 </style>

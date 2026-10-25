@@ -1,84 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { socials } from '../config';
-
-const interests = [
-  'Empirical Software Engineering & Developer Tooling',
-  'CI/CD Pipelines & Build Infrastructure',
-  'Game Engine Systems & Low-Level Graphics',
-  'IT Operations, Identity & ISO 27001 Security',
-];
 ---
-<BaseLayout title="About" description="Who I am, what I build, and what keeps me curious.">
-  <p class="eyebrow">About</p>
-  <div class="wayrule"></div>
-  <h1 class="display h1">Hello.</h1>
-
-  <p class="lede">I am Akil. I lead IT operations and cybersecurity, build production software platforms, and explore developer tooling and systems engineering.</p>
-
-  <div class="prose">
-    <p>By day, I lead IT operations and cybersecurity at Teams Squared, a global remote staffing firm placing skilled professionals worldwide. Alongside managing Entra ID identity architecture, endpoint defense, and infrastructure across distributed teams, I serve as the appointed ISMS Officer, having built our ISMS from scratch and driven it to pass its initial ISO 27001:2022 certification audit. I value this operational work - the discipline of building dependable, audited environments and establishing resilient access governance.</p>
-
-    <p>Software development has been a core pursuit since high school. Today, I combine hands-on engineering with modern AI tooling to design and ship production software. At Teams Squared, I architected internal platforms from scratch, including our contractor training LMS, hardware fleet tracking system, and company client portal. Building production tools end to end gives me a clear sense of how complex systems perform under real operational constraints.</p>
-
-    <p>That practical engineering grounding feeds my broader interest in empirical research and systems. I am fascinated by open questions across continuous integration pipelines, diagnostic tooling, and empirical software engineering. I hold a Bachelor of Science in Computer Science from Dalhousie University (GPA 3.92, Sexton Scholar), and I am interested in exploring research opportunities and academic programs, including potential PhD work.</p>
-  </div>
-
-  <h2 class="sec-label" id="looking">What I'm looking for</h2>
-  <p class="seeking">I am open to compelling opportunities across multiple paths: advancing enterprise <strong>IT Operations, Cybersecurity, &amp; ISO 27001 ISMS governance</strong>, taking on <strong>software engineering or game/systems development</strong> roles, or collaborating with <strong>research groups and graduate programs</strong> in empirical software engineering and systems. I hold a Canadian Post-Graduation Work Permit (PGWP) valid through June 2029 and am open to relocation within Canada. If you are building reliable systems or exploring new tooling ideas, let's connect.</p>
-
-  <h2 class="sec-label">What keeps me curious</h2>
-  <ul class="interests">
-    {interests.map((i) => <li>{i}</li>)}
-  </ul>
-
-  <h2 class="sec-label">Elsewhere</h2>
-  <ul class="contact">
-    {socials.map((s) => (
-      <li>
-        <span class="c-label">{s.label}</span>
-        <a href={s.href} target="_blank" rel="noopener noreferrer">{s.handle ?? s.label}</a>
-      </li>
-    ))}
-  </ul>
+<BaseLayout title="About" description="Akil Fernando: incoming MSc student in Computer Science at the University of Calgary, with a background in software, games, IT, and cybersecurity.">
+  <header class="page-intro"><p class="eyebrow">About / A little context</p><h1 class="display">Curiosity,<br />put to work.</h1><p class="intro-copy">I'm Akil. I build software, work with systems, and keep coming back to the question of how they could work better.</p></header>
+  <section class="section-grid" aria-labelledby="background"><p class="overline">01 / The background</p><div><h2 class="display section-title" id="background">Came to it through building.</h2><div class="body-copy"><p>Software development has been a part of my life since high school. That interest took me to Dalhousie University, where I completed a <strong>Bachelor of Computer Science</strong> in 2025, with a GPA of 3.92 and recognition as a Sexton Scholar.</p><p>During my gameplay programming co-op at Ubisoft Halifax, I worked in Unity and C# on cameras, targeting, character AI, and debugging tools. Personal projects took me further down the stack into OpenGL and Vulkan. Building a renderer from scratch made the GPU a little less mysterious. It also made me appreciate everything an engine does on your behalf.</p><p>At Teams Squared, I lead IT operations and cybersecurity. That includes identity governance, endpoint security, and the organization's ISO 27001:2022 ISMS. I also build internal software: a training platform, a fleet management system, and a client portal. Real users make the tradeoffs concrete.</p></div><a class="text-link" href="/career">Experience &amp; education</a></div></section>
+  <section class="section-grid" aria-labelledby="next"><p class="overline">02 / What's next</p><div><h2 class="display section-title" id="next">More deliberate questions.</h2><div class="body-copy"><p>I'm an incoming MSc student in Computer Science at the University of Calgary. My proposed research, with Dr. Nimmi Weeraddana, examines bugs that require coordinated changes to source code and assets in open-source Unity games.</p><p>I want to bring the habits of building into research, then learn where intuition needs to give way to evidence. Working prototypes are a starting point. Understanding whether they help, why they help, and under what conditions is the more interesting part.</p></div><a class="text-link" href="/research">Research direction</a></div></section>
+  <section class="section-grid" aria-labelledby="outside"><p class="overline">03 / Outside the work</p><div><h2 class="display section-title" id="outside">Other ways of paying attention.</h2><div class="body-copy"><p>I also write fiction, play games, and keep notes on books and film. Different forms, but often the same interest in how a small choice changes the whole experience.</p><p>Some of that lives in my <a href="/writing">creative writing</a> and my <a href="/log">reading and playing log</a>. Technical reflections go in the <a href="/blog">notes</a>.</p></div></div></section>
+  <section class="section-grid" aria-labelledby="contact"><p class="overline">04 / Contact</p><div><h2 class="display section-title" id="contact">Say hello.</h2><ul class="contact-list">{socials.map(s => <li><span>{s.label}</span><a href={s.href}>{s.handle}<span aria-hidden="true"> ↗</span></a></li>)}</ul></div></section>
 </BaseLayout>
-
 <style>
-  .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
-  .lede {
-    font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.6;
-    max-width: 58ch; margin-top: var(--space-2);
-  }
-  .prose { max-width: var(--measure); margin-top: var(--space-3); }
-  .prose p { margin-bottom: var(--space-2); color: var(--ink); }
-  .seeking {
-    max-width: var(--measure); margin-top: var(--space-2); color: var(--ink); line-height: 1.6;
-    border-left: 2px solid var(--cobalt); padding-left: var(--space-2);
-  }
-  .sec-label {
-    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
-    margin: var(--space-8) 0 var(--space-2);
-    padding-bottom: var(--space-1);
-    border-bottom: 1px solid var(--rule);
-    scroll-margin-top: 5rem;
-  }
-  .interests { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .interests li {
-    font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);
-    background: var(--paper-panel); padding: 5px 11px;
-  }
-  .contact { list-style: none; padding: 0; margin-top: var(--space-2); max-width: 32rem; }
-  .contact li {
-    display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-2);
-    padding: var(--space-1) 0; border-bottom: 1px solid var(--rule);
-    font-family: var(--font-mono); font-size: 0.8125rem; align-items: baseline;
-  }
-  .contact li:last-child { border-bottom: none; }
-  .c-label { color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.6875rem; }
-  .contact a { color: var(--cobalt); text-decoration: none; word-break: break-word; }
-  .contact a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  @media (max-width: 620px) {
-    .contact li { grid-template-columns: 1fr; gap: 2px; }
-  }
+  .contact-list { list-style: none; padding: 0; margin-top: 2rem; max-width: 40rem; }
+  .contact-list li { display: grid; grid-template-columns: 6rem 1fr; gap: 1.5rem; border-top: 1px solid var(--rule); padding-block: 1rem; font-size: .875rem; }
+  .contact-list li > span { color: var(--ink-muted); font-family: var(--font-mono); font-size: .7rem; padding-top: .15rem; }
+  .contact-list a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+  .contact-list a:hover { text-decoration: underline; }
+  @media (max-width: 450px) { .contact-list li { grid-template-columns: 1fr; gap: .4rem; } }
 </style>

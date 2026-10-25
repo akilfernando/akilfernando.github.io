@@ -16,4 +16,4 @@ I made it as a constraint exercise, to see how much design pressure one honest r
 
 I built it as my portfolio demo for Ubisoft Halifax, and it is what landed my gameplay programming co-op there. One stubborn idea, executed cleanly, turned out to say more about how I think than a longer feature list would have.
 
-I wrote more about the design in [a short post](/blog/ammo-equals-life/).
+<!-- Related design post remains a draft; restore its link when published. -->

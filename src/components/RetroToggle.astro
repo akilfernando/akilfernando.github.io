@@ -15,67 +15,41 @@ const pixels = GRID.flatMap((row, y) =>
   [...row].map((bit, x) => (bit === '1' ? { x, y } : null)).filter(Boolean)
 );
 ---
-<button
-  id="retro-toggle"
-  class="retro-toggle"
-  type="button"
-  aria-pressed="false"
-  title="Retro mode"
->
-  <svg class="alien" viewBox="0 0 11 8" width="22" height="16" aria-hidden="true" shape-rendering="crispEdges">
-    {pixels.map((p) => <rect x={p.x} y={p.y} width="1" height="1" />)}
-  </svg>
-  <span class="label">Retro</span>
+<button id="retro-toggle" class="retro-toggle" type="button" data-retro-toggle aria-pressed="false" aria-label="Enable retro theme" title="A little time travel?" hidden>
+  <svg class="alien" viewBox="0 0 11 8" width="16" height="12" aria-hidden="true" shape-rendering="crispEdges">{pixels.map((p) => <rect x={p.x} y={p.y} width="1" height="1" />)}</svg>
+  <span class="retro-hint" aria-hidden="true">Take a trip to 2001</span>
 </button>
-
-<script is:inline>
-  (function () {
-    var root = document.documentElement;
-    var btn = document.getElementById('retro-toggle');
-    if (!btn) return;
-
-    function sync() {
-      var on = root.getAttribute('data-retro') === 'on';
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      btn.title = on ? 'Retro mode is on. Back to 2026.' : 'Retro mode. Take the site back to 2001.';
+<span class="sr-only" id="theme-status" role="status" aria-live="polite"></span>
+<script>
+  const root = document.documentElement;
+  const controls = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-retro-toggle]'));
+  function sync() {
+    const enabled = root.dataset.retro === 'on';
+    for (const button of controls) {
+      button.hidden = false;
+      button.setAttribute('aria-pressed', String(enabled));
+      button.setAttribute('aria-label', enabled ? 'Return to modern theme' : 'Enable retro theme');
+      button.title = enabled ? 'Return to modern theme' : 'A little time travel?';
+      const hint = button.querySelector('.retro-hint');
+      if (hint) hint.textContent = enabled ? 'Back to the present' : 'Take a trip to 2001';
     }
-
-    btn.addEventListener('click', function () {
-      var on = root.getAttribute('data-retro') === 'on';
-      if (on) {
-        root.removeAttribute('data-retro');
-      } else {
-        root.setAttribute('data-retro', 'on');
-      }
-      try { localStorage.setItem('retro', on ? 'off' : 'on'); } catch (e) { /* private mode */ }
-      sync();
-    });
-
+  }
+  for (const button of controls) button.addEventListener('click', () => {
+    const enabled = root.dataset.retro !== 'on';
+    if (enabled) root.dataset.retro = 'on'; else delete root.dataset.retro;
+    try { localStorage.setItem('retro', enabled ? 'on' : 'off'); } catch {}
     sync();
-  })();
+    const status = document.getElementById('theme-status');
+    if (status) status.textContent = enabled ? 'Retro theme enabled.' : 'Modern theme enabled.';
+    if (!enabled && button.closest('.retro-welcome')) document.querySelector<HTMLAnchorElement>('.wordmark')?.focus({ preventScroll: true });
+  });
+  sync();
 </script>
-
 <style>
-  .retro-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
-    background: none;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    color: var(--ink-muted);
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-  .retro-toggle:hover { color: var(--cobalt); border-color: var(--cobalt); }
-  .alien { fill: currentColor; }
-  .retro-toggle[aria-pressed="true"] { color: var(--cobalt); border-color: var(--cobalt); }
-  @media (max-width: 620px) {
-    .label { display: none; }
-  }
+.retro-toggle { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 8px; border: 1px solid transparent; color: var(--ink-muted); background: transparent; cursor: pointer; }
+.alien { fill: currentColor; }
+.retro-toggle:hover, .retro-toggle:focus-visible { color: var(--accent); border-color: var(--rule); background: var(--accent-tint); }
+.retro-hint { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: .4rem .65rem; white-space: nowrap; background: var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: .7rem; visibility: hidden; pointer-events: none; }
+.retro-toggle:hover .retro-hint, .retro-toggle:focus-visible .retro-hint { visibility: visible; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 </style>

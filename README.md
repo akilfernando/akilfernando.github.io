@@ -1,61 +1,42 @@
-# Akil Fernando — Portfolio
+# Akil Fernando · Portfolio
 
-Editorial portfolio built with Astro. Static output, near-zero JS, self-hosted fonts.
-Design and structure spec lives in `portfolio-spec.md`.
+A research-oriented personal site built with Astro. Static output, self-hosted fonts, and a quiet editorial design in warm paper, ink, and deep green.
 
-## Run locally
+## Local development
 
-```bash
-npm install
-npm run dev      # http://localhost:4321
-npm run build    # outputs to dist/
-npm run preview  # serve the built site
+```sh
+npm ci
+npm run dev
+npm run build
+npm run preview
 ```
-
-Requires Node 18+ (built on Node 22).
-
-## Stack
-
-- Astro 5 (static)
-- Vanilla CSS with design tokens (`src/styles/tokens.css`)
-- Content Collections for blog + projects (`src/content/`)
-- MDX for posts
-- Self-hosted variable fonts: Fraunces, Inter, JetBrains Mono
 
 ## Structure
 
-```
-src/
-  styles/      tokens.css (all design tokens), global.css
-  config.ts    name, tagline, nav, socials
-  layouts/     BaseLayout (head/meta/fonts/header/footer)
-  components/  Masthead, Footer
-  data/        career.ts (experience, education, skills)
-  content/     blog/*.mdx, projects/*.md  (schemas in content/config.ts)
-  pages/       index (The Index), career, projects, about, blog/
-public/        favicon.svg, cv.pdf (add yours)
-```
+- `src/pages/`: home, research, projects, about, career, and the existing writing, blog, library, and special pages.
+- `src/content/`: project case studies, technical posts, creative writing, and the reading/playing log. Existing authored pieces are preserved.
+- `src/data/career.ts`: experience, education, skills, and professional CV links.
+- `src/styles/tokens.css`: color, spacing, and typography tokens. Older page templates use compatibility aliases for the accent color.
+- `src/components/ResearchDiagram.astro`: accessible illustration of code and asset dependencies on the Research page.
+- `src/config.ts`: identity, primary navigation, and social links.
+- `public/cv/`: existing professional CV PDFs.
 
-## Editing content
+Fraunces, Inter, and Courier Prime are bundled locally. Primary pages work without client JavaScript. The project category filter progressively enhances the full index.
 
-- **Career:** edit `src/data/career.ts`.
-- **Blog post:** add `src/content/blog/<slug>.mdx` with frontmatter (title, date, description, tags, draft).
-- **Project:** add `src/content/projects/<slug>.md` with frontmatter (title, year, role, category, stack, blurb, links).
-- **CV:** drop your PDF at `public/cv.pdf` (the Career button links there).
-- **Colors/type:** `src/styles/tokens.css`.
+## Content guidance
 
-## Deploy (GitHub Pages)
+Read `CLAUDE.md` and `docs/voice-spec.md` before editing copy. Do not invent research outputs, publications, measurements, or reviews. Creative writing is reproduced verbatim. Graduate wording reflects confirmed incoming MSc status, without claiming current enrollment or completed research.
 
-1. Push this to the `akilfernando.github.io` repo, branch `main`.
-2. Repo Settings → Pages → Build and deployment → Source: **GitHub Actions**.
-3. The workflow in `.github/workflows/deploy.yml` builds and publishes on every push.
+Add project entries as Markdown in `src/content/projects/` using the schema in `src/content/config.ts`. Blog entries use MDX. The Research page distinguishes exploratory prototypes on synthetic fixtures from published research.
 
-### Custom domain (optional, ~$13/yr)
-- Register the domain, add a `public/CNAME` file containing just the domain.
-- Point DNS at GitHub Pages, set the domain in repo Pages settings, enable HTTPS.
-- Update `site` in `astro.config.mjs`.
+## Deployment
 
-## Status
+GitHub Pages builds and publishes through the existing workflow in `.github/workflows/deploy.yml`. The canonical domain is `https://akilfernando.dev`; `public/CNAME` retains that domain. Hosting configuration and existing CV PDFs are preserved.
 
-Phase 1 + Home + Career scaffolded. Projects, Blog, About are working stubs.
-See `portfolio-spec.md` Section 10 for the remaining roadmap.
+## Interaction details
+
+Internal text links use a right arrow; external destinations use a diagonal arrow; email links use an envelope. Homepage section links have one whole-row link and an explicit keyboard focus state. Category filters expose their selected state and work without hiding content when JavaScript is unavailable.
+
+The small pixel invader in the footer enables an optional early-2000s theme. The setting persists locally between pages, restores before first paint, and can be reversed from the top banner or footer. The toggle has a keyboard-accessible label and hint; it stays hidden when JavaScript is unavailable. The theme uses static decoration, without flashing or autoplay.
+
+The header theme icon offers Light, Dark, and System default. Explicit choices persist locally; System follows the operating system preference. Retro mode temporarily overrides that palette without changing the saved choice.

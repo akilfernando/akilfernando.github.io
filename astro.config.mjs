@@ -7,9 +7,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://akilfernando.dev',
   base: '/',
-  redirects: {
-    '/research': '/prototypes',
-  },
   integrations: [mdx(), sitemap()],
   markdown: {
     // 'css-variables' theme lets us map syntax colors onto the palette

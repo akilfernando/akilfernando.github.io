@@ -1,159 +1,54 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-
-const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
-
-const categoryLabels: Record<string, string> = {
-  security: 'Security',
-  game: 'Game dev',
-  software: 'Software',
-  academic: 'Academic',
-};
-
-// Only show filter chips for categories that actually have entries.
-const order = ['security', 'game', 'software', 'academic'];
-const present = order.filter((c) => projects.some((p) => p.data.category === c));
-const filters = [{ key: 'all', label: 'All' }, ...present.map((c) => ({ key: c, label: categoryLabels[c] }))];
+const priority = ['openquire', 'ci-diagnostic-prototypes', 'ammo-equals-life', 'vulkan-graphics-demo'];
+const projects = (await getCollection('projects')).sort((a, b) => {
+  const aIndex = priority.indexOf(a.slug); const bIndex = priority.indexOf(b.slug);
+  if (aIndex >= 0 || bIndex >= 0) return (aIndex >= 0 ? aIndex : 99) - (bIndex >= 0 ? bIndex : 99);
+  return b.data.year - a.data.year;
+});
+const categoryLabels: Record<string, string> = { security: 'Security & operations', game: 'Games & graphics', software: 'Software & tools', academic: 'Academic' };
+const filters = [{ key: 'all', label: 'All work' }, ...Object.entries(categoryLabels).filter(([key]) => projects.some(p => p.data.category === key)).map(([key, label]) => ({ key, label }))];
 ---
-<BaseLayout title="Projects" description="Security and identity case studies, internal platforms, games, and graphics.">
-  <p class="eyebrow">Projects</p>
-  <div class="wayrule"></div>
-  <h1 class="display h1">Things built.</h1>
-
-  {projects.length === 0 ? (
-    <p class="empty">Projects land here soon. Add entries under <code>src/content/projects/</code>.</p>
-  ) : (
-    <>
-      {filters.length > 2 && (
-        <div class="filters" role="group" aria-label="Filter projects by category">
-          {filters.map((f, i) => (
-            <button
-              type="button"
-              class="chip"
-              data-filter={f.key}
-              aria-pressed={i === 0 ? 'true' : 'false'}
-            >{f.label}</button>
-          ))}
-        </div>
-      )}
-
-      <ul class="list" id="proj-list">
-        {projects.map((p) => (
-          <li class="proj" data-category={p.data.category}>
-            <div class="meta">
-              <span class="year">{p.data.year}</span>
-              <span class="sep" aria-hidden="true">&middot;</span>
-              <span class="role">{p.data.role}</span>
-              <span class="tag" data-cat={p.data.category}>{categoryLabels[p.data.category]}</span>
-            </div>
-            <h2 class="display pt"><a href={`/projects/${p.slug}`}>{p.data.title}</a></h2>
-            <p class="blurb">{p.data.blurb}</p>
-            {p.data.stack.length > 0 && (
-              <ul class="stack" aria-label="Stack">
-                {p.data.stack.map((s) => <li>{s}</li>)}
-              </ul>
-            )}
-            {p.data.links.length > 0 && (
-              <p class="links">
-                {p.data.links.map((l) => (
-                  <a href={l.url} target="_blank" rel="noopener noreferrer">{l.label}<span aria-hidden="true">&#8599;</span></a>
-                ))}
-              </p>
-            )}
-          </li>
-        ))}
-      </ul>
-      <p class="noresults" hidden>No projects in this category yet.</p>
-    </>
-  )}
+<BaseLayout title="Projects" description="Selected software, developer tools, games, graphics, and security work by Akil Fernando.">
+  <header class="page-intro"><p class="eyebrow">Projects / Selected &amp; collected</p><h1 class="display">Projects &amp;<br />experiments.</h1><p class="intro-copy">Open-source software, exploratory tools, internal systems, graphics work, and games. Filter by field, or open a project to read about the work.</p></header>
+  <div class="project-toolbar"><p class="overline">The project index</p><div class="filters" role="group" aria-label="Filter projects by category" hidden>{filters.map((f, i) => <button type="button" class="filter" data-filter={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>{f.label}</button>)}</div></div>
+  <p class="filter-status" role="status" aria-live="polite" id="filter-status">{projects.length} projects</p>
+  <ol class="project-list">{projects.map((p, i) => <li class="project" data-category={p.data.category}><div class="project-index"><span>{String(i + 1).padStart(2, '0')}</span><span>{p.data.year}</span></div><div class="project-title"><p class="overline">{categoryLabels[p.data.category]}</p><h2 class="display"><a href={`/projects/${p.slug}`}>{p.data.title}</a></h2><p class="role">{p.data.role}</p></div><div class="project-body"><p>{p.data.blurb}</p>{p.data.stack.length > 0 && <ul class="stack" aria-label="Technologies">{p.data.stack.map(s => <li>{s}</li>)}</ul>}<a class="text-link" href={`/projects/${p.slug}`}>Project details</a></div></li>)}</ol>
 </BaseLayout>
-
 <script>
-  // Progressive enhancement: with JS off, all projects show.
-  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.chip'));
-  const items = Array.from(document.querySelectorAll<HTMLLIElement>('.proj'));
-  const noResults = document.querySelector<HTMLParagraphElement>('.noresults');
-
-  function apply(filter: string) {
-    let visible = 0;
-    for (const item of items) {
-      const show = filter === 'all' || item.dataset.category === filter;
-      item.hidden = !show;
-      if (show) visible++;
-    }
-    if (noResults) noResults.hidden = visible !== 0;
-  }
-
-  for (const chip of chips) {
-    chip.addEventListener('click', () => {
-      for (const c of chips) c.setAttribute('aria-pressed', String(c === chip));
-      apply(chip.dataset.filter || 'all');
-    });
-  }
+  const filters = document.querySelector<HTMLElement>('.filters');
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter'));
+  const items = Array.from(document.querySelectorAll<HTMLLIElement>('.project'));
+  const status = document.getElementById('filter-status');
+  if (filters) filters.hidden = false;
+  for (const button of buttons) button.addEventListener('click', () => {
+    let count = 0;
+    for (const item of items) { item.hidden = button.dataset.filter !== 'all' && item.dataset.category !== button.dataset.filter; if (!item.hidden) count++; }
+    for (const other of buttons) other.setAttribute('aria-pressed', String(other === button));
+    if (status) status.textContent = `${count} ${count === 1 ? 'project' : 'projects'}`;
+  });
 </script>
-
 <style>
-  .h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-top: var(--space-1); }
-  .empty { margin-top: var(--space-4); color: var(--ink-muted); }
-  code { font-family: var(--font-mono); font-size: 0.85em; }
-
-  .filters {
-    display: flex; flex-wrap: wrap; gap: var(--space-1);
-    margin-top: var(--space-4);
-  }
-  .chip {
-    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--ink-muted);
-    background: transparent; border: 1px solid var(--rule); border-radius: 0;
-    padding: 7px 13px; cursor: pointer;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-  .chip:hover { color: var(--ink); border-color: var(--ink-muted); }
-  .chip[aria-pressed='true'] {
-    color: var(--paper); background: var(--cobalt); border-color: var(--cobalt);
-  }
-
-  .list {
-    list-style: none; padding: 0; margin-top: var(--space-4);
-    border-top: 1px solid var(--ink);
-  }
-  .proj { padding: var(--space-3) 0; border-bottom: 1px solid var(--rule); }
-  .meta {
-    font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);
-    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
-  }
-  .sep { color: var(--rule); }
-  .tag {
-    margin-left: auto; font-size: 0.625rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--cobalt);
-  }
-  .pt { font-size: 1.5rem; margin-top: 5px; line-height: 1.15; }
-  .pt a { color: inherit; text-decoration: none; }
-  .pt a:hover { color: var(--cobalt); }
-  .blurb { font-size: 0.9rem; color: var(--ink-muted); margin-top: 6px; max-width: 62ch; line-height: 1.55; }
-  .stack {
-    list-style: none; padding: 0; margin-top: var(--space-2);
-    display: flex; flex-wrap: wrap; gap: 6px;
-  }
-  .stack li {
-    font-family: var(--font-mono); font-size: 0.6875rem; color: var(--ink-muted);
-    background: var(--paper-panel); padding: 3px 9px;
-  }
-  .links {
-    margin-top: var(--space-2);
-    display: flex; flex-wrap: wrap; gap: var(--space-3);
-  }
-  .links a {
-    font-family: var(--font-mono); font-size: 0.75rem; color: var(--cobalt);
-    text-decoration: none;
-  }
-  .links a span { font-size: 0.85em; }
-  .links a:hover { color: var(--cobalt-deep); text-decoration: underline; text-underline-offset: 3px; }
-
-  .noresults { margin-top: var(--space-4); color: var(--ink-muted); font-size: 0.9rem; }
-
-  @media (max-width: 620px) {
-    .tag { margin-left: 0; }
-  }
+  .project-toolbar { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding-top: 2.5rem; }
+  .filters { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+  .filter { background: transparent; border: 0; border-bottom: 1px solid transparent; padding: .5rem .65rem; min-height: 44px; font-size: .75rem; color: var(--ink-muted); cursor: pointer; }
+  .filter[aria-pressed='true'] { color: var(--accent); border-color: var(--accent); }
+  .filter:hover { color: var(--accent); background: var(--accent-tint); }
+  .filter[aria-pressed="true"] { background: var(--accent-tint); }
+  h2 a:hover { text-decoration: underline; text-underline-offset: .15em; }
+  .filter-status { color: var(--ink-muted); font-family: var(--font-mono); font-size: .675rem; padding-block: 1.25rem; }
+  .project-list { list-style: none; padding: 0; }
+  .project { display: grid; grid-template-columns: .4fr 1.3fr 1.4fr; gap: 3rem; padding-block: 2.75rem; border-top: 1px solid var(--rule); }
+  .project-index { display: flex; flex-direction: column; gap: .4rem; font-family: var(--font-mono); font-size: .7rem; color: var(--ink-muted); }
+  .project-index > span:first-child { color: var(--accent); }
+  .project-title .overline { font-size: .7rem; }
+  h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-top: 1rem; line-height: 1.1; }
+  h2 a { text-decoration: none; }
+  .role { font-family: var(--font-mono); font-size: .675rem; color: var(--ink-muted); margin-top: 1rem; }
+  .project-body > p { font-size: .875rem; color: var(--ink-muted); }
+  .stack { display: flex; flex-wrap: wrap; gap: .35rem 1rem; list-style: none; padding: 0; margin-top: 1.5rem; }
+  .stack li { font-family: var(--font-mono); font-size: .7rem; color: var(--ink-muted); }
+  .project-body .text-link { margin-top: 1.25rem; font-size: .75rem; }
+  @media (max-width: 800px) { .project-toolbar { align-items: start; flex-direction: column; } .project { grid-template-columns: 2rem 1fr; gap: 1rem; } .project-body { grid-column: 2; } .project-index { gap: .6rem; } }
 </style>

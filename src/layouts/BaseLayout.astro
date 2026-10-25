@@ -27,7 +27,7 @@ const {
   image = '/og.png',
   publishedTime,
 } = Astro.props;
-const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Portfolio`;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Software & Research`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 ---
@@ -60,19 +60,17 @@ const ogImage = new URL(image, Astro.site).href;
     <meta name="twitter:image" content={ogImage} />
 
     <meta name="generator" content={Astro.generator} />
-
-    <!-- Restore retro mode before first paint, so there is no flash of 2026. -->
     <script is:inline>
-      try {
-        if (localStorage.getItem('retro') === 'on') {
-          document.documentElement.setAttribute('data-retro', 'on');
-        }
-      } catch (e) { /* storage blocked, stay modern */ }
+      try { const theme = localStorage.getItem('theme'); if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme; } catch {}
+      try { if (localStorage.getItem('retro') === 'on') document.documentElement.dataset.retro = 'on'; } catch {}
     </script>
+
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <Masthead />
-    <main class="shell">
+    <div class="retro-only retro-welcome shell"><span>Welcome to Akil's corner of the web!</span><button type="button" data-retro-toggle aria-pressed="true">Return to modern site</button></div>
+    <main class="shell" id="main-content" tabindex="-1">
       <slot />
     </main>
     <Footer />

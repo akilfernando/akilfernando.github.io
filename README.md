@@ -43,10 +43,10 @@ The header theme icon offers Light, Dark, and System default. Explicit choices p
 
 ## Interactive presentation
 
-The homepage pairs the existing editorial typography and color tokens with interactive project illustrations. `ProjectPreview.astro` provides sample document tools for OpenQuire and a CSS 3D scene with orbit and wireframe controls for Ruster. These are illustrations, not embedded versions of either application, and also appear on their project detail pages.
+The homepage pairs the existing editorial typography and color tokens with interactive project illustrations. `ProjectPreview.astro` provides self-demonstrating tool names for OpenQuire (hover, keyboard focus, or tap) and a CSS 3D camera study for Ruster. `ScrollScenes.astro` maps natural scroll progress to the Ruster camera and the proposed GameLoc sequence; reduced motion keeps both at static viewpoints. These are illustrations, not embedded versions of either application, and also appear on their project detail pages.
 
-`ResearchDiagram.astro` lets visitors select a scene, prefab, script, or material to read about its role in the example dependency graph. The full conceptual relationship remains available without JavaScript.
+`ResearchDiagram.astro` compares code-only search with the proposed GameLoc workflow on a fictional bug report. As it enters view, reference paths draw and connected assets appear. This illustrates a research goal and does not claim a measured improvement. The full conceptual relationship remains available without JavaScript.
 
 `PageMotion.astro` adds one-time entrance animations, a reading progress line, and a back-to-top link across the site. Entrance animations use IntersectionObserver and the Web Animations API; content is visible by default. Reduced-motion preferences disable entrance animations, and controls remain usable. No new runtime dependencies, backend, or hosting services are required.
 
-Project controls use native buttons and range inputs for keyboard and touch access. Without JavaScript, the illustrations and project links remain visible, and inactive controls and interaction prompts stay hidden.
+Document tool names use native buttons for keyboard and touch access, with the same visual effect on hover and focus. Without JavaScript, the word effects still work through CSS, and project links and static scenes remain visible. Scroll handlers use a single scheduled animation frame per component and do not intercept scrolling.

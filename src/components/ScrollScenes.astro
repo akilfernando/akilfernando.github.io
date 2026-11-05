@@ -1,0 +1,30 @@
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const scenes = Array.from(document.querySelectorAll<HTMLElement>('[data-preview="ruster"]'));
+  const stories = Array.from(document.querySelectorAll<HTMLElement>('[data-gameloc-story]'));
+  const clamp = (n: number) => Math.max(0, Math.min(1, n));
+  let queued = false;
+  function update() {
+    for (const scene of scenes) {
+      const note = scene.closest('.feature')?.querySelector<HTMLElement>('.interaction-note');
+      if (note) { note.hidden = false; note.textContent = reduced.matches ? 'A static camera view is shown with reduced motion enabled.' : 'Scroll through this section to move the camera around the scene.'; }
+      const bounds = (scene.closest('.feature') || scene).getBoundingClientRect();
+      const p = reduced.matches ? .35 : clamp((innerHeight * .85 - bounds.top) / (bounds.height + innerHeight * .35));
+      scene.style.setProperty('--orbit', `${-65 + p * 135}deg`);
+      scene.style.setProperty('--camera-tilt', `${68 - p * 25}deg`);
+      scene.style.setProperty('--camera-x', `${-22 + p * 44}px`);
+      scene.style.setProperty('--camera-scale', String(.85 + Math.sin(p * Math.PI) * .23));
+    }
+    for (const story of stories) {
+      const bounds = story.getBoundingClientRect();
+      const p = reduced.matches ? 1 : clamp((innerHeight * .85 - bounds.top) / (bounds.height * .65));
+      story.style.setProperty('--story', String(p));
+    }
+    queued = false;
+  }
+  const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', schedule, { passive: true });
+  addEventListener('resize', schedule);
+  reduced.addEventListener('change', schedule);
+  update();
+</script>

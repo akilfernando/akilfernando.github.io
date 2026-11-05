@@ -11,6 +11,8 @@ import { socials } from '../config';
   <section class="section-grid" aria-labelledby="contact"><p class="overline">04 / Contact</p><div><h2 class="display section-title" id="contact">Get in touch</h2><ul class="contact-list">{socials.map(s => <li><span>{s.label}</span><a href={s.href} {...externalLinkAttributes(s.href)}>{s.handle}<span aria-hidden="true"> ↗</span></a></li>)}</ul></div></section>
 </BaseLayout>
 <style>
+  .contact-list a { width: fit-content; background-image: linear-gradient(var(--accent),var(--accent)); background-position: left bottom; background-repeat: no-repeat; background-size: 0 1px; transition: background-size .35s; }.contact-list a:hover,.contact-list a:focus-visible { background-size: 100% 1px; }.contact-list a span { display: inline-block; transition: transform .3s; }.contact-list a:hover span,.contact-list a:focus-visible span { transform: translate(3px,-3px); }
+
   .contact-list { list-style: none; padding: 0; margin-top: 2rem; max-width: 40rem; }
   .contact-list li { display: grid; grid-template-columns: 6rem 1fr; gap: 1.5rem; border-top: 1px solid var(--rule); padding-block: 1rem; font-size: .875rem; }
   .contact-list li > span { color: var(--ink-muted); font-family: var(--font-mono); font-size: .7rem; padding-top: .15rem; }

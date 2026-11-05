@@ -6,8 +6,6 @@
   let queued = false;
   function update() {
     for (const scene of scenes) {
-      const note = scene.closest('.feature')?.querySelector<HTMLElement>('.interaction-note');
-      if (note) { note.hidden = false; note.textContent = reduced.matches ? 'A static camera view is shown with reduced motion enabled.' : 'Scroll through this section to move the camera around the scene.'; }
       const bounds = (scene.closest('.feature') || scene).getBoundingClientRect();
       const p = reduced.matches ? .35 : clamp((innerHeight * .85 - bounds.top) / (bounds.height + innerHeight * .35));
       scene.style.setProperty('--orbit', `${-65 + p * 135}deg`);

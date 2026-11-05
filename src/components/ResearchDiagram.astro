@@ -1,11 +1,11 @@
 <figure class="research-diagram" data-gameloc-story>
-  <div class="bug-report"><span class="overline">Example bug report</span><p>“The door stays locked after picking up the key.”</p></div>
+  <div class="bug-report"><span class="overline">Bug report</span><p>“The door stays locked after picking up the key.”</p></div>
   <svg viewBox="0 0 500 370" role="img" aria-labelledby="diagram-title diagram-description">
     <title id="diagram-title">Code search and the proposed GameLoc workflow</title>
-    <desc id="diagram-description">An illustrative code search returns script candidates. The proposed GameLoc approach would also follow relationships to connected prefabs and scenes, so a developer could inspect code and assets together. The animation illustrates the research goal, not a demonstrated improvement.</desc>
+    <desc id="diagram-description">Code search returns script candidates. GameLoc’s proposed approach follows references to connected prefabs and scenes.</desc>
     <defs><pattern id="diagram-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".12" /></pattern></defs>
     <rect width="500" height="370" fill="url(#diagram-grid)" />
-    <g font-family="var(--font-mono)" text-anchor="middle" fill="currentColor" font-size="11"><text x="115" y="35">CODE SEARCH</text><text x="365" y="35">WITH GAMELOC</text><text x="365" y="54" font-size="9">PROPOSED</text></g>
+    <g font-family="var(--font-mono)" text-anchor="middle" fill="currentColor" font-size="11"><text x="115" y="35">CODE SEARCH</text><text x="365" y="35">WITH GAMELOC</text></g>
     <g class="search-candidates" font-family="var(--font-mono)" font-size="10" fill="var(--ink-muted)">
       <g transform="translate(25 82)"><rect width="180" height="42"/><text x="12" y="26">DoorController.cs</text></g>
       <g transform="translate(25 140)"><rect width="180" height="42"/><text x="12" y="26">KeyPickup.cs</text></g>
@@ -19,15 +19,13 @@
       <g class="prefab-node"><rect x="285" y="170" width="160" height="42"/><text x="365" y="196">Door.prefab</text></g>
       <g class="scene-node"><rect x="285" y="258" width="160" height="42"/><text x="365" y="284">Level.scene</text></g>
     </g>
-    <g font-family="var(--font-mono)" text-anchor="middle" fill="var(--ink-muted)" font-size="9"><text x="115" y="338">Inspect script candidates</text><text x="365" y="338">Inspect connected files together</text></g>
+    <g font-family="var(--font-mono)" text-anchor="middle" fill="var(--ink-muted)" font-size="9"><text x="115" y="338">Scripts</text><text x="365" y="338">Code + assets</text></g>
   </svg>
-  <div class="story-track" aria-hidden="true"><span>Find code</span><i></i><span>Follow references</span><i></i><span>Include assets</span></div>
-  <figcaption><p>GameLoc aims to connect a bug report with relevant code <em>and</em> assets, rather than leaving the developer to find those relationships separately.</p><span>Proposed workflow on a fictional example. No measured speed or accuracy improvement is claimed.</span></figcaption>
 </figure>
 <style>
 .research-diagram { --story: .65; width: 100%; max-width: 500px; color: var(--accent); }.bug-report { border-block: 1px solid var(--rule); padding: 1rem 0; }.bug-report .overline { font-size: .65rem; }.bug-report p { font: 400 1.2rem/1.4 var(--font-display); color: var(--ink); margin-top: .6rem; }
 .search-candidates rect { fill: var(--paper); stroke: var(--rule); }.search-candidates { opacity: calc(1 - var(--story) * .4); }.boundary { stroke: var(--rule); stroke-dasharray: 3 6; }.connections { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 200; stroke-dashoffset: calc(200 * (1 - var(--story))); }.connected-files rect { fill: var(--paper); stroke: var(--accent); }.connected-files text { fill: currentColor; }.prefab-node { transform: translateY(calc((1 - var(--story)) * 14px)); opacity: clamp(.2,calc(var(--story) * 2),1); }.scene-node { transform: translateY(calc((1 - var(--story)) * 28px)); opacity: clamp(.2,calc(var(--story) * 2 - .5),1); }.prefab-node rect,.scene-node rect { fill: var(--accent-tint); }
-.story-track { display: flex; align-items: center; gap: .5rem; color: var(--ink-muted); font: .6rem var(--font-mono); padding: .5rem 0 1.2rem; }.story-track i { flex: 1; height: 1px; background: var(--accent); opacity: var(--story); }
-figcaption { border-top: 1px solid var(--rule); padding-top: 1rem; font-size: .8rem; color: var(--ink); }figcaption span { display: block; margin-top: .7rem; font: .65rem/1.7 var(--font-mono); color: var(--ink-muted); }
+
+
 @media(prefers-reduced-motion:reduce) { .research-diagram { --story: 1 !important; } }
 </style>

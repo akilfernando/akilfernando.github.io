@@ -1,6 +1,6 @@
 export const site = {
   name: 'Akil Fernando',
-  tagline: 'Software, systems, and the questions behind them.',
+  tagline: 'Software engineer and incoming Computer Science MSc student.',
   taglineSub: 'Akil Fernando is an incoming MSc student in Computer Science at the University of Calgary, exploring game bugs, code and asset changes, and developer tooling.',
   url: 'https://akilfernando.dev',
 };
@@ -8,7 +8,7 @@ export const site = {
 export const sections = [
   { label: 'Research',   href: '/research',   blurb: 'Questions, research interests, and exploratory developer tools.' },
   { label: 'Projects',   href: '/projects',   blurb: 'Internal software platforms, security tooling, graphics engines, and games.' },
-  { label: 'About',      href: '/about',      blurb: 'Background, multi-disciplinary interests, and future direction.' },
+  { label: 'About',      href: '/about',      blurb: 'A bit about me, my work, and my plans for graduate study.' },
   { label: 'Career',     href: '/career',     blurb: 'Experience, education, and CV downloads.' },
 ];
 

@@ -6,7 +6,9 @@ Akil Fernando's portfolio site. Astro, zero-JS-by-default, content collections f
 
 All prose on this site follows the voice spec in [`docs/voice-spec.md`](docs/voice-spec.md). That file is the source of truth. Summary of how it maps here:
 
-**This is hiring-facing brand copy.** So the brand override is loaded:
+**Portfolio copy should be simple and conversational.** Use descriptive headings and complete sentences. Avoid catchphrases, slogans, mottos, dramatic fragments, and generalized lessons. Follow the portfolio copy preference in `docs/voice-spec.md` ahead of older style guidance.
+
+The punctuation override still applies:
 
 - **No em-dashes (`—`). Ever.** This is a hard rule for this repo. Translate the dash instinct into short hard-stop beats, periods, or the occasional spaced hyphen (` - `, which is authentically Akil's and not an em-dash). Ellipses (`…`) for genuine trailing thought are allowed but used sparingly.
 - The page-title separator and any structural punctuation also avoid em-dashes.

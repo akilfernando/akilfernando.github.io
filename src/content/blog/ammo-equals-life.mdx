@@ -1,31 +1,23 @@
 ---
 title: "Ammo = Life: one mechanic, no health bar"
 date: 2024-11-18
-description: "I built a shooter around a single stubborn idea: your ammo is your health. Here is what that one rule did to the whole game."
+description: "How combining health and ammunition changed the decisions players made in my Unity shooter."
 tags: ["game dev", "design", "unity"]
 draft: true
 ---
 
-I built a small first-person shooter around one stubborn idea. There is no health bar. Your ammo is your health. Every bullet you fire is a bullet that is no longer protecting you, and the only way to heal is to go find more. The name, Ammo = Life, is basically the whole design document.
+I built Ammo = Life, a small first-person shooter in which ammunition also serves as health. Firing a shot reduces your health, and collecting ammunition restores it.
 
-It started as a constraint I set myself one weekend. Strip a shooter down to a single resource and see how much that one resource can carry.
+## Using one resource for health and ammo
 
-## One number changes the whole feel
+I wanted to see how combining the two would affect the player's decisions. Each shot now carried a cost beyond using up ammunition: it also made the player easier to kill.
 
-In a normal shooter you juggle two meters. Health tells you how close you are to dying. Ammo tells you how long you can keep fighting. They pull in different directions, which is exactly why most games let you top them up separately.
+During playtesting, this made me more careful about firing. I had to weigh the risk of approaching an enemy against the health I would spend shooting from further away.
 
-Collapse them into one and the tension moves inward. Now every shot is a decision about survival, not just damage. Do you spend three rounds to be sure of the kill, or one round and a prayer? Missing is no longer a wasted opportunity. It is self-harm. Playing careful and hoarding ammo makes you, quite literally, healthier. I did not expect how tense that would make me while playtesting my own game, but there it was, a little knot under the ribs every time I squeezed the trigger.
+## What changed in the design
 
-## What the constraint forced
+- Ammo placement affected both recovery and the pace of combat.
+- Accuracy mattered more because missed shots also reduced health.
+- Players had to balance conserving ammunition against clearing enemies from their path.
 
-A few things fell out of the design that I never sat down and planned:
-
-- Aggression and caution stopped being separate playstyles. They became the same dial, and the player turns it constantly.
-- Pickups quietly became the core pacing tool. Wherever I placed ammo, I was placing safety, recovery, and risk all at once.
-- Accuracy started to matter more than fire rate. A weapon that sprays life everywhere is a weapon that gets you killed.
-
-## The lesson I kept
-
-The build is rough and was never meant to ship. What stuck with me is how much a single, honestly enforced rule can do on its own. No stat screen. No tutorial popup explaining that ammo is life. Players felt it the first time they fired into the air out of habit and watched their margin shrink.
-
-That is the clarity I now chase in everything I make, in games and well outside them. Find the one rule that does the most work, enforce it honestly, then trust it to carry the rest.
+The demo was rough and was never intended as a full release. It helped me explore how one mechanic could affect several parts of a game without adding more systems.

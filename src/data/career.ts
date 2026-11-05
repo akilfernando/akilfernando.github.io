@@ -6,13 +6,13 @@ export const experience = [
     org: 'Teams Squared',
     location: 'Colombo, Sri Lanka',
     summary:
-      'Global remote staffing firm placing skilled professionals into client companies worldwide. I lead IT infrastructure and cybersecurity across a distributed workforce of 130+ members, directing identity governance on Entra ID, maintaining our ISO 27001:2022-certified ISMS, and engineering internal software platforms.',
+      'Global remote staffing firm placing skilled professionals into client companies worldwide. I lead IT infrastructure and cybersecurity across a distributed workforce of 130+ members, managing identity in Entra ID, maintaining our ISO 27001:2022-certified ISMS, and building internal software.',
     highlights: [
       'Lead cybersecurity operations and mentor security team members, defining standards, security roadmaps, and incident response protocols.',
       'Manage enterprise IAM on Microsoft Entra ID, including MFA, conditional access policies, application registrations, and lifecycle governance.',
       'Administer Microsoft 365 tenant infrastructure, endpoint security (Bitdefender GravityZone), and RMM management (NinjaOne) across distributed teams.',
-      'Serve as appointed ISO 27001 ISMS Officer; successfully drove the organization-wide ISMS to pass its initial certification audit (ISO/IEC 27001:2022 certified, Sep 2026) and delivered mandatory security awareness training.',
-      'Architect and develop internal software platforms, growing an inherited portal into a unified operations hub for staff, contractors, and clients.',
+      'Serve as ISMS Officer and led implementation for the initial ISO 27001:2022 certification, awarded in September 2026. Delivered mandatory security awareness training.',
+      'Develop and maintain internal software, including an inherited portal that I expanded for staff, contractors, and clients.',
     ],
   },
   {
@@ -22,7 +22,7 @@ export const experience = [
     org: 'Ubisoft Halifax',
     location: 'Halifax, NS',
     summary:
-      'Engineered gameplay systems in Unity and C# across two unannounced titles, developing camera mechanics, targeting algorithms, character AI, and debug tooling.',
+      'Worked on two unannounced Unity and C# projects, including cameras, targeting, character AI, and debugging tools.',
     highlights: [
       'Implemented dynamic camera framing and camera-clipping solutions using Cinemachine and custom physics raycasting.',
       'Developed a multi-topology targeting system calculating path distance over NavMesh and hex-grid spatial layouts.',
@@ -41,7 +41,7 @@ export const education = [
     org: 'Dalhousie University',
     location: 'Halifax, NS',
     summary:
-      'Dual certificates in Cyber Security and Web & Mobile Development. Sexton Scholar, Dean’s List, and Dalhousie In-Course Scholarship recipient. Grounded in algorithms, systems architecture, security principles, and empirical methods.',
+      'Dual certificates in Cyber Security and Web & Mobile Development. Sexton Scholar, Dean’s List, and Dalhousie In-Course Scholarship recipient. Studied algorithms, systems architecture, security principles, and empirical methods.',
   },
 ];
 

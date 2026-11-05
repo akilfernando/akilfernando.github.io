@@ -1,33 +1,29 @@
 ---
 title: "We passed the ISO 27001 audit"
 date: 2026-09-03
-description: "Teams Squared cleared its Stage 2 ISO 27001 certification audit on 31 August 2026. What the auditor actually pulled on, and what the certificate does not tell you."
+description: "Teams Squared cleared its Stage 2 ISO 27001 certification audit on 31 August 2026. What the auditor checked and what we need to maintain after certification."
 tags: ["security", "iso 27001", "grc", "audit"]
 draft: false
 ---
 
-Teams Squared passed its Stage 2 ISO 27001 audit on 31 August 2026. We are certified.
+Teams Squared passed its Stage 2 ISO 27001 audit on 31 August 2026 and received certification. I led much of the implementation and preparation as ISMS Officer.
 
-I have written twice on this site about preparing for it, both times from inside the preparation, which is the only honest place to write from when you do not yet know the outcome. So here is the other side.
+## What the auditor checked
 
-## What the audit actually pulled on
+The auditor checked whether our Information Security Management System (ISMS) operated as documented. That included following individual controls from the Statement of Applicability to the process in use and the records showing it had run.
 
-Very little of it was about whether our security is good. That was the thing I kept having to re-learn while preparing, and the audit confirmed it. The auditor was testing whether the management system does what it says it does, which is a narrower and much harder question.
+Before the audit, I practiced explaining those connections in both directions: from a risk to its control and evidence, and from a setting in the tenant back to the reason for it. This helped me find gaps while there was still time to address them.
 
-The pattern was consistent. Pick a line in the Statement of Applicability. Ask what it means in this environment. Ask to see it running. Then ask for the record proving it ran last month, and the month before. Forward from risk to control to evidence, backward from a setting in the tenant to the reason it is there. I had rehearsed both directions out loud, picking controls at random and narrating the chain. That rehearsal was the single highest-value hour of the whole preparation, because it found the seams while there was still time to close them.
+Identity controls were among the easier areas to demonstrate. Entra ID and Microsoft 365 were already in use, and we had records from access reviews, joiner-mover-leaver processes, and conditional access. Areas where I had documented the work later were harder to prepare.
 
-Where we held up best was identity. Most of the access controls were already live in Entra ID and Microsoft 365, and access reviews, joiner-mover-leaver, and conditional access all produce their own evidence as a side effect of running. Nothing had to be reconstructed. Where I felt the thinness was in the places I had back-filled documentation earlier in the year, which is exactly the mistake I named in the previous post. Naming it did not undo it.
+## What happens after certification
 
-## What the certificate does not tell you
+Certification confirms that an external body assessed the management system and found it conformant at that time. It does not guarantee security or remove the need to keep reviewing the system. Next year's surveillance audit will look at the work we do between audits.
 
-A certificate says an external body checked the system on a given date and found it conformant. It does not say the company is secure, and it does not say the system will still be conformant in March. Clause 10 exists because ISO already assumes it will not be, unless someone keeps working it.
+We still have processes that rely on someone remembering to perform a task or keep a record. I want to make those easier to run consistently, using the same approach as the controls that already produce records through routine work.
 
-The realistic view is that we now have a management system that survived contact with an outsider once. That is worth something. It is not the same as it holding forever, and the surveillance audit next year will be looking at the twelve months in between, not at the week we prepared.
+## The team's role
 
-## The unglamorous part
+Although much of the implementation sat with me, this took support from other people. Having the ISMS Owner involved at executive level helped us get time and attention for the operational changes.
 
-The thing I would tell anyone doing this for the first time: the certificate is downstream of habits, not effort. The controls that passed cleanly were the ones wired into work happening anyway. The ones that made me nervous were the ones that needed a person to remember. We have a handful of the second kind left, and turning them into the first kind is the actual work for the rest of the year.
-
-Also worth saying plainly: this was not a solo effort, even though a lot of the execution sat with me. Having the ISMS Owner engaged at executive level meant the operational asks landed as company priorities rather than as IT nagging. That is most of the difference between a management system that runs and one that is a folder of documents.
-
-Certified is a milestone, not a finish line. Back to the loop.
+Now we need to keep up the reviews, evidence collection, and corrective actions that the system requires.

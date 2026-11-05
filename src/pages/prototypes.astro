@@ -13,18 +13,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p class="eyebrow">Developer Tooling &middot; Exploratory Prototypes</p>
     <div class="wayrule" aria-hidden="true"></div>
 
-    <h1 class="display h1">CI Diagnostics &amp; Crash Triage Tooling</h1>
-    <p class="tagline">Exploratory developer tooling and pipeline experiments</p>
+    <h1 class="display h1">Build logs and crash reports</h1>
+    <p class="tagline">Two prototypes tested on synthetic data</p>
 
-    <p class="lede">
-      Two exploratory developer tooling prototypes built to investigate common engineering bottlenecks: analyzing build phase durations and continuous integration timeouts in game pipelines, and automating stack trace normalization for engine crash triage. Both prototypes were evaluated on synthetic data fixtures to validate the processing pipelines and algorithms.
-    </p>
+    <p class="lede">I built two prototypes: one analyzes CI build durations and timeouts, and the other groups game engine crash logs and suggests related source changes. I tested both with synthetic data.</p>
 
     <div class="disclaimer-banner" role="note">
       <div class="disclaimer-badge">Prototype Context</div>
-      <p class="disclaimer-text">
-        These tools are proof-of-concept prototypes evaluated on synthetic data fixtures to test log parsing, stack normalization, and fault localization heuristics. They represent exploratory engineering tooling, not published academic studies.
-      </p>
+      <p class="disclaimer-text">These prototypes test log parsing, stack normalization, and rules for locating possible faults. They have not been evaluated on production data and are not published research.</p>
     </div>
   </header>
 
@@ -32,7 +28,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
        1. ENGINEERING PILLARS & BACKGROUND
        ============================================================ -->
   <h2 class="sec-label">
-    01 / Background &amp; Engineering Context
+    01 / Background
     <span>CS Degree &middot; Ubisoft Game Dev &middot; Toolchain Automation</span>
   </h2>
 
@@ -41,12 +37,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <article class="triad-card">
       <div>
         <div class="triad-header">
-          <p class="triad-number">PILLAR I</p>
+          <p class="triad-number">01</p>
           <h3 class="triad-title display">Bachelor of Computer Science</h3>
         </div>
-        <p class="triad-body">
-          Graduated from <strong>Dalhousie University (GPA 3.92, Sexton Scholar, Dean's List)</strong> with certificates in Cybersecurity and Web/Mobile Systems. Grounded in software architecture, algorithm design, empirical methods, and systems engineering.
-        </p>
+        <p class="triad-body">I graduated from <strong>Dalhousie University with a GPA of 3.92</strong> and was recognized as a Sexton Scholar and on the Dean’s List. My degree included certificates in Cybersecurity and Web/Mobile Systems.</p>
       </div>
       <ul class="triad-pills" aria-label="Academic credentials">
         <li>Dalhousie University</li>
@@ -60,12 +54,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <article class="triad-card">
       <div>
         <div class="triad-header">
-          <p class="triad-number">PILLAR II</p>
+          <p class="triad-number">02</p>
           <h3 class="triad-title display">Game Industry Experience</h3>
         </div>
-        <p class="triad-body">
-          Former <strong>Gameplay Programmer at Ubisoft Halifax</strong> working on production C# and Unity pipelines, Cinemachine camera systems, and AI behavior trees. First-hand domain insight into multi-gigabyte binary asset baking, build durations, and cross-language runtime debugging.
-        </p>
+        <p class="triad-body">During my <strong>gameplay programming co-op at Ubisoft Halifax</strong>, I worked with Unity, C#, Cinemachine cameras, and AI behavior trees. That gave me experience with game development tools and debugging.</p>
       </div>
       <ul class="triad-pills" aria-label="Game development stack">
         <li>Ubisoft Halifax</li>
@@ -79,12 +71,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <article class="triad-card">
       <div>
         <div class="triad-header">
-          <p class="triad-number">PILLAR III</p>
+          <p class="triad-number">03</p>
           <h3 class="triad-title display">Developer Toolchain Automation</h3>
         </div>
-        <p class="triad-body">
-          Hands-on development of automated workflows in Python and .NET 8: log parsing pipelines, stack frame normalizers, AST fault localization heuristics, and diagnostic tooling to accelerate developer triage.
-        </p>
+        <p class="triad-body">I use Python and .NET 8 for tools that parse logs, normalize stack frames, and explore possible connections between failures and source changes.</p>
       </div>
       <ul class="triad-pills" aria-label="Toolchain proficiency">
         <li>Python &amp; .NET 8</li>
@@ -107,26 +97,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="proto-grid">
       <div class="proto-col">
         <h3 class="proto-heading">What was built</h3>
-        <p class="proto-text">
-          A Python prototype for parsing unstructured continuous integration build logs, segmenting execution phases (asset cooking, shader compilation, C++ compilation, and Link-Time Optimization), and evaluating how phase durations and asset delta volumes correlate with pipeline timeouts using Random Forest regression.
-        </p>
+        <p class="proto-text">A Python tool that splits build logs into asset cooking, shader compilation, C++ compilation, and linking phases. It uses Random Forest regression to explore relationships between phase durations, asset changes, and timeouts.</p>
 
         <h3 class="proto-heading">Synthetic data used</h3>
-        <p class="proto-text">
-          Simulated build telemetry generating varying asset diff volumes, shader cache miss rates, and dependency graph depths across hundreds of mock pipeline runs to stress-test phase segmentation and model fitting.
-        </p>
+        <p class="proto-text">I generated hundreds of simulated build runs with different asset change volumes, shader cache miss rates, and dependency graph depths to test parsing and model fitting.</p>
       </div>
 
       <div class="proto-col">
         <h3 class="proto-heading">What I was trying to learn</h3>
-        <p class="proto-text">
-          Whether multi-stage build logs can be segmented reliably without custom build-system hooks, and whether early-phase duration spikes (e.g., asset cooking or shader compilation) serve as dependable early-warning predictors for downstream job timeouts before long compiler links run.
-        </p>
+        <p class="proto-text">I wanted to see whether logs could be split into phases without custom build-system hooks, and whether slower early phases could help predict later timeouts.</p>
 
-        <h3 class="proto-heading">What I would want real data for</h3>
-        <p class="proto-text">
-          Production CI telemetry from open-source game engines (like Godot) or large C++ repositories to test model accuracy against real-world runner contention, distributed cache hit variance, flaky network steps, and heterogeneous worker hardware.
-        </p>
+        <h3 class="proto-heading">What I would test next</h3>
+        <p class="proto-text">Real CI logs from a game engine such as Godot or a large C++ project would let me test the approach against differences in runner hardware, cache behavior, and network delays.</p>
       </div>
     </div>
 
@@ -149,26 +131,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="proto-grid">
       <div class="proto-col">
         <h3 class="proto-heading">What was built</h3>
-        <p class="proto-text">
-          A high-throughput .NET 8 CLI tool that ingests raw game engine crash logs, strips volatile dynamic memory pointers and thread identifiers, normalizes call stack frames into canonical SHA-256 cluster signatures for deduplication, and applies deterministic heuristic rules to map stack frames to recent Git commit changes.
-        </p>
+        <p class="proto-text">A .NET 8 command-line tool that removes changing memory addresses and thread identifiers from crash logs. It uses SHA-256 signatures to group similar stacks and applies rules to connect stack frames with recent Git changes.</p>
 
         <h3 class="proto-heading">Synthetic data used</h3>
-        <p class="proto-text">
-          A suite of 50 synthetic crash logs spanning 6 common game engine failure archetypes: NodePath resolution breaks after scene reparenting, null physics body states during asynchronous raycasts, shader uniform buffer binding mismatches, cross-thread object disposal race conditions during scene unload, signal emissions to deleted UI elements, and navigation waypoint array index overflows.
-        </p>
+        <p class="proto-text">I used 50 synthetic logs covering six failure types: broken NodePaths after scene changes, null physics bodies, shader buffer mismatches, disposal races during scene unload, signals sent to deleted UI elements, and navigation array overflows.</p>
       </div>
 
       <div class="proto-col">
         <h3 class="proto-heading">What I was trying to learn</h3>
-        <p class="proto-text">
-          How cleanly pointer-stripped normalization clusters noisy engine crashes across repeated runs, and whether simple heuristic commit mapping (matching modified methods in recent commits to top-of-stack frames) can accurately isolate the introducing change in simulated regressions.
-        </p>
+        <p class="proto-text">I wanted to see whether removing variable details would group repeated crashes consistently, and whether matching stack frames to recently changed methods could identify the relevant commit in simulated regressions.</p>
 
-        <h3 class="proto-heading">What I would want real data for</h3>
-        <p class="proto-text">
-          Real issue tracker dumps and crash reports from open-source game engines (such as Godot GitHub issues) to evaluate real-world stack trace noise, inlined compiler frames, multi-threaded inter-leaved logs, and complex multi-commit regressions.
-        </p>
+        <h3 class="proto-heading">What I would test next</h3>
+        <p class="proto-text">Real engine crash reports would let me test the tool against inlined frames, interleaved thread logs, and regressions involving more than one commit.</p>
       </div>
     </div>
 
@@ -188,7 +162,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="control-dot dot-green"></span>
       </div>
       <div class="terminal-title">godot_triage_engine.exe &middot; Terminal Output</div>
-      <div class="terminal-badge">SYNTHETIC FIXTURE DEMO &middot; ARCHITECTURAL PROOF</div>
+      <div class="terminal-badge">ILLUSTRATIVE OUTPUT &middot; SYNTHETIC DATA</div>
     </div>
 
     <pre class="terminal-content"><code><span class="t-banner">===========================================================================

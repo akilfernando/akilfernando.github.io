@@ -8,8 +8,10 @@ blurb: "Automated security-posture reporting I inherited from my predecessor and
 links: []
 ---
 
-A tool that gathers security posture information across the fleet and turns it into a readable report. My predecessor built the first version. I took it over and significantly extended it, and most of what it does now came out of that work. It is a Python and Flask project: Playwright drives the collection, automating its way through surfaces a person would otherwise have to check by hand, and the Anthropic Claude API helps analyse and summarise what comes back into scheduled reports.
+This tool collects security information from our device fleet and produces scheduled reports. My predecessor built the first version, and I took over development and extended it.
 
-Most of the extension work was about widening what the tool can actually see. I wired in NinjaOne, our remote monitoring and management (RMM) system, and connected it to the Fleet Management System I built, which is our device inventory and provisioning system, so the reporting now draws on real device state rather than endpoint data alone. Bitdefender GravityZone feeds the endpoint side.
+It uses Python and Flask, with Playwright to collect information that would otherwise need to be checked manually. The Anthropic Claude API helps analyze and summarize the results.
 
-It sits right at the intersection I find most interesting. Real security work, made faster by good engineering. The repetitive, error-prone parts of checking a posture are exactly the parts worth automating, so human attention can go to the judgement calls instead of the gathering.
+I added NinjaOne integration and connected it to the Fleet Management System I built, so reports could include device inventory and provisioning information alongside endpoint data from Bitdefender GravityZone.
+
+Automating collection gives the security team more time to review findings and decide what needs attention.

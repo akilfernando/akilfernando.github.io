@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Zeph · System Specs & Dashboard" description="System specifications, hardware telemetry, and status dashboard for Zeph (DESKTOP-FPHMBQE).">
+<BaseLayout title="Zeph · System Specs & Dashboard" description="Hardware and software configuration for my primary machine, Zeph (DESKTOP-FPHMBQE).">
   <section class="section" style="max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem;">
     <header class="section-header" style="margin-bottom: 3rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
         <p class="eyebrow" style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.85rem; color: var(--text-muted, #888); margin: 0;">Workstation</p>
-        <span style="font-size: 0.85rem; padding: 0.25rem 0.75rem; background: rgba(70, 130, 180, 0.1); color: #4682b4; border-radius: 99px; font-weight: 500;">Online & Optimal</span>
+        <span style="font-size: 0.85rem; padding: 0.25rem 0.75rem; background: rgba(70, 130, 180, 0.1); color: #4682b4; border-radius: 99px; font-weight: 500;">System configuration</span>
       </div>
-      <h1 class="display" style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem;">Zeph Dashboard</h1>
-      <p class="tagline" style="font-size: 1.15rem; color: var(--text-secondary, #555);">Hardware telemetry, system configuration, and live status for Akil's primary machine (DESKTOP-FPHMBQE).</p>
+      <h1 class="display" style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem;">My workstation</h1>
+      <p class="tagline" style="font-size: 1.15rem; color: var(--text-secondary, #555);">The hardware, development tools, and scheduled tasks on my primary machine, Zeph (DESKTOP-FPHMBQE).</p>
     </header>
 
     <!-- Visual Hardware Status Card -->
@@ -17,7 +17,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         <div>
           <h3 style="margin: 0; font-family: var(--font-display, serif); font-size: 1.4rem; color: #1a365d;">DESKTOP-FPHMBQE</h3>
-          <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem; color: #4a5568;">Primary Node & AI Execution Engine</p>
+          <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem; color: #4a5568;">Primary development machine</p>
         </div>
         <div style="display: flex; gap: 0.75rem;">
           <span style="padding: 0.35rem 0.75rem; background: #e2e8f0; border-radius: 6px; font-size: 0.85rem; font-family: monospace;">RTX 4060</span>
@@ -44,7 +44,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <!-- Detailed Prose Sections -->
     <div class="prose" style="margin-top: 3rem;">
-      <h2 style="font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color, #eee); padding-bottom: 0.5rem;">Core Architecture & Services</h2>
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color, #eee); padding-bottom: 0.5rem;">Hardware and software</h2>
       <ul style="line-height: 1.8;">
         <li><strong>OS & Environment:</strong> Windows 11 Pro host with WSL2 Ubuntu (Linux 6.18.33.2-microsoft-standard-WSL2 x64).</li>
         <li><strong>GPU Acceleration:</strong> NVIDIA GeForce RTX 4060 powering local model inference and compute workloads.</li>
@@ -55,7 +55,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2 style="font-size: 1.5rem; margin: 2.5rem 0 1rem 0; border-bottom: 2px solid var(--border-color, #eee); padding-bottom: 0.5rem;">Scheduled Maintenance & Automation</h2>
       <ul style="line-height: 1.8;">
         <li><strong>Weekly System Health & Cleanup:</strong> Runs Sundays at 02:00 AM (Asia/Colombo) to audit disk storage and clean temporary caches.</li>
-        <li><strong>Memory Dreaming & State Sync:</strong> Automated background context consolidation running daily.</li>
+        <li><strong>Memory and state updates:</strong> Automated background context consolidation running daily.</li>
       </ul>
     </div>
   </section>

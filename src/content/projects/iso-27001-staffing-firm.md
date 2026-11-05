@@ -8,43 +8,34 @@ blurb: "Standing up an Information Security Management System from scratch at a 
 links: []
 ---
 
-Standing up an Information Security Management System (ISMS) from nothing, as the appointed officer for it, at a global remote staffing firm. This is the piece of work I point people to first, since it is the one where the Governance, Risk, and Compliance (GRC) side and the hands-on security side had to meet in the same place and hold.
+As the appointed ISMS Officer at Teams Squared, I led the implementation work for ISO 27001:2022 certification. The company is a remote staffing firm with more than 130 team members across several countries, using Microsoft 365 and Microsoft Entra ID.
 
 ## Context
 
-The organization is a global remote staffing firm, legal-first and now multi-industry, that places skilled professionals from emerging markets into teams at client companies worldwide. More than 130 team members across many countries, on a Microsoft 365 and Microsoft Entra ID stack. I lead IT and security for the company and its contractors, which puts me in regular contact with clients and their IT teams, and the ISMS was mine to build.
+Clients were asking for certification. We needed a management system that reflected how our staff and contractors worked, including work inside client environments. We also needed to keep the company running while preparing for the external audit in late August 2026.
 
-Certification was a business requirement, not a vanity exercise. Clients were beginning to ask for it, so the ask landed on me: take the organization from no formal management system to something a certification body would sign off on. I had done plenty of the technical controls before. I had never owned the management system that is supposed to hold them together.
+The small internal team had no dedicated GRC function, so the procedures had to be practical to maintain alongside day-to-day work.
 
-## Constraints
+## Scope and risk
 
-- **A distributed team on someone else's clock.** Most of the people in scope are team members embedded in client companies, spread across time zones and working inside client environments. Any control that assumed everyone sat in one office, on managed hardware, on one network, was a control that would not survive contact with reality.
-- **Small team, no dedicated GRC function.** The management system had to be light enough that a handful of people could actually run it, month after month, without a compliance department behind them. A framework nobody maintains is worse than no framework, since it lies about where you stand.
-- **Certification timeline.** The initial external certification audit was scheduled for late August 2026, creating a hard deadline to prove every control and policy was operating live with authentic evidence.
-- **Live business.** None of this could stop the day-to-day running of the company or the team members placed at clients. The ISMS had to be built around operations that were already running.
+I defined which information, systems, people, and locations were covered by the ISMS, including the distinction between our own systems and client environments.
 
-## Approach
+I developed a risk assessment method based on assets, information flows, threats, and vulnerabilities, with consistent likelihood and impact scoring. Common concerns included stale accounts, shared credentials, and unpatched laptops.
 
-I started where the standard makes you start, which is not with controls. It is with scope and risk.
+## Controls and evidence
 
-**Scoping.** First job was drawing an honest boundary. What information, what systems, what people, what locations are inside the ISMS, and what is deliberately outside it. For a staffing firm that line is genuinely hard, because you are handling your own information and, in places, information that sits inside the client environments your team members work in. I wrote the scope statement to be specific about that split rather than papering over it.
+I worked through the Annex A controls in the Statement of Applicability, recording whether each applied and why. This included checking how the documented controls matched the settings and processes already in use in Entra ID and Microsoft 365.
 
-**Risk assessment.** I built a risk assessment methodology the team could actually apply, not a spreadsheet that looked rigorous and died on first use. Assets and information flows first, then threats and vulnerabilities against them, then a consistent way to score likelihood and impact so two people scoring the same risk landed in roughly the same place. For a team this size the honest risks were rarely exotic. A stale account nobody deprovisioned. A shared credential. An unpatched laptop on a home network. The methodology had to surface the boring, real risks and not get lost chasing the dramatic ones.
-
-**Statement of Applicability.** Then the Annex A controls, one at a time. The Statement of Applicability (SoA) is the document that says, control by control, this applies and here is why, or it does not and here is why not. This was the part that changed how I think. You cannot wave at best practice. You have to justify your own environment to yourself, in writing, and mean it. Most of the identity and access controls mapped cleanly onto work already live in Microsoft Entra ID and Microsoft 365, so the SoA also became an honest audit of what we really had switched on versus what we told ourselves we had.
-
-**Policy and evidence.** Controls need policy behind them and evidence in front of them. I wrote the policy set to be short and readable, since a policy nobody reads is not a control, and wired each one to evidence that gets produced by the work happening anyway rather than by a separate compliance chore. Access reviews that actually run. Offboarding that is real and not theoretical. Proof that the thing happened, not just the intention to. Awareness is a control too, so the mandatory ISMS training runs through an internal platform I built, which tracks who completed it and turns that completion into evidence on its own.
+I wrote and revised policies and procedures, and connected them to records from access reviews, offboarding, risk treatment, and other routine work. Mandatory ISMS awareness training ran through the internal LMS I built, which recorded course completion.
 
 ## Outcome
 
-The organization went from zero formal management system to successfully passing its initial Stage 2 certification audit with no major nonconformities, earning official ISO/IEC 27001:2022 certification in September 2026 (Certificate UQSR-9759-TSPL).
+Teams Squared passed its initial Stage 2 certification audit with no major nonconformities and received ISO/IEC 27001:2022 certification in September 2026 (Certificate UQSR-9759-TSPL).
 
-The certificate is the visible part, and it is the least interesting part. What the audit actually confirmed is that the evidence trail holds when someone outside the company pulls on it.
+The ongoing work includes risk reviews, monitoring controls, recording corrective actions, and preparing for future audits.
 
-The more durable outcome is that the ISMS is a loop, not a one-time push. Assess, treat, monitor, review, improve, and around again. It runs at a size the team can sustain, which was the whole point.
+## What I would change
 
-## What I'd do differently
+I would start collecting evidence earlier. Some controls were operating before we had consistent records, which meant reconstructing documentation close to the audit deadline.
 
-I would start the evidence habit earlier. For the first stretch I treated documentation as something to catch up on once the controls were in place, and that led to a scramble to reconstruct proof of things we had genuinely been doing for months. The work was real. The record of it was not, and to an auditor those are the same problem. Next time I wire the evidence in from day one, so the trail builds itself as the controls go live instead of being back-filled under a deadline.
-
-I would also socialize the risk methodology with the team sooner. I built it well but largely alone, so the first few risk conversations were me explaining the scoring rather than the team owning it. A management system only survives if the people in it treat it as theirs, and that buy-in is easier to build early than to retrofit.
+I would also involve the team in the risk assessment method sooner. I developed much of it alone, so early discussions took more explanation than they would have if we had worked through the scoring together.

@@ -853,7 +853,7 @@ const fmt = (d: Date) =>
         popoverQuote.textContent = `“${ann.text}”`;
       }
       if (popoverComment) {
-        popoverComment.textContent = ann.comment || '(No note written — highlight only)';
+        popoverComment.textContent = ann.comment || '(Highlight saved without a note)';
         popoverComment.hidden = false;
       }
       if (popoverEditArea) popoverEditArea.hidden = true;

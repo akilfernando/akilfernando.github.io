@@ -1,46 +1,33 @@
 ---
 title: "Inheriting a production app"
 date: 2026-04-20
-description: "Taking over an unreleased dashboard, expanding its scope to replace legacy third-party tools, and the hard lessons of rolling out software as a solo developer."
+description: "How I took over a client dashboard, added contractor workflows, and handled the rollout as its sole developer."
 tags: ["software", "engineering", "architecture", "ai"]
 draft: false
 ---
 
-When I joined Teams Squared, I inherited two key software projects from my predecessor: an internal cybersecurity posture reporting tool and an unreleased client dashboard app. Other legacy prototypes were on the table, but we deprecated them to focus entirely on building tools that directly drove company operations.
+When I joined Teams Squared, I inherited an internal security reporting tool and an unreleased client dashboard. We set aside the other prototypes to focus on these two applications.
 
-The client dashboard was not yet live—there were no active users, but there was an ambitious vision and a codebase I had never seen. 
+The dashboard had no active users yet. I needed to understand the existing code, work out what the company needed from it, and prepare it for release as the sole developer.
 
-Getting that application over the finish line and into real production turned into one of the most intense, humbling, and educational software engineering experiences of my career.
+## Expanding the client portal
 
-## From client viewer to complete internal platform
+The original app let clients view team members, invoices, and notifications. It pulled timesheets and leave requests from Zelt and Clockify through APIs and scraping.
 
-Originally, the app was designed as a lightweight client portal. Clients could log in to check the status of their engagements with Teams Squared, view active team members, and check due invoices and notifications. To populate this, the app pulled timesheets and leave requests via APIs and scraping from the third-party platforms we were already using—primarily **Zelt** for HRIS and **Clockify** for time tracking.
+We decided to bring those workflows into the app instead of continuing to depend on the external tools. Clients could manage their account, billing, and team roster, while contractors could log hours, manage timesheets, and request leave. We added Resend for transactional emails and configured Microsoft Entra ID single sign-on, which was staged for production release at the time of writing.
 
-As we evaluated our operational needs, the scope expanded dramatically: rather than relying on brittle scrapers and fragmented external tools, why not replace Zelt and Clockify entirely?
+## What I missed in the first version
 
-We evolved the application from a read-only client viewer into a two-sided platform. On one side, clients manage their account, billing, and team roster. On the other, our distributed remote contractors log their daily working hours, manage timesheets, and submit leave requests. We integrated **Resend** for automated transactional emails and built out enterprise single sign-on with **Microsoft Entra ID** (currently staged for production release).
+At first, I focused on getting features working. I added timesheet approvals and leave tracking, but spent too little time checking how users would move through the app.
 
-## The trap of feature-first development
+Some features worked as specified but were confusing to use. If I were starting again, I would map out the daily workflows with clients and contractors before building the screens. That would help me catch navigation and usability problems earlier.
 
-Taking a system from an unreleased prototype to an all-in-one company hub as a solo developer was a massive undertaking, and in the beginning, I made mistakes.
+## Supporting the rollout
 
-My early focus was intensely feature-driven: how quickly can I build timesheet approvals? How fast can I wire up leave tracking? But in my haste to ship raw functionality, I paid too little attention to the end-to-end user experience. 
+We did not have a dedicated QA team. When clients and contractors started using the app, I was responsible for investigating bugs, fixing them, and deploying updates.
 
-The result was that some features, while functionally "complete," were confusing or awkward to navigate. I had built what was asked for, but not how a real client or contractor naturally expected to use it. 
+I used Claude Code and Google Antigravity to help trace issues across the React front end and FastAPI back end and draft fixes. I also separated staging from production, set up automated deployment pipelines, and used AI tools to help write regression tests and check builds before release.
 
-If I were to start that rollout over again, my approach would be inverted: start with the user's mental model and daily workflow first, and build the minimal, polished mechanics that support those user flows seamlessly. Prioritizing UX over feature velocity might feel slower initially, but it saves countless hours of retrofitting and prevents user friction.
+## What I would carry into the next project
 
-## Solo rollouts and modern AI workflows
-
-Rolling out a major platform solo with no dedicated QA or testing team is a trial by fire. When we launched to real clients and contractors, edge cases and bugs were naturally surfaced live in production, and I was the only developer on the hook to investigate, fix, and deploy patches.
-
-What made that manageable was transforming my development workflow with modern AI developer tooling:
-
-- **AI-Accelerated Engineering**: Leveraging tools like **Claude Code** and **Google Antigravity** allowed me to rapidly diagnose production issues, trace complex state across our React frontend and FastAPI backend, and scaffold robust fixes in minutes instead of hours.
-- **Guardrails and Environments**: I established strict separation between staging and production environments, wired up automated CI/CD pipelines, and used agentic workflows to write regression tests and verify builds before deployment.
-
-## What building in production actually teaches
-
-Inheriting software that other people will rely on every day strips away academic theory. It teaches you that real software engineering is rarely about writing code in a clean green field. 
-
-It is about understanding existing constraints, listening closely to where users struggle, maintaining discipline in your deployment pipelines, and having the humility to iterate when your first assumptions don't survive contact with reality.
+I would spend more time understanding existing code and watching how people use the application before expanding its feature set. The rollout showed me where my assumptions about users were wrong, and staging and regression checks helped me make corrections more safely.

@@ -15,9 +15,9 @@ const pixels = GRID.flatMap((row, y) =>
   [...row].map((bit, x) => (bit === '1' ? { x, y } : null)).filter(Boolean)
 );
 ---
-<button id="retro-toggle" class="retro-toggle" type="button" data-retro-toggle aria-pressed="false" aria-label="Enable retro theme" title="A little time travel?" hidden>
+<button id="retro-toggle" class="retro-toggle" type="button" data-retro-toggle aria-pressed="false" aria-label="Enable retro theme" title="Enable retro theme" hidden>
   <svg class="alien" viewBox="0 0 11 8" width="16" height="12" aria-hidden="true" shape-rendering="crispEdges">{pixels.map((p) => <rect x={p.x} y={p.y} width="1" height="1" />)}</svg>
-  <span class="retro-hint" aria-hidden="true">Take a trip to 2001</span>
+  <span class="retro-hint" aria-hidden="true">Enable retro theme</span>
 </button>
 <span class="sr-only" id="theme-status" role="status" aria-live="polite"></span>
 <script>
@@ -29,9 +29,9 @@ const pixels = GRID.flatMap((row, y) =>
       button.hidden = false;
       button.setAttribute('aria-pressed', String(enabled));
       button.setAttribute('aria-label', enabled ? 'Return to modern theme' : 'Enable retro theme');
-      button.title = enabled ? 'Return to modern theme' : 'A little time travel?';
+      button.title = enabled ? 'Return to modern theme' : 'Enable retro theme';
       const hint = button.querySelector('.retro-hint');
-      if (hint) hint.textContent = enabled ? 'Back to the present' : 'Take a trip to 2001';
+      if (hint) hint.textContent = enabled ? 'Return to modern theme' : 'Enable retro theme';
     }
   }
   for (const button of controls) button.addEventListener('click', () => {

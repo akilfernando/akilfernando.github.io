@@ -1,41 +1,31 @@
 ---
-title: "What an ISMS actually asks of you"
+title: "Preparing our ISMS for ISO 27001 certification"
 date: 2026-08-20
-description: "Inheriting an ISO 27001 ISMS after Stage 1, closing the gap between policy documents and operational reality, and preparing a fast-growing remote team for certification."
+description: "How I revised our ISO 27001 procedures, put them into practice, and prepared our remote team for the Stage 2 audit."
 tags: ["security", "iso 27001", "operations", "identity"]
 draft: false
 ---
 
-When I joined Teams Squared as IT Operations & Cybersecurity Lead, the company had just cleared Phase 1 of its ISO 27001 audit. Phase 1 is essentially a documentation review: you present the policies, procedures, and frameworks you intend to operate to achieve compliance. 
+When I joined Teams Squared as IT Operations & Cybersecurity Lead, the company had completed Stage 1 of its ISO 27001 audit, which reviewed the management system documentation. Many of the documented processes still needed to be put into practice.
 
-The catch was that very little of what was documented on paper had actually been put into practice yet.
+As the operational lead for the Information Security Management System (ISMS), I needed to understand the existing documents, revise them where they did not fit our operations, and help the team implement the processes they described.
 
-Stepping in as the operational lead for the Information Security Management System (ISMS) meant tackling a steep double challenge: getting up to speed on a sprawling corpus of compliance documents I had no hand in writing, and immediately doing the heavy lifting of reshaping those documents to match reality while changing how the company operated to meet the standard.
+## Security for a remote team
 
-## Securing a fully remote footprint
+Our staff and contractors work from home across several regions. We use Microsoft Entra ID for identity and access management, NinjaOne for device management and patching, and Bitdefender GravityZone for endpoint protection.
 
-Teams Squared operates as a fully distributed staffing firm where team members work remotely from their homes across different regions. Without a traditional physical office perimeter, information security lives entirely in identity governance, endpoint defense, and disciplined operational habits.
+The internal team was roughly a dozen people at the time, with many recent joiners. The procedures needed to be practical enough for that team to follow alongside its other work.
 
-To keep client and internal data secure across remote environments, we had to push our core platforms to their full effectiveness:
+## Preparing for Stage 2
 
-- **Microsoft Entra ID** for centralized identity architecture, strict role-based access, and robust multi-factor authentication.
-- **NinjaOne** for remote device management, continuous patching, and endpoint health monitoring.
-- **Bitdefender GravityZone** for endpoint protection and threat prevention across all distributed workstations.
+Stage 2 checks whether the management system operates as documented. Preparing for it meant reviewing nearly all of our ISO 27001 documents. I wrote several new procedures and revised dozens of existing ones to reflect the work we were doing and the changes we needed to make.
 
-Our internal core team is lean—roughly a dozen people, with most joining over the last two months amid rapid company growth. In a high-growth environment, security controls cannot afford to be bureaucratic bottlenecks; they have to be practical, reliable, and integrated directly into daily workflows.
+Much of the implementation was my responsibility. Our ISMS Owner and COO, Amresh Selvaskandan, was actively involved, which helped us coordinate the changes across the company.
 
-## Closing the gap between paper and practice
+At the time of writing, our Stage 2 audit was scheduled for 31 August. I wanted us to be able to show both that the controls were operating and that we had reliable records of them.
 
-Preparing for the Stage 2 audit—the rigorous assessment where external auditors test whether you actually do what your documents claim—has meant touching nearly every document in our ISO 27001 corpus. I have authored several new procedures and amended or overhauled dozens more so that our policies accurately reflect how we protect data.
+## Keeping the system running
 
-A huge amount of the day-to-day execution rests on my shoulders, but having strong leadership support has made all the difference. Working closely with our ISMS Owner, Amresh Selvaskandan (our COO), who has taken an active leadership role throughout this process, has allowed us to align operational discipline with executive backing. 
+The work continues after the audit. ISO 27001 requires continual improvement under Clause 10, including identifying nonconformities and taking corrective action.
 
-As we head into our Stage 2 audit on August 31st, the goal is not just earning the certificate—it is walking into the audit knowing our evidence trail and controls are authentic.
-
-## Why compliance is an ongoing loop
-
-The biggest takeaway from this process is that an ISMS is not a one-off project or a checklist you complete once and shelve. 
-
-The reality is that no organization is ever "100% compliant" in a static sense. Incidents occur, edge cases arise, and nonconformities happen—especially in a company scaling rapidly. ISO 27001 explicitly accounts for this through the requirement of continual improvement (Clause 10). 
-
-An ISMS is an active operational loop: assess risk, implement controls, monitor performance, catch nonconformities, and iterate. The goal isn't achieving hypothetical perfection on paper; it is building a resilient, self-correcting system that keeps pace with the company as it grows.
+For us, that means reviewing risks, monitoring controls, recording problems, and checking whether the changes we make address them. Those tasks need to remain part of routine operations as the company grows.

@@ -45,11 +45,10 @@ const presentStatuses = new Set(entries.map((e) => e.data.status));
   <p class="eyebrow">Log</p>
   <div class="wayrule"></div>
   <h1 class="display h1">Backlog and reviews.</h1>
-  <p class="intro">What I am playing, watching, and reading, plus what is queued up and what I made
-    of it once I finished. Ratings out of five, reviews are my own.</p>
+  <p class="intro">What I’m reading, watching, and playing, along with my reviews and what I’d like to try next. Ratings are out of five.</p>
 
   {entries.length === 0 ? (
-    <p class="empty">Nothing logged yet. Entries live under <code>src/content/library/</code>.</p>
+    <p class="empty">Nothing logged yet.</p>
   ) : (
     <>
       <div class="filters" hidden>
@@ -86,7 +85,7 @@ const presentStatuses = new Set(entries.map((e) => e.data.status));
           </li>
         ))}
       </ul>
-      <p class="noresults" hidden>Nothing here in that combination.</p>
+      <p class="noresults" hidden>No entries match these filters.</p>
     </>
   )}
 </BaseLayout>

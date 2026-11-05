@@ -11,6 +11,10 @@ Section 0 captures the **deep fingerprint** — the handful of traits that hold 
 
 ---
 
+## Portfolio copy preference
+
+Use simple, conversational language for site copy and technical posts. Prefer complete sentences, concrete descriptions, and headings that name the subject. Avoid catchphrases, slogans, mottos, dramatic fragments, and broad life lessons at the end of project descriptions. For example, use "About me" rather than "Curiosity, put to work." Explain what I did and why without making it sound like a brand campaign. This preference takes priority over the clipped or literary style guidance below for portfolio copy. Preserve authored fiction and personal reviews verbatim.
+
 ## 0. Deep fingerprint (true in everything you write)
 
 These four show up in a High-risk change-approval email *and* in atmospheric fiction. They are the bedrock.

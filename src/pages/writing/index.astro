@@ -11,12 +11,11 @@ const fmt = (d: Date) =>
 <BaseLayout title="Writing" description="Fiction and other creative writing.">
   <p class="eyebrow">Writing</p>
   <div class="wayrule"></div>
-  <h1 class="display h1">Stories.</h1>
-  <p class="intro">A place for the writing I do off the clock. Mostly fiction, often unfinished, added
-    to whenever a piece is ready to be read.</p>
+  <h1 class="display h1">Creative writing</h1>
+  <p class="intro">Fiction I write in my spare time. Some pieces are still in progress.</p>
 
   {pieces.length === 0 ? (
-    <p class="empty">Nothing here yet. Add <code>.md</code> files under <code>src/content/writing/</code>.</p>
+    <p class="empty">No stories published yet.</p>
   ) : (
     <ul class="list">
       {pieces.map((p) => (

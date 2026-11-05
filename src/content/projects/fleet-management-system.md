@@ -8,8 +8,8 @@ blurb: "Started as an allocation engine, now the system of record for our entire
 links: []
 ---
 
-An internal system I built and still own end to end. It started as a simple allocation engine, answering the unglamorous but important questions a globally distributed staffing firm has to keep straight: who has which device, what state it is in, and where everything sits at any given moment. It has since grown into the system of record for our whole device fleet.
+I built and maintain this internal device management system at Teams Squared. It began as a way to track device assignments and now records inventory, endpoint provisioning, purchases, allocations, and handovers across the company's distributed workforce.
 
-These days it does a lot more than allocate. It tracks the entire device inventory, and it handles endpoint provisioning through close integration with NinjaOne, our remote monitoring and management (RMM) platform. It also carries a strong audit trail, which matters for ISO 27001. It automatically logs the remote support sessions our IT team runs through NinjaOne, and it keeps the full history of every device purchase, allocation, and handover. So when an auditor asks who touched a machine and when, or when day-to-day IT and logistics need to know where a device has been, the answer is already there.
+It integrates with NinjaOne, our remote monitoring and management platform, for provisioning and automatic logging of remote support sessions. The device history helps the IT team handle day-to-day logistics and provides records for ISO 27001 audits.
 
-It is a Next.js app backed by Supabase, with Drizzle ORM for a typed, predictable data layer. The interesting part was less the code and more the modelling. Get the schema for devices, people, assignments, and events right and the system stays accurate as hardware is purchased, handed out, returned, and reassigned. An asset tracker is only useful if it is trusted, and it is only trusted if it never quietly drifts out of sync with reality.
+The app uses Next.js, Supabase, and Drizzle ORM. Much of the design work went into modelling devices, people, assignments, and events so that the records stayed accurate as hardware was purchased, returned, and reassigned.

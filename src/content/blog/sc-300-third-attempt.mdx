@@ -1,43 +1,27 @@
 ---
 title: "SC-300 on the Third Attempt: What Finally Worked"
 date: 2026-07-06
-description: "I passed the SC-300 on my third try. The exam did not get easier. The way I studied for it, and the way I read the questions, is what changed."
+description: "How scenario practice, hands-on Entra ID work, and slower reading helped me prepare for another attempt."
 tags: ["sc-300", "certification", "identity"]
 draft: true
 ---
 
-I passed the SC-300, Microsoft's Identity and Access Administrator Associate exam, on the third attempt. I am not going to dress that up. Two fails, then a pass, and the exam did not get easier in between. What changed was how I studied and, more than that, how I read the thing while sitting in front of it.
+I passed Microsoft's SC-300 Identity and Access Administrator Associate exam on my third attempt. After the first two attempts, I changed how I studied and how I worked through the questions.
 
-If you are staring at a second fail wondering what you are missing, this is the post I wish I had read.
+## Using the feedback
 
-## The scoring is more brutal than it looks
+The score report gave me broad topic areas to revisit rather than per-question feedback. I used the weaker domains to decide what to study again instead of trying to guess which individual questions I had missed.
 
-The single thing that reframed the exam for me was understanding how multi-response questions are scored. The ones that say "select all that apply" or "choose three."
+## Practicing scenarios
 
-They are all-or-nothing. There is no partial credit. If a question has three correct answers and you get two right and one wrong, you do not get two thirds of the marks. You get zero. A near-miss and a total blank score exactly the same.
+Reading the material until it felt familiar was not enough for me. I started practicing scenario questions and explaining why I would choose one control over another. I also worked through why the remaining options did not fit the situation.
 
-Once that landed, a lot of my earlier result made sense. I had walked out of my first two attempts feeling like I "mostly knew it," and mostly knowing it is precisely the profile that fails this format. Every multi-select question is a small trap where being roughly right is worth nothing. So the bar is not "recognize the right answers." It is "recognize the right answers and reject the plausible wrong ones," on the same question, every time.
+## Working in Entra ID
 
-## The feedback tells you almost nothing
+My day job gave me practical experience with MFA, app registrations, and identity governance. Configuring those features and seeing how they behaved helped me understand material I had previously only read about.
 
-The other hard part is that when you fail, the report is thin. You get a score and a breakdown by domain, the broad topic areas the exam is organized into, and that is essentially it. No per-question feedback. No "you missed these three." Just domain-level percentages telling you, vaguely, that you were weaker over here than over there.
+## Reading more carefully
 
-That is genuinely difficult to study against. You cannot go back and drill the exact questions you got wrong, because you are never told. So the instinct to re-study by hunting for "the questions I missed" does not work. There are no questions to hunt for.
+I slowed down on questions with multiple answers and checked each option individually. If I could not explain why an option was right or wrong, I treated that as a topic I needed to revisit.
 
-What the domain breakdown is actually good for is coarse triage. It will not tell you which facts you lack, but it will tell you which whole area to go rebuild. I stopped trying to reverse-engineer individual mistakes and started treating a weak domain as a signal to relearn that domain from the ground up, not patch it.
-
-## What actually changed between attempts
-
-A few things, and none of them were "study harder."
-
-**I stopped studying for recognition and started studying for decisions.** Early on I revised by reading and re-reading until the material felt familiar. Familiarity is a liar on this exam. The questions do not ask "have you seen this before." They ask "which of these five things do you do, given this specific situation." So I switched to practicing decisions: given a scenario, what is the right control, and just as important, why are the other options wrong. That second half is what the all-or-nothing scoring is really testing.
-
-**I built things instead of only reading about them.** A lot of the identity material stops being abstract the moment you actually do it in a tenant. Reading about MFA enforcement, app registrations, and identity governance is one thing. Standing them up in a live Entra ID tenant and watching how they behave is another. My day job put me hands-on with a lot of the identity and access side, which is probably the biggest unfair advantage I had by the third attempt.
-
-**I slowed down on the multi-selects.** Knowing they were all-or-nothing, I gave them the time that respect implies. On a "choose three" I would find my three, then go back and actively argue myself out of each of the other options. If I could not say why a distractor was wrong, I treated that as a sign I did not actually know the question yet.
-
-## If you are about to sit it again
-
-Study for the decision, not the definition. Treat every multi-select as a place where "close" is worth zero, so verify each option in and each option out. Use the domain breakdown as a map of what to rebuild, not a list of what to memorize. And if you can, get your hands into a real tenant, because the exam is testing whether you would make the right call on the job, and there is no faster way to learn that than making the wrong call somewhere it does not matter.
-
-Third time worked. Not because I finally out-memorized it, but because I finally started answering the question it was actually asking.
+For another attempt, I would use the domain feedback to plan revision, practice decisions in context, and spend time using the features in a tenant where possible.

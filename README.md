@@ -40,3 +40,13 @@ Internal text links use a right arrow; external destinations use a diagonal arro
 The small pixel invader in the footer enables an optional early-2000s theme. The setting persists locally between pages, restores before first paint, and can be reversed from the top banner or footer. The toggle has a keyboard-accessible label and hint; it stays hidden when JavaScript is unavailable. The theme uses static decoration, without flashing or autoplay.
 
 The header theme icon offers Light, Dark, and System default. Explicit choices persist locally; System follows the operating system preference. Retro mode temporarily overrides that palette without changing the saved choice.
+
+## Interactive presentation
+
+The homepage pairs the existing editorial typography and color tokens with interactive project illustrations. `ProjectPreview.astro` provides sample document tools for OpenQuire and a CSS 3D scene with orbit and wireframe controls for Ruster. These are illustrations, not embedded versions of either application, and also appear on their project detail pages.
+
+`ResearchDiagram.astro` lets visitors select a scene, prefab, script, or material to read about its role in the example dependency graph. The full conceptual relationship remains available without JavaScript.
+
+`PageMotion.astro` adds one-time entrance animations, a reading progress line, and a back-to-top link across the site. Entrance animations use IntersectionObserver and the Web Animations API; content is visible by default. Reduced-motion preferences disable entrance animations, and controls remain usable. No new runtime dependencies, backend, or hosting services are required.
+
+Project controls use native buttons and range inputs for keyboard and touch access. Without JavaScript, the illustrations and project links remain visible, and inactive controls and interaction prompts stay hidden.

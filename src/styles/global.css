@@ -42,3 +42,12 @@ pre { max-width: 100%; overflow-x: auto; }
 :root { --astro-code-color-text: var(--ink); --astro-code-color-background: var(--paper-panel); --astro-code-token-comment: var(--ink-muted); --astro-code-token-keyword: var(--accent); --astro-code-token-string: var(--syntax-string); --astro-code-token-string-expression: var(--syntax-string); --astro-code-token-constant: var(--accent-deep); --astro-code-token-number: var(--accent-deep); --astro-code-token-function: var(--ink); --astro-code-token-punctuation: var(--ink-muted); --astro-code-token-parameter: var(--ink); --astro-code-token-link: var(--accent); }
 @media (max-width: 700px) { main.shell { padding-block: 2.5rem 4rem; } .section-grid { grid-template-columns: 1fr; gap: 1.5rem; padding-block: 2.5rem; } .page-intro { padding-bottom: 2.5rem; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+/* Small interactive details keep the editorial layout responsive to input. */
+section[id], h1[id] { scroll-margin-top: 2rem; }
+.text-link { transition: background-color .2s, color .2s; }
+.project-list .project { transition: background-color .25s; }
+.project-list .project:hover { background: var(--accent-tint); }
+.path-link { transition: background-color .25s, padding-inline .25s; }
+@media (hover: hover) { .path-link:hover { padding-inline: 1rem; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

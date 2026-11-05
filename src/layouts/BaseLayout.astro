@@ -8,6 +8,7 @@ import '../styles/global.css';
 import '../styles/retro.css';
 import Masthead from '../components/Masthead.astro';
 import Footer from '../components/Footer.astro';
+import PageMotion from '../components/PageMotion.astro';
 import { site } from '../config';
 
 interface Props {
@@ -74,5 +75,6 @@ const ogImage = new URL(image, Astro.site).href;
       <slot />
     </main>
     <Footer />
+    <PageMotion />
   </body>
 </html>

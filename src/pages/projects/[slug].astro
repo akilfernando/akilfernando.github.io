@@ -1,4 +1,5 @@
 ---
+import ProjectPreview from '../../components/ProjectPreview.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
@@ -38,6 +39,8 @@ const categoryLabels: Record<string, string> = {
       </ul>
     )}
 
+    {(project.slug === 'openquire' || project.slug === 'ruster') && <div class="detail-preview"><ProjectPreview kind={project.slug} /></div>}
+
     <div class="prose">
       <Content />
     </div>
@@ -55,6 +58,7 @@ const categoryLabels: Record<string, string> = {
 </BaseLayout>
 
 <style>
+  .detail-preview { margin-block: 2.5rem; }
   .article { max-width: var(--measure); }
   .meta {
     font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-const priority = ['openquire', 'ci-diagnostic-prototypes', 'ammo-equals-life', 'vulkan-graphics-demo'];
+const priority = ['openquire', 'ruster', 'ci-diagnostic-prototypes', 'ammo-equals-life', 'vulkan-graphics-demo'];
 const projects = (await getCollection('projects')).sort((a, b) => {
   const aIndex = priority.indexOf(a.slug); const bIndex = priority.indexOf(b.slug);
   if (aIndex >= 0 || bIndex >= 0) return (aIndex >= 0 ? aIndex : 99) - (bIndex >= 0 ? bIndex : 99);

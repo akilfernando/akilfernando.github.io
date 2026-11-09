@@ -1,0 +1,30 @@
+---
+interface Props { kind: string }
+const { kind } = Astro.props;
+---
+<div class={`chapter-scene scene-${kind}`} data-chapter-scene aria-hidden="true">
+  <svg viewBox="0 0 600 400" fill="none" stroke="currentColor" stroke-width="1">
+    <defs><pattern id={`dots-${kind}`} width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="currentColor" stroke="none" opacity=".15"/></pattern></defs>
+    <rect width="600" height="400" fill={`url(#dots-${kind})`} stroke="none"/>
+    <g class="scene-lines">
+      {kind === 'universal-college-lanka' ? <>{[0,1,2,3,4,5].map(i => <g style={`--layer:${i}`} class="scene-layer"><path d={`M${140+i*52} 290V${100+(i%3)*20}h34V290Z`}/><path d={`M${147+i*52} 265h20M${147+i*52} ${120+(i%3)*20}h20`}/></g>)}<path d="M110 300H490"/></> :
+      kind === 'dalhousie' ? <><path class="scene-trace" d="M70 300 185 230 290 270 405 175 530 210M70 300V210L185 140 290 180 405 85 530 120V210M185 140V230M290 180V270M405 85V175"/>{[185,290,405].map((x,i)=><circle class="scene-layer" style={`--layer:${i}`} cx={x} cy={[140,180,85][i]} r="8"/>)}<path d="M70 320H530" stroke-dasharray="4 8"/></> :
+      kind === 'ubisoft-halifax' ? <><g class="camera-frame"><path d="M100 135V85H175M425 85H500V135M500 265V315H425M175 315H100V265"/></g><path d="M300 70V330M170 200H430" opacity=".25"/><g class="scene-layer" style="--layer:2"><path d="m300 125 65 37v76l-65 37-65-37v-76Zm-65 37 65 38 65-38M300 200v75"/><circle cx="300" cy="200" r="90" stroke-dasharray="2 8"/></g></> :
+      kind === 'waegwoltic-club' ? <><g class="gate-leaf"><path d="M175 255V125H300V255M195 140V245M220 140V245M245 140V245M270 140V245"/></g><path d="M160 265V110H175V265M300 265V110H315V265M330 265V110H345V265M345 125H455V255M365 140V245M390 140V245M415 140V245M440 140V245"/>{[0,1,2].map(i=><path class="scene-layer" style={`--layer:${i}`} d={`M100 ${300+i*18}q50-15 100 0t100 0t100 0t100 0`}/>)}</> :
+      kind === 'teams-squared' ? <><g class="scene-trace"><path d="M300 200 150 110M300 200 450 110M300 200 150 290M300 200 450 290M150 110H450V290H150Z"/></g>{[[300,200],[150,110],[450,110],[150,290],[450,290]].map(([x,y],i)=><g class="scene-layer" style={`--layer:${i}`}><rect x={x-23} y={y-23} width="46" height="46" fill="var(--paper)"/><circle cx={x} cy={y} r="5" fill="currentColor"/></g>)}</> :
+      <>{[0,1,2,3,4].map(i=><path class="scene-layer" style={`--layer:${i}`} d={`M60 ${295+i*12} 190 ${130+i*16} 260 ${205+i*10} 360 ${80+i*22} 540 ${295+i*12}`}/>)}<circle class="scene-sun" cx="430" cy="95" r="25"/><path d="M60 365H540"/></>}
+    </g>
+  </svg>
+</div>
+<style>
+.chapter-scene { --chapter-progress:.5; color: var(--accent); background: var(--paper-panel); border: 1px solid var(--rule); overflow: hidden; perspective: 900px; }.chapter-scene svg { width: 100%; height: auto; transform: rotateY(var(--look-x,0deg)) rotateX(var(--look-y,0deg)); transition: transform .3s ease-out; }.scene-layer { transform: translateY(calc((1 - var(--chapter-progress)) * var(--layer) * 5px)); }.scene-trace { stroke-dasharray: 1400; stroke-dashoffset: calc((1 - var(--chapter-progress)) * 950); }.camera-frame { transform-origin: center; transform: rotate(calc((var(--chapter-progress) - .5) * 12deg)); }.gate-leaf { transform-origin: 175px 190px; transform: skewY(calc(var(--chapter-progress) * -12deg)); }.scene-sun { transform: translateY(calc((1 - var(--chapter-progress)) * 25px)); }
+@media(prefers-reduced-motion:reduce) { .chapter-scene { --chapter-progress:1 !important; }.chapter-scene svg { transform: none; } }
+</style>
+<script>
+ const scenes = Array.from(document.querySelectorAll<HTMLElement>('[data-chapter-scene]'));
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');let queued=false;
+ const update=()=>{ for(const scene of scenes){const r=scene.getBoundingClientRect();scene.style.setProperty('--chapter-progress',String(reduced.matches?1:Math.max(0,Math.min(1,(innerHeight-r.top)/(innerHeight+r.height)*1.5))));}queued=false;};
+ const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(update);}};
+ addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);reduced.addEventListener('change',schedule);update();
+ for(const scene of scenes){scene.addEventListener('pointermove',e=>{if(reduced.matches||e.pointerType!=='mouse')return;const r=scene.getBoundingClientRect();scene.style.setProperty('--look-x',`${((e.clientX-r.left)/r.width-.5)*6}deg`);scene.style.setProperty('--look-y',`${((e.clientY-r.top)/r.height-.5)*-6}deg`);});scene.addEventListener('pointerleave',()=>{scene.style.setProperty('--look-x','0deg');scene.style.setProperty('--look-y','0deg');});}
+</script>

@@ -6,6 +6,7 @@ export const site = {
 };
 
 export const sections = [
+  { label: 'Chapters', href: '/chapters', blurb: 'The places I’ve studied and worked, and what comes next.' },
   { label: 'Research',   href: '/research',   blurb: 'Questions, research interests, and exploratory developer tools.' },
   { label: 'Projects',   href: '/projects',   blurb: 'Internal software platforms, security tooling, graphics engines, and games.' },
   { label: 'About',      href: '/about',      blurb: 'A bit about me, my work, and my plans for graduate study.' },

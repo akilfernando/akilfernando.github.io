@@ -1,0 +1,14 @@
+---
+interface Props { slug: string; large?: boolean }
+const { slug, large = false } = Astro.props;
+const logos: Record<string, { src: string; name: string }> = {
+  'ubisoft-halifax': { src: '/logos/ubisoft.svg', name: 'Ubisoft' },
+};
+const logo = logos[slug];
+---
+{logo && <div class:list={['chapter-logo', { large }]}><img src={logo.src} alt={`${logo.name} logo`} width="48" height="48" loading="eager" /></div>}
+<style>
+.chapter-logo { display:flex;align-items:center;min-height:48px;margin-block:1rem; }.chapter-logo img { width:42px;height:42px;object-fit:contain; }.chapter-logo.large { margin-block:1.5rem 0; }.large img { width:64px;height:64px; }
+:global(:root[data-theme="dark"]:not([data-retro="on"])) .chapter-logo img { filter:invert(1); }
+@media(prefers-color-scheme:dark) { :global(:root:not([data-theme]):not([data-retro="on"])) .chapter-logo img { filter:invert(1); } }
+</style>

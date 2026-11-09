@@ -1,14 +1,19 @@
 ---
 interface Props { slug: string; large?: boolean }
 const { slug, large = false } = Astro.props;
-const logos: Record<string, { src: string; name: string }> = {
-  'ubisoft-halifax': { src: '/logos/ubisoft.svg', name: 'Ubisoft' },
+const logos: Record<string, { src: string; name: string; width: number; height: number; color?: boolean }> = {
+  'waegwoltic-club': { src: '/logos/waegwoltic.png', name: 'The Waegwoltic Club', width: 615, height: 324, color: true },
+  'teams-squared': { src: '/logos/teams-squared.svg', name: 'Teams Squared', width: 108, height: 36 },
+  'ubisoft-halifax': { src: '/logos/ubisoft.svg', name: 'Ubisoft', width: 24, height: 24 },
+  'universal-college-lanka': { src: '/logos/universal-college-lanka.png', name: 'Universal College Lanka', width: 500, height: 534, color: true },
+  'dalhousie': { src: '/logos/dalhousie.svg', name: 'Dalhousie University', width: 500, height: 140 },
+  'ucalgary': { src: '/logos/ucalgary.svg', name: 'University of Calgary', width: 200, height: 82, color: true },
 };
 const logo = logos[slug];
 ---
-{logo && <div class:list={['chapter-logo', { large }]}><img src={logo.src} alt={`${logo.name} logo`} width="48" height="48" loading="eager" /></div>}
+{logo && <div class:list={['chapter-logo', { large, color: logo.color, wide: logo.width / logo.height > 1.5 }]}><img src={logo.src} alt={`${logo.name} logo`} width={logo.width} height={logo.height} loading="eager" /></div>}
 <style>
-.chapter-logo { display:flex;align-items:center;min-height:48px;margin-block:1rem; }.chapter-logo img { width:42px;height:42px;object-fit:contain; }.chapter-logo.large { margin-block:1.5rem 0; }.large img { width:64px;height:64px; }
-:global(:root[data-theme="dark"]:not([data-retro="on"])) .chapter-logo img { filter:invert(1); }
-@media(prefers-color-scheme:dark) { :global(:root:not([data-theme]):not([data-retro="on"])) .chapter-logo img { filter:invert(1); } }
+.chapter-logo { display:flex;align-items:center;min-height:52px;margin-block:1rem;max-width:100%; }.chapter-logo img { width:auto;height:42px;max-width:100%;object-fit:contain;object-position:left center; }.chapter-logo.wide img { width:140px;height:42px; }.chapter-logo.large { min-height:74px;margin-block:1.5rem 0; }.large img { height:64px; }.large.wide img { width:200px;height:64px; }.color img { background:#fff;padding:4px; }
+:global(:root[data-theme="dark"]:not([data-retro="on"])) .chapter-logo:not(.color) img { filter:invert(1); }
+@media(prefers-color-scheme:dark) { :global(:root:not([data-theme]):not([data-retro="on"])) .chapter-logo:not(.color) img { filter:invert(1); } }
 </style>

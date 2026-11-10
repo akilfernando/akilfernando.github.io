@@ -1,58 +1,107 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '@fontsource/courier-prime/400.css';
+import '../styles/global.css';
+const flowers = [
+  { x: 150, y: 172, r: -16, color: '#bb6172' },
+  { x: 216, y: 114, r: 10, color: '#da9b8b' },
+  { x: 292, y: 151, r: -8, color: '#a95169' },
+  { x: 365, y: 106, r: 18, color: '#cf887b' },
+  { x: 430, y: 182, r: -12, color: '#bf728c' },
+];
 ---
-
-<BaseLayout title="For Savindi" description="A page for Savindi.">
-  <div style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-      <p class="eyebrow" style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.85rem; color: var(--text-muted, #888); margin: 0;">For Savindi</p>
-      <span style="font-size: 0.85rem; padding: 0.25rem 0.75rem; background: rgba(220, 100, 120, 0.1); color: #d65d75; border-radius: 99px; font-weight: 500;">A personal note</span>
-    </div>
-    
-    <div class="wayrule" style="margin: 1rem 0 2.5rem 0; height: 1px; background: var(--border-color, #eaeaea);"></div>
-    
-    <h1 class="display h1" style="font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800;">
-      For Savindi
-    </h1>
-
-    <p class="lede" style="font-size: 1.25rem; line-height: 1.7; color: var(--text-main, #222); margin-bottom: 2.5rem;">
-      I love you, and I wanted to keep a small page here for you.
-    </p>
-
-    <!-- Interactive / SVG Visualization: Sustainable Fashion & Creativity Constellation -->
-    <div class="section-card" style="margin: 3rem 0; padding: 2.5rem; background: linear-gradient(135deg, rgba(245, 240, 245, 0.6) 0%, rgba(255, 250, 245, 0.9) 100%); border: 1px solid rgba(214, 93, 117, 0.2); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-      <div style="text-align: center; margin-bottom: 1.5rem;">
-        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 20C30 5 40 35 60 20C80 5 90 35 110 20" stroke="#d65d75" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="60" cy="20" r="4" fill="#d65d75" />
-        </svg>
-      </div>
-      <h3 style="margin-top: 0; font-family: var(--font-display, serif); font-size: 1.5rem; text-align: center; color: #2c2c2c;">Your research</h3>
-      <p style="line-height: 1.8; margin-top: 1.2rem; color: #444;">
-        I admire the care you put into your fashion PhD and your research on making the industry more sustainable.
-      </p>
-      <p style="line-height: 1.8; margin-top: 1rem; color: #444;">
-        I love seeing how much art and sustainability mean to you, and how you bring them together in your work.
-      </p>
-    </div>
-
-    <!-- Interactive Stat / Quote Grid -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3rem 0;">
-      <div style="padding: 1.5rem; background: var(--bg-card, #fafafa); border: 1px solid var(--border-color, #eee); border-radius: 8px; text-align: center;">
-        <div style="font-size: 2rem; font-weight: 700; color: #d65d75; margin-bottom: 0.5rem;">PhD</div>
-        <div style="font-size: 0.9rem; color: var(--text-muted, #666); text-transform: uppercase; letter-spacing: 0.05em;">Sustainable Fashion Research</div>
-      </div>
-      <div style="padding: 1.5rem; background: var(--bg-card, #fafafa); border: 1px solid var(--border-color, #eee); border-radius: 8px; text-align: center;">
-        <div style="font-size: 2rem; font-weight: 700; color: #d65d75; margin-bottom: 0.5rem;">∞</div>
-        <div style="font-size: 0.9rem; color: var(--text-muted, #666); text-transform: uppercase; letter-spacing: 0.05em;">With love</div>
-      </div>
-    </div>
-
-    <div style="margin: 3.5rem 0; padding: 2.5rem; text-align: center; border: 1px dashed var(--border-color, #ddd); border-radius: 12px; background: rgba(0,0,0,0.01);">
-      <p style="font-size: 0.9rem; color: var(--text-muted, #666); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem;">Memories & Inside Jokes</p>
-      <p style="font-style: italic; color: var(--text-secondary, #555); margin: 0; font-size: 1.1rem;">
-        I’m glad we get to share the adventures, the quiet days, and the things that make us laugh.
-      </p>
-    </div>
-  </div>
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="A little something for Savindi, with love from Akil." />
+    <meta name="theme-color" content="#f8f2e9" />
+    <title>Happy one month, Savindi ♡</title>
+  </head>
+  <body class="anniversary">
+    <a class="skip-link" href="#letter">Skip to the letter</a>
+    <main>
+      <header class="dedication"><span>A little something for Savindi</span><span aria-hidden="true">A + S</span></header>
+      <section class="opening" aria-labelledby="anniversary-title">
+        <p class="occasion">Our first month</p>
+        <h1 id="anniversary-title">Happy one month,<br /><em>Savindi.</em></h1>
+        <p class="opening-note">I wanted to make you something.<br />So I made a little place here, for you.</p>
+        <div class="bouquet" aria-hidden="true">
+          <svg viewBox="0 0 600 440" fill="none">
+            <defs><pattern id="stitches" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M2 2 4 4M8 8l2 2" stroke="#ba9e8b" opacity=".12" /></pattern></defs>
+            <path d="M92 320V201a208 208 0 0 1 416 0v119" stroke="#d7bfb0" stroke-dasharray="2 7" />
+            <path d="M105 325V205a195 195 0 0 1 390 0v120Z" fill="url(#stitches)" />
+            {flowers.map((f,i)=><g class="flower" style={`--delay:${i*100}ms;--turn:${f.r}deg;transform-origin:${f.x}px ${f.y}px`}>
+              <path d={`M300 367Q${f.x+35} 260 ${f.x} ${f.y}`} stroke="#657b5d" stroke-width="2" />
+              <path d={`M${f.x+40} ${f.y+100}q-44-4-40-34 35 0 40 34Z`} fill="#94a48a" />
+              <path d={`M${f.x+52} ${f.y+133}q39-8 33-36-30 4-33 36Z`} fill="#718969" />
+              <g class="blossom" style={`transform-origin:${f.x}px ${f.y}px`} fill={f.color}>
+                {[0,60,120,180,240,300].map(angle=><ellipse cx={f.x} cy={f.y-17} rx="13" ry="22" transform={`rotate(${angle} ${f.x} ${f.y})`} />)}
+                <circle cx={f.x} cy={f.y} r="10" fill="#e9c79a" /><circle cx={f.x-2} cy={f.y-2} r="3" fill="#96704e" opacity=".5" />
+              </g>
+            </g>)}
+            <g class="ribbon"><path d="M299 350c-73-56-88 16-8 12-45 10-39 29-56 44M301 350c68-61 89 11 7 12 45 10 43 30 56 41" stroke="#b56b78" stroke-width="6" stroke-linecap="round"/><path d="M287 352q12-7 25 0v16h-25Z" fill="#a95c6b" /></g>
+          </svg>
+        </div>
+        <span class="tiny-heart" aria-hidden="true">♡</span>
+      </section>
+      <section class="letter-section" id="letter" aria-label="A letter for Savindi">
+        <details class="letter">
+          <summary><span class="envelope-art" aria-hidden="true"><span class="envelope-flap"></span><span class="seal">♡</span></span><span class="letter-label">For you, with love <span aria-hidden="true">↗</span></span></summary>
+          <div class="letter-paper">
+            <p class="salutation">My Savi,</p>
+            <p>Happy one month.</p>
+            <p>When I was looking for matches on Tinder, I really didn’t expect this. A few months after we matched, and a month into officially being together, here I am making you an anniversary page.</p>
+            <p>I keep thinking about Hiriketiya. All that delicious pizza. How excited you were to get into the ocean, until the waves had other plans and you ran back, nearly falling over when one caught you. That still makes me smile. There’s no one else I would rather have gone on that trip with.</p>
+            <p>And then there was the bus back to Colombo. You had your head on my shoulder, and I felt so content. It’s such a rare feeling to have with someone, and I’m so glad I get to feel it with you.</p>
+            <p>I loved our visit to the museum, and going to the planetarium with you too. I love sharing those experiences with you. Your company, talking with you, getting to see things together. It all feels so good. I’m lucky to have that with someone, and even luckier that it’s you.</p>
+            <p>I can still picture us sitting next to each other in my room, your legs on my lap, watching a movie and eating Dinemore submarines. You looked so cute in my T-shirt. That picture is still so clear in my head.</p>
+            <p>I love how naturally you’ve made your way into my heart, my space, and the things I do. Being your boyfriend feels so effortless. I can be myself with you, and still feel so close to you. I love that we have that.</p>
+            <p>You’ve made me feel so much love and affection that it feels like someone answered prayers and wishes I hadn’t even made in the first place.</p>
+            <p>Lucky me.</p>
+            <p>I love you, Savi. Here’s to more pizza, more trips, and more bus rides with your head on my shoulder.</p>
+            <p class="signature">Yours,<br /><span>Akil</span><span class="signature-heart" aria-hidden="true">♡</span></p>
+            <p class="postscript">P.S. I also really like your cute butt.</p>
+          </div>
+        </details>
+      </section>
+      <section class="keepsakes" aria-label="A few little memories">
+        <div class="section-kicker"><span></span><p>A few little memories</p><span></span></div>
+        <div class="notes">
+          <details class="little-note"><summary><span aria-hidden="true">≈</span>Hiriketiya</summary><p>So much good pizza, and your very brief attempt to take on the waves. I wouldn’t have wanted to be there with anyone else.</p></details>
+          <details class="little-note"><summary><span aria-hidden="true">✧</span>Our outings</summary><p>The museum one day, the planetarium another. I loved getting to share both with you, and just talking with you along the way.</p></details>
+          <details class="little-note"><summary><span aria-hidden="true">♡</span>The bus home</summary><p>Your head on my shoulder, on the way back to Colombo. I felt so content. That’s the part I keep coming back to.</p></details>
+          <details class="little-note"><summary><span aria-hidden="true">⌂</span>At home</summary><p>Your legs on my lap, a movie on, Dinemore submarines, and you in my T-shirt. I can still picture it. I love how natural it feels to have you there.</p></details>
+        </div>
+      </section>
+      <footer><p>One month with you.</p><span>And I’m looking forward to the next.</span><div aria-hidden="true">A <i>♡</i> S</div></footer>
+    </main>
+    <script>
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const bouquet = document.querySelector<HTMLElement>('.bouquet');
+      bouquet?.addEventListener('pointermove', event => {
+        if (reduced.matches || event.pointerType !== 'mouse') return;
+        const rect = bouquet.getBoundingClientRect();
+        bouquet.style.setProperty('--sway', `${((event.clientX - rect.left) / rect.width - .5) * 5}deg`);
+      });
+      bouquet?.addEventListener('pointerleave', () => bouquet.style.setProperty('--sway', '0deg'));
+      reduced.addEventListener('change', () => bouquet?.style.setProperty('--sway', '0deg'));
+      const letter = document.querySelector<HTMLDetailsElement>('.letter');
+      letter?.addEventListener('toggle', () => {
+        if (!letter.open || reduced.matches) return;
+        letter.querySelector('.letter-paper')?.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 500, easing: 'ease-out' });
+      });
+    </script>
+  </body>
+</html>
+<style>
+:global(body.anniversary) { color-scheme:light;--paper:#f8f2e9;--ink:#443b36;--ink-muted:#78675e;--accent:#a64e63;--accent-deep:#82364a;--accent-tint:#f0ded9;--rule:#ddcbbd;background:var(--paper);color:var(--ink); }
+main { max-width:1060px;margin:auto;padding:0 clamp(1.25rem,5vw,4rem); }.dedication { display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--rule);padding-block:1.8rem;font:.65rem var(--font-mono);letter-spacing:.08em;color:var(--ink-muted); }.dedication span:last-child { color:var(--accent);white-space:nowrap; }.opening { text-align:center;position:relative;padding-top:5rem; }.occasion { text-transform:uppercase;letter-spacing:.2em;font:.65rem var(--font-mono);color:var(--accent);margin-bottom:2rem; }h1 { font:400 clamp(3.2rem,7.7vw,6.2rem)/1.06 var(--font-display);letter-spacing:-.055em; }h1 em { font-weight:400;color:var(--accent); }.opening-note { margin-top:1.8rem;font-size:clamp(.9rem,1.7vw,1.05rem);line-height:1.9;color:var(--ink-muted); }.bouquet { max-width:600px;margin:1.5rem auto 0; }.flower { transform:rotate(calc(var(--turn) + var(--sway,0deg)));transition:transform .8s ease-out; }.blossom { transition:transform .5s; }.flower:hover .blossom { transform:scale(1.08); }.tiny-heart { display:block;font:2rem var(--font-display);color:var(--accent);margin-top:-1rem; }
+.letter-section { max-width:620px;margin:4rem auto 0;scroll-margin-top:2rem; }.letter summary { cursor:pointer;list-style:none;text-align:center;padding:1rem; }.letter summary::-webkit-details-marker,.little-note summary::-webkit-details-marker { display:none; }.envelope-art { display:block;position:relative;width:220px;height:135px;margin:0 auto 1.5rem;background:#eddfd0;border:1px solid #c9ac98;box-shadow:0 12px 35px #71543c10;transform:rotate(-4deg);transition:transform .4s;overflow:hidden; }.envelope-art::before,.envelope-art::after { content:'';position:absolute;width:155px;height:155px;border:1px solid #c9ac98;transform:rotate(45deg);top:58px;background:#f1e5d7; }.envelope-art::before { left:-80px; }.envelope-art::after { right:-80px; }.envelope-flap { position:absolute;width:160px;height:160px;transform:rotate(45deg);top:-105px;left:29px;border:1px solid #c9ac98;background:#f3e8db; }.seal { display:grid;place-items:center;width:38px;height:38px;position:absolute;top:44px;left:90px;border-radius:50%;background:#a95063;color:#f8e8e0;z-index:1;font-size:1.4rem;box-shadow:inset 0 0 0 3px #ffffff15; }.letter summary:hover .envelope-art,.letter summary:focus-visible .envelope-art { transform:rotate(0deg) translateY(-4px); }.letter[open] .envelope-art { transform:rotate(3deg); }.letter-label { font:.7rem var(--font-mono);color:var(--accent); }.letter-label>span { display:inline-block;margin-left:.5rem; }.letter-paper { background:#fffaf3;margin-top:2rem;padding:clamp(1.5rem,5vw,3.5rem);border:1px solid var(--rule);box-shadow:0 15px 45px #67482e08;position:relative; }.letter-paper::before { content:'';position:absolute;inset:.6rem;border:1px solid #e8d9cc;pointer-events:none; }.letter-paper p { font-size:1rem;line-height:1.95;margin-top:1.4rem; }.letter-paper .salutation { font:italic 1.9rem var(--font-display);color:var(--accent);margin-top:0; }.letter-paper .postscript { font-size:.9rem;color:var(--accent); }.signature { position:relative; }.signature>span:not(.signature-heart) { font:italic 2.5rem var(--font-display);color:var(--accent); }.signature-heart { float:right;font-size:2rem;color:var(--accent); }
+.keepsakes { padding-top:5rem; }.section-kicker { display:flex;align-items:center;justify-content:center;gap:1.5rem; }.section-kicker>span { height:1px;max-width:80px;flex:1;background:var(--rule); }.section-kicker p { font:.65rem var(--font-mono);color:var(--ink-muted);text-align:center; }.notes { display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:2rem;align-items:start; }.little-note { background:#f2e6db;border:1px solid var(--rule);padding:1.5rem;transform:rotate(-2deg);transition:transform .3s; }.little-note:nth-child(2) { transform:rotate(2deg);background:#f1e2dd; }.little-note:nth-child(3) { transform:rotate(-1deg);background:#e9e9db; }.little-note:hover,.little-note:focus-within { transform:rotate(0); }.little-note summary { display:flex;align-items:center;gap:.8rem;cursor:pointer;list-style:none;font:1.2rem var(--font-display);min-height:44px; }.little-note summary>span { color:var(--accent);font-size:1.8rem; }.little-note p { margin-top:1rem;font-size:.85rem;line-height:1.9;color:var(--ink-muted); }footer { padding:5rem 0 3rem;text-align:center; }footer>p { font:400 clamp(1.7rem,4vw,2.5rem) var(--font-display); }footer>span { display:block;color:var(--ink-muted);font-size:.85rem;margin-top:.7rem; }footer>div { margin-top:3rem;font:.65rem var(--font-mono);letter-spacing:.2em; }footer i { font-style:normal;color:var(--accent);padding-inline:.5rem; }
+@media(max-width:600px) { .opening { padding-top:3rem; }.occasion { margin-bottom:1.5rem; }.bouquet { margin-top:2rem; }.letter-section { margin-top:2.5rem; }.notes { grid-template-columns:1fr;gap:1rem;max-width:380px;margin-inline:auto; }.little-note { padding:1rem 1.5rem; }.keepsakes { padding-top:3.5rem; }.dedication { font-size:.58rem;padding-block:1.4rem; } }
+@media(prefers-reduced-motion:reduce) { .flower { transform:rotate(var(--turn)) !important; }.flower:hover .blossom { transform:none; }.letter summary:hover .envelope-art,.letter summary:focus-visible .envelope-art,.little-note:hover,.little-note:focus-within { transform:none; } }
+</style>

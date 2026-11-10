@@ -27,16 +27,15 @@ import '../styles/global.css';
           <div class="sky-accent"><MoonStars /></div>
           <img class="tiger-lily" src="/sav/tiger-lily.webp" width="1024" height="1536" alt="" decoding="async" />
         </div>
-        <span class="tiny-heart" aria-hidden="true">♡</span>
       </section>
       <section class="letter-section" id="letter" aria-label="A letter for Savindi">
         <details class="letter">
-          <summary><span class="envelope-art" aria-hidden="true"><span class="envelope-flap"></span><span class="seal">♡</span></span><span class="letter-label">For you, with love <span aria-hidden="true">↗</span></span></summary>
+          <summary><span class="envelope-art" aria-hidden="true"><span class="envelope-slip"><i></i><i></i><i></i></span><span class="envelope-flap"></span><span class="seal">♡</span></span><span class="letter-label">For you, with love <span aria-hidden="true">↗</span></span></summary>
           <div class="letter-paper">
             <p class="salutation">My Savi,</p>
             <p>Happy one month, Savi.</p>
-            <p>I really didn’t expect things to go this way when I was looking for matches on Tinder. But a few months after we matched, and one month of officially being your boyfriend, you’ve made me feel so much love and affection. It honestly feels like someone answered prayers and wishes I never even made in the first place. Lucky me.</p>
-            <p>I wanted to write you a little something for our first month. I love spending time with you, and I wanted to put into words some of the things that have made being with you feel so good.</p>
+            <p>I really didn’t expect things to go this way when I was looking for matches on Tinder. But a few months after we matched, and after one month of officially being your boyfriend, you’ve made me feel so much love and affection, it honestly feels like someone answered prayers and wishes I had never even made in the first place. Lucky me.</p>
+            <p>I wanted to write you a little something for our first month. I absolutely love and adore you and I hope this letter makes that abundantly clear.</p>
             <p>Our trip to Hiriketiya is a pretty good place to start. I had such a nice time with you. We ate so much delicious pizza there and I love how you were down to basically have pizza for any meal of the day. I’m a bit bummed you couldn’t get in the ocean with me. Maybe one day we can go to a calmer beach and you can be one with your “mother” hehe. Also, maybe get you more swimming lessons. That being said... there’s no one else I would rather have gone on that trip with.</p>
             <p>And on the bus back to Colombo, when you had your head on my shoulder, I felt so content. I don’t really know how else to put it. That’s such a rare feeling to have with someone. I’m so glad I get to have it with you.</p>
             <p>I love every time we get to meet up. Going to the museum, going to the planetarium, or just spending time together at Tea Avenue with your iced coffee and cigarettes, hearing about how your day has been. I love your company, talking with you, and our banter. Whatever we’re doing, I just really enjoy being there with you. I feel so lucky that I get to feel that way about someone, and that it’s you.</p>
@@ -56,10 +55,41 @@ import '../styles/global.css';
     <script>
       const reduced = matchMedia('(prefers-reduced-motion: reduce)');
       const letter = document.querySelector<HTMLDetailsElement>('.letter');
-      letter?.addEventListener('toggle', () => {
-        if (!letter.open || reduced.matches) return;
-        letter.querySelector('.letter-paper')?.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 500, easing: 'ease-out' });
-      });
+      if (letter) {
+        const summary = letter.querySelector<HTMLElement>('summary')!;
+        const paper = letter.querySelector<HTMLElement>('.letter-paper')!;
+        let targetOpen = letter.open;
+        let generation = 0;
+        let animation: Animation | undefined;
+        summary.addEventListener('click', event => {
+          event.preventDefault();
+          const startHeight = letter.open ? paper.getBoundingClientRect().height : 0;
+          targetOpen = !targetOpen;
+          const current = ++generation;
+          animation?.cancel();
+          if (reduced.matches) {
+            letter.open = targetOpen;
+            paper.style.overflow = '';
+            delete letter.dataset.envelopeState;
+            return;
+          }
+          letter.open = true;
+          letter.dataset.envelopeState = targetOpen ? 'open' : 'closed';
+          const fullHeight = paper.getBoundingClientRect().height;
+          paper.style.overflow = 'hidden';
+          animation = paper.animate([
+            { height: `${startHeight}px`, opacity: startHeight ? 1 : 0, transform: startHeight ? 'translateY(0)' : 'translateY(-28px)' },
+            { height: `${targetOpen ? fullHeight : 0}px`, opacity: targetOpen ? 1 : 0, transform: targetOpen ? 'translateY(0)' : 'translateY(-28px)' }
+          ], { duration: targetOpen ? 650 : 450, delay: targetOpen && !startHeight ? 240 : 0, fill: 'both', easing: 'cubic-bezier(.22,.7,.3,1)' });
+          animation.finished.then(() => {
+            if (current !== generation) return;
+            letter.open = targetOpen;
+            animation?.cancel(); animation = undefined;
+            paper.style.overflow = '';
+            delete letter.dataset.envelopeState;
+          }).catch(() => {});
+        });
+      }
     </script>
   </body>
 </html>
@@ -68,9 +98,25 @@ import '../styles/global.css';
 @media(max-width:600px) { .sky-accent :global(.moon-stars) { width:60px; } }
 
 :global(body.anniversary) { color-scheme:light;--paper:#f8f2e9;--ink:#443b36;--ink-muted:#78675e;--accent:#86384f;--accent-deep:#6e293e;--accent-tint:#ecdbd8;--rule:#ddcbbd;background:var(--paper);color:var(--ink); }
-main { max-width:1060px;margin:auto;padding:0 clamp(1.25rem,5vw,4rem); }.dedication { display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--rule);padding-block:1.8rem;font:.65rem var(--font-mono);letter-spacing:.08em;color:var(--ink-muted); }.dedication span:last-child { color:var(--accent);white-space:nowrap; }.opening { text-align:center;position:relative;padding-top:5rem; }h1 { font:400 clamp(3.2rem,7.7vw,6.2rem)/1.06 var(--font-display);letter-spacing:-.055em; }h1 em { font-weight:400;color:var(--accent); }.bouquet { position:relative;max-width:600px;margin:1.5rem auto 0; }.tiger-lily { display:block;width:min(76%,360px);height:auto;margin-inline:auto; }.tiny-heart { display:block;font:2rem var(--font-display);color:var(--accent);margin-top:-1rem; }
+main { max-width:1060px;margin:auto;padding:0 clamp(1.25rem,5vw,4rem); }.dedication { display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--rule);padding-block:1.8rem;font:.65rem var(--font-mono);letter-spacing:.08em;color:var(--ink-muted); }.dedication span:last-child { color:var(--accent);white-space:nowrap; }.opening { text-align:center;position:relative;padding-top:5rem; }h1 { font:400 clamp(3.2rem,7.7vw,6.2rem)/1.06 var(--font-display);letter-spacing:-.055em; }h1 em { font-weight:400;color:var(--accent); }.bouquet { position:relative;max-width:600px;margin:2rem auto 0;padding:2rem 1.5rem 2.5rem; }.tiger-lily { display:block;width:min(70%,280px);height:auto;margin-inline:auto; }
 .letter-section { max-width:620px;margin:4rem auto 0;scroll-margin-top:2rem; }.letter summary { cursor:pointer;list-style:none;text-align:center;padding:1rem; }.letter summary::-webkit-details-marker { display:none; }.envelope-art { display:block;position:relative;width:220px;height:135px;margin:0 auto 1.5rem;background:#eddfd0;border:1px solid #c9ac98;box-shadow:0 12px 35px #71543c10;transform:rotate(-4deg);transition:transform .4s;overflow:hidden; }.envelope-art::before,.envelope-art::after { content:'';position:absolute;width:155px;height:155px;border:1px solid #c9ac98;transform:rotate(45deg);top:58px;background:#f1e5d7; }.envelope-art::before { left:-80px; }.envelope-art::after { right:-80px; }.envelope-flap { position:absolute;width:160px;height:160px;transform:rotate(45deg);top:-105px;left:29px;border:1px solid #c9ac98;background:#f3e8db; }.seal { display:grid;place-items:center;width:38px;height:38px;position:absolute;top:44px;left:90px;border-radius:50%;background:#85384e;color:#f8e8e0;z-index:1;font-size:1.4rem;box-shadow:inset 0 0 0 3px #ffffff15; }.letter summary:hover .envelope-art,.letter summary:focus-visible .envelope-art { transform:rotate(0deg) translateY(-4px); }.letter[open] .envelope-art { transform:rotate(3deg); }.letter-label { font:.7rem var(--font-mono);color:var(--accent); }.letter-label>span { display:inline-block;margin-left:.5rem; }.letter-paper { background:#fffaf3;margin-top:2rem;padding:clamp(1.5rem,5vw,3.5rem);border:1px solid var(--rule);box-shadow:0 15px 45px #67482e08;position:relative; }.letter-paper::before { content:'';position:absolute;inset:.6rem;border:1px solid #e8d9cc;pointer-events:none; }.letter-paper p { font-size:1rem;line-height:1.95;margin-top:1.4rem; }.letter-paper .salutation { font:italic 1.9rem var(--font-display);color:var(--accent);margin-top:0; }.letter-paper .postscript { font-size:.9rem;color:var(--accent); }.signature { position:relative; }.signature>span:not(.signature-heart) { font:italic 2.5rem var(--font-display);color:var(--accent); }.signature-heart { float:right;font-size:2rem;color:var(--accent); }
 footer { padding:5rem 0 3rem;text-align:center; }footer>p { font:400 clamp(1.7rem,4vw,2.5rem) var(--font-display); }footer>span { display:block;color:var(--ink-muted);font-size:.85rem;margin-top:.7rem; }footer>div { margin-top:3rem;font:.65rem var(--font-mono);letter-spacing:.2em; }footer i { font-style:normal;color:var(--accent);padding-inline:.5rem; }
 @media(max-width:600px) { .opening { padding-top:3rem; }.bouquet { margin-top:2rem; }.letter-section { margin-top:2.5rem; }.dedication { font-size:.58rem;padding-block:1.4rem; } }
 @media(prefers-reduced-motion:reduce) { .letter summary:hover .envelope-art,.letter summary:focus-visible .envelope-art { transform:none; } }
+
+/* The flap opens above the pocket; a small folded sheet rises out of it. */
+.envelope-art { overflow:visible;perspective:700px;isolation:isolate; }
+.envelope-art::before,.envelope-art::after { clip-path:polygon(0 0,100% 0,100% 50%,0 50%);z-index:3;pointer-events:none; }
+.envelope-art::before { inset:0;width:auto;height:auto;transform:none;border:0;clip-path:polygon(0 0,100% 100%,0 100%);background:#f1e5d7; }.envelope-art::after { inset:0;width:auto;height:auto;transform:none;border:0;clip-path:polygon(100% 0,100% 100%,0 100%);background:#eddfd0; }
+.envelope-flap { top:-1px;left:-1px;width:220px;height:76px;clip-path:polygon(0 0,100% 0,50% 100%);transform:rotateX(0deg);transform-origin:top center;background:#e4d1be;border:0;z-index:5;transition:transform .45s ease,z-index 0s .22s; }
+.seal { z-index:6;transition:opacity .2s,transform .3s; }
+.envelope-slip { position:absolute;inset:12px 17px 6px;background:#fffaf3;border:1px solid var(--rule);padding:16px;z-index:2;transition:transform .55s .12s; }
+.envelope-slip i { display:block;height:1px;background:var(--rule);margin-bottom:9px; }.envelope-slip i:last-child { width:65%; }
+.letter[open]:not([data-envelope-state="closed"]) .envelope-flap { transform:rotateX(180deg);z-index:1; }
+.letter[open]:not([data-envelope-state="closed"]) .seal { opacity:0;transform:translateY(-15px) scale(.7); }
+.letter[open]:not([data-envelope-state="closed"]) .envelope-slip { transform:translateY(-50px); }
+.letter[data-envelope-state="closed"] .envelope-flap { transition-delay:.35s; }.letter[data-envelope-state="closed"] .seal { transition-delay:.55s; }
+.letter[open] .envelope-art { transform:rotate(0); }
+.letter-label>span { transition:transform .3s; }.letter[open]:not([data-envelope-state="closed"]) .letter-label>span { transform:rotate(90deg); }
+@media(prefers-reduced-motion:reduce) { .envelope-flap,.envelope-slip,.seal { transition:none; } }
 </style>

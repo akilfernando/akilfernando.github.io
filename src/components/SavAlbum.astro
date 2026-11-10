@@ -1,0 +1,13 @@
+<section class="album" aria-labelledby="album-heading">
+  <div class="section-kicker"><span></span><h2 id="album-heading">A little bit of us</h2><span></span></div>
+  <figure class="video-keepsake">
+    <div class="paper-tape" aria-hidden="true"></div>
+    <video controls playsinline preload="none" poster="/sav/memories/our-video-poster.jpg" width="640" height="480" aria-label="A video of us together">
+      <source src="/sav/memories/our-video.mp4" type="video/mp4" />
+      <a href="/sav/memories/our-video.mp4">Watch our video</a>
+    </video>
+  </figure>
+</section>
+<style>
+.album { padding-top:4rem;max-width:760px;margin-inline:auto; }.section-kicker { display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:2.5rem; }.section-kicker>span { height:1px;max-width:80px;flex:1;background:var(--rule); }h2 { font:400 clamp(1.5rem,3vw,2rem) var(--font-display);color:var(--accent);text-align:center; }.video-keepsake { position:relative;padding:clamp(.6rem,2vw,1rem);background:#fffaf3;border:1px solid var(--rule);box-shadow:0 10px 30px #67482e0b;transform:rotate(-1deg);margin:0 1rem; }.paper-tape { position:absolute;top:-.7rem;left:calc(50% - 38px);width:76px;height:24px;transform:rotate(4deg);background:#d8c6aa99;border-inline:1px dashed #c4ae8d66;z-index:1;pointer-events:none; }video { display:block;width:100%;height:auto;aspect-ratio:4/3;background:#332a26;object-fit:contain; }@media(prefers-reduced-motion:reduce) { .video-keepsake { transform:none; } }
+</style>
